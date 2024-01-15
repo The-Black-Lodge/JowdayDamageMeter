@@ -1,3 +1,3 @@
-:: Ello's Punching Bag Mod v1.0
-Import "Scripts/EllosPunchingBag.Main.lua"
-Import "Scripts/EllosPunchingBag.Data.lua"
+:: Jowday's DPS Mod v1.0
+Import "Scripts/JowdayDPS.Main.lua"
+Import "Scripts/JowdayDPS.Data.lua"

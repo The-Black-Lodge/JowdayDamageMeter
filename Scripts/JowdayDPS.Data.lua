@@ -1,4 +1,4 @@
-EllosPunchingBag.NameLookup = {
+JowdayDPS.NameLookup = {
     -- aphrodite
     AphroditeMaxSuperCharm = "Aphrodite's Aid", -- max
     AreaWeakenAphrodite = "Wave of Despair",
@@ -56,6 +56,7 @@ EllosPunchingBag.NameLookup = {
     SwordWeapon3 = "Attack",
     SwordParry = "Special",
     SwordWeaponDash = "Dash-Strike",
+    SwordThrustWave = "Piercing Wave",
     -- spear
     SpearWeapon = "Attack",
     SpearWeapon2 = "Attack",
@@ -120,13 +121,13 @@ EllosPunchingBag.NameLookup = {
     DartTrapWeapon = "Trap"
 }
 
-EllosPunchingBag.EnemyBucket = {
+JowdayDPS.EnemyBucket = {
     "LightRanged",
     "DisembodiedHand",
     "PunchingBag",
     "Wretch",
     "BloodMine",
-    "Harpy",   -- sisters
+    "Harpy",      -- sisters
     "FreezeShot", -- gorgon stone
     "SpreadShot",
     "Bloodless",
@@ -136,7 +137,8 @@ EllosPunchingBag.EnemyBucket = {
     "SplitShotWeapon",
     "ChariotRam",
     "Shade",
-    "MinotaurTheseus",
+    "Minotaur",
+    "Theseus",
     "Crawler",
     "HadesBident",
     "HadesAmmo",
@@ -144,12 +146,13 @@ EllosPunchingBag.EnemyBucket = {
     "HadesCast",
     "Swarmer",
     "StyxPoison",
+    "RatThug",
     "HeavyRangedWeaponFork",
     "Grenadier",
     "Satyr"
 }
 
-EllosPunchingBag.SourceLookup = {
+JowdayDPS.SourceLookup = {
     Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait" },
     Ares = { "Ares' Aid", "Doom", "AresRangedTrait" },
     Artemis = { "Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait" },
@@ -163,11 +166,11 @@ EllosPunchingBag.SourceLookup = {
     Thanatos = { "Thanatos Rival", "Thanatos" },
     Sisyphus = { "Sisyphus/Bouldy" },
     Achilles = { "Achilles/Patroclus" },
-    Dusa = {"Dusa"}
+    Dusa = { "Dusa" }
 }
 
 -- returns an array: [bar color, bar text color, name color]
-EllosPunchingBag.DpsColors = {
+JowdayDPS.DpsColors = {
     Aphrodite = { Color.AphroditeDamage, Color.White, Color.White },
     Ares = { Color.AresDamageLight, Color.White, Color.White },
     Artemis = { Color.ArtemisDamage, Color.White, Color.White },
@@ -181,6 +184,6 @@ EllosPunchingBag.DpsColors = {
     Thanatos = { Color.ThanatosVoice, Color.White, Color.ThanatosVoice },
     Sisyphus = { Color.SisyphusVoice, Color.White, Color.SisyphusVoice },
     Achilles = { Color.AchillesVoice, Color.White, Color.AchillesVoice },
-    Dusa = {Color.DusaVoice, Color.White, Color.DusaVoice},
+    Dusa = { Color.DusaVoice, Color.White, Color.DusaVoice },
     Default = { Color.White, Color.Black, Color.White }
 }

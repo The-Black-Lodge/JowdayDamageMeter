@@ -1,26 +1,26 @@
-ModUtil.RegisterMod("EllosPunchingBag")
+ModUtil.RegisterMod("JowdayDPS")
 
 local config = {
 	DpsInterval = 99999999
 }
-EllosPunchingBag.config = config
+JowdayDPS.config = config
 
-EllosPunchingBag.List = {}
-function EllosPunchingBag.List.new(maxSize)
+JowdayDPS.List = {}
+function JowdayDPS.List.new(maxSize)
 	return { first = 0, last = -1, count = 0, max = maxSize }
 end
 
-function EllosPunchingBag.List.addValue(list, value)
+function JowdayDPS.List.addValue(list, value)
 	local last = list.last + 1
 	list.last = last
 	list[last] = value
 	list.count = list.count + 1
 	if list.count > list.max then
-		EllosPunchingBag.List.removeHead(list)
+		JowdayDPS.List.removeHead(list)
 	end
 end
 
-function EllosPunchingBag.List.removeHead(list)
+function JowdayDPS.List.removeHead(list)
 	local first = list.first
 	if first > list.last then error("list is empty") end
 	local value = list[first]
@@ -30,17 +30,17 @@ function EllosPunchingBag.List.removeHead(list)
 	return value
 end
 
-function EllosPunchingBag.List.emptyList(list)
+function JowdayDPS.List.emptyList(list)
 	while list.count > 0 do
-		EllosPunchingBag.List.removeHead(list)
+		JowdayDPS.List.removeHead(list)
 	end
 end
 
-EllosPunchingBag.DamageHistory = EllosPunchingBag.List.new(10000) -- 100 * config.DpsInterval )
-EllosPunchingBag.DpsUpdateThread = false
-EllosPunchingBag.DpsBars = {}
-EllosPunchingBag.LastDpsPosition = {}
-EllosPunchingBag.LastDpsBackgroundPosition = {}
+JowdayDPS.DamageHistory = JowdayDPS.List.new(10000) -- 100 * config.DpsInterval )
+JowdayDPS.DpsUpdateThread = false
+JowdayDPS.DpsBars = {}
+JowdayDPS.LastDpsPosition = {}
+JowdayDPS.LastDpsBackgroundPosition = {}
 
 --[[
 HELPER FUNCTIONS ------------------------------------------
@@ -82,9 +82,9 @@ function calculateDps(list)
 
 	-- Delete any existing UI (e.g the bars from last update)
 	-- TODO: Consider resizing / renaming bars instead of destroying and recreating (no performance issues so far though)
-	for bar, component in pairs(EllosPunchingBag.DpsBars) do
+	for bar, component in pairs(JowdayDPS.DpsBars) do
 		Destroy({ Id = component.Id })
-		EllosPunchingBag.DpsBars[bar] = nil
+		JowdayDPS.DpsBars[bar] = nil
 	end
 
 	-- Create UI to show DPS bars for each source
@@ -117,7 +117,7 @@ function createDpsOverlayBackground(obstacleName, x, y, width, height)
 		Move({
 			Ids = ScreenAnchors[obstacleName],
 			Angle = 90,
-			Distance = EllosPunchingBag.LastDpsBackgroundPosition.y -
+			Distance = JowdayDPS.LastDpsBackgroundPosition.y -
 				y,
 			Speed = 1000
 		})
@@ -127,7 +127,7 @@ function createDpsOverlayBackground(obstacleName, x, y, width, height)
 		SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
 		SetColor({ Id = ScreenAnchors[obstacleName], Color = { 0.090, 0.055, 0.157, 0.6 } })
 	end
-	EllosPunchingBag.LastDpsBackgroundPosition.y = y
+	JowdayDPS.LastDpsBackgroundPosition.y = y
 end
 
 -- Create a single DPS bar with damage source, damage amount, and damage portion labels
@@ -136,7 +136,7 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 	local scale = damage / maxDamage * .6
 	local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
 	SetAnimation({ Name = "BarGraphBar", DestinationId = dpsBar.Id })
-	EllosPunchingBag.DpsBars["DpsBar" .. label] = dpsBar
+	JowdayDPS.DpsBars["DpsBar" .. label] = dpsBar
 
 	CreateTextBox({
 		Id = dpsBar.Id,
@@ -145,7 +145,7 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 		OffsetY = -1,
 		Font = "AlegreyaSansSCBold",
 		FontSize = 14,
-        Justification = "Right",
+		Justification = "Right",
 		Color = colors[3]
 	})
 	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
@@ -191,7 +191,7 @@ function createDpsHeader(obstacleName, totalDamage, dps, x, y)
 
 	if ScreenAnchors[obstacleName] ~= nil then
 		ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
-		Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = EllosPunchingBag.LastDpsPosition.y - y, Speed = 1000 })
+		Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = JowdayDPS.LastDpsPosition.y - y, Speed = 1000 })
 	else
 		ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "BlankObstacle", X = x, Y = y })
 		CreateTextBox({
@@ -206,11 +206,11 @@ function createDpsHeader(obstacleName, totalDamage, dps, x, y)
 		ModifyTextBox({ Id = ScreenAnchors[obstacleName], FadeTarget = 1, FadeDuration = 0.0 })
 	end
 
-	EllosPunchingBag.LastDpsPosition.y = y
+	JowdayDPS.LastDpsPosition.y = y
 end
 
 function checkEnemyBucket(source)
-	for k, v in pairs(EllosPunchingBag.EnemyBucket) do
+	for k, v in pairs(JowdayDPS.EnemyBucket) do
 		if source:match("^" .. v) then
 			return true
 		end
@@ -223,14 +223,14 @@ function getEquippedBoons(trait)
 	local slot = trait.Slot or nil
 	local name = trait.Name or nil
 	if slot == "Ranged" then
-		EllosPunchingBag.NameLookup["RangedWeapon"] = name
+		JowdayDPS.NameLookup["RangedWeapon"] = name
 	end
 end
 
 function findColor(source)
-	local sources = EllosPunchingBag.SourceLookup
-    local colors = EllosPunchingBag.DpsColors
-	
+	local sources = JowdayDPS.SourceLookup
+	local colors = JowdayDPS.DpsColors
+
 	for name in pairs(sources) do
 		if has_value(sources[name], source) then
 			return colors[name]
@@ -276,10 +276,9 @@ ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
 
 		-- if enemy damage is showing up, you either deflected or charmed
 		if source ~= nil then
-            local isEnemy = checkEnemyBucket(source)
+			local isEnemy = checkEnemyBucket(source)
 			-- wretched thug deflect is a weird exception
 			if isEnemy == true or source == "Wretched Thug" then
-				DebugPrint({ Text = source })
 				source = "Enemy Deflect/Charm"
 			end
 		end
@@ -295,48 +294,48 @@ ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
 		end
 
 		-- try and match with the name lookup table
-		source = EllosPunchingBag.NameLookup[source] or source
+		source = JowdayDPS.NameLookup[source] or source
 
 		-- finally, put it in the table
 		damageInstance.Source = source
 
-		EllosPunchingBag.List.addValue(EllosPunchingBag.DamageHistory, damageInstance)
+		JowdayDPS.List.addValue(JowdayDPS.DamageHistory, damageInstance)
 	end
-end, EllosPunchingBag)
+end, JowdayDPS)
 
 -- When room is unlocked, stop the DPS meter from updating and clear it to prep for next room
 ModUtil.WrapBaseFunction("DoUnlockRoomExits", function(baseFunc, run, room)
 	baseFunc(run, room)
-	EllosPunchingBag.DpsUpdateThread = false
-	calculateDps(EllosPunchingBag.DamageHistory)
-	EllosPunchingBag.List.emptyList(EllosPunchingBag.DamageHistory)
-end, EllosPunchingBag)
+	JowdayDPS.DpsUpdateThread = false
+	calculateDps(JowdayDPS.DamageHistory)
+	JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
+end, JowdayDPS)
 
 -- at the start of each room, check for equipped traits to hopefully generate more specific names
 ModUtil.WrapBaseFunction("StartRoom", function(baseFunc, run, room)
 	-- reset cast name to default first
-	EllosPunchingBag.NameLookup["RangedWeapon"] = "Cast"
+	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
 	for i, trait in pairs(CurrentRun.Hero.Traits) do
 		getEquippedBoons(trait)
 	end
 	baseFunc(run, room)
-end, EllosPunchingBag)
+end, JowdayDPS)
 
 -- Set up a polling loop to update our dps calculation
 OnAnyLoad { function()
-	if EllosPunchingBag.DpsUpdateThread then return end
-	EllosPunchingBag.DpsUpdateThread = true
+	if JowdayDPS.DpsUpdateThread then return end
+	JowdayDPS.DpsUpdateThread = true
 	thread(function()
-		while EllosPunchingBag.DpsUpdateThread do
+		while JowdayDPS.DpsUpdateThread do
 			-- If in the courtyard, reset your DPS after 5 seconds with no damage dealt
-			if ModUtil.PathGet("CurrentDeathAreaRoom") and EllosPunchingBag.DamageHistory[EllosPunchingBag.DamageHistory.last] ~= nil then
-				if GetTime({}) - EllosPunchingBag.DamageHistory[EllosPunchingBag.DamageHistory.last].Timestamp > 5 then
-					EllosPunchingBag.List.emptyList(EllosPunchingBag.DamageHistory)
+			if ModUtil.PathGet("CurrentDeathAreaRoom") and JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last] ~= nil then
+				if GetTime({}) - JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last].Timestamp > 5 then
+					JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
 				end
 			end
 
 			-- Otherwise continuously update
-			calculateDps(EllosPunchingBag.DamageHistory)
+			calculateDps(JowdayDPS.DamageHistory)
 			wait(.2)
 		end
 	end)
