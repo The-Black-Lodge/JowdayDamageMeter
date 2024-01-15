@@ -120,6 +120,35 @@ EllosPunchingBagMod.NameLookup = {
 	DartTrapWeapon = "Trap"
 }
 
+EllosPunchingBagMod.EnemyBucket = {
+	"LightRanged",
+	"DisembodiedHand",
+	"PunchingBag",
+	"Wretch",
+	"BloodMine",
+	"Harpy",   -- sisters
+	"FreezeShot", -- gorgon stone
+	"SpreadShot",
+	"Bloodless",
+	"RangedBurrower",
+	"Hydra",
+	"SplitShotUnit",
+	"SplitShotWeapon",
+	"ChariotRam",
+	"Shade",
+	"MinotaurTheseus",
+	"Crawler",
+	"HadesBident",
+	"HadesAmmo",
+	"HadesGrasping",
+	"HadesCast",
+	"Swarmer",
+	"StyxPoison",
+	"HeavyRangedWeaponFork",
+	"Grenadier",
+	"Satyr"
+}
+
 EllosPunchingBagMod.GodLookup = {
 	Aphrodite = {"Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait"},
 	Ares = {"Ares' Aid", "Doom", "AresRangedTrait"},
@@ -173,36 +202,6 @@ function has_value (tab, val)
 
     return false
 end
-
-
-EllosPunchingBagMod.EnemyBucket = {
-	"LightRanged",
-	"DisembodiedHand",
-	"PunchingBag",
-	"Wretch",
-	"BloodMine",
-	"Harpy",   -- sisters
-	"FreezeShot", -- gorgon stone
-	"SpreadShot",
-	"Bloodless",
-	"RangedBurrower",
-	"Hydra",
-	"SplitShotUnit",
-	"SplitShotWeapon",
-	"ChariotRam",
-	"Shade",
-	"MinotaurTheseus",
-	"Crawler",
-	"HadesBident",
-	"HadesAmmo",
-	"HadesGrasping",
-	"HadesCast",
-	"Swarmer",
-	"StyxPoison",
-	"HeavyRangedWeaponFork",
-	"Grenadier",
-	"Satyr"
-}
 
 local config = {
 	DpsInterval = 99999999
@@ -462,6 +461,7 @@ ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
 		if source ~= nil then
 			local isEnemy = checkEnemyBucket(source)
 			if isEnemy == true then
+				DebugPrint({Text = source})
 				source = "Enemy Deflect/Charm"
 			end
 		end
