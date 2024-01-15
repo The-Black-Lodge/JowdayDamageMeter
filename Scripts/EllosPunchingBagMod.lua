@@ -1,25 +1,25 @@
 ModUtil.RegisterMod("EllosPunchingBagMod")
 
-local nameLookup = {
+EllosPunchingBagMod.NameLookup = {
 	-- aphrodite
-	AphroditeMaxSuperCharm = "Aphrodite's Aid (MAX)", --
-	AreaWeakenAphrodite = "Wave of Despair",       --
-	DeathAreaWeakenAphrodite = "Dying Lament",     --
+	AphroditeMaxSuperCharm = "Aphrodite's Aid", -- max
+	AreaWeakenAphrodite = "Wave of Despair",
+	DeathAreaWeakenAphrodite = "Dying Lament",
 	AphroditeSuperCharm = "Aphrodite's Aid",
 	-- ares
 	AresSurgeWeapon = "Ares' Aid",
-	DelayedDamage = "Doom", --
+	DelayedDamage = "Doom",
 	-- artemis
 	ArtemisShoutWeapon = "Artemis' Aid",
-	ArtemisMaxShoutWeapon = "Artemis' Aid (MAX)", --
-	ArtemisLegendary = "Support Fire",         --
+	ArtemisMaxShoutWeapon = "Artemis' Aid", -- max
+	ArtemisLegendary = "Support Fire",
 	ArtemisAmmoWeapon = "Exit Wounds",
 	-- athena
 	AthenaShout = "Athena's Aid",
 	MagicShieldRetaliate = "Holy Shield",
 	-- demeter
 	DemeterSuper = "Demeter's Aid",
-	DemeterMaxSuper = "Demeter's Aid (MAX)",
+	DemeterMaxSuper = "Demeter's Aid", -- max
 	DemeterMaxChill = "Arctic Blast",
 	DemeterAmmoWind = "Snow Burst",
 	DemeterWorldChill = "Decay",
@@ -32,49 +32,31 @@ local nameLookup = {
 	PoseidonCollisionBlast = "Breaking Wave",
 	PoseidonSurfWeapon = "Poseidon's Aid",
 	-- zeus
-	ZeusShout = "Zeus' Aid",
+	LightningStrikeX = "Zeus' Aid",
 	LightningStrikeSecondary = "Thunder Flourish", --
-	LightningStrikeImpact = "Sea Storm",
 	ZeusLegendaryWeapon = "Splitting Bolt",
 	LightningDash = "Thunder Dash",
 	ZeusAttackBolt = "Jolted",
-	ZeusDionysusCloudStrike = "Scintillating Feast",
-	ZeusAmmoWeapon = "Lightning Rod",
 	ChainLightning = "Chain Lightning",
 	LightningPerfectDash = "Lightning Reflexes",
 	LightningStrikeRetaliate = "Heaven's Vengeance",
-	-- misc
-	RangedWeapon = "Cast",
-	BaseCollisionWeapon = "Collision",
-	-- fist
-	FistDetonationDamage = "Maim",
-	FistSpecialVacuum = "Magnetic Cutter",
-	FistWeaponSpecialDash = "Dash-Upper",
-	FistWeaponLandAreaAttack = "Quake Cutter",
-	-- rail
-	GunBombImmolation = "Hellfire DoT",
-	GunBombWeapon = "Hellfire Detonation",
-	-- shield
-	ShieldWeaponRush = "Bull Rush",
-	-- bow
-	DamageShare = "Shared Suffering",
-	-- spear
-	SpearWeaponSpin3 = "Spin (MAX)",
-	SpearWeaponThrowReturn = "Recall",
-	SpearRushWeapon = "Raging Rush",
+	ZeusShieldLoadAmmoStrike = "Thunder Flare",
+	-- duo
+	LightningStrikeImpact = "Sea Storm",
+	ZeusDionysusCloudStrike = "Scintillating Feast",
+	ZeusAmmoWeapon = "Lightning Rod",
 	-- companions
 	NPC_FurySister_01_Assist = "Megaera",
 	NPC_Thanatos_01_Assist = "Thanatos",
 	NPC_Sisyphus_01_Assist = "Sisyphus/Bouldy",
-	NPC_Patroclus_01_Assist = "Achilles/Patroclus"
-}
-
-local damageBucket = {
+	NPC_Patroclus_01_Assist = "Achilles/Patroclus",
+	-- sword
 	SwordWeapon = "Attack",
 	SwordWeapon2 = "Attack",
 	SwordWeapon3 = "Attack",
 	SwordParry = "Special",
 	SwordWeaponDash = "Dash-Strike",
+	-- spear
 	SpearWeapon = "Attack",
 	SpearWeapon2 = "Attack",
 	SpearWeapon3 = "Attack",
@@ -82,9 +64,15 @@ local damageBucket = {
 	SpearWeaponDash = "Dash-Strike",
 	SpearWeaponSpin = "Spin",
 	SpearWeaponSpin2 = "Spin",
+	SpearWeaponSpin3 = "Spin (MAX)",
+	SpearWeaponThrowReturn = "Recall",
+	SpearRushWeapon = "Raging Rush",
+	-- bow
 	BowWeapon = "Attack",
 	BowSplitShot = "Special",
 	BowWeaponDash = "Dash-Strike",
+	DamageShare = "Shared Suffering",
+	-- fist
 	FistWeapon = "Attack",
 	FistWeapon2 = "Attack",
 	FistWeapon3 = "Attack",
@@ -96,16 +84,30 @@ local damageBucket = {
 	ShieldWeapon = "Attack",
 	ShieldThrow = "Special",
 	ShieldWeaponDash = "Dash-Strike",
+	ShieldWeaponRush = "Bull Rush",
+	FistDetonationDamage = "Maim",
+	FistSpecialVacuum = "Magnetic Cutter",
+	FistWeaponSpecialDash = "Dash-Upper",
+	FistWeaponLandAreaAttack = "Quake Cutter",
+	-- rail
 	GunWeapon = "Attack",
+	GunBombImmolation = "Hellfire DoT",
+	GunBombWeapon = "Hellfire Detonation",
+	-- misc
+	RangedWeapon = "Cast",
+	BaseCollisionWeapon = "Wall Slam",
 	ThanatosDeathCurseAoE = "Thanatos Rival",
 	ThanatosCurse = "Thanatos Rival",
-	RubbleFall = "Environmental",
-	RubbleFallElysium = "Environmental",
-	RubbleFallLarge = "Environmental",
+	-- falling rocks
+	RubbleFall = "Falling Debris",
+	RubbleFallElysium = "Falling Debris",
+	RubbleFallLarge = "Falling Debris",
+	-- asphodel lava
 	LavaTileWeapon = "Magma",
 	LavaTileTriangle01Weapon = "Magma",
 	LavaTileTriangle02Weapon = "Magma",
 	LavaSplash = "Magma",
+	-- traps
 	BlastCubeExplosion = "Trap",
 	BlastCubeExplosionElysium = "Trap",
 	ArcherTrapWeapon = "Trap",
@@ -116,27 +118,88 @@ local damageBucket = {
 	DartTrapWeapon = "Trap"
 }
 
-local enemyBucket = {
+EllosPunchingBagMod.GodLookup = {
+	Aphrodite = {"Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait"},
+	Ares = {"Ares' Aid", "Doom", "AresRangedTrait"},
+	Artemis = {"Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait"},
+	Athena = {"Athena's Aid", "Holy Shield", "AthenaRangedTrait"},
+	Demeter = {"Demeter's Aid", "Arctic Blast", "Snow Burst", "Decay", "Frozen Touch", "DemeterRangedTrait", "DemeterRushTrait"},
+	Dionysus = {"Dionysus' Aid", "Hangover", "DionysusRangedTrait"},
+	Poseidon = {"Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait"},
+	Zeus = {"Zeus' Aid", "Thunder Flourish", "Splitting Bolt", "Thunder Dash", "Jolted", "Chain Lightning", "Lightning Reflexes", "Heaven's Vengeance", "Thunder Flare", "ZeusRangedTrait"},
+	Duo = {"Sea Storm", "Scintillating Feast", "Lightning Rod"}
+}
+
+function findColor(source)
+	if has_value(EllosPunchingBagMod.GodLookup["Aphrodite"], source) then
+		return {Color.AphroditeDamage, Color.White}
+	end
+	if has_value(EllosPunchingBagMod.GodLookup["Ares"], source) then
+		return {Color.AresDamageLight, Color.White}
+	end
+	if has_value(EllosPunchingBagMod.GodLookup["Artemis"], source) then
+		return {Color.ArtemisDamage, Color.White}
+	end
+	if has_value(EllosPunchingBagMod.GodLookup["Athena"], source) then
+		return {Color.AthenaDamageLight, Color.White}
+	end
+	if has_value(EllosPunchingBagMod.GodLookup["Demeter"], source) then
+		-- demeter's colors are not nice
+		return {{85, 0, 255, 255}, Color.White}
+	end
+	if has_value(EllosPunchingBagMod.GodLookup["Dionysus"], source) then
+		return {Color.DionysusDamage, Color.White}
+	end
+	if has_value(EllosPunchingBagMod.GodLookup["Poseidon"], source) then
+		return {Color.PoseidonDamage, Color.White}
+	end
+	if has_value(EllosPunchingBagMod.GodLookup["Zeus"], source) then
+		return {Color.ZeusDamageLight, Color.Black}
+	end
+	if has_value(EllosPunchingBagMod.GodLookup["Duo"], source) then
+		return {Color.BoonPatchDuo, Color.Black}
+	end
+	return {Color.White, Color.Black}
+end
+
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
+
+EllosPunchingBagMod.EnemyBucket = {
 	"LightRanged",
 	"DisembodiedHand",
 	"PunchingBag",
 	"Wretch",
 	"BloodMine",
 	"Harpy",   -- sisters
-	"FreezeShot", -- dusa stone
-	"SpreadShotMiniboss",
+	"FreezeShot", -- gorgon stone
+	"SpreadShot",
 	"Bloodless",
+	"RangedBurrower",
 	"Hydra",
-	"SplitShot",
+	"SplitShotUnit",
+	"SplitShotWeapon",
 	"ChariotRam",
 	"Shade",
+	"MinotaurTheseus",
 	"Crawler",
 	"HadesBident",
 	"HadesAmmo",
 	"HadesGrasping",
 	"HadesCast",
 	"Swarmer",
-	"StyxPoison"
+	"StyxPoison",
+	"HeavyRangedWeaponFork",
+	"Grenadier",
+	"Satyr"
 }
 
 local config = {
@@ -233,7 +296,8 @@ function calculateDps(list)
 
 	-- Create UI to show DPS bars for each source
 	for i, source in ipairs(sourcesSortedByDamage) do
-		createDpsBar(source, totalDamageBySource[source], maxDamage, totalDamage, xPos, yPos)
+		colors = findColor(source)
+		createDpsBar(source, totalDamageBySource[source], maxDamage, totalDamage, xPos, yPos, colors)
 		yPos = yPos - 20
 	end
 
@@ -269,17 +333,13 @@ function createDpsOverlayBackground(obstacleName, x, y, width, height)
 end
 
 -- Create a single DPS bar with damage source, damage amount, and damage portion labels
-function createDpsBar(label, damage, maxDamage, totalDamage, x, y, color)
+function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 	local portion = damage / totalDamage
 	local scale = damage / maxDamage * .6
-	local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
+	local dpsBar = CreateScreenComponent({ Name = "rectangle01", X = x, Y = y })
 	SetAnimation({ Name = "BarGraphBar", DestinationId = dpsBar.Id })
 	EllosPunchingBagMod.DpsBars["DpsBar" .. label] = dpsBar
-
-	-- Create source name label
-	--if string.len(label) >= 18 then
-	--label = string.sub(label, 1, 15) .. "..."
-	--end
+	
 	CreateTextBox({
 		Id = dpsBar.Id,
 		Text = label,
@@ -287,12 +347,14 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y, color)
 		OffsetY = -1,
 		Font = "AlegreyaSansSCBold",
 		FontSize = 14,
-		Justification = "Right"
+		Justification = "Right",
 	})
 	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
 	-- Scale damage bar
 	SetScaleX({ Id = dpsBar.Id, Fraction = scale, Duration = 0.0 })
+	-- color damage bar
+	SetColor({ Id = dpsBar.Id, Color = colors[1] })
 
 	-- Create damage total label
 	if scale > .06 then
@@ -304,8 +366,8 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y, color)
 			Font = "AlegreyaSansSCBold",
 			FontSize = 10,
 			Justification = "Right",
-			Color = Color.Black
-		})
+			Color = colors[2]
+			})
 		ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 	end
 
@@ -349,12 +411,23 @@ function createDpsHeader(obstacleName, totalDamage, dps, x, y)
 end
 
 function checkEnemyBucket(source)
-	for k, v in pairs(enemyBucket) do
+	for k, v in pairs(EllosPunchingBagMod.EnemyBucket) do
 		if string.find(source, v, 1) then
 			return true
 		end
 	end
 	return false
+end
+
+function getEquippedBoons(trait)
+	slot = trait.Slot or nil
+	name = trait.Name or nil
+	if slot ~= nil and name ~= nil then
+		DebugPrint({Text = slot .. ' / ' .. name})
+	end
+	if slot == "Ranged" then
+		EllosPunchingBagMod.NameLookup["RangedWeapon"] = name
+	end
 end
 
 --[[
@@ -382,8 +455,6 @@ ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
 		if triggerArgs.EffectName ~= nil then
 			source = triggerArgs.EffectName
 		end
-		-- check if it's a grouped value
-		source = damageBucket[source] or source
 
 		-- if enemy damage is showing up, you either deflected or charmed
 		if source ~= nil then
@@ -401,11 +472,10 @@ ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
 		-- if damage source is none of the above, just store it as Unknown
 		if source == nil then
 			source = "Unknown"
-			--print(TableToJSONString(triggerArgs))
 		end
 
 		-- try and match with the name lookup table
-		source = nameLookup[source] or source
+		source = EllosPunchingBagMod.NameLookup[source] or source
 
 		-- finally, put it in the table
 		damageInstance.Source = source
@@ -420,6 +490,14 @@ ModUtil.WrapBaseFunction("DoUnlockRoomExits", function(baseFunc, run, room)
 	EllosPunchingBagMod.DpsUpdateThread = false
 	calculateDps(EllosPunchingBagMod.DamageHistory)
 	EllosPunchingBagMod.List.emptyList(EllosPunchingBagMod.DamageHistory)
+end, EllosPunchingBagMod)
+
+-- at the start of each room, check for equipped traits to hopefully generate more specific names
+ModUtil.WrapBaseFunction("StartRoom", function(baseFunc, run, room)
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        getEquippedBoons(trait)
+	end
+    baseFunc(run, room)
 end, EllosPunchingBagMod)
 
 -- Set up a polling loop to update our dps calculation
