@@ -144,8 +144,8 @@ function findColor(source)
 		return {Color.AthenaDamageLight, Color.White}
 	end
 	if has_value(EllosPunchingBagMod.GodLookup["Demeter"], source) then
-		-- demeter's colors are not nice
-		return {{85, 0, 255, 255}, Color.White}
+		-- demeter's color looks bad on the bars
+		return {{90, 90, 255, 255}, Color.White}
 	end
 	if has_value(EllosPunchingBagMod.GodLookup["Dionysus"], source) then
 		return {Color.DionysusDamage, Color.White}
@@ -336,7 +336,7 @@ end
 function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 	local portion = damage / totalDamage
 	local scale = damage / maxDamage * .6
-	local dpsBar = CreateScreenComponent({ Name = "rectangle01", X = x, Y = y })
+	local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
 	SetAnimation({ Name = "BarGraphBar", DestinationId = dpsBar.Id })
 	EllosPunchingBagMod.DpsBars["DpsBar" .. label] = dpsBar
 	
