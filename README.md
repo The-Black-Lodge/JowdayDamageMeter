@@ -12,3 +12,4 @@ Changes from the original:
 Known issues:
 - Not all abilities are updated yet
 - Dusa summon tracks as Enemy Deflect/Charm
+- Purging cast will cause your cast to display incorrectly until you get a new cast

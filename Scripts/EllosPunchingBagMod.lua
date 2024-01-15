@@ -421,8 +421,8 @@ function checkEnemyBucket(source)
 end
 
 function getEquippedBoons(trait)
-	slot = trait.Slot or nil
-	name = trait.Name or nil
+	local slot = trait.Slot or nil
+	local name = trait.Name or nil
 	if slot ~= nil and name ~= nil then
 		DebugPrint({Text = slot .. ' / ' .. name})
 	end
