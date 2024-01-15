@@ -496,6 +496,8 @@ end, EllosPunchingBagMod)
 
 -- at the start of each room, check for equipped traits to hopefully generate more specific names
 ModUtil.WrapBaseFunction("StartRoom", function(baseFunc, run, room)
+	-- reset cast name to default
+	EllosPunchingBagMod.NameLookup["RangedWeapon"] = "Cast"
     for i, trait in pairs(CurrentRun.Hero.Traits) do
         getEquippedBoons(trait)
 	end
