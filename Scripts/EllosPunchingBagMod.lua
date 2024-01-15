@@ -93,6 +93,8 @@ EllosPunchingBagMod.NameLookup = {
 	GunWeapon = "Attack",
 	GunBombImmolation = "Hellfire DoT",
 	GunBombWeapon = "Hellfire Detonation",
+	GunGrenadeToss = "Special",
+	GunWeaponDash = "Dash-Strike",
 	-- misc
 	RangedWeapon = "Cast",
 	BaseCollisionWeapon = "Wall Slam",
