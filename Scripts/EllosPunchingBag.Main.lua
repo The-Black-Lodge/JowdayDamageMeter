@@ -5,11 +5,6 @@ local config = {
 }
 EllosPunchingBag.config = config
 
---[[
-Fixed Size List Implementation
-TODO: Move to new file and import?
-]]
-
 EllosPunchingBag.List = {}
 function EllosPunchingBag.List.new(maxSize)
 	return { first = 0, last = -1, count = 0, max = maxSize }
@@ -41,7 +36,7 @@ function EllosPunchingBag.List.emptyList(list)
 	end
 end
 
-EllosPunchingBag.DamageHistory = EllosPunchingBag.List.new(10000)    -- 100 * config.DpsInterval )
+EllosPunchingBag.DamageHistory = EllosPunchingBag.List.new(10000) -- 100 * config.DpsInterval )
 EllosPunchingBag.DpsUpdateThread = false
 EllosPunchingBag.DpsBars = {}
 EllosPunchingBag.LastDpsPosition = {}
@@ -119,8 +114,13 @@ function createDpsOverlayBackground(obstacleName, x, y, width, height)
 	if ScreenAnchors[obstacleName] ~= nil then
 		SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
 		SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
-		Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = EllosPunchingBag.LastDpsBackgroundPosition.y -
-		y, Speed = 1000 })
+		Move({
+			Ids = ScreenAnchors[obstacleName],
+			Angle = 90,
+			Distance = EllosPunchingBag.LastDpsBackgroundPosition.y -
+				y,
+			Speed = 1000
+		})
 	else
 		ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "rectangle01", X = x, Y = y }) -- width 480, height 267
 		SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
@@ -134,10 +134,10 @@ end
 function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 	local portion = damage / totalDamage
 	local scale = damage / maxDamage * .6
-	local dpsBar = CreateScreenComponent({ Name = "EnemyHealthBar", X = x, Y = y })
+	local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
 	SetAnimation({ Name = "BarGraphBar", DestinationId = dpsBar.Id })
 	EllosPunchingBag.DpsBars["DpsBar" .. label] = dpsBar
-	
+
 	CreateTextBox({
 		Id = dpsBar.Id,
 		Text = label,
@@ -145,7 +145,8 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 		OffsetY = -1,
 		Font = "AlegreyaSansSCBold",
 		FontSize = 14,
-		Justification = "Right",
+        Justification = "Right",
+		Color = colors[3]
 	})
 	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
@@ -165,7 +166,7 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 			FontSize = 10,
 			Justification = "Right",
 			Color = colors[2]
-			})
+		})
 		ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 	end
 
@@ -210,64 +211,41 @@ end
 
 function checkEnemyBucket(source)
 	for k, v in pairs(EllosPunchingBag.EnemyBucket) do
-		if string.find(source, v, 1) then
+		if source:match("^" .. v) then
 			return true
 		end
 	end
 	return false
 end
 
+-- currently only replaces cast names
 function getEquippedBoons(trait)
-    local slot = trait.Slot or nil
-    local name = trait.Name or nil
-    if slot ~= nil and name ~= nil then
-        DebugPrint({ Text = slot .. ' / ' .. name })
-    end
-    if slot == "Ranged" then
-        EllosPunchingBag.NameLookup["RangedWeapon"] = name
-    end
+	local slot = trait.Slot or nil
+	local name = trait.Name or nil
+	if slot == "Ranged" then
+		EllosPunchingBag.NameLookup["RangedWeapon"] = name
+	end
 end
 
 function findColor(source)
 	local sources = EllosPunchingBag.SourceLookup
-	local colors = EllosPunchingBag.DpsColors
-	if has_value(sources["Aphrodite"], source) then
-		return colors["Aphrodite"]
-	end
-	if has_value(sources["Ares"], source) then
-		return colors["Ares"]
-	end
-	if has_value(sources["Artemis"], source) then
-		return colors["Artemis"]
-	end
-	if has_value(sources["Athena"], source) then
-		return colors["Athena"]
-	end
-	if has_value(sources["Demeter"], source) then
-		return colors["Demeter"]
-	end
-	if has_value(sources["Dionysus"], source) then
-		return colors["Dionysus"]
-	end
-	if has_value(sources["Poseidon"], source) then
-		return colors["Poseidon"]
-	end
-	if has_value(sources["Zeus"], source) then
-		return colors["Zeus"]
-	end
-	if has_value(sources["Duo"], source) then
-		return colors["Duo"]
+    local colors = EllosPunchingBag.DpsColors
+	
+	for name in pairs(sources) do
+		if has_value(sources[name], source) then
+			return colors[name]
+		end
 	end
 	return colors["Default"]
 end
 
-function has_value (tab, val)
-    for i, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-    return false
+function has_value(tab, val)
+	for i, value in ipairs(tab) do
+		if value == val then
+			return true
+		end
+	end
+	return false
 end
 
 --[[
@@ -298,9 +276,10 @@ ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
 
 		-- if enemy damage is showing up, you either deflected or charmed
 		if source ~= nil then
-			local isEnemy = checkEnemyBucket(source)
-			if isEnemy == true then
-				DebugPrint({Text = source})
+            local isEnemy = checkEnemyBucket(source)
+			-- wretched thug deflect is a weird exception
+			if isEnemy == true or source == "Wretched Thug" then
+				DebugPrint({ Text = source })
 				source = "Enemy Deflect/Charm"
 			end
 		end
@@ -335,12 +314,12 @@ end, EllosPunchingBag)
 
 -- at the start of each room, check for equipped traits to hopefully generate more specific names
 ModUtil.WrapBaseFunction("StartRoom", function(baseFunc, run, room)
-	-- reset cast name to default
+	-- reset cast name to default first
 	EllosPunchingBag.NameLookup["RangedWeapon"] = "Cast"
-    for i, trait in pairs(CurrentRun.Hero.Traits) do
-        getEquippedBoons(trait)
+	for i, trait in pairs(CurrentRun.Hero.Traits) do
+		getEquippedBoons(trait)
 	end
-    baseFunc(run, room)
+	baseFunc(run, room)
 end, EllosPunchingBag)
 
 -- Set up a polling loop to update our dps calculation

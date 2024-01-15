@@ -48,6 +48,8 @@ EllosPunchingBag.NameLookup = {
     NPC_Thanatos_01_Assist = "Thanatos",
     NPC_Sisyphus_01_Assist = "Sisyphus/Bouldy",
     NPC_Patroclus_01_Assist = "Achilles/Patroclus",
+    DusaFreezeShotSpray = "Dusa",
+    DusaFreezeShotSpread = "Dusa",
     -- sword
     SwordWeapon = "Attack",
     SwordWeapon2 = "Attack",
@@ -156,7 +158,12 @@ EllosPunchingBag.SourceLookup = {
     Dionysus = { "Dionysus' Aid", "Hangover", "DionysusRangedTrait" },
     Poseidon = { "Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait" },
     Zeus = { "Zeus' Aid", "Thunder Flourish", "Splitting Bolt", "Thunder Dash", "Jolted", "Chain Lightning", "Lightning Reflexes", "Heaven's Vengeance", "Thunder Flare", "ZeusRangedTrait" },
-    Duo = { "Sea Storm", "Scintillating Feast", "Lightning Rod" }
+    Duo = { "Sea Storm", "Scintillating Feast", "Lightning Rod" },
+    Megaera = { "Megaera" },
+    Thanatos = { "Thanatos Rival", "Thanatos" },
+    Sisyphus = { "Sisyphus/Bouldy" },
+    Achilles = { "Achilles/Patroclus" },
+    Dusa = {"Dusa"}
 }
 
 -- returns an array: [bar color, bar text color, name color]
@@ -170,5 +177,10 @@ EllosPunchingBag.DpsColors = {
     Poseidon = { Color.PoseidonDamage, Color.White, Color.White },
     Zeus = { Color.ZeusDamageLight, Color.Black, Color.White },
     Duo = { Color.BoonPatchDuo, Color.Black, Color.White },
+    Megaera = { Color.MegVoice, Color.White, Color.MegVoice },
+    Thanatos = { Color.ThanatosVoice, Color.White, Color.ThanatosVoice },
+    Sisyphus = { Color.SisyphusVoice, Color.White, Color.SisyphusVoice },
+    Achilles = { Color.AchillesVoice, Color.White, Color.AchillesVoice },
+    Dusa = {Color.DusaVoice, Color.White, Color.DusaVoice},
     Default = { Color.White, Color.Black, Color.White }
 }
