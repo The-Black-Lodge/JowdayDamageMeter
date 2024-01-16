@@ -118,7 +118,18 @@ JowdayDPS.NameLookup = {
     SawTrapWeapon = "Trap",
     SpikeTrapWeapon = "Trap",
     PhalanxTrapWeapon = "Trap",
-    DartTrapWeapon = "Trap"
+    DartTrapWeapon = "Trap",
+    -- olympus extra
+    -- hera
+    EnvyCurseSecondary = "Spiteful Flourish",
+    LowBurstEnvyWeapon = "Richful Tribune",
+    HighBurstEnvyWeapon = "Richful Tribune",
+    HeraDecay = "(Hera) Decay",
+    -- hestia
+    HestiaOnRevenge = "Molten Sting",
+    HestiaOnDeath = "Molten Core",
+    -- apollo
+    AreaWeakenApollo = "Icarus Wings"
 }
 
 JowdayDPS.EnemyBucket = {
@@ -166,7 +177,11 @@ JowdayDPS.SourceLookup = {
     Thanatos = { "Thanatos Rival", "Thanatos" },
     Sisyphus = { "Sisyphus/Bouldy" },
     Achilles = { "Achilles/Patroclus" },
-    Dusa = { "Dusa" }
+    Dusa = { "Dusa" },
+    -- olympus extra
+    Hera = { "Spiteful Flourish", "Richful Tribune", "(Hera) Decay" },
+    Hestia = { "Molten Sting", "Molten Core" },
+    Apollo = { "Icarus Wings" }
 }
 
 -- returns an array: [bar color, bar text color, name color]
@@ -185,5 +200,9 @@ JowdayDPS.DpsColors = {
     Sisyphus = { Color.SisyphusVoice, Color.White, Color.SisyphusVoice },
     Achilles = { Color.AchillesVoice, Color.White, Color.AchillesVoice },
     Dusa = { Color.DusaVoice, Color.White, Color.DusaVoice },
+    -- olympus extra
+    Hera = { { 34, 110, 86, 255 }, Color.White, Color.White },
+    Hestia = { { 204, 26, 51, 255 }, Color.White, Color.White },
+    Apollo = { { 255, 145, 79, 255 }, Color.Black, Color.White },
     Default = { Color.White, Color.Black, Color.White }
 }
