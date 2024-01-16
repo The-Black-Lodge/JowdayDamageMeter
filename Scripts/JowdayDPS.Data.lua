@@ -22,6 +22,7 @@ JowdayDPS.NameLookup = {
     DemeterAmmoWind = "Snow Burst",
     DemeterWorldChill = "Decay",
     ChillRetaliate = "Frozen Touch",
+    DemeterChillKill = "Winter Harvest",
     -- dionysus
     DionysusShout = "Dionysus' Aid",
     DamageOverTime = "Hangover",
