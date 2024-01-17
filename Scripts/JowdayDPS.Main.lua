@@ -1,9 +1,5 @@
-ModUtil.RegisterMod("JowdayDPS")
-
-local config = {
-	DpsInterval = 99999999
-}
-JowdayDPS.config = config
+JowdayDPS = ModUtil.Mod.Register("JowdayDPS")
+JowdayDPS.Config = { DpsInterval = 99999999 }
 
 JowdayDPS.List = {}
 function JowdayDPS.List.new(maxSize)
@@ -36,7 +32,7 @@ function JowdayDPS.List.emptyList(list)
 	end
 end
 
-JowdayDPS.DamageHistory = JowdayDPS.List.new(10000) -- 100 * config.DpsInterval )
+JowdayDPS.DamageHistory = JowdayDPS.List.new(10000)
 JowdayDPS.DpsUpdateThread = false
 JowdayDPS.DpsBars = {}
 JowdayDPS.LastDpsPosition = {}
@@ -45,7 +41,7 @@ JowdayDPS.LastDpsBackgroundPosition = {}
 --[[
 HELPER FUNCTIONS ------------------------------------------
 ]]
-function calculateDps(list)
+function JowdayDPS.calculateDps(list)
 	-- Dum up damage dealt from each source
 	local totalDamage = 0
 	local earliestTimestamp = 999999;
@@ -54,7 +50,7 @@ function calculateDps(list)
 	for i = list.first, list.last do
 		local damageData = list[i]
 		local time = GetTime({})
-		if damageData.Timestamp > (time - config.DpsInterval) then
+		if damageData.Timestamp > (time - JowdayDPS.Config.DpsInterval) then
 			totalDamage = totalDamage + damageData.Damage
 			totalDamageBySource[damageData.Source] = (totalDamageBySource[damageData.Source] or 0) + damageData.Damage
 			if damageData.Timestamp < earliestTimestamp then
@@ -68,7 +64,7 @@ function calculateDps(list)
 
 	-- Sort sources from most damage to least
 	local dps = round(totalDamage / (latestTimestamp - earliestTimestamp))
-	sourcesSortedByDamage = {}
+	local sourcesSortedByDamage = {}
 	for source in pairs(totalDamageBySource) do table.insert(sourcesSortedByDamage, source) end
 	table.sort(sourcesSortedByDamage, function(a, b)
 		return totalDamageBySource[a] < totalDamageBySource[b]
@@ -89,18 +85,18 @@ function calculateDps(list)
 
 	-- Create UI to show DPS bars for each source
 	for i, source in ipairs(sourcesSortedByDamage) do
-		colors = findColor(source)
-		createDpsBar(source, totalDamageBySource[source], maxDamage, totalDamage, xPos, yPos, colors)
+		local colors = JowdayDPS.findColor(source)
+		JowdayDPS.createDpsBar(source, totalDamageBySource[source], maxDamage, totalDamage, xPos, yPos, colors)
 		yPos = yPos - 20
 	end
 
 	-- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
 	if #sourcesSortedByDamage > 0 then
-		createDpsHeader("DpsMeter", totalDamage, dps, xPos, yPos - 5)
+		JowdayDPS.createDpsHeader("DpsMeter", totalDamage, dps, xPos, yPos - 5)
 		local margin = 40
 		local width = 500
 		local height = (initialY - yPos + margin)
-		createDpsOverlayBackground("DpsBackground", xPos + margin, yPos - 20 + height / 2, width, height)
+		JowdayDPS.createDpsOverlayBackground("DpsBackground", xPos + margin, yPos - 20 + height / 2, width, height)
 	else
 		Destroy({ Id = ScreenAnchors["DpsMeter"] })
 		Destroy({ Id = ScreenAnchors["DpsBackground"] })
@@ -110,7 +106,7 @@ function calculateDps(list)
 end
 
 -- Creates a transparent background behind the dps.  Resizes and moves the existing component if this is called with new height and position
-function createDpsOverlayBackground(obstacleName, x, y, width, height)
+function JowdayDPS.createDpsOverlayBackground(obstacleName, x, y, width, height)
 	if ScreenAnchors[obstacleName] ~= nil then
 		SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
 		SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
@@ -131,7 +127,7 @@ function createDpsOverlayBackground(obstacleName, x, y, width, height)
 end
 
 -- Create a single DPS bar with damage source, damage amount, and damage portion labels
-function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
+function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 	local portion = damage / totalDamage
 	local scale = damage / maxDamage * .6
 	local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
@@ -184,9 +180,7 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
 end
 
 -- Create a header that shows overall DPS and overall damage total
-function createDpsHeader(obstacleName, totalDamage, dps, x, y)
-	fontSize = 14
-	color = Color.White
+function JowdayDPS.createDpsHeader(obstacleName, totalDamage, dps, x, y)
 	local text = dps .. " DPS  |  Total Damage: " .. totalDamage
 
 	if ScreenAnchors[obstacleName] ~= nil then
@@ -209,7 +203,7 @@ function createDpsHeader(obstacleName, totalDamage, dps, x, y)
 	JowdayDPS.LastDpsPosition.y = y
 end
 
-function checkEnemyBucket(source)
+function JowdayDPS.checkEnemyBucket(source)
 	for k, v in pairs(JowdayDPS.EnemyBucket) do
 		if source:match("^" .. v) then
 			return true
@@ -219,7 +213,7 @@ function checkEnemyBucket(source)
 end
 
 -- currently only replaces cast names
-function getEquippedBoons(trait)
+function JowdayDPS.getEquippedBoons(trait)
 	local slot = trait.Slot or nil
 	local name = trait.Name or nil
 	if slot == "Ranged" then
@@ -227,19 +221,19 @@ function getEquippedBoons(trait)
 	end
 end
 
-function findColor(source)
+function JowdayDPS.findColor(source)
 	local sources = JowdayDPS.SourceLookup
 	local colors = JowdayDPS.DpsColors
 
 	for name in pairs(sources) do
-		if has_value(sources[name], source) then
+		if JowdayDPS.hasValue(sources[name], source) then
 			return colors[name]
 		end
 	end
 	return colors["Default"]
 end
 
-function has_value(tab, val)
+function JowdayDPS.hasValue(tab, val)
 	for i, value in ipairs(tab) do
 		if value == val then
 			return true
@@ -253,10 +247,9 @@ OVERRIDES ------------------------------------------
 ]]
 
 -- After the damage enemy call, record the instance of damage
-ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
+ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 	local preHitHealth = victim.Health
 	baseFunc(victim, triggerArgs)
-	--print(TableToJSONString(triggerArgs))
 	if (triggerArgs.DamageAmount or 0) > 0 and victim.MaxHealth ~= nil and (triggerArgs.TriggeredByTable.GenusName == "NPC_Skelly_01" or (triggerArgs.TriggeredByTable.GeneratorData or {}).DifficultyRating ~= nil or triggerArgs.TriggeredByTable.CanBeAggroed or triggerArgs.TriggeredByTable.IsBoss) then
 		local damageInstance = {}
 		damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
@@ -276,7 +269,7 @@ ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
 
 		-- if enemy damage is showing up, you either deflected or charmed
 		if source ~= nil then
-			local isEnemy = checkEnemyBucket(source)
+			local isEnemy = JowdayDPS.checkEnemyBucket(source)
 			-- wretched thug deflect is a weird exception
 			if isEnemy == true or source == "Wretched Thug" then
 				source = "Enemy Deflect/Charm"
@@ -304,19 +297,19 @@ ModUtil.WrapBaseFunction("DamageEnemy", function(baseFunc, victim, triggerArgs)
 end, JowdayDPS)
 
 -- When room is unlocked, stop the DPS meter from updating and clear it to prep for next room
-ModUtil.WrapBaseFunction("DoUnlockRoomExits", function(baseFunc, run, room)
+ModUtil.Path.Wrap("DoUnlockRoomExits", function(baseFunc, run, room)
 	baseFunc(run, room)
 	JowdayDPS.DpsUpdateThread = false
-	calculateDps(JowdayDPS.DamageHistory)
+	JowdayDPS.calculateDps(JowdayDPS.DamageHistory)
 	JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
 end, JowdayDPS)
 
 -- at the start of each room, check for equipped traits to hopefully generate more specific names
-ModUtil.WrapBaseFunction("StartRoom", function(baseFunc, run, room)
+ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
 	-- reset cast name to default first
 	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
 	for i, trait in pairs(CurrentRun.Hero.Traits) do
-		getEquippedBoons(trait)
+		JowdayDPS.getEquippedBoons(trait)
 	end
 	baseFunc(run, room)
 end, JowdayDPS)
@@ -328,14 +321,14 @@ OnAnyLoad { function()
 	thread(function()
 		while JowdayDPS.DpsUpdateThread do
 			-- If in the courtyard, reset your DPS after 5 seconds with no damage dealt
-			if ModUtil.PathGet("CurrentDeathAreaRoom") and JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last] ~= nil then
+			if ModUtil.Path.Get("CurrentDeathAreaRoom") and JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last] ~= nil then
 				if GetTime({}) - JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last].Timestamp > 5 then
 					JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
 				end
 			end
 
 			-- Otherwise continuously update
-			calculateDps(JowdayDPS.DamageHistory)
+			JowdayDPS.calculateDps(JowdayDPS.DamageHistory)
 			wait(.2)
 		end
 	end)
