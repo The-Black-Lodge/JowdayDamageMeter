@@ -35,6 +35,7 @@ end
 JowdayDPS.DamageHistory = JowdayDPS.List.new(10000)
 JowdayDPS.DpsUpdateThread = false
 JowdayDPS.DpsBars = {}
+JowdayDPS.DpsIcons = {}
 JowdayDPS.LastDpsPosition = {}
 JowdayDPS.LastDpsBackgroundPosition = {}
 
@@ -83,10 +84,14 @@ function JowdayDPS.calculateDps(list)
 		JowdayDPS.DpsBars[bar] = nil
 	end
 
+	for bar, component in pairs(JowdayDPS.DpsIcons) do
+		Destroy({ Id = component.Id })
+		JowdayDPS.DpsIcons[bar] = nil
+	end
+
 	-- Create UI to show DPS bars for each source
 	for i, source in ipairs(sourcesSortedByDamage) do
-		local colors = JowdayDPS.findColor(source)
-		JowdayDPS.createDpsBar(source, totalDamageBySource[source], maxDamage, totalDamage, xPos, yPos, colors)
+		JowdayDPS.createDpsBar(source, totalDamageBySource[source], maxDamage, totalDamage, xPos, yPos)
 		yPos = yPos - 20
 	end
 
@@ -113,8 +118,7 @@ function JowdayDPS.createDpsOverlayBackground(obstacleName, x, y, width, height)
 		Move({
 			Ids = ScreenAnchors[obstacleName],
 			Angle = 90,
-			Distance = JowdayDPS.LastDpsBackgroundPosition.y -
-				y,
+			Distance = JowdayDPS.LastDpsBackgroundPosition.y - y,
 			Speed = 1000
 		})
 	else
@@ -127,41 +131,81 @@ function JowdayDPS.createDpsOverlayBackground(obstacleName, x, y, width, height)
 end
 
 -- Create a single DPS bar with damage source, damage amount, and damage portion labels
-function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y, colors)
+function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
+	local colors = JowdayDPS.findColor(label)
 	local portion = damage / totalDamage
 	local scale = damage / maxDamage * .6
+	local percentDamage = math.floor(portion * 100 + .5)
 	local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
+
+	local labelColor = colors["LabelColor"] or Color.White
+	local barColor = colors["BarColor"] or Color.White
+
 	SetAnimation({ Name = "BarGraphBar", DestinationId = dpsBar.Id })
 	JowdayDPS.DpsBars["DpsBar" .. label] = dpsBar
 
+	-- name label
 	CreateTextBox({
 		Id = dpsBar.Id,
 		Text = label,
-		OffsetX = -30,
+		OffsetX = -33,
 		OffsetY = -1,
 		Font = "AlegreyaSansSCBold",
 		FontSize = 14,
 		Justification = "Right",
-		Color = colors[3]
+		Color = labelColor,
+		OutlineThickness = 2.0,
+		OutlineColor = Color.Black,
+		ShadowOffset = { 1, 2 },
+		ShadowBlur = 0,
+		ShadowAlpha = 1,
+		ShadowColor = Color.Black,
 	})
 	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
 	-- Scale damage bar
 	SetScaleX({ Id = dpsBar.Id, Fraction = scale, Duration = 0.0 })
 	-- color damage bar
-	SetColor({ Id = dpsBar.Id, Color = colors[1] })
+	SetColor({ Id = dpsBar.Id, Color = barColor })
+
+	local godIcons = colors["Icons"]
+
+	if godIcons ~= nil then
+		local iconOffset = -18
+		if #godIcons == 2 then
+			iconOffset = -10
+		end
+
+		local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
+		SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[1] .. "Icon", DestinationId = dpsIcon1.Id, Scale = 0.1 })
+		JowdayDPS.DpsIcons["DpsIcon" .. label] = dpsIcon1
+		-- if it's a duo, add the icon and attach it
+		if #godIcons > 1 then
+			local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
+			SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[2] .. "Icon", DestinationId = dpsIcon2.Id, Scale = 0.1 })
+			JowdayDPS.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
+			Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
+		end
+		Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffset })
+	end
 
 	-- Create damage total label
-	if scale > .06 then
+	if scale > .07 then
 		CreateTextBox({
 			Id = dpsBar.Id,
 			Text = damage,
 			OffsetX = 320 * scale - 4,
-			OffsetY = 0,
+			OffsetY = -1,
 			Font = "AlegreyaSansSCBold",
 			FontSize = 10,
 			Justification = "Right",
-			Color = colors[2]
+			Color = Color.White,
+			OutlineThickness = 2.0,
+			OutlineColor = Color.Black,
+			ShadowOffset = { 1, 2 },
+			ShadowBlur = 0,
+			ShadowAlpha = 1,
+			ShadowColor = Color.Black
 		})
 		ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 	end
@@ -169,12 +213,19 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y, col
 	-- Create damage portion percentage label
 	CreateTextBox({
 		Id = dpsBar.Id,
-		Text = "(" .. math.floor(portion * 100 + .5) .. "%)",
+		Text = percentDamage .. "%",
 		OffsetX = 320 * scale + 20,
 		OffsetY = -1,
 		Font = "AlegreyaSansSCBold",
 		FontSize = 14,
-		Justification = "Left"
+		Justification = "Left",
+		Color = Color.White,
+		OutlineThickness = 2.0,
+		OutlineColor = Color.Black,
+		ShadowOffset = { 1, 2 },
+		ShadowBlur = 0,
+		ShadowAlpha = 1,
+		ShadowColor = Color.Black
 	})
 	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 end
@@ -195,7 +246,14 @@ function JowdayDPS.createDpsHeader(obstacleName, totalDamage, dps, x, y)
 			OffsetY = 0,
 			Font = "AlegreyaSansSCBold",
 			FontSize = 14,
-			Justification = "Left"
+			Justification = "Left",
+			Color = Color.White,
+			OutlineThickness = 2.0,
+			OutlineColor = Color.Black,
+			ShadowOffset = { 1, 2 },
+			ShadowBlur = 0,
+			ShadowAlpha = 1,
+			ShadowColor = Color.Black
 		})
 		ModifyTextBox({ Id = ScreenAnchors[obstacleName], FadeTarget = 1, FadeDuration = 0.0 })
 	end
@@ -216,15 +274,17 @@ end
 function JowdayDPS.getEquippedBoons(trait)
 	local slot = trait.Slot or nil
 	local name = trait.Name or nil
-	if slot == "Ranged" then
+	if slot == "Ranged" and name then
 		JowdayDPS.NameLookup["RangedWeapon"] = name
+	end
+	if slot == "Rush" and name then
+		JowdayDPS.NameLookup["RushWeapon"] = name
 	end
 end
 
 function JowdayDPS.findColor(source)
 	local sources = JowdayDPS.SourceLookup
 	local colors = JowdayDPS.DpsColors
-
 	for name in pairs(sources) do
 		if JowdayDPS.hasValue(sources[name], source) then
 			return colors[name]
@@ -270,8 +330,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 		-- if enemy damage is showing up, you either deflected or charmed
 		if source ~= nil then
 			local isEnemy = JowdayDPS.checkEnemyBucket(source)
-			-- wretched thug deflect is a weird exception
-			if isEnemy == true or source == "Wretched Thug" then
+			if isEnemy == true then
 				source = "Enemy Deflect/Charm"
 			end
 		end

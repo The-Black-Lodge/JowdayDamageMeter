@@ -154,15 +154,17 @@ JowdayDPS.EnemyBucket = {
 }
 
 JowdayDPS.SourceLookup = {
-    Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait" },
-    Ares = { "Ares' Aid", "Doom", "AresRangedTrait" },
-    Artemis = { "Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait" },
-    Athena = { "Athena's Aid", "Holy Shield", "AthenaRangedTrait" },
+    Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait", "AphroditeRushTrait" },
+    Ares = { "Ares' Aid", "Doom", "AresRangedTrait", "AresRushTrait" },
+    Artemis = { "Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait", "ArtemisRushTrait" },
+    Athena = { "Athena's Aid", "Holy Shield", "AthenaRangedTrait", "AthenaRushTrait" },
     Demeter = { "Demeter's Aid", "Arctic Blast", "Snow Burst", "Decay", "Frozen Touch", "DemeterRangedTrait", "DemeterRushTrait", "Winter Harvest" },
-    Dionysus = { "Dionysus' Aid", "Hangover", "DionysusRangedTrait" },
-    Poseidon = { "Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait" },
-    Zeus = { "Zeus' Aid", "Thunder Flourish", "Splitting Bolt", "Thunder Dash", "Jolted", "Chain Lightning", "Lightning Reflexes", "Heaven's Vengeance", "Thunder Flare", "ZeusRangedTrait" },
-    Duo = { "Sea Storm", "Scintillating Feast", "Lightning Rod" },
+    Dionysus = { "Dionysus' Aid", "Hangover", "DionysusRangedTrait", "DionysusRushTrait" },
+    Poseidon = { "Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait", "PoseidonRushTrait" },
+    Zeus = { "Zeus' Aid", "Thunder Flourish", "Splitting Bolt", "Thunder Dash", "Jolted", "Chain Lightning", "Lightning Reflexes", "Heaven's Vengeance", "Thunder Flare", "ZeusRangedTrait", "ZeusRushTrait" },
+    DuoZeusPoseidon = { "Sea Storm" },
+    DuoZeusDionysus = { "Scintillating Feast" },
+    DuoZeusArtemis = { "Lightning Rod" },
     Megaera = { "Megaera" },
     Thanatos = { "Thanatos Rival", "Thanatos" },
     Sisyphus = { "Sisyphus/Bouldy" },
@@ -170,21 +172,72 @@ JowdayDPS.SourceLookup = {
     Dusa = { "Dusa" }
 }
 
--- returns an array: [bar color, bar text color, name color]
 JowdayDPS.DpsColors = {
-    Aphrodite = { Color.AphroditeDamage, Color.White, Color.White },
-    Ares = { Color.AresDamageLight, Color.White, Color.White },
-    Artemis = { Color.ArtemisDamage, Color.White, Color.White },
-    Athena = { Color.AthenaDamageLight, Color.Black, Color.White },
-    Demeter = { { 90, 90, 255, 255 }, Color.White, Color.White },
-    Dionysus = { Color.DionysusDamage, Color.White, Color.White },
-    Poseidon = { Color.PoseidonDamage, Color.White, Color.White },
-    Zeus = { Color.ZeusDamageLight, Color.Black, Color.White },
-    Duo = { Color.BoonPatchDuo, Color.Black, Color.White },
-    Megaera = { Color.MegVoice, Color.White, Color.MegVoice },
-    Thanatos = { Color.ThanatosVoice, Color.White, Color.ThanatosVoice },
-    Sisyphus = { Color.SisyphusVoice, Color.White, Color.SisyphusVoice },
-    Achilles = { Color.AchillesVoice, Color.White, Color.AchillesVoice },
-    Dusa = { Color.DusaVoice, Color.White, Color.DusaVoice },
-    Default = { Color.White, Color.Black, Color.White }
+    Aphrodite = {
+        BarColor = Color.AphroditeDamage,
+        Icons = { "Aphrodite" }
+    },
+    Ares = {
+        BarColor = Color.AresDamageLight,
+        Icons = { "Ares" }
+    },
+    Artemis = {
+        BarColor = Color.ArtemisDamage,
+        Icons = { "Artemis" }
+    },
+    Athena = {
+        BarColor = Color.AthenaDamageLight,
+        Icons = { "Athena" }
+    },
+    Demeter = {
+        BarColor = { 90, 90, 255, 255 },
+        Icons = { "Demeter" }
+    },
+    Dionysus = {
+        BarColor = Color.DionysusDamage,
+        Icons = { "Dionysus" }
+    },
+    Poseidon = {
+        BarColor = Color.PoseidonDamage,
+        Icons = { "Poseidon" }
+    },
+    Zeus = {
+        BarColor = Color.ZeusDamageLight,
+        Icons = { "Zeus" }
+    },
+    DuoZeusPoseidon = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Poseidon" }
+    },
+    DuoZeusDionysus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Dionysus" }
+    },
+    DuoZeusArtemis = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Artemis" }
+    },
+    Megaera = {
+        BarColor = Color.MegVoice,
+        LabelColor = Color.MegVoice
+    },
+    Thanatos = {
+        BarColor = Color.ThanatosVoice,
+        LabelColor = Color.ThanatosVoice
+    },
+    Sisyphus = {
+        BarColor = Color.SisyphusVoice,
+        LabelColor = Color.SisyphusVoice
+    },
+    Achilles = {
+        BarColor = Color.AchillesVoice,
+        LabelColor = Color.AchillesVoice
+    },
+    Dusa = {
+        BarColor = Color.DusaVoice,
+        LabelColor = Color.DusaVoice
+    },
+    Default = {
+        BarColor = { 165, 165, 195, 255 }
+    }
 }
