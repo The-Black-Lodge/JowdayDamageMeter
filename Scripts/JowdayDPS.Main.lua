@@ -6,6 +6,9 @@ function JowdayDPS.List.new(maxSize)
 	return { first = 0, last = -1, count = 0, max = maxSize }
 end
 
+JowdayDPS.CurrentGods = {}
+JowdayDPS.WeaponVar = {}
+
 function JowdayDPS.List.addValue(list, value)
 	local last = list.last + 1
 	list.last = last
@@ -270,15 +273,31 @@ function JowdayDPS.checkEnemyBucket(source)
 	return false
 end
 
--- currently only replaces cast names
+-- add more accurate cast/dash names, and build an array of gods
 function JowdayDPS.getEquippedBoons(trait)
 	local slot = trait.Slot or nil
 	local name = trait.Name or nil
+	local god = trait.God or nil
+
 	if slot == "Ranged" and name then
 		JowdayDPS.NameLookup["RangedWeapon"] = name
 	end
 	if slot == "Rush" and name then
 		JowdayDPS.NameLookup["RushWeapon"] = name
+	end
+	-- most boons have a God value in the trait
+	if god ~= nil then
+		JowdayDPS.CurrentGods[god] = true
+	end
+	-- ...some custom handling here
+	if name ~= nil then
+		-- this doesn't add athena to CurrentGods which is needed for deflect accuracy
+		if name == "AthenaRetaliateTrait" then
+			JowdayDPS.CurrentGods["Athena"] = true
+		end
+		if name == "ShieldLoadAmmoTrait" then
+			JowdayDPS.WeaponVar["Beowulf"] = true
+		end
 	end
 end
 
@@ -315,23 +334,14 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 		damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
 		damageInstance.Timestamp = GetTime({})
 
-		victim.ActiveEffectsAtDamageStart = {}
-		if victim.ActiveEffects then
-			victim.ActiveEffectsAtDamageStart = ShallowCopyTable( victim.ActiveEffects )
-		end
-
+		-- determine if the attacker table is present, and if it is make the active effects available
 		local effects = nil
 		if triggerArgs.AttackerTable ~= nil then
 			local attacker = triggerArgs.AttackerTable
 			if attacker.ActiveEffects then
-				effects = ShallowCopyTable( attacker.ActiveEffects )
+				effects = ShallowCopyTable(attacker.ActiveEffects)
 			end
 		end
-
-		local args = {SourceWeapon = triggerArgs.SourceWeapon, EffectName = triggerArgs.EffectName, VictimEffects = victim.ActiveEffectsAtDamageStart, AttackerEffects = effects, Obstacle = triggerArgs.AttackerIsObstacle}
-
-		-- Check damage source and set its name based on priority EffectName > SourceWeapon > triggerArgs.AttackerWeaponData.Name
-		-- If still nil, if the attack was an obstacle, assume it was due to wall slam damage
 
 		-- get an internal name from either SourceWeapon or EffectName
 		local source
@@ -342,24 +352,30 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 			source = triggerArgs.EffectName
 		end
 
+		-- determine if the attacker was charmed when damage was dealt. if so, mark the damage as such
 		if effects ~= nil then
 			if effects.Charm ~= nil then
 				source = "Charm"
 			end
 		end
 
-
-		-- if enemy damage is showing up, you either deflected or charmed
-		if source ~= nil and source ~= "Charm" then
-			local isEnemy = JowdayDPS.checkEnemyBucket(source)
-			if isEnemy == true then
-				print(TableToJSONString(args))
-				source = "Deflect"
-			end
+		-- enemy explosives aren't always deflect
+		if JowdayDPS.EnemyExplosive[source] ~= nil then
+			source = "Enemy Explosive"
 		end
 
-		if source == nil then
-			print(TableToJSONString(args))
+		-- at this point, named damage is most likely deflect if it matches an enemy name, isn't charm, and isn't an explosive
+		if source ~= nil and source ~= "Charm" and source ~= "Enemy Explosive" then
+			local isEnemy = JowdayDPS.checkEnemyBucket(source)
+			if isEnemy == true then
+				-- put in the deflect bucket only if the user has an athena boon
+				if JowdayDPS.CurrentGods.Athena ~= nil then
+					source = "Deflect"
+				else
+					-- otherwise, you probably pushed something into a blast radius
+					source = "Enemy Explosive"
+				end
+			end
 		end
 
 		-- if no name and an obstacle is present, assume wall slam
@@ -374,6 +390,16 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 
 		-- try and match with the name lookup table
 		source = JowdayDPS.NameLookup[source] or source
+
+		-- fix poseidon, dionysus flares showing up incorrectly
+		if JowdayDPS.WeaponVar.Beowulf ~= nil then
+			if source == "PoseidonRangedTrait" then
+				source = "Flood Flare"
+			end
+			if source == "DionysusRangedTrait" then
+				source = "Trippy Flare"
+			end
+		end
 
 		-- finally, put it in the table
 		damageInstance.Source = source
@@ -394,9 +420,12 @@ end, JowdayDPS)
 ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
 	-- reset cast name to default first
 	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
+	-- also reset god list
+	JowdayDPS.CurrentGods = {}
 	for i, trait in pairs(CurrentRun.Hero.Traits) do
 		JowdayDPS.getEquippedBoons(trait)
 	end
+
 	baseFunc(run, room)
 end, JowdayDPS)
 

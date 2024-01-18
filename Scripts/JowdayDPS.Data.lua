@@ -98,15 +98,17 @@ JowdayDPS.NameLookup = {
     GunBombWeapon = "Hellfire Detonation",
     GunGrenadeToss = "Special",
     GunWeaponDash = "Dash-Strike",
+    SniperGunWeapon = "Empowered Shot",
+    SniperGunWeaponDash = "Dash-Strike",
     -- misc
     RangedWeapon = "Cast",
     BaseCollisionWeapon = "Wall Slam",
     ThanatosDeathCurseAoE = "Thanatos Rival",
     ThanatosCurse = "Thanatos Rival",
     -- falling rocks
-    RubbleFall = "Falling Debris",
-    RubbleFallElysium = "Falling Debris",
-    RubbleFallLarge = "Falling Debris",
+    RubbleFall = "Falling Rubble",
+    RubbleFallElysium = "Falling Rubble",
+    RubbleFallLarge = "Falling Rubble",
     -- asphodel lava
     LavaTileWeapon = "Magma",
     LavaTileTriangle01Weapon = "Magma",
@@ -124,12 +126,12 @@ JowdayDPS.NameLookup = {
 }
 
 JowdayDPS.EnemyBucket = {
+    "HeavyRangedWeapon",
     "LightRanged",
     "DisembodiedHand",
     "PunchingBag",
     "HeavyMelee",
     "Wretch",
-    "BloodMine",
     "Harpy",      -- sisters
     "FreezeShot", -- gorgon stone
     "SpreadShot",
@@ -150,20 +152,23 @@ JowdayDPS.EnemyBucket = {
     "Swarmer",
     "StyxPoison",
     "RatThug",
-    "HeavyRangedWeapon",
     "Grenadier",
     "Satyr",
     "FlurrySpawner" -- butterfly ball
 }
 
+JowdayDPS.EnemyExplosive = {
+    BloodMineBlast = true
+}
+
 JowdayDPS.SourceLookup = {
-    Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait", "AphroditeRushTrait", "Charm" },
-    Ares = { "Ares' Aid", "Doom", "AresRangedTrait", "AresRushTrait" },
-    Artemis = { "Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait", "ArtemisRushTrait" },
-    Athena = { "Athena's Aid", "Holy Shield", "AthenaRangedTrait", "AthenaRushTrait","Deflect" },
-    Demeter = { "Demeter's Aid", "Arctic Blast", "Snow Burst", "Decay", "Frozen Touch", "DemeterRangedTrait", "DemeterRushTrait", "Winter Harvest" },
-    Dionysus = { "Dionysus' Aid", "Hangover", "DionysusRangedTrait", "DionysusRushTrait" },
-    Poseidon = { "Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait", "PoseidonRushTrait" },
+    Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait", "AphroditeRushTrait", "Charm", "ShieldLoadAmmo_AphroditeRangedTrait" },
+    Ares = { "Ares' Aid", "Doom", "AresRangedTrait", "AresRushTrait", "ShieldLoadAmmo_AresRangedTrait" },
+    Artemis = { "Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait", "ArtemisRushTrait", "ShieldLoadAmmo_ArtemisRangedTrait" },
+    Athena = { "Athena's Aid", "Holy Shield", "AthenaRangedTrait", "AthenaRushTrait", "Deflect", "ShieldLoadAmmo_AthenaRangedTrait" },
+    Demeter = { "Demeter's Aid", "Arctic Blast", "Snow Burst", "Decay", "Frozen Touch", "DemeterRangedTrait", "DemeterRushTrait", "Winter Harvest", "ShieldLoadAmmo_DemeterRangedTrait" },
+    Dionysus = { "Dionysus' Aid", "Hangover", "DionysusRangedTrait", "DionysusRushTrait", "Trippy Flare" },
+    Poseidon = { "Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait", "PoseidonRushTrait", "Flood Flare" },
     Zeus = { "Zeus' Aid", "Thunder Flourish", "Splitting Bolt", "Thunder Dash", "Jolted", "Chain Lightning", "Lightning Reflexes", "Heaven's Vengeance", "Thunder Flare", "ZeusRangedTrait", "ZeusRushTrait" },
     DuoZeusPoseidon = { "Sea Storm" },
     DuoZeusDionysus = { "Scintillating Feast" },
