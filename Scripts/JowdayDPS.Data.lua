@@ -69,6 +69,7 @@ JowdayDPS.NameLookup = {
     SpearWeaponSpin3 = "Spin Attack",
     SpearWeaponThrowReturn = "Recall",
     SpearRushWeapon = "Raging Rush",
+    SpearWeaponSpinExplosiveChargeWeapon = "Flaring Spin",
     -- bow
     BowWeapon = "Attack",
     BowSplitShot = "Special",
@@ -126,6 +127,7 @@ JowdayDPS.EnemyBucket = {
     "LightRanged",
     "DisembodiedHand",
     "PunchingBag",
+    "HeavyMelee",
     "Wretch",
     "BloodMine",
     "Harpy",      -- sisters
@@ -148,16 +150,17 @@ JowdayDPS.EnemyBucket = {
     "Swarmer",
     "StyxPoison",
     "RatThug",
-    "HeavyRangedWeaponFork",
+    "HeavyRangedWeapon",
     "Grenadier",
-    "Satyr"
+    "Satyr",
+    "FlurrySpawner" -- butterfly ball
 }
 
 JowdayDPS.SourceLookup = {
-    Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait", "AphroditeRushTrait" },
+    Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait", "AphroditeRushTrait", "Charm" },
     Ares = { "Ares' Aid", "Doom", "AresRangedTrait", "AresRushTrait" },
     Artemis = { "Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait", "ArtemisRushTrait" },
-    Athena = { "Athena's Aid", "Holy Shield", "AthenaRangedTrait", "AthenaRushTrait" },
+    Athena = { "Athena's Aid", "Holy Shield", "AthenaRangedTrait", "AthenaRushTrait","Deflect" },
     Demeter = { "Demeter's Aid", "Arctic Blast", "Snow Burst", "Decay", "Frozen Touch", "DemeterRangedTrait", "DemeterRushTrait", "Winter Harvest" },
     Dionysus = { "Dionysus' Aid", "Hangover", "DionysusRangedTrait", "DionysusRushTrait" },
     Poseidon = { "Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait", "PoseidonRushTrait" },
