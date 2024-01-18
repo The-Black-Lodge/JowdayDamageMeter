@@ -122,9 +122,11 @@ JowdayDPS.NameLookup = {
     SawTrapWeapon = "Trap",
     SpikeTrapWeapon = "Trap",
     PhalanxTrapWeapon = "Trap",
-    DartTrapWeapon = "Trap"
+    DartTrapWeapon = "Trap",
+    BloodMineBlast = "Trap"
 }
 
+-- TODO use EnemySets.lua to identify enemies
 JowdayDPS.EnemyBucket = {
     "HeavyRangedWeapon",
     "LightRanged",
@@ -154,11 +156,9 @@ JowdayDPS.EnemyBucket = {
     "RatThug",
     "Grenadier",
     "Satyr",
-    "FlurrySpawner" -- butterfly ball
-}
-
-JowdayDPS.EnemyExplosive = {
-    BloodMineBlast = true
+    "FlurrySpawner", -- butterfly ball
+    "CharonMelee",
+    "CharonWave"
 }
 
 JowdayDPS.SourceLookup = {

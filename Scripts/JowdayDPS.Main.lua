@@ -359,11 +359,6 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 			end
 		end
 
-		-- enemy explosives aren't always deflect
-		if JowdayDPS.EnemyExplosive[source] ~= nil then
-			source = "Enemy Explosive"
-		end
-
 		-- at this point, named damage is most likely deflect if it matches an enemy name, isn't charm, and isn't an explosive
 		if source ~= nil and source ~= "Charm" and source ~= "Enemy Explosive" then
 			local isEnemy = JowdayDPS.checkEnemyBucket(source)
