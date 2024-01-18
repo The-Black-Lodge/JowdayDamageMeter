@@ -315,6 +315,21 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 		damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
 		damageInstance.Timestamp = GetTime({})
 
+		victim.ActiveEffectsAtDamageStart = {}
+		if victim.ActiveEffects then
+			victim.ActiveEffectsAtDamageStart = ShallowCopyTable( victim.ActiveEffects )
+		end
+
+		local effects = nil
+		if triggerArgs.AttackerTable ~= nil then
+			local attacker = triggerArgs.AttackerTable
+			if attacker.ActiveEffects then
+				effects = ShallowCopyTable( attacker.ActiveEffects )
+			end
+		end
+
+		local args = {SourceWeapon = triggerArgs.SourceWeapon, EffectName = triggerArgs.EffectName, VictimEffects = victim.ActiveEffectsAtDamageStart, AttackerEffects = effects, Obstacle = triggerArgs.AttackerIsObstacle}
+
 		-- Check damage source and set its name based on priority EffectName > SourceWeapon > triggerArgs.AttackerWeaponData.Name
 		-- If still nil, if the attack was an obstacle, assume it was due to wall slam damage
 
@@ -327,12 +342,24 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 			source = triggerArgs.EffectName
 		end
 
+		if effects ~= nil then
+			if effects.Charm ~= nil then
+				source = "Charm"
+			end
+		end
+
+
 		-- if enemy damage is showing up, you either deflected or charmed
-		if source ~= nil then
+		if source ~= nil and source ~= "Charm" then
 			local isEnemy = JowdayDPS.checkEnemyBucket(source)
 			if isEnemy == true then
-				source = "Enemy Deflect/Charm"
+				print(TableToJSONString(args))
+				source = "Deflect"
 			end
+		end
+
+		if source == nil then
+			print(TableToJSONString(args))
 		end
 
 		-- if no name and an obstacle is present, assume wall slam
