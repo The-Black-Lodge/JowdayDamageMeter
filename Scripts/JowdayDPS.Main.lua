@@ -284,6 +284,10 @@ function JowdayDPS.getEquippedBoons(trait)
 	end
 	if slot == "Rush" and name then
 		JowdayDPS.NameLookup["RushWeapon"] = name
+		-- artemis modifies dash-strike instead
+		if name == "ArtemisRushTrait" then
+			JowdayDPS.WeaponVar["HunterDash"] = true
+		end
 	end
 	-- most boons have a God value in the trait
 	if god ~= nil then
@@ -319,6 +323,19 @@ function JowdayDPS.hasValue(tab, val)
 		end
 	end
 	return false
+end
+
+function JowdayDPS.toggleHunterDash()
+	local dashSources = { "SwordWeaponDash", "SpearWeaponDash", "BowWeaponDash", "FistWeaponDash", "ShieldWeaponDash",
+		"GunWeaponDash", "SniperGunWeaponDash" }
+	local dashName = "Dash-Strike"
+	if JowdayDPS.WeaponVar["HunterDash"] == true then
+		dashName = "Hunter Dash-Strike"
+	end
+
+	for _, source in ipairs(dashSources) do
+		JowdayDPS.NameLookup[source] = dashName
+	end
 end
 
 --[[
@@ -413,13 +430,17 @@ end, JowdayDPS)
 
 -- at the start of each room, check for equipped traits to hopefully generate more specific names
 ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
-	-- reset cast name to default first
+	-- reset certain things to default before iterating through traits
 	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
+	JowdayDPS.WeaponVar["HunterDash"] = false
+
 	-- also reset god list
 	JowdayDPS.CurrentGods = {}
 	for i, trait in pairs(CurrentRun.Hero.Traits) do
 		JowdayDPS.getEquippedBoons(trait)
 	end
+
+	JowdayDPS.toggleHunterDash()
 
 	baseFunc(run, room)
 end, JowdayDPS)
