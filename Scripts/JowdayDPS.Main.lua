@@ -171,11 +171,11 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 	-- color damage bar
 	SetColor({ Id = dpsBar.Id, Color = barColor })
 
-	local godIcons = colors["Icons"]
+	local godIcons = ShallowCopyTable(colors["Icons"])
 	-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
 	if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
 		if godIcons[1] ~= "Artemis" then
-			godIcons[2] = "Artemis"
+			table.insert(godIcons, 1, "Artemis")
 		end
 	end
 
@@ -329,14 +329,14 @@ function JowdayDPS.findColor(source)
 	local attack = JowdayDPS.WeaponVar["Attack"]
 	local special = JowdayDPS.WeaponVar["Secondary"]
 	for name in pairs(sources) do
-		if JowdayDPS.hasValue(sources[name], source) then
-			return colors[name]
-		end
 		if (source == "Attack" or source == "Dash-Strike" or source == "Spin Attack") and attack ~= nil then
 			return colors[attack]
 		end
 		if (source == "Special" or source == "Dash-Upper" or source == "Recall") and special ~= nil then
 			return colors[special]
+		end
+		if JowdayDPS.hasValue(sources[name], source) then
+			return colors[name]
 		end
 	end
 	return colors["Default"]
@@ -349,19 +349,6 @@ function JowdayDPS.hasValue(tab, val)
 		end
 	end
 	return false
-end
-
-function JowdayDPS.toggleHunterDash()
-	local dashSources = { "SwordWeaponDash", "SpearWeaponDash", "BowWeaponDash", "FistWeaponDash", "ShieldWeaponDash",
-		"GunWeaponDash", "SniperGunWeaponDash" }
-	local dashName = "Dash-Strike"
-	if JowdayDPS.WeaponVar["HunterDash"] == true then
-		dashName = "Hunter Dash-Strike"
-	end
-
-	for _, source in ipairs(dashSources) do
-		JowdayDPS.NameLookup[source] = dashName
-	end
 end
 
 --[[
@@ -469,8 +456,6 @@ ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
 	for i, trait in pairs(CurrentRun.Hero.Traits) do
 		JowdayDPS.getEquippedBoons(trait)
 	end
-
-	JowdayDPS.toggleHunterDash()
 
 	baseFunc(run, room)
 end, JowdayDPS)
