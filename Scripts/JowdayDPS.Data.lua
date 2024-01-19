@@ -155,6 +155,7 @@ JowdayDPS.EnemyBucket = {
     "Swarmer",
     "StyxPoison",
     "RatThug",
+    "RatSpawn",
     "Grenadier",
     "Satyr",
     "FlurrySpawner", -- butterfly ball
