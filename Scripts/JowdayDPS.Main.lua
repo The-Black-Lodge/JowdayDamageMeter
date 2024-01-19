@@ -172,6 +172,12 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 	SetColor({ Id = dpsBar.Id, Color = barColor })
 
 	local godIcons = colors["Icons"]
+	-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
+	if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
+		if godIcons[1] ~= "Artemis" then
+			godIcons[2] = "Artemis"
+		end
+	end
 
 	if godIcons ~= nil then
 		local iconOffset = -18
@@ -273,16 +279,28 @@ function JowdayDPS.checkEnemyBucket(source)
 	return false
 end
 
--- add more accurate cast/dash names, and build an array of gods
+-- add more accurate names, and build an array of gods
 function JowdayDPS.getEquippedBoons(trait)
 	local slot = trait.Slot or nil
 	local name = trait.Name or nil
 	local god = trait.God or nil
 
+	if slot == "Melee" and god then
+		JowdayDPS.WeaponVar["Attack"] = god
+	end
+	if slot == "Secondary" and god then
+		JowdayDPS.WeaponVar["Secondary"] = god
+	end
 	if slot == "Ranged" and name then
+		if god ~= nil then
+			JowdayDPS.WeaponVar["Cast"] = god
+		end
 		JowdayDPS.NameLookup["RangedWeapon"] = name
 	end
 	if slot == "Rush" and name then
+		if god ~= nil then
+			JowdayDPS.WeaponVar["Dash"] = god
+		end
 		JowdayDPS.NameLookup["RushWeapon"] = name
 		-- artemis modifies dash-strike instead
 		if name == "ArtemisRushTrait" then
@@ -308,9 +326,17 @@ end
 function JowdayDPS.findColor(source)
 	local sources = JowdayDPS.SourceLookup
 	local colors = JowdayDPS.DpsColors
+	local attack = JowdayDPS.WeaponVar["Attack"]
+	local special = JowdayDPS.WeaponVar["Secondary"]
 	for name in pairs(sources) do
 		if JowdayDPS.hasValue(sources[name], source) then
 			return colors[name]
+		end
+		if (source == "Attack" or source == "Dash-Strike" or source == "Spin Attack") and attack ~= nil then
+			return colors[attack]
+		end
+		if (source == "Special" or source == "Dash-Upper" or source == "Recall") and special ~= nil then
+			return colors[special]
 		end
 	end
 	return colors["Default"]
@@ -433,6 +459,10 @@ ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
 	-- reset certain things to default before iterating through traits
 	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
 	JowdayDPS.WeaponVar["HunterDash"] = false
+	JowdayDPS.WeaponVar["Attack"] = nil
+	JowdayDPS.WeaponVar["Secondary"] = nil
+	JowdayDPS.WeaponVar["Cast"] = nil
+	JowdayDPS.WeaponVar["Dash"] = nil
 
 	-- also reset god list
 	JowdayDPS.CurrentGods = {}
