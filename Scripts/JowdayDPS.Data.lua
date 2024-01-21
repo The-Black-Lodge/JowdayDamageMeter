@@ -93,6 +93,7 @@ JowdayDPS.NameLookup = {
     ShieldThrow = "Special",
     ShieldWeaponDash = "Dash-Strike",
     ShieldWeaponRush = "Bull Rush",
+    ShieldThrowDash = "Dashing Flight",
     -- rail
     GunWeapon = "Attack",
     GunBombImmolation = "Hellfire DoT",

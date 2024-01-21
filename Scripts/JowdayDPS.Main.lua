@@ -329,10 +329,10 @@ function JowdayDPS.findColor(source)
 	local attack = JowdayDPS.WeaponVar["Attack"]
 	local special = JowdayDPS.WeaponVar["Secondary"]
 	for name in pairs(sources) do
-		if (source == "Attack" or source == "Dash-Strike" or source == "Spin Attack") and attack ~= nil then
+		if (source == "Attack" or source == "Dash-Strike" or source == "Spin Attack" or source == "Bull Rush" or source == "Empowered Shot") and attack ~= nil then
 			return colors[attack]
 		end
-		if (source == "Special" or source == "Dash-Upper" or source == "Recall") and special ~= nil then
+		if (source == "Special" or source == "Dash-Upper" or source == "Recall" or source == "Raging Rush" or  source == "Dashing Flight" or source == "Hellfire Detonation" or source == "Hellfire DoT" or source == "Quake Cutter") and special ~= nil then
 			return colors[special]
 		end
 		if JowdayDPS.hasValue(sources[name], source) then
