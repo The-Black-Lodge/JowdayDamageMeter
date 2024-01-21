@@ -165,22 +165,119 @@ JowdayDPS.EnemyBucket = {
 }
 
 JowdayDPS.SourceLookup = {
-    Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait", "AphroditeRushTrait", "Charm", "ShieldLoadAmmo_AphroditeRangedTrait" },
-    Ares = { "Ares' Aid", "Doom", "AresRangedTrait", "AresRushTrait", "ShieldLoadAmmo_AresRangedTrait" },
-    Artemis = { "Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait", "ShieldLoadAmmo_ArtemisRangedTrait" },
-    Athena = { "Athena's Aid", "Holy Shield", "AthenaRangedTrait", "AthenaRushTrait", "Deflect", "ShieldLoadAmmo_AthenaRangedTrait" },
-    Demeter = { "Demeter's Aid", "Arctic Blast", "Snow Burst", "Decay", "Frozen Touch", "DemeterRangedTrait", "DemeterRushTrait", "Winter Harvest", "ShieldLoadAmmo_DemeterRangedTrait" },
-    Dionysus = { "Dionysus' Aid", "Hangover", "DionysusRangedTrait", "DionysusRushTrait", "Trippy Flare" },
-    Poseidon = { "Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait", "PoseidonRushTrait", "Flood Flare" },
-    Zeus = { "Zeus' Aid", "Thunder Flourish", "Splitting Bolt", "Thunder Dash", "Jolted", "Chain Lightning", "Lightning Reflexes", "Heaven's Vengeance", "Thunder Flare", "ZeusRangedTrait", "ZeusRushTrait" },
-    DuoZeusPoseidon = { "Sea Storm" },
-    DuoZeusDionysus = { "Scintillating Feast" },
-    DuoZeusArtemis = { "Lightning Rod" },
-    Megaera = { "Megaera" },
-    Thanatos = { "Thanatos Rival", "Thanatos" },
-    Sisyphus = { "Sisyphus/Bouldy" },
-    Achilles = { "Achilles/Patroclus" },
-    Dusa = { "Dusa" }
+    Aphrodite = {
+        ["Aphrodite's Aid"] = true,
+        ["Wave of Despair"] = true,
+        ["Dying Lament"] = true,
+        ["AphroditeRangedTrait"] = true,
+        ["AphroditeRushTrait"] = true,
+        ["Charm"] = true,
+        ["ShieldLoadAmmo_AphroditeRangedTrait"] = true
+    },
+    Ares = {
+        ["Ares' Aid"] = true,
+        ["Doom"] = true,
+        ["AresRangedTrait"] = true,
+        ["AresRushTrait"] = true,
+        ["ShieldLoadAmmo_AresRangedTrait"] = true
+    },
+    Artemis = {
+        ["Artemis' Aid"] = true,
+        ["Support Fire"] = true,
+        ["Exit Wounds"] = true,
+        ["ArtemisRangedTrait"] = true,
+        ["ShieldLoadAmmo_ArtemisRangedTrait"] = true
+    },
+    Athena = {
+        ["Athena's Aid"] = true,
+        ["Holy Shield"] = true,
+        ["AthenaRangedTrait"] = true,
+        ["AthenaRushTrait"] = true,
+        ["Deflect"] = true,
+        ["ShieldLoadAmmo_AthenaRangedTrait"] = true
+    },
+    Demeter = {
+        ["Demeter's Aid"] = true,
+        ["Arctic Blast"] = true,
+        ["Snow Burst"] = true,
+        ["Decay"] = true,
+        ["Frozen Touch"] = true,
+        ["DemeterRangedTrait"] = true,
+        ["DemeterRushTrait"] = true,
+        ["Winter Harvest"] = true,
+        ["ShieldLoadAmmo_DemeterRangedTrait"] = true
+    },
+    Dionysus = {
+        ["Dionysus' Aid"] = true,
+        ["Hangover"] = true,
+        ["DionysusRangedTrait"] = true,
+        ["DionysusRushTrait"] = true,
+        ["Trippy Flare"] = true
+    },
+    Poseidon = {
+        ["Rupture"] = true,
+        ["Breaking Wave"] = true,
+        ["Poseidon's Aid"] = true,
+        ["PoseidonRangedTrait"] = true,
+        ["PoseidonRushTrait"] = true,
+        ["Flood Flare"] = true
+    },
+    Zeus = {
+        ["Zeus' Aid"] = true,
+        ["Thunder Flourish"] = true,
+        ["Splitting Bolt"] = true,
+        ["Thunder Dash"] = true,
+        ["Jolted"] = true,
+        ["Chain Lightning"] = true,
+        ["Lightning Reflexes"] = true,
+        ["Heaven's Vengeance"] = true,
+        ["Thunder Flare"] = true,
+        ["ZeusRangedTrait"] = true,
+        ["ZeusRushTrait"] = true
+    },
+    DuoZeusPoseidon = {
+        ["Sea Storm"] = true,
+    },
+    DuoZeusDionysus = {
+        ["Scintillating Feast"] = true,
+    },
+    DuoZeusArtemis = {
+        ["Lightning Rod"] = true,
+    },
+    Megaera = {
+        ["Megaera"] = true,
+    },
+    Thanatos = {
+        ["Thanatos Rival"] = true, ["Thanatos"] = true,
+    },
+    Sisyphus = {
+        ["Sisyphus/Bouldy"] = true,
+    },
+    Achilles = {
+        ["Achilles/Patroclus"] = true,
+    },
+    Dusa = {
+        ["Dusa"] = true,
+    }
+}
+
+JowdayDPS.Attacks = {
+    ["Attack"] = true,
+    ["Dash-Strike"] = true,
+    ["Spin Attack"] = true,
+    ["Bull Rush"] = true,
+    ["Empowered Shot"] = true
+}
+
+JowdayDPS.Specials = {
+    ["Special"] = true,
+    ["Dash-Upper"] = true,
+    ["Recall"] = true,
+    ["Raging Rush"] = true,
+    ["Dashing Flight"] = true,
+    ["Hellfire Detonation"] = true,
+    ["Hellfire DoT"] = true,
+    ["Quake Cutter"] = true
 }
 
 JowdayDPS.DpsColors = {
