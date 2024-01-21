@@ -2,12 +2,10 @@ JowdayDPS = ModUtil.Mod.Register("JowdayDPS")
 JowdayDPS.Config = { DpsInterval = 99999999 }
 
 JowdayDPS.List = {}
+-- List functions
 function JowdayDPS.List.new(maxSize)
 	return { first = 0, last = -1, count = 0, max = maxSize }
 end
-
-JowdayDPS.CurrentGods = {}
-JowdayDPS.WeaponVar = {}
 
 function JowdayDPS.List.addValue(list, value)
 	local last = list.last + 1
@@ -36,11 +34,15 @@ function JowdayDPS.List.emptyList(list)
 end
 
 JowdayDPS.DamageHistory = JowdayDPS.List.new(10000)
+JowdayDPS.CurrentGods = {}
+JowdayDPS.WeaponVar = {}
 JowdayDPS.DpsUpdateThread = false
 JowdayDPS.DpsBars = {}
 JowdayDPS.DpsIcons = {}
 JowdayDPS.LastDpsPosition = {}
 JowdayDPS.LastDpsBackgroundPosition = {}
+
+
 
 --[[
 HELPER FUNCTIONS ------------------------------------------
@@ -172,15 +174,17 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 	SetColor({ Id = dpsBar.Id, Color = barColor })
 
 	local godIcons = ShallowCopyTable(colors["Icons"])
-	-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
-	if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
-		if godIcons[1] ~= "Artemis" then
-			table.insert(godIcons, 1, "Artemis")
-		end
-	end
-
 	if godIcons ~= nil then
+		-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
+		if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
+			if godIcons[1] ~= "Artemis" then
+				table.insert(godIcons, 1, "Artemis")
+			end
+		end
+
+		-- if one icon, center it
 		local iconOffset = -18
+		-- if two, make room for both
 		if #godIcons == 2 then
 			iconOffset = -10
 		end
@@ -195,6 +199,7 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 			JowdayDPS.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
 			Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
 		end
+		-- anchor to the given dps bar
 		Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffset })
 	end
 
@@ -289,7 +294,7 @@ function JowdayDPS.getEquippedBoons(trait)
 		JowdayDPS.WeaponVar["Attack"] = god
 	end
 	if slot == "Secondary" and god then
-		JowdayDPS.WeaponVar["Secondary"] = god
+		JowdayDPS.WeaponVar["Special"] = god
 	end
 	if slot == "Ranged" and name then
 		if god ~= nil then
@@ -327,12 +332,14 @@ function JowdayDPS.findColor(source)
 	local sources = JowdayDPS.SourceLookup
 	local colors = JowdayDPS.DpsColors
 	local attack = JowdayDPS.WeaponVar["Attack"]
-	local special = JowdayDPS.WeaponVar["Secondary"]
+	local special = JowdayDPS.WeaponVar["Special"]
+	local hasValue = JowdayDPS.hasValue
+
 	for name in pairs(sources) do
 		if (source == "Attack" or source == "Dash-Strike" or source == "Spin Attack" or source == "Bull Rush" or source == "Empowered Shot") and attack ~= nil then
 			return colors[attack]
 		end
-		if (source == "Special" or source == "Dash-Upper" or source == "Recall" or source == "Raging Rush" or  source == "Dashing Flight" or source == "Hellfire Detonation" or source == "Hellfire DoT" or source == "Quake Cutter") and special ~= nil then
+		if (source == "Special" or source == "Dash-Upper" or source == "Recall" or source == "Raging Rush" or source == "Dashing Flight" or source == "Hellfire Detonation" or source == "Hellfire DoT" or source == "Quake Cutter") and special ~= nil then
 			return colors[special]
 		end
 		if JowdayDPS.hasValue(sources[name], source) then
@@ -342,13 +349,27 @@ function JowdayDPS.findColor(source)
 	return colors["Default"]
 end
 
-function JowdayDPS.hasValue(tab, val)
-	for i, value in ipairs(tab) do
+function JowdayDPS.hasValue(table, val)
+	if table == nil then return end
+	for i, value in ipairs(table) do
 		if value == val then
 			return true
 		end
 	end
 	return false
+end
+
+-- reset attack, special, cast, etc.
+function JowdayDPS.clearWeaponInfo()
+	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
+	JowdayDPS.WeaponVar["HunterDash"] = false
+	JowdayDPS.WeaponVar["Attack"] = nil
+	JowdayDPS.WeaponVar["Special"] = nil
+	JowdayDPS.WeaponVar["Cast"] = nil
+	JowdayDPS.WeaponVar["Dash"] = nil
+
+	-- also reset god list
+	JowdayDPS.CurrentGods = {}
 end
 
 --[[
@@ -443,16 +464,7 @@ end, JowdayDPS)
 
 -- at the start of each room, check for equipped traits to hopefully generate more specific names
 ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
-	-- reset certain things to default before iterating through traits
-	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
-	JowdayDPS.WeaponVar["HunterDash"] = false
-	JowdayDPS.WeaponVar["Attack"] = nil
-	JowdayDPS.WeaponVar["Secondary"] = nil
-	JowdayDPS.WeaponVar["Cast"] = nil
-	JowdayDPS.WeaponVar["Dash"] = nil
-
-	-- also reset god list
-	JowdayDPS.CurrentGods = {}
+	JowdayDPS.clearWeaponInfo()
 	for i, trait in pairs(CurrentRun.Hero.Traits) do
 		JowdayDPS.getEquippedBoons(trait)
 	end
