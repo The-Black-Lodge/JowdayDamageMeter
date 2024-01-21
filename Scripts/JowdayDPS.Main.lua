@@ -1,5 +1,8 @@
 JowdayDPS = ModUtil.Mod.Register("JowdayDPS")
-JowdayDPS.Config = { DpsInterval = 99999999 }
+JowdayDPS.Config = {
+	DpsInterval = 99999999,
+	ShowIcons = true
+}
 
 JowdayDPS.List = {}
 -- List functions
@@ -41,8 +44,6 @@ JowdayDPS.DpsBars = {}
 JowdayDPS.DpsIcons = {}
 JowdayDPS.LastDpsPosition = {}
 JowdayDPS.LastDpsBackgroundPosition = {}
-
-
 
 --[[
 HELPER FUNCTIONS ------------------------------------------
@@ -115,166 +116,6 @@ function JowdayDPS.calculateDps(list)
 	end
 end
 
--- Creates a transparent background behind the dps.  Resizes and moves the existing component if this is called with new height and position
-function JowdayDPS.createDpsOverlayBackground(obstacleName, x, y, width, height)
-	if ScreenAnchors[obstacleName] ~= nil then
-		SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
-		SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
-		Move({
-			Ids = ScreenAnchors[obstacleName],
-			Angle = 90,
-			Distance = JowdayDPS.LastDpsBackgroundPosition.y - y,
-			Speed = 1000
-		})
-	else
-		ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "rectangle01", X = x, Y = y }) -- width 480, height 267
-		SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
-		SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
-		SetColor({ Id = ScreenAnchors[obstacleName], Color = { 0.090, 0.055, 0.157, 0.6 } })
-	end
-	JowdayDPS.LastDpsBackgroundPosition.y = y
-end
-
--- Create a single DPS bar with damage source, damage amount, and damage portion labels
-function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
-	local colors = JowdayDPS.findColor(label)
-	local portion = damage / totalDamage
-	local scale = damage / maxDamage * .6
-	local percentDamage = math.floor(portion * 100 + .5)
-	local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
-
-	local labelColor = colors["LabelColor"] or Color.White
-	local barColor = colors["BarColor"] or Color.White
-
-	SetAnimation({ Name = "BarGraphBar", DestinationId = dpsBar.Id })
-	JowdayDPS.DpsBars["DpsBar" .. label] = dpsBar
-
-	-- name label
-	CreateTextBox({
-		Id = dpsBar.Id,
-		Text = label,
-		OffsetX = -33,
-		OffsetY = -1,
-		Font = "AlegreyaSansSCBold",
-		FontSize = 14,
-		Justification = "Right",
-		Color = labelColor,
-		OutlineThickness = 2.0,
-		OutlineColor = Color.Black,
-		ShadowOffset = { 1, 2 },
-		ShadowBlur = 0,
-		ShadowAlpha = 1,
-		ShadowColor = Color.Black,
-	})
-	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
-
-	-- Scale damage bar
-	SetScaleX({ Id = dpsBar.Id, Fraction = scale, Duration = 0.0 })
-	-- color damage bar
-	SetColor({ Id = dpsBar.Id, Color = barColor })
-
-	local godIcons = ShallowCopyTable(colors["Icons"])
-	if godIcons ~= nil then
-		-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
-		if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
-			if godIcons[1] ~= "Artemis" then
-				table.insert(godIcons, 1, "Artemis")
-			end
-		end
-
-		-- if one icon, center it
-		local iconOffset = -18
-		-- if two, make room for both
-		if #godIcons == 2 then
-			iconOffset = -10
-		end
-
-		local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
-		SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[1] .. "Icon", DestinationId = dpsIcon1.Id, Scale = 0.1 })
-		JowdayDPS.DpsIcons["DpsIcon" .. label] = dpsIcon1
-		-- if it's a duo, add the icon and attach it
-		if #godIcons > 1 then
-			local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
-			SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[2] .. "Icon", DestinationId = dpsIcon2.Id, Scale = 0.1 })
-			JowdayDPS.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
-			Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
-		end
-		-- anchor to the given dps bar
-		Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffset })
-	end
-
-	-- Create damage total label
-	if scale > .07 then
-		CreateTextBox({
-			Id = dpsBar.Id,
-			Text = damage,
-			OffsetX = 320 * scale - 4,
-			OffsetY = -1,
-			Font = "AlegreyaSansSCBold",
-			FontSize = 10,
-			Justification = "Right",
-			Color = Color.White,
-			OutlineThickness = 2.0,
-			OutlineColor = Color.Black,
-			ShadowOffset = { 1, 2 },
-			ShadowBlur = 0,
-			ShadowAlpha = 1,
-			ShadowColor = Color.Black
-		})
-		ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
-	end
-
-	-- Create damage portion percentage label
-	CreateTextBox({
-		Id = dpsBar.Id,
-		Text = percentDamage .. "%",
-		OffsetX = 320 * scale + 20,
-		OffsetY = -1,
-		Font = "AlegreyaSansSCBold",
-		FontSize = 14,
-		Justification = "Left",
-		Color = Color.White,
-		OutlineThickness = 2.0,
-		OutlineColor = Color.Black,
-		ShadowOffset = { 1, 2 },
-		ShadowBlur = 0,
-		ShadowAlpha = 1,
-		ShadowColor = Color.Black
-	})
-	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
-end
-
--- Create a header that shows overall DPS and overall damage total
-function JowdayDPS.createDpsHeader(obstacleName, totalDamage, dps, x, y)
-	local text = dps .. " DPS  |  Total Damage: " .. totalDamage
-
-	if ScreenAnchors[obstacleName] ~= nil then
-		ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
-		Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = JowdayDPS.LastDpsPosition.y - y, Speed = 1000 })
-	else
-		ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "BlankObstacle", X = x, Y = y })
-		CreateTextBox({
-			Id = ScreenAnchors[obstacleName],
-			Text = text,
-			OffsetX = 0,
-			OffsetY = 0,
-			Font = "AlegreyaSansSCBold",
-			FontSize = 14,
-			Justification = "Left",
-			Color = Color.White,
-			OutlineThickness = 2.0,
-			OutlineColor = Color.Black,
-			ShadowOffset = { 1, 2 },
-			ShadowBlur = 0,
-			ShadowAlpha = 1,
-			ShadowColor = Color.Black
-		})
-		ModifyTextBox({ Id = ScreenAnchors[obstacleName], FadeTarget = 1, FadeDuration = 0.0 })
-	end
-
-	JowdayDPS.LastDpsPosition.y = y
-end
-
 function JowdayDPS.checkEnemyBucket(source)
 	for k, v in pairs(JowdayDPS.EnemyBucket) do
 		if source:match("^" .. v) then
@@ -328,12 +169,230 @@ function JowdayDPS.getEquippedBoons(trait)
 	end
 end
 
+-- reset attack, special, cast, etc.
+function JowdayDPS.clearWeaponInfo()
+	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
+	JowdayDPS.WeaponVar["HunterDash"] = false
+	JowdayDPS.WeaponVar["Attack"] = nil
+	JowdayDPS.WeaponVar["Special"] = nil
+	JowdayDPS.WeaponVar["Cast"] = nil
+	JowdayDPS.WeaponVar["Dash"] = nil
+
+	-- also reset god list
+	JowdayDPS.CurrentGods = {}
+end
+
+function JowdayDPS.getAttackerEffects(triggerArgs)
+	if triggerArgs.AttackerTable ~= nil then
+		local attacker = triggerArgs.AttackerTable
+		if attacker.ActiveEffects then
+			return attacker.ActiveEffects
+		end
+	end
+	return nil
+end
+
+function JowdayDPS.getSourceName(triggerArgs)
+	-- determine if the attacker table is present, and if it is make the active effects available
+	local effects = JowdayDPS.getAttackerEffects(triggerArgs)
+
+	-- get an internal name from either SourceWeapon or EffectName
+	local source
+	if triggerArgs.SourceWeapon ~= nil then
+		source = triggerArgs.SourceWeapon
+	end
+	if triggerArgs.EffectName ~= nil then
+		source = triggerArgs.EffectName
+	end
+
+	-- determine if the attacker was charmed when damage was dealt. if so, mark the damage as such
+	if effects ~= nil then
+		if effects.Charm ~= nil then
+			source = "Charm"
+		end
+	end
+
+	-- at this point, named damage is most likely deflect if it matches an enemy name, isn't charm, and isn't an explosive
+	if source ~= nil and source ~= "Charm" and source ~= "Enemy Explosive" then
+		local isEnemy = JowdayDPS.checkEnemyBucket(source)
+		if isEnemy == true then
+			-- put in the deflect bucket only if the user has an athena boon
+			if JowdayDPS.CurrentGods.Athena ~= nil then
+				source = "Deflect"
+			else
+				-- otherwise, you probably pushed something into a blast radius
+				source = "Enemy Explosive"
+			end
+		end
+	end
+
+	-- if no name and an obstacle is present, assume wall slam
+	if source == nil and triggerArgs.AttackerIsObstacle then
+		source = "Wall Slam"
+	end
+
+	-- if damage source is none of the above, just store it as Unknown
+	if source == nil then
+		source = "Unknown"
+	end
+
+	-- try and match with the name lookup table
+	source = JowdayDPS.NameLookup[source] or source
+
+	-- fix poseidon, dionysus flares showing up incorrectly
+	if JowdayDPS.WeaponVar.Beowulf ~= nil then
+		if source == "PoseidonRangedTrait" then
+			source = "Flood Flare"
+		end
+		if source == "DionysusRangedTrait" then
+			source = "Trippy Flare"
+		end
+	end
+	return source
+end
+
+-- UI functions
+-- Creates a transparent background behind the dps.  Resizes and moves the existing component if this is called with new height and position
+function JowdayDPS.createDpsOverlayBackground(obstacleName, x, y, width, height)
+	if ScreenAnchors[obstacleName] ~= nil then
+		SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
+		SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
+		Move({
+			Ids = ScreenAnchors[obstacleName],
+			Angle = 90,
+			Distance = JowdayDPS.LastDpsBackgroundPosition.y - y,
+			Speed = 1000
+		})
+	else
+		ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "rectangle01", X = x, Y = y }) -- width 480, height 267
+		SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
+		SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
+		SetColor({ Id = ScreenAnchors[obstacleName], Color = { 0.090, 0.055, 0.157, 0.6 } })
+	end
+	JowdayDPS.LastDpsBackgroundPosition.y = y
+end
+
+-- Create a header that shows overall DPS and overall damage total
+function JowdayDPS.createDpsHeader(obstacleName, totalDamage, dps, x, y)
+	local text = dps .. " DPS / Total Damage: " .. totalDamage
+
+	if ScreenAnchors[obstacleName] ~= nil then
+		ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
+		Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = JowdayDPS.LastDpsPosition.y - y, Speed = 1000 })
+	else
+		ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "BlankObstacle", X = x, Y = y })
+		CreateTextBox({
+			Id = ScreenAnchors[obstacleName],
+			Text = text,
+			OffsetX = 0,
+			OffsetY = 0,
+			Font = "AlegreyaSansSCBold",
+			FontSize = 14,
+			Justification = "Left",
+			Color = Color.White,
+			OutlineThickness = 2.0,
+			OutlineColor = Color.Black,
+			ShadowOffset = { 1, 2 },
+			ShadowBlur = 0,
+			ShadowAlpha = 1,
+			ShadowColor = Color.Black
+		})
+		ModifyTextBox({ Id = ScreenAnchors[obstacleName], FadeTarget = 1, FadeDuration = 0.0 })
+	end
+
+	JowdayDPS.LastDpsPosition.y = y
+end
+
+-- Create a single DPS bar with damage source, damage amount, and damage portion labels
+function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
+	local colors = JowdayDPS.findColor(label)
+	local portion = damage / totalDamage
+	local scale = damage / maxDamage * .6
+	local percentDamage = math.floor(portion * 100 + .5)
+	local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
+
+	local labelColor = colors["LabelColor"] or Color.White
+	local barColor = colors["BarColor"] or Color.White
+
+	SetAnimation({ Name = "BarGraphBar", DestinationId = dpsBar.Id })
+	JowdayDPS.DpsBars["DpsBar" .. label] = dpsBar
+
+	-- name label
+	CreateTextBox({
+		Id = dpsBar.Id,
+		Text = label,
+		OffsetX = -33,
+		OffsetY = -1,
+		Font = "AlegreyaSansSCBold",
+		FontSize = 14,
+		Justification = "Right",
+		Color = labelColor,
+		OutlineThickness = 2.0,
+		OutlineColor = Color.Black,
+		ShadowOffset = { 1, 2 },
+		ShadowBlur = 0,
+		ShadowAlpha = 1,
+		ShadowColor = Color.Black,
+	})
+	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
+
+	-- Scale damage bar
+	SetScaleX({ Id = dpsBar.Id, Fraction = scale, Duration = 0.0 })
+	-- color damage bar
+	SetColor({ Id = dpsBar.Id, Color = barColor })
+
+	-- Create damage total label
+	if scale > .07 then
+		CreateTextBox({
+			Id = dpsBar.Id,
+			Text = damage,
+			OffsetX = 320 * scale - 4,
+			OffsetY = -1,
+			Font = "AlegreyaSansSCBold",
+			FontSize = 10,
+			Justification = "Right",
+			Color = Color.White,
+			OutlineThickness = 2.0,
+			OutlineColor = Color.Black,
+			ShadowOffset = { 1, 2 },
+			ShadowBlur = 0,
+			ShadowAlpha = 1,
+			ShadowColor = Color.Black
+		})
+		ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
+	end
+
+	-- Create damage portion percentage label
+	CreateTextBox({
+		Id = dpsBar.Id,
+		Text = percentDamage .. "%",
+		OffsetX = 320 * scale + 20,
+		OffsetY = -1,
+		Font = "AlegreyaSansSCBold",
+		FontSize = 14,
+		Justification = "Left",
+		Color = Color.White,
+		OutlineThickness = 2.0,
+		OutlineColor = Color.Black,
+		ShadowOffset = { 1, 2 },
+		ShadowBlur = 0,
+		ShadowAlpha = 1,
+		ShadowColor = Color.Black
+	})
+	ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
+
+	-- add icons
+	if JowdayDPS.Config.ShowIcons == true then
+		JowdayDPS.generateBarIcons(colors, label, dpsBar)
+	end
+end
+
+-- determines bar color/icons
 function JowdayDPS.findColor(source)
 	local sources = JowdayDPS.SourceLookup
 	local colors = JowdayDPS.DpsColors
 	local attack = JowdayDPS.WeaponVar["Attack"]
 	local special = JowdayDPS.WeaponVar["Special"]
-	local hasValue = JowdayDPS.hasValue
 
 	if attack ~= nil and JowdayDPS.Attacks[source] ~= nil then
 		return colors[attack]
@@ -349,106 +408,55 @@ function JowdayDPS.findColor(source)
 	return colors["Default"]
 end
 
-function JowdayDPS.hasValue(table, val)
-	if table == nil then return end
-	for i, value in ipairs(table) do
-		if value == val then
-			return true
+-- add icons to the bar if available
+function JowdayDPS.generateBarIcons(colors, label, dpsBar)
+	local godIcons = ShallowCopyTable(colors["Icons"])
+	if godIcons ~= nil then
+		-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
+		if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
+			if godIcons[1] ~= "Artemis" then
+				table.insert(godIcons, 1, "Artemis")
+			end
 		end
+
+		-- if one icon, center it
+		local iconOffset = -18
+		-- if two, make room for both
+		if #godIcons == 2 then
+			iconOffset = -10
+		end
+
+		local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
+		SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[1] .. "Icon", DestinationId = dpsIcon1.Id, Scale = 0.1 })
+		JowdayDPS.DpsIcons["DpsIcon" .. label] = dpsIcon1
+		-- if it's a duo, add the icon and attach it
+		if #godIcons > 1 then
+			local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
+			SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[2] .. "Icon", DestinationId = dpsIcon2.Id, Scale = 0.1 })
+			JowdayDPS.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
+			Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
+		end
+		-- anchor to the given dps bar
+		Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffset })
 	end
-	return false
 end
 
--- reset attack, special, cast, etc.
-function JowdayDPS.clearWeaponInfo()
-	JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
-	JowdayDPS.WeaponVar["HunterDash"] = false
-	JowdayDPS.WeaponVar["Attack"] = nil
-	JowdayDPS.WeaponVar["Special"] = nil
-	JowdayDPS.WeaponVar["Cast"] = nil
-	JowdayDPS.WeaponVar["Dash"] = nil
-
-	-- also reset god list
-	JowdayDPS.CurrentGods = {}
-end
-
---[[
-OVERRIDES ------------------------------------------
-]]
-
+-- overrides
 -- After the damage enemy call, record the instance of damage
 ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 	local preHitHealth = victim.Health
 	baseFunc(victim, triggerArgs)
-	if (triggerArgs.DamageAmount or 0) > 0 and victim.MaxHealth ~= nil and (triggerArgs.TriggeredByTable.GenusName == "NPC_Skelly_01" or (triggerArgs.TriggeredByTable.GeneratorData or {}).DifficultyRating ~= nil or triggerArgs.TriggeredByTable.CanBeAggroed or triggerArgs.TriggeredByTable.IsBoss) then
+	if (triggerArgs.DamageAmount or 0) > 0
+		and victim.MaxHealth ~= nil
+		and (triggerArgs.TriggeredByTable.GenusName == "NPC_Skelly_01"
+			or (triggerArgs.TriggeredByTable.GeneratorData or {}).DifficultyRating ~= nil
+			or triggerArgs.TriggeredByTable.CanBeAggroed
+			or triggerArgs.TriggeredByTable.IsBoss)
+	then
 		local damageInstance = {}
 		damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
 		damageInstance.Timestamp = GetTime({})
-
-		-- determine if the attacker table is present, and if it is make the active effects available
-		local effects = nil
-		if triggerArgs.AttackerTable ~= nil then
-			local attacker = triggerArgs.AttackerTable
-			if attacker.ActiveEffects then
-				effects = ShallowCopyTable(attacker.ActiveEffects)
-			end
-		end
-
-		-- get an internal name from either SourceWeapon or EffectName
-		local source
-		if triggerArgs.SourceWeapon ~= nil then
-			source = triggerArgs.SourceWeapon
-		end
-		if triggerArgs.EffectName ~= nil then
-			source = triggerArgs.EffectName
-		end
-
-		-- determine if the attacker was charmed when damage was dealt. if so, mark the damage as such
-		if effects ~= nil then
-			if effects.Charm ~= nil then
-				source = "Charm"
-			end
-		end
-
-		-- at this point, named damage is most likely deflect if it matches an enemy name, isn't charm, and isn't an explosive
-		if source ~= nil and source ~= "Charm" and source ~= "Enemy Explosive" then
-			local isEnemy = JowdayDPS.checkEnemyBucket(source)
-			if isEnemy == true then
-				-- put in the deflect bucket only if the user has an athena boon
-				if JowdayDPS.CurrentGods.Athena ~= nil then
-					source = "Deflect"
-				else
-					-- otherwise, you probably pushed something into a blast radius
-					source = "Enemy Explosive"
-				end
-			end
-		end
-
-		-- if no name and an obstacle is present, assume wall slam
-		if source == nil and triggerArgs.AttackerIsObstacle then
-			source = "Wall Slam"
-		end
-
-		-- if damage source is none of the above, just store it as Unknown
-		if source == nil then
-			source = "Unknown"
-		end
-
-		-- try and match with the name lookup table
-		source = JowdayDPS.NameLookup[source] or source
-
-		-- fix poseidon, dionysus flares showing up incorrectly
-		if JowdayDPS.WeaponVar.Beowulf ~= nil then
-			if source == "PoseidonRangedTrait" then
-				source = "Flood Flare"
-			end
-			if source == "DionysusRangedTrait" then
-				source = "Trippy Flare"
-			end
-		end
-
-		-- finally, put it in the table
-		damageInstance.Source = source
+		damageInstance.Source = JowdayDPS.getSourceName(triggerArgs)
 
 		JowdayDPS.List.addValue(JowdayDPS.DamageHistory, damageInstance)
 	end
@@ -491,3 +499,6 @@ OnAnyLoad { function()
 		end
 	end)
 end }
+
+-- empty out god data when you die so the meter isn't confused in skelly's room
+OnAnyLoad { "DeathArea", function() JowdayDPS.clearWeaponInfo() end }
