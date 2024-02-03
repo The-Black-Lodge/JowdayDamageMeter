@@ -116,6 +116,7 @@ JowdayDPS.NameLookup = {
     LavaTileTriangle01Weapon = "Magma",
     LavaTileTriangle02Weapon = "Magma",
     LavaSplash = "Magma",
+    EliteLavaSplash = "Magma",
     -- traps
     BlastCubeExplosion = "Trap",
     BlastCubeExplosionElysium = "Trap",
