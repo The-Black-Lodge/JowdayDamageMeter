@@ -411,6 +411,11 @@ end
 -- add icons to the bar if available
 function JowdayDPS.generateBarIcons(colors, label, dpsBar)
 	local godIcons = ShallowCopyTable(colors["Icons"])
+	-- weird artemis handling
+	if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true and godIcons == nil then
+		godIcons = {}
+		table.insert(godIcons, 1, "Artemis")
+	end
 	if godIcons ~= nil then
 		-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
 		if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
