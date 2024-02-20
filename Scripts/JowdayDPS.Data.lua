@@ -140,6 +140,7 @@ JowdayDPS.NameLookup = {
     HestiaOnDeath = "Molten Core",
     HestiaSuper = "Hestia's Aid",
     HestiaMaxSuper = "Hestia's Aid",
+    HestiaLavaProjectile = "Lava Pool",
     -- apollo
     AreaWeakenApollo = "Icarus Wings",
     ApolloShoutWeapon = "Apollo's Aid",
@@ -292,7 +293,10 @@ JowdayDPS.SourceLookup = {
     Hestia = {
         ["Molten Core"] = true,
         ["Molten Sting"] = true,
-        ["Hestia's Aid"] = true
+        ["Hestia's Aid"] = true,
+        ["HestiaRangedTrait"] = true,
+        ["Lava Pool"] = true,
+        ["HestiaDashTrait"] = true
     },
     Apollo = {
         ["ApolloDashTrait"] = true,
