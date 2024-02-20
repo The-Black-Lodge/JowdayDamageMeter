@@ -22,6 +22,7 @@ JowdayDPS.NameLookup = {
     DemeterAmmoWind = "Snow Burst",
     DemeterWorldChill = "Decay",
     ChillRetaliate = "Frozen Touch",
+    DemeterChillKill = "Winter Harvest",
     -- dionysus
     DionysusShout = "Dionysus' Aid",
     DamageOverTime = "Hangover",
@@ -68,6 +69,7 @@ JowdayDPS.NameLookup = {
     SpearWeaponSpin3 = "Spin Attack",
     SpearWeaponThrowReturn = "Recall",
     SpearRushWeapon = "Raging Rush",
+    SpearWeaponSpinExplosiveChargeWeapon = "Flaring Spin",
     -- bow
     BowWeapon = "Attack",
     BowSplitShot = "Special",
@@ -82,34 +84,39 @@ JowdayDPS.NameLookup = {
     FistWeaponSpecial = "Special",
     FistWeaponDash = "Dash-Strike",
     FistDetonationWeapon = "Special",
-    ShieldWeapon = "Attack",
-    ShieldThrow = "Special",
-    ShieldWeaponDash = "Dash-Strike",
-    ShieldWeaponRush = "Bull Rush",
     FistDetonationDamage = "Maim",
     FistSpecialVacuum = "Magnetic Cutter",
     FistWeaponSpecialDash = "Dash-Upper",
     FistWeaponLandAreaAttack = "Quake Cutter",
+    -- shield
+    ShieldWeapon = "Attack",
+    ShieldThrow = "Special",
+    ShieldWeaponDash = "Dash-Strike",
+    ShieldWeaponRush = "Bull Rush",
+    ShieldThrowDash = "Dashing Flight",
     -- rail
     GunWeapon = "Attack",
     GunBombImmolation = "Hellfire DoT",
     GunBombWeapon = "Hellfire Detonation",
     GunGrenadeToss = "Special",
     GunWeaponDash = "Dash-Strike",
+    SniperGunWeapon = "Empowered Shot",
+    SniperGunWeaponDash = "Dash-Strike",
     -- misc
     RangedWeapon = "Cast",
     BaseCollisionWeapon = "Wall Slam",
     ThanatosDeathCurseAoE = "Thanatos Rival",
     ThanatosCurse = "Thanatos Rival",
     -- falling rocks
-    RubbleFall = "Falling Debris",
-    RubbleFallElysium = "Falling Debris",
-    RubbleFallLarge = "Falling Debris",
+    RubbleFall = "Falling Rubble",
+    RubbleFallElysium = "Falling Rubble",
+    RubbleFallLarge = "Falling Rubble",
     -- asphodel lava
     LavaTileWeapon = "Magma",
     LavaTileTriangle01Weapon = "Magma",
     LavaTileTriangle02Weapon = "Magma",
     LavaSplash = "Magma",
+    EliteLavaSplash = "Magma",
     -- traps
     BlastCubeExplosion = "Trap",
     BlastCubeExplosionElysium = "Trap",
@@ -119,8 +126,10 @@ JowdayDPS.NameLookup = {
     SpikeTrapWeapon = "Trap",
     PhalanxTrapWeapon = "Trap",
     DartTrapWeapon = "Trap",
+    BloodMineBlast = "Trap",
     -- olympus extra
     -- hera
+    EnvyCurseAttack = "Spiteful Strike",
     EnvyCurseSecondary = "Spiteful Flourish",
     LowBurstEnvyWeapon = "Richful Tribune",
     HighBurstEnvyWeapon = "Richful Tribune",
@@ -129,15 +138,16 @@ JowdayDPS.NameLookup = {
     HestiaOnRevenge = "Molten Sting",
     HestiaOnDeath = "Molten Core",
     -- apollo
-    AreaWeakenApollo = "Icarus Wings"
+    AreaWeakenApollo = "Icarus Wings",
 }
-
+-- TODO use EnemySets.lua to identify enemies
 JowdayDPS.EnemyBucket = {
+    "HeavyRangedWeapon",
     "LightRanged",
     "DisembodiedHand",
     "PunchingBag",
+    "HeavyMelee",
     "Wretch",
-    "BloodMine",
     "Harpy",      -- sisters
     "FreezeShot", -- gorgon stone
     "SpreadShot",
@@ -158,51 +168,213 @@ JowdayDPS.EnemyBucket = {
     "Swarmer",
     "StyxPoison",
     "RatThug",
-    "HeavyRangedWeaponFork",
+    "RatSpawn",
     "Grenadier",
-    "Satyr"
+    "Satyr",
+    "FlurrySpawner", -- butterfly ball
+    "CharonMelee",
+    "CharonWave"
 }
 
 JowdayDPS.SourceLookup = {
-    Aphrodite = { "Aphrodite's Aid", "Wave of Despair", "Dying Lament", "AphroditeRangedTrait" },
-    Ares = { "Ares' Aid", "Doom", "AresRangedTrait" },
-    Artemis = { "Artemis' Aid", "Support Fire", "Exit Wounds", "ArtemisRangedTrait" },
-    Athena = { "Athena's Aid", "Holy Shield", "AthenaRangedTrait" },
-    Demeter = { "Demeter's Aid", "Arctic Blast", "Snow Burst", "Decay", "Frozen Touch", "DemeterRangedTrait", "DemeterRushTrait" },
-    Dionysus = { "Dionysus' Aid", "Hangover", "DionysusRangedTrait" },
-    Poseidon = { "Rupture", "Breaking Wave", "Poseidon's Aid", "PoseidonRangedTrait" },
-    Zeus = { "Zeus' Aid", "Thunder Flourish", "Splitting Bolt", "Thunder Dash", "Jolted", "Chain Lightning", "Lightning Reflexes", "Heaven's Vengeance", "Thunder Flare", "ZeusRangedTrait" },
-    Duo = { "Sea Storm", "Scintillating Feast", "Lightning Rod" },
-    Megaera = { "Megaera" },
-    Thanatos = { "Thanatos Rival", "Thanatos" },
-    Sisyphus = { "Sisyphus/Bouldy" },
-    Achilles = { "Achilles/Patroclus" },
-    Dusa = { "Dusa" },
+    Aphrodite = {
+        ["Aphrodite's Aid"] = true,
+        ["Wave of Despair"] = true,
+        ["Dying Lament"] = true,
+        ["AphroditeRangedTrait"] = true,
+        ["AphroditeRushTrait"] = true,
+        ["Charm"] = true,
+        ["ShieldLoadAmmo_AphroditeRangedTrait"] = true
+    },
+    Ares = {
+        ["Ares' Aid"] = true,
+        ["Doom"] = true,
+        ["AresRangedTrait"] = true,
+        ["AresRushTrait"] = true,
+        ["ShieldLoadAmmo_AresRangedTrait"] = true
+    },
+    Artemis = {
+        ["Artemis' Aid"] = true,
+        ["Support Fire"] = true,
+        ["Exit Wounds"] = true,
+        ["ArtemisRangedTrait"] = true,
+        ["ShieldLoadAmmo_ArtemisRangedTrait"] = true
+    },
+    Athena = {
+        ["Athena's Aid"] = true,
+        ["Holy Shield"] = true,
+        ["AthenaRangedTrait"] = true,
+        ["AthenaRushTrait"] = true,
+        ["Deflect"] = true,
+        ["ShieldLoadAmmo_AthenaRangedTrait"] = true
+    },
+    Demeter = {
+        ["Demeter's Aid"] = true,
+        ["Arctic Blast"] = true,
+        ["Snow Burst"] = true,
+        ["Decay"] = true,
+        ["Frozen Touch"] = true,
+        ["DemeterRangedTrait"] = true,
+        ["DemeterRushTrait"] = true,
+        ["Winter Harvest"] = true,
+        ["ShieldLoadAmmo_DemeterRangedTrait"] = true
+    },
+    Dionysus = {
+        ["Dionysus' Aid"] = true,
+        ["Hangover"] = true,
+        ["DionysusRangedTrait"] = true,
+        ["DionysusRushTrait"] = true,
+        ["Trippy Flare"] = true
+    },
+    Poseidon = {
+        ["Rupture"] = true,
+        ["Breaking Wave"] = true,
+        ["Poseidon's Aid"] = true,
+        ["PoseidonRangedTrait"] = true,
+        ["PoseidonRushTrait"] = true,
+        ["Flood Flare"] = true
+    },
+    Zeus = {
+        ["Zeus' Aid"] = true,
+        ["Thunder Flourish"] = true,
+        ["Splitting Bolt"] = true,
+        ["Thunder Dash"] = true,
+        ["Jolted"] = true,
+        ["Chain Lightning"] = true,
+        ["Lightning Reflexes"] = true,
+        ["Heaven's Vengeance"] = true,
+        ["Thunder Flare"] = true,
+        ["ZeusRangedTrait"] = true,
+        ["ZeusRushTrait"] = true
+    },
+    DuoZeusPoseidon = {
+        ["Sea Storm"] = true,
+    },
+    DuoZeusDionysus = {
+        ["Scintillating Feast"] = true,
+    },
+    DuoZeusArtemis = {
+        ["Lightning Rod"] = true,
+    },
+    Megaera = {
+        ["Megaera"] = true,
+    },
+    Thanatos = {
+        ["Thanatos Rival"] = true, ["Thanatos"] = true,
+    },
+    Sisyphus = {
+        ["Sisyphus/Bouldy"] = true,
+    },
+    Achilles = {
+        ["Achilles/Patroclus"] = true,
+    },
+    Dusa = {
+        ["Dusa"] = true,
+    },
     -- olympus extra
-    Hera = { "Spiteful Flourish", "Richful Tribune", "(Hera) Decay" },
-    Hestia = { "Molten Sting", "Molten Core" },
-    Apollo = { "Icarus Wings" }
+    Hera = {},
+    Hestia = {},
+    Apollo = {}
 }
 
--- returns an array: [bar color, bar text color, name color]
+JowdayDPS.Attacks = {
+    ["Attack"] = true,
+    ["Dash-Strike"] = true,
+    ["Spin Attack"] = true,
+    ["Bull Rush"] = true,
+    ["Empowered Shot"] = true
+}
+
+JowdayDPS.Specials = {
+    ["Special"] = true,
+    ["Dash-Upper"] = true,
+    ["Recall"] = true,
+    ["Raging Rush"] = true,
+    ["Dashing Flight"] = true,
+    ["Hellfire Detonation"] = true,
+    ["Hellfire DoT"] = true,
+    ["Quake Cutter"] = true
+}
+
 JowdayDPS.DpsColors = {
-    Aphrodite = { Color.AphroditeDamage, Color.White, Color.White },
-    Ares = { Color.AresDamageLight, Color.White, Color.White },
-    Artemis = { Color.ArtemisDamage, Color.White, Color.White },
-    Athena = { Color.AthenaDamageLight, Color.Black, Color.White },
-    Demeter = { { 90, 90, 255, 255 }, Color.White, Color.White },
-    Dionysus = { Color.DionysusDamage, Color.White, Color.White },
-    Poseidon = { Color.PoseidonDamage, Color.White, Color.White },
-    Zeus = { Color.ZeusDamageLight, Color.Black, Color.White },
-    Duo = { Color.BoonPatchDuo, Color.Black, Color.White },
-    Megaera = { Color.MegVoice, Color.White, Color.MegVoice },
-    Thanatos = { Color.ThanatosVoice, Color.White, Color.ThanatosVoice },
-    Sisyphus = { Color.SisyphusVoice, Color.White, Color.SisyphusVoice },
-    Achilles = { Color.AchillesVoice, Color.White, Color.AchillesVoice },
-    Dusa = { Color.DusaVoice, Color.White, Color.DusaVoice },
+    Aphrodite = {
+        BarColor = Color.AphroditeDamage,
+        Icons = { "Aphrodite" }
+    },
+    Ares = {
+        BarColor = Color.AresDamageLight,
+        Icons = { "Ares" }
+    },
+    Artemis = {
+        BarColor = Color.ArtemisDamage,
+        Icons = { "Artemis" }
+    },
+    Athena = {
+        BarColor = Color.AthenaDamageLight,
+        Icons = { "Athena" }
+    },
+    Demeter = {
+        BarColor = { 90, 90, 255, 255 },
+        Icons = { "Demeter" }
+    },
+    Dionysus = {
+        BarColor = Color.DionysusDamage,
+        Icons = { "Dionysus" }
+    },
+    Poseidon = {
+        BarColor = Color.PoseidonDamage,
+        Icons = { "Poseidon" }
+    },
+    Zeus = {
+        BarColor = Color.ZeusDamageLight,
+        Icons = { "Zeus" }
+    },
+    DuoZeusPoseidon = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Poseidon" }
+    },
+    DuoZeusDionysus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Dionysus" }
+    },
+    DuoZeusArtemis = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Artemis" }
+    },
+    Megaera = {
+        BarColor = Color.MegVoice,
+        LabelColor = Color.MegVoice
+    },
+    Thanatos = {
+        BarColor = Color.ThanatosVoice,
+        LabelColor = Color.ThanatosVoice
+    },
+    Sisyphus = {
+        BarColor = Color.SisyphusVoice,
+        LabelColor = Color.SisyphusVoice
+    },
+    Achilles = {
+        BarColor = Color.AchillesVoice,
+        LabelColor = Color.AchillesVoice
+    },
+    Dusa = {
+        BarColor = Color.DusaVoice,
+        LabelColor = Color.DusaVoice
+    },
+    Default = {
+        BarColor = { 165, 165, 195, 255 }
+    },
     -- olympus extra
-    Hera = { { 34, 110, 86, 255 }, Color.White, Color.White },
-    Hestia = { { 204, 26, 51, 255 }, Color.White, Color.White },
-    Apollo = { { 255, 145, 79, 255 }, Color.Black, Color.White },
-    Default = { Color.White, Color.Black, Color.White }
+    Hera = {
+        BarColor = Color.EnvyDamageStart,
+        Icons = { "Hera" }
+    },
+    Hestia = {
+        BarColor = Color.HestiaDamage,
+        Icons = { "Hestia" }
+    },
+    Apollo = {
+        BarColor = Color.ApolloDamageLight,
+        Icons = { "Apollo" }
+    }
 }

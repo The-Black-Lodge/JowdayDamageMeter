@@ -1,3 +1,3 @@
-:: Jowday's DPS Mod v1.0
+:: Jowday's DPS Mod v1.1.2
 Import "Scripts/JowdayDPS.Main.lua"
 Import "Scripts/JowdayDPS.Data.lua"
