@@ -145,6 +145,8 @@ JowdayDPS.NameLookup = {
     ApolloShoutWeapon = "Apollo's Aid",
     -- duos
     ArtemisHestiaExplosion = "Striking Sparks",
+    DionysusLobWeaponAdditional = "Festive Bomb",
+    BlindLightning = "Master Bolt",
 }
 -- TODO use EnemySets.lua to identify enemies
 JowdayDPS.EnemyBucket = {
@@ -302,6 +304,12 @@ JowdayDPS.SourceLookup = {
     -- olympus extra duos
     DuoHestiaArtemis = {
         ["Striking Sparks"] = true
+    },
+    DuoApolloDionysus = {
+        ["Festive Bomb"] = true
+    },
+    DuoApolloZeus = {
+        ["Master Bolt"] = true
     }
 }
 
@@ -409,5 +417,13 @@ JowdayDPS.DpsColors = {
     DuoHestiaArtemis = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Artemis", "Hestia" }
+    },
+    DuoApolloDionysus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Dionysus", "Apollo" }
+    },
+    DuoApolloZeus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Apollo" }
     }
 }
