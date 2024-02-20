@@ -138,6 +138,8 @@ JowdayDPS.NameLookup = {
     -- hestia
     HestiaOnRevenge = "Molten Sting",
     HestiaOnDeath = "Molten Core",
+    HestiaSuper = "Hestia's Aid",
+    HestiaMaxSuper = "Hestia's Aid",
     -- apollo
     AreaWeakenApollo = "Icarus Wings",
     ApolloShoutWeapon = "Apollo's Aid",
@@ -283,17 +285,19 @@ JowdayDPS.SourceLookup = {
         ["HeraRangedTrait"] = true,
         ["JealousyCurse"] = true,
         ["Richful Tribune"] = true,
-        ["Trap Jar"] = true
+        ["Trap Jar"] = true,
     },
     Hestia = {
         ["Molten Core"] = true,
-        ["Molten Sting"] = true
+        ["Molten Sting"] = true,
+        ["Hestia's Aid"] = true
     },
     Apollo = {
         ["ApolloDashTrait"] = true,
         ["Apollo's Aid"] = true,
         ["Radiant Dash"] = true,
-        ["Icarus Wings"] = true
+        ["Icarus Wings"] = true,
+        ["ApolloRangedTrait"] = true
     },
     -- olympus extra duos
     DuoHestiaArtemis = {
