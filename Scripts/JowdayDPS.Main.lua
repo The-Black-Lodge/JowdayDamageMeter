@@ -416,7 +416,29 @@ function JowdayDPS.generateBarIcons(colors, label, dpsBar)
 		godIcons = {}
 		table.insert(godIcons, 1, "Artemis")
 	end
+
+
+
 	if godIcons ~= nil then
+		-- set default icon scaling
+		local scale1 = 0.1
+		local scale2 = 0.1
+		-- olympus extra
+		-- hestia's icon is quite large
+		if godIcons[1] == "Hestia" then
+			scale1 = 0.06
+		end
+		if godIcons[2] ~= nil and godIcons[2] == "Hestia" then
+			scale2 = 0.06
+		end
+		-- apollo's is a little too big as well
+		if godIcons[1] == "Apollo" then
+			scale1 = 0.08
+		end
+		if godIcons[2] ~= nil and godIcons[2] == "Apollo" then
+			scale2 = 0.08
+		end
+
 		-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
 		if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
 			if godIcons[1] ~= "Artemis" then
@@ -432,12 +454,12 @@ function JowdayDPS.generateBarIcons(colors, label, dpsBar)
 		end
 
 		local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
-		SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[1] .. "Icon", DestinationId = dpsIcon1.Id, Scale = 0.1 })
+		SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[1] .. "Icon", DestinationId = dpsIcon1.Id, Scale = scale1 })
 		JowdayDPS.DpsIcons["DpsIcon" .. label] = dpsIcon1
 		-- if it's a duo, add the icon and attach it
 		if #godIcons > 1 then
 			local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
-			SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[2] .. "Icon", DestinationId = dpsIcon2.Id, Scale = 0.1 })
+			SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[2] .. "Icon", DestinationId = dpsIcon2.Id, Scale = scale2 })
 			JowdayDPS.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
 			Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
 		end

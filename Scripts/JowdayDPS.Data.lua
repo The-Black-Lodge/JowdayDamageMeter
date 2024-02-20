@@ -134,11 +134,15 @@ JowdayDPS.NameLookup = {
     LowBurstEnvyWeapon = "Richful Tribune",
     HighBurstEnvyWeapon = "Richful Tribune",
     HeraDecay = "(Hera) Decay",
+    HeraMineBlast = "Trap Jar",
     -- hestia
     HestiaOnRevenge = "Molten Sting",
     HestiaOnDeath = "Molten Core",
     -- apollo
     AreaWeakenApollo = "Icarus Wings",
+    ApolloShoutWeapon = "Apollo's Aid",
+    -- duos
+    ArtemisHestiaExplosion = "Striking Sparks",
 }
 -- TODO use EnemySets.lua to identify enemies
 JowdayDPS.EnemyBucket = {
@@ -272,9 +276,29 @@ JowdayDPS.SourceLookup = {
         ["Dusa"] = true,
     },
     -- olympus extra
-    Hera = {},
-    Hestia = {},
-    Apollo = {}
+    Hera = {
+        ["Spiteful Strike"] = true,
+        ["Spiteful Flourish"] = true,
+        ["(Hera) Decay"] = true,
+        ["HeraRangedTrait"] = true,
+        ["JealousyCurse"] = true,
+        ["Richful Tribune"] = true,
+        ["Trap Jar"] = true
+    },
+    Hestia = {
+        ["Molten Core"] = true,
+        ["Molten Sting"] = true
+    },
+    Apollo = {
+        ["ApolloDashTrait"] = true,
+        ["Apollo's Aid"] = true,
+        ["Radiant Dash"] = true,
+        ["Icarus Wings"] = true
+    },
+    -- olympus extra duos
+    DuoHestiaArtemis = {
+        ["Striking Sparks"] = true
+    }
 }
 
 JowdayDPS.Attacks = {
@@ -366,15 +390,20 @@ JowdayDPS.DpsColors = {
     },
     -- olympus extra
     Hera = {
-        BarColor = Color.EnvyDamageStart,
+        BarColor = { 0, 205, 255, 255 },
         Icons = { "Hera" }
     },
     Hestia = {
-        BarColor = Color.HestiaDamage,
-        Icons = { "Hestia" }
+        BarColor = { 255, 0, 255, 255 },
+        Icons = { "Hestia" },
     },
     Apollo = {
-        BarColor = Color.ApolloDamageLight,
-        Icons = { "Apollo" }
+        BarColor = { 255, 255, 0, 255 },
+        Icons = { "Apollo" },
+    },
+    -- duo
+    DuoHestiaArtemis = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Artemis", "Hestia" }
     }
 }
