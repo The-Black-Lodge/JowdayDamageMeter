@@ -97,13 +97,13 @@ function JowdayDPS.calculateDps(list)
 
 	-- Create UI to show DPS bars for each source
 	for i, source in ipairs(sourcesSortedByDamage) do
-		JowdayDPS.createDpsBar(source, totalDamageBySource[source], maxDamage, totalDamage, xPos, yPos)
+		JowdayDPS.createDpsBar(source, math.floor(totalDamageBySource[source] + 0.5), maxDamage, totalDamage, xPos, yPos)
 		yPos = yPos - 20
 	end
 
 	-- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
 	if #sourcesSortedByDamage > 0 then
-		JowdayDPS.createDpsHeader("DpsMeter", totalDamage, dps, xPos, yPos - 5)
+		JowdayDPS.createDpsHeader("DpsMeter", math.floor(totalDamage + 0.5), dps, xPos, yPos - 5)
 		local margin = 40
 		local width = 500
 		local height = (initialY - yPos + margin)
