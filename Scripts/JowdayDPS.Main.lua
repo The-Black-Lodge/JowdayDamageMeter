@@ -394,10 +394,10 @@ function JowdayDPS.findColor(source)
 	local attack = JowdayDPS.WeaponVar["Attack"]
 	local special = JowdayDPS.WeaponVar["Special"]
 
-	if attack ~= nil and JowdayDPS.Attacks[source] ~= nil then
+	if attack ~= nil and JowdayDPS.checkSource(attack) and JowdayDPS.Attacks[source] ~= nil then
 		return colors[attack]
 	end
-	if special ~= nil and JowdayDPS.Specials[source] ~= nil then
+	if special ~= nil and JowdayDPS.checkSource(special) and JowdayDPS.Specials[source] ~= nil then
 		return colors[special]
 	end
 	for name in pairs(sources) do
@@ -406,6 +406,14 @@ function JowdayDPS.findColor(source)
 		end
 	end
 	return colors["Default"]
+end
+
+-- valid source check
+function JowdayDPS.checkSource(name)
+	if JowdayDPS.SourceLookup[name] ~= nil then
+		return true
+	end
+	return false
 end
 
 -- add icons to the bar if available
