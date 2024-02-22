@@ -126,9 +126,29 @@ JowdayDPS.NameLookup = {
     SpikeTrapWeapon = "Trap",
     PhalanxTrapWeapon = "Trap",
     DartTrapWeapon = "Trap",
-    BloodMineBlast = "Trap"
+    BloodMineBlast = "Trap",
+    -- olympus extra
+    -- hera
+    EnvyCurseAttack = "Spiteful Strike",
+    EnvyCurseSecondary = "Spiteful Flourish",
+    LowBurstEnvyWeapon = "Richful Tribune",
+    HighBurstEnvyWeapon = "Richful Tribune",
+    HeraDecay = "(Hera) Decay",
+    HeraMineBlast = "Trap Jar",
+    -- hestia
+    HestiaOnRevenge = "Molten Sting",
+    HestiaOnDeath = "Molten Core",
+    HestiaSuper = "Hestia's Aid",
+    HestiaMaxSuper = "Hestia's Aid",
+    HestiaLavaProjectile = "Lava Pool",
+    -- apollo
+    AreaWeakenApollo = "Icarus Wings",
+    ApolloShoutWeapon = "Apollo's Aid",
+    -- duos
+    ArtemisHestiaExplosion = "Striking Sparks",
+    DionysusLobWeaponAdditional = "Festive Bomb",
+    BlindLightning = "Master Bolt",
 }
-
 -- TODO use EnemySets.lua to identify enemies
 JowdayDPS.EnemyBucket = {
     "HeavyRangedWeapon",
@@ -259,6 +279,41 @@ JowdayDPS.SourceLookup = {
     },
     Dusa = {
         ["Dusa"] = true,
+    },
+    -- olympus extra
+    Hera = {
+        ["Spiteful Strike"] = true,
+        ["Spiteful Flourish"] = true,
+        ["(Hera) Decay"] = true,
+        ["HeraRangedTrait"] = true,
+        ["JealousyCurse"] = true,
+        ["Richful Tribune"] = true,
+        ["Trap Jar"] = true,
+    },
+    Hestia = {
+        ["Molten Core"] = true,
+        ["Molten Sting"] = true,
+        ["Hestia's Aid"] = true,
+        ["HestiaRangedTrait"] = true,
+        ["Lava Pool"] = true,
+        ["HestiaDashTrait"] = true
+    },
+    Apollo = {
+        ["ApolloDashTrait"] = true,
+        ["Apollo's Aid"] = true,
+        ["Radiant Dash"] = true,
+        ["Icarus Wings"] = true,
+        ["ApolloRangedTrait"] = true
+    },
+    -- olympus extra duos
+    DuoHestiaArtemis = {
+        ["Striking Sparks"] = true
+    },
+    DuoApolloDionysus = {
+        ["Festive Bomb"] = true
+    },
+    DuoApolloZeus = {
+        ["Master Bolt"] = true
     }
 }
 
@@ -348,5 +403,31 @@ JowdayDPS.DpsColors = {
     },
     Default = {
         BarColor = { 165, 165, 195, 255 }
+    },
+    -- olympus extra
+    Hera = {
+        BarColor = { 0, 205, 255, 255 },
+        Icons = { "Hera" }
+    },
+    Hestia = {
+        BarColor = { 255, 0, 255, 255 },
+        Icons = { "Hestia" },
+    },
+    Apollo = {
+        BarColor = { 255, 255, 0, 255 },
+        Icons = { "Apollo" },
+    },
+    -- duo
+    DuoHestiaArtemis = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Artemis", "Hestia" }
+    },
+    DuoApolloDionysus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Dionysus", "Apollo" }
+    },
+    DuoApolloZeus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Apollo" }
     }
 }
