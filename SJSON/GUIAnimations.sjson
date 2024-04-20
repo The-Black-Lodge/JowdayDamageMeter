@@ -1,0 +1,19 @@
+{
+    Animations = [
+        "_append"
+        {
+            Name = "DpsBarWhite"
+            FilePath = "GUI\HUD\HealthBarFull"
+            EndFrame = 1
+            NumFrames = 1
+            StartFrame = 1
+            DieWithOwner = true
+            Material = "Unlit"
+            OriginX = 0.0
+            OriginY = 10.0
+            ScaleX = 1.0
+            ScaleY = 1.0
+            Scale = 1.0
+        }
+    ]
+}
