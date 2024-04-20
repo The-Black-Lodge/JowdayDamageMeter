@@ -315,12 +315,12 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 	if scale > .1 then
 		CreateTextBox({
 			Id = dpsBar.Id,
-			Text = damage,
-			OffsetX = 320 * scale - 10 - (1 - scale) * 10,
-			OffsetY = -1,
+            Text = damage,
+			OffsetX = 1,
+			OffsetY = -2,
 			Font = "LatoMedium",
 			FontSize = 8,
-			Justification = "Right",
+			Justification = "Left",
 			Color = Color.White,
 			OutlineThickness = 2.0,
 			OutlineColor = Color.Black,
@@ -336,8 +336,8 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 	CreateTextBox({
 		Id = dpsBar.Id,
 		Text = percentDamage .. "%",
-		OffsetX = 320 * scale + 10 + (1 - scale) * 15,
-		OffsetY = -1,
+		OffsetX = 320 * scale + 25,
+		OffsetY = -2,
 		Font = "LatoMedium",
 		FontSize = 10,
 		Justification = "Right",
@@ -411,7 +411,7 @@ function JowdayDPS.findColor(source)
 	
     -- color in our friend Artemis :)
 	if source == 'Artemis' then
-		return colors["Artemis"]
+		return colors["ArtemisAssist"]
 	end
 
 	if color == nil then

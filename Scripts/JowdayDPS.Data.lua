@@ -63,7 +63,7 @@ JowdayDPS.SourceLookup = {
         ["Dash"] = "Blinding Sprint",
         ["Cast"] = "Solar Ring",
         ['ApolloRetaliateStrike'] = "Light Smite",
-        ['ApolloPerfectDashStrike'] = "Critical Miss?"
+        ['ApolloPerfectDashStrike'] = "Critical Miss"
     },
     Artemis = {
         ["ArtemisSupportingFire"] = "Support Fire",
@@ -82,7 +82,8 @@ JowdayDPS.SourceLookup = {
         ["Dash"] = "Soot Sprint",
         ["Cast"] = "Smolder Ring",
         ["BurnNova"] = "Natural Gas",
-        ["BurnEffect"] = "Scorch"
+        ["BurnEffect"] = "Scorch",
+        ["ProjectileFireball"] = "Controlled Burn"
     },
     Hephaestus = {
         ["Attack"] = "Volcanic Strike",
@@ -146,6 +147,10 @@ JowdayDPS.DpsColors = {
         BarColor = Color.ArtemisDamage,
         Icons = { "Artemis" }
     },
+    ArtemisAssist = {
+        BarColor = Color.ArtemisDamageLight,
+        LabelColor = Color.ArtemisDamageLight
+    },
     Apollo = {
         BarColor = Color.ApolloDamageLight
     },
@@ -177,6 +182,6 @@ JowdayDPS.DpsColors = {
         Icons = { "Zeus" }
     },
     Default = {
-        BarColor = Color.White
+        BarColor = {195, 175, 175, 255}
     }
 }
