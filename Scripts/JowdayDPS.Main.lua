@@ -186,7 +186,6 @@ function JowdayDPS.getSourceName(triggerArgs)
     if attackerTable.Charmed then
         source = "Charm"
     end
-    --print(TableToJSONString(triggerArgs, { "AttackerTable", "Victim" }))
     return source
 end
 
@@ -421,78 +420,23 @@ function JowdayDPS.findColor(source)
     return color, niceLabel
 end
 
--- -- add icons to the bar if available
--- function JowdayDPS.generateBarIcons(colors, label, dpsBar)
---     local godIcons = ShallowCopyTable(colors["Icons"])
---     -- weird artemis handling
---     if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true and godIcons == nil then
---         godIcons = {}
---         table.insert(godIcons, 1, "Artemis")
---     end
-
-
-
---     if godIcons ~= nil then
---         -- set default icon scaling
---         local scale1 = 0.1
---         local scale2 = 0.1
---         -- olympus extra
---         -- hestia's icon is quite large
---         if godIcons[1] == "Hestia" then
---             scale1 = 0.06
---         end
---         if godIcons[2] ~= nil and godIcons[2] == "Hestia" then
---             scale2 = 0.06
---         end
---         -- apollo's is a little too big as well
---         if godIcons[1] == "Apollo" then
---             scale1 = 0.08
---         end
---         if godIcons[2] ~= nil and godIcons[2] == "Apollo" then
---             scale2 = 0.08
---         end
-
---         -- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
---         if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
---             if godIcons[1] ~= "Artemis" then
---                 table.insert(godIcons, 1, "Artemis")
---             end
---         end
-
---         -- if one icon, center it
---         local iconOffset = -18
---         -- if two, make room for both
---         if #godIcons == 2 then
---             iconOffset = -10
---         end
-
---         local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
---         SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[1] .. "Icon", DestinationId = dpsIcon1.Id, Scale = scale1 })
---         JowdayDPS.DpsIcons["DpsIcon" .. label] = dpsIcon1
---         -- if it's a duo, add the icon and attach it
---         if #godIcons > 1 then
---             local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
---             SetAnimation({ Name = "BoonInfoSymbol" .. godIcons[2] .. "Icon", DestinationId = dpsIcon2.Id, Scale = scale2 })
---             JowdayDPS.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
---             Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
---         end
---         -- anchor to the given dps bar
---         Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffset })
---     end
--- end
-
 -- overrides
 --[[ on enemy damage:
     - create damage instance ]]
 ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     local preHitHealth = victim.Health
     baseFunc(victim, triggerArgs)
+    local victimCharmed = IsCharmed({ Id = victim.ObjectId })
+    local playerWasAttacker = triggerArgs.AttackerName == "_PlayerUnit"
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
-        and (victim.Name == "NPC_Skelly_01" or
-            (victim.GeneratorData or {}).DifficultyRating ~= nil
+        and (victim.Name == "NPC_Skelly_01"
+            or (victim.GeneratorData or {}).DifficultyRating ~= nil
             or victim.CanBeAggroed
-            or victim.IsBoss)
+            or victim.IsBoss
+        )
+        -- this wonky logic is to discard charmed enemies being damaged by other enemies
+        and not (victimCharmed and not playerWasAttacker)
     then
         local damageInstance = {}
         damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)

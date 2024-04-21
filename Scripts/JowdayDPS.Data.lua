@@ -57,7 +57,8 @@ JowdayDPS.SourceLookup = {
         ["Cast"] = "Anvil Ring",
         ["Dash"] = "Smithy Sprint",
         ["MassiveSlamBlast"] = "Blast",
-        ["HephSprintBlast"] = "Smithy Sprint"
+        ["HephSprintBlast"] = "Smithy Sprint",
+        ["DelayedKnockbackEffect"] = "Furnace Blast"
     },
     Poseidon = {
         ["Attack"] = "Wave Strike",
