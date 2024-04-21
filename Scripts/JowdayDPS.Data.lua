@@ -7,6 +7,18 @@ JowdayDPS.NameLookup = {
     --
     WeaponStaffSwing = "Attack",
     WeaponStaffBall = "Special",
+    --
+    WeaponTorch = "Attack",
+    WeaponTorchSpecial = "Special",
+    --
+    WeaponAxe = "Attack",
+    WeaponAxeSpecialSwing = "Special",
+    WeaponAxeDash = "Attack",
+    WeaponAxeSpin = "Attack",
+    --
+    WeaponLob = "Attack",
+    WeaponLobSpecial = "Special",
+    WeaponLobPulse = "Attack",
     -- artemis assist
     ArtemisSniperBolt = "Artemis",
     ArtemisVolleyShot = "Artemis",
@@ -21,7 +33,7 @@ JowdayDPS.SourceLookup = {
         ["Special"] = "Flutter Flourish",
         ["Dash"] = "Passion Dash",
         ["Cast"] = "Rapture Ring",
-        ["AphroditeBurst"] = "Passion Dash"
+        ["AphroditeBurst"] = "Heart Breaker"
     },
     Apollo = {
         ["Attack"] = "Nova Strike",
