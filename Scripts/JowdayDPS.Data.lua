@@ -2,51 +2,17 @@ JowdayDPS.NameLookup = {
     WeaponDagger = "Attack",
     WeaponDaggerThrow = "Special",
     WeaponCast = "Cast",
-    WeaponCastProjectile="Cast",
+    WeaponCastProjectile = "Cast",
     WeaponBlink = "Dash",
     --
     WeaponStaffSwing = "Attack",
     WeaponStaffBall = "Special",
     -- artemis assist
     ArtemisSniperBolt = "Artemis",
+    ArtemisVolleyShot = "Artemis",
     -- misc environment
     DestructibleTreeSplinter = "Tree Splinters",
     BaseCollision = "Wall Slam"
-}
--- TODO use EnemySets.lua to identify enemies
-JowdayDPS.EnemyBucket = {
-    "HeavyRangedWeapon",
-    "LightRanged",
-    "DisembodiedHand",
-    "PunchingBag",
-    "HeavyMelee",
-    "Wretch",
-    "Harpy",      -- sisters
-    "FreezeShot", -- gorgon stone
-    "SpreadShot",
-    "Bloodless",
-    "RangedBurrower",
-    "Hydra",
-    "SplitShotUnit",
-    "SplitShotWeapon",
-    "ChariotRam",
-    "Shade",
-    "Minotaur",
-    "Theseus",
-    "Crawler",
-    "HadesBident",
-    "HadesAmmo",
-    "HadesGrasping",
-    "HadesCast",
-    "Swarmer",
-    "StyxPoison",
-    "RatThug",
-    "RatSpawn",
-    "Grenadier",
-    "Satyr",
-    "FlurrySpawner", -- butterfly ball
-    "CharonMelee",
-    "CharonWave"
 }
 
 JowdayDPS.SourceLookup = {
@@ -113,7 +79,7 @@ JowdayDPS.SourceLookup = {
         ["Dash"] = "Thunder Sprint",
         ["Cast"] = "Storm Ring",
         ["ZeusEchoStrike"] = "Blitz",
-        ["ProjectileZeusSpark"] = "Zeus Spark Thing",
+        ["ProjectileZeusSpark"] = "Static Shock",
         ["ZeusZeroManaStrike"] = "Spirit Surge",
         ["ZeusRetaliateStrike"] = "Divine Vengeance",
     },
@@ -149,7 +115,8 @@ JowdayDPS.DpsColors = {
     },
     ArtemisAssist = {
         BarColor = Color.ArtemisDamageLight,
-        LabelColor = Color.ArtemisDamageLight
+        LabelColor = Color.ArtemisDamageLight,
+        Icons = { "Artemis" }
     },
     Apollo = {
         BarColor = Color.ApolloDamageLight
@@ -182,6 +149,6 @@ JowdayDPS.DpsColors = {
         Icons = { "Zeus" }
     },
     Default = {
-        BarColor = {195, 175, 175, 255}
+        BarColor = { 195, 175, 175, 255 }
     }
 }
