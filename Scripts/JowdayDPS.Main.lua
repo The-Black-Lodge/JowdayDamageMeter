@@ -45,9 +45,7 @@ JowdayDPS.DpsIcons = {}
 JowdayDPS.LastDpsPosition = {}
 JowdayDPS.LastDpsBackgroundPosition = {}
 
---[[
-HELPER FUNCTIONS ------------------------------------------
-]]
+-- damage/data functions
 function JowdayDPS.calculateDps(list)
     -- sum up damage dealt from each source
     local totalDamage = 0
@@ -116,15 +114,6 @@ function JowdayDPS.calculateDps(list)
     end
 end
 
--- function JowdayDPS.checkEnemyBucket(source)
---     for k, v in pairs(JowdayDPS.EnemyBucket) do
---         if source:match("^" .. v) then
---             return true
---         end
---     end
---     return false
--- end
-
 -- there is no longer a God attribute on traits, so here we are
 function JowdayDPS.godMatcher(name)
     if name == nil then return end
@@ -181,21 +170,10 @@ function JowdayDPS.clearWeaponInfo()
     JowdayDPS.CurrentGods = {}
 end
 
-function JowdayDPS.getAttackerEffects(triggerArgs)
-    if triggerArgs.AttackerTable ~= nil then
-        local attacker = triggerArgs.AttackerTable
-        if attacker.ActiveEffects then
-            return attacker.ActiveEffects
-        end
-    end
-    return nil
-end
-
+-- partial name lookup - consolidates attack/special/etc. into single types
 function JowdayDPS.getSourceName(triggerArgs)
-    -- get attacker weapon data (this is usually just the player)
     local attackerWeaponData = triggerArgs.AttackerWeaponData or {}
     local attackerTable = triggerArgs.AttackerTable or {}
-    -- do our best to consolidate variants into a single damage type
     local source = 'Unknown'
     -- WeaponName > EffectName > SourceProjectile > SourceWeapon > LinkedUpgrades > name lookup
     source = triggerArgs.WeaponName or source
@@ -208,15 +186,29 @@ function JowdayDPS.getSourceName(triggerArgs)
     if attackerTable.Charmed then
         source = "Charm"
     end
-
-    if source == 'Unknown' then
-        print(TableToJSONString(triggerArgs, { "AttackerTable", "Victim" }))
-    end
+    --print(TableToJSONString(triggerArgs, { "AttackerTable", "Victim" }))
     return source
 end
 
+-- creates a thread that runs until we tell it not to
+function JowdayDPS.createPollingThread(currentHubRoom)
+    thread(function()
+        while JowdayDPS.DpsUpdateThread do
+            -- in training room only, empty list after 5 seconds of no activity
+            if currentHubRoom == 'Hub_PreRun' and JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last] ~= nil then
+                if GetTime({}) - JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last].Timestamp > 5 then
+                    JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
+                end
+            end
+            -- calculate dps every .2 sec
+            JowdayDPS.calculateDps(JowdayDPS.DamageHistory)
+            wait(.2)
+        end
+    end)
+end
+
 -- UI functions
--- Creates a transparent background behind the dps.  Resizes and moves the existing component if this is called with new height and position
+-- Creates a transparent background behind the dps. Resizes and moves the existing component if this is called with new height and position
 function JowdayDPS.createDpsOverlayBackground(obstacleName, x, y, width, height)
     if ScreenAnchors[obstacleName] ~= nil then
         SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
@@ -490,16 +482,11 @@ end
 -- end
 
 -- overrides
--- After the damage enemy call, record the instance of damage
+--[[ on enemy damage:
+    - create damage instance ]]
 ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     local preHitHealth = victim.Health
     baseFunc(victim, triggerArgs)
-    local attackerdata = triggerArgs.AttackerWeaponData or {}
-    local linked = attackerdata.LinkedUpgrades or 'n/a'
-    local sourcew = triggerArgs.SourceWeapon or 'n/a'
-    local name = attackerdata.Name or 'n/a'
-    local sourcep = triggerArgs.SourceProjectile or 'n/a'
-    --print(string.format("LinkedUpgrades: %s SourceWeapon: %s Name: %s SourceProjectile: %s", linked, sourcew, name, sourcep))
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
         and (victim.Name == "NPC_Skelly_01" or
@@ -516,7 +503,10 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     end
 end, JowdayDPS)
 
--- When room is unlocked, stop the DPS meter from updating and clear it to prep for next room
+--[[ on room unlock:
+    - stop polling
+    - calculate dps
+    - clear list ]]
 ModUtil.Path.Wrap("DoUnlockRoomExits", function(baseFunc, run, room)
     baseFunc(run, room)
     JowdayDPS.DpsUpdateThread = false
@@ -524,37 +514,45 @@ ModUtil.Path.Wrap("DoUnlockRoomExits", function(baseFunc, run, room)
     JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
 end, JowdayDPS)
 
--- at the start of each room, check for equipped traits to hopefully generate more specific names
+--[[ on room start:
+    - clear weapon info
+    - regenerate list of equipped boons ]]
 ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
+    baseFunc(run, room)
     JowdayDPS.clearWeaponInfo()
     for i, trait in pairs(CurrentRun.Hero.Traits) do
         JowdayDPS.getEquippedBoons(trait)
     end
-
-    baseFunc(run, room)
 end, JowdayDPS)
 
--- Set up a polling loop to update our dps calculation
-OnAnyLoad { function()
-    if JowdayDPS.DpsUpdateThread then return end
-    JowdayDPS.DpsUpdateThread = true
-    thread(function()
-        while JowdayDPS.DpsUpdateThread do
-            -- If in the courtyard, reset your DPS after 5 seconds with no damage dealt
-            if ModUtil.Path.Get("CurrentHubRoom.Name") == 'Hub_PreRun' and JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last] ~= nil then
-                if GetTime({}) - JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last].Timestamp > 5 then
-                    JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
-                end
-            end
+--[[ on run start:
+    - start polling
+    - regenerate list of equipped boons ]]
+ModUtil.Path.Wrap("BeginOpeningEncounter", function(baseFunc)
+    baseFunc()
+    JowdayDPS.createPollingThread()
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        JowdayDPS.getEquippedBoons(trait)
+    end
+end, JowdayDPS)
 
-            -- Otherwise continuously update
-            JowdayDPS.calculateDps(JowdayDPS.DamageHistory)
-            wait(.2)
-        end
-    end)
-end }
-
--- empty out god data when you die
-ModUtil.Path.Wrap("KillHero", function(victim, triggerArgs)
+--[[ on player death:
+    - stop polling
+    - clear weapon info]]
+ModUtil.Path.Wrap("KillHero", function(baseFunc, victim, triggerArgs)
+    baseFunc(victim, triggerArgs)
+    JowdayDPS.DpsUpdateThread = false
     JowdayDPS.clearWeaponInfo()
 end, JowdayDPS)
+
+
+-- set up polling if it isn't already
+OnAnyLoad { function()
+    -- turn polling on in training room
+    local currentHubRoom = ModUtil.Path.Get("CurrentHubRoom.Name")
+    if currentHubRoom == 'Hub_PreRun' then JowdayDPS.DpsUpdateThread = false end
+    -- turn polling on (almost) everywhere else
+    if JowdayDPS.DpsUpdateThread then return end
+    JowdayDPS.DpsUpdateThread = true
+    JowdayDPS.createPollingThread(currentHubRoom)
+end }
