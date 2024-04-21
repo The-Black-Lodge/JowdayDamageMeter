@@ -98,25 +98,6 @@ JowdayDPS.SourceLookup = {
     },
 }
 
-JowdayDPS.Attacks = {
-    ["Attack"] = true,
-    ["Dash-Strike"] = true,
-    ["Spin Attack"] = true,
-    ["Bull Rush"] = true,
-    ["Empowered Shot"] = true
-}
-
-JowdayDPS.Specials = {
-    ["Special"] = true,
-    ["Dash-Upper"] = true,
-    ["Recall"] = true,
-    ["Raging Rush"] = true,
-    ["Dashing Flight"] = true,
-    ["Hellfire Detonation"] = true,
-    ["Hellfire DoT"] = true,
-    ["Quake Cutter"] = true
-}
-
 JowdayDPS.DpsColors = {
     Aphrodite = {
         BarColor = Color.AphroditeDamage,
