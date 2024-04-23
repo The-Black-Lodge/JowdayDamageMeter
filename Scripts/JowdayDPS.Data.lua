@@ -95,6 +95,7 @@ JowdayDPS.SourceLookup = {
         ["ProjectileZeusSpark"] = "Static Shock",
         ["ZeusZeroManaStrike"] = "Spirit Surge",
         ["ZeusRetaliateStrike"] = "Divine Vengeance",
+        ["WeaponAnywhereCast"] = "Lightning Lance"
     },
 }
 
