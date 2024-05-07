@@ -22,8 +22,22 @@ JowdayDPS.NameLookup = {
     -- artemis assist
     ArtemisSniperBolt = "Artemis",
     ArtemisVolleyShot = "Artemis",
+    -- nemesis assist
+    NemesisSpecial = "Nemesis",
+    NemesisAttack1 = "Nemesis",
+    NemesisAttack2 = "Nemesis",
+    NemesisAttack3 = "Nemesis",
+    NemesisDash = "Nemesis",
     -- misc environment
     DestructibleTreeSplinter = "Tree Splinters",
+    SteamWallBlast = "Steam",
+    SteamTrapFast = "Steam",
+    SteamCubeExplosion = "Steam",
+    BrambleTrap = "Brambles",
+    ThornTreeThorn = "Thorns",
+    FieldsDestructiblePillarDestruction = "Collapsing Pillar",
+    SpikeTrapWeapon = "Spikes",
+    LavaTileWeapon = "Lava",
     BaseCollision = "Wall Slam"
 }
 
@@ -84,7 +98,11 @@ JowdayDPS.SourceLookup = {
     Selene = {
         ["WeaponSpellLaser"] = "Lunar Ray",
         ["WeaponSpellLeap"] = "Wolf Howl",
-        ["WeaponSpellMeteor"] = "Meteor"
+        ["WeaponSpellMeteor"] = "Meteor",
+        ["WeaponTransformSpecial"] = "Dark Side Special",
+        ["WeaponTransformAttack"] = "Dark Side Attack",
+        ["WeaponTransformBlink"] = "Dark Side Sprint",
+        ["WeaponTransformCast"] = "Dark Side Cast",
     },
     Zeus = {
         ["Attack"] = "Heaven Strike",
@@ -143,6 +161,10 @@ JowdayDPS.DpsColors = {
     Zeus = {
         BarColor = Color.ZeusDamageLight,
         Icons = { "Zeus" }
+    },
+    NemesisAssist = {
+        BarColor = Color.NemesisVoice,
+        LabelColor = Color.NemesisVoice
     },
     Default = {
         BarColor = { 195, 175, 175, 255 }
