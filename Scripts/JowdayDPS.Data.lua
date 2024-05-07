@@ -15,6 +15,7 @@ JowdayDPS.NameLookup = {
     WeaponAxeSpecialSwing = "Special",
     WeaponAxeDash = "Attack",
     WeaponAxeSpin = "Attack",
+    WeaponAxeBlock2 = "Special",
     --
     WeaponLob = "Attack",
     WeaponLobSpecial = "Special",
@@ -76,6 +77,9 @@ JowdayDPS.SourceLookup = {
         ["BurnNova"] = "Natural Gas",
         ["BurnEffect"] = "Scorch",
         ["ProjectileFireball"] = "Controlled Burn"
+    },
+    Hades = {
+        ["WeaponCastProjectileHades"] = "Howling Soul",
     },
     Hephaestus = {
         ["Attack"] = "Volcanic Strike",
@@ -142,6 +146,9 @@ JowdayDPS.DpsColors = {
     Demeter = {
         BarColor = Color.DemeterDamage,
         Icons = { "Demeter" }
+    },
+    Hades = {
+        BarColor = Color.HadesVoice,
     },
     Hestia = {
         BarColor = Color.HestiaDamageLight,
