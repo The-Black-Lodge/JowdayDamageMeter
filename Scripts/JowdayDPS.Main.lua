@@ -77,7 +77,7 @@ function JowdayDPS.calculateDps(list)
     local maxDamage = totalDamageBySource[sourcesSortedByDamage[#sourcesSortedByDamage]]
 
     -- UI constants to shift whole UI around
-    local initialY = 890
+    local initialY = 830
     local xPos = 320      --ScreenCenterX - 550
     local yPos = initialY --ScreenCenterY - 200
 
@@ -122,6 +122,7 @@ function JowdayDPS.godMatcher(name)
     if name:match("Aphrodite") then return "Aphrodite" end
     if name:match("Artemis") then return "Artemis" end
     if name:match("Demeter") then return "Demeter" end
+    if name:match("Hera") then return "Hera" end
     if name:match("Hephaestus") then return "Hephaestus" end
     if name:match("Hestia") then return "Hestia" end
     if name:match("Poseidon") then return "Poseidon" end
@@ -171,7 +172,7 @@ function JowdayDPS.clearWeaponInfo()
 end
 
 -- partial name lookup - consolidates attack/special/etc. into single types
-function JowdayDPS.getSourceName(triggerArgs)
+function JowdayDPS.getSourceName(triggerArgs, victim)
     local attackerWeaponData = triggerArgs.AttackerWeaponData or {}
     local attackerTable = triggerArgs.AttackerTable or {}
     local source = 'Unknown'
@@ -185,6 +186,20 @@ function JowdayDPS.getSourceName(triggerArgs)
 
     if attackerTable.Charmed then
         source = "Charm"
+    end
+
+    if source == 'Unknown' then
+        -- distinguish between Old Grudge (20%) and Knuckle Bones (15%)
+        if triggerArgs.Silent and victim.IsBoss == true then
+            local damage = triggerArgs.DamageAmount or 0
+            local maxhealth = victim.MaxHealth
+            local ratio = damage / maxhealth
+            if ratio > 0.15 then
+                source = "Old Grudge"
+            else
+                source = "Knuckle Bones"
+            end
+        end
     end
     return source
 end
@@ -400,9 +415,18 @@ function JowdayDPS.findColor(source)
         end
     end
 
-    -- color in our friend Artemis :)
+    -- color in our friends :)
     if source == 'Artemis' then
         return colors["ArtemisAssist"]
+    end
+    if source == 'Nemesis' then
+        return colors["NemesisAssist"]
+    end
+    if source == "Necromantic Influence" or source == "Pylon Spirits" then
+        return colors["Shade"]
+    end
+    if source == "Frinos" then
+        return colors["Frinos"]
     end
 
     if color == nil then
@@ -441,7 +465,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         local damageInstance = {}
         damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
         damageInstance.Timestamp = GetTime({})
-        damageInstance.Source = JowdayDPS.getSourceName(triggerArgs)
+        damageInstance.Source = JowdayDPS.getSourceName(triggerArgs, victim)
 
         JowdayDPS.List.addValue(JowdayDPS.DamageHistory, damageInstance)
     end

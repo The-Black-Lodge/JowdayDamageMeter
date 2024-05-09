@@ -20,6 +20,8 @@ JowdayDPS.NameLookup = {
     WeaponLob = "Attack",
     WeaponLobSpecial = "Special",
     WeaponLobPulse = "Attack",
+    -- sheep?
+    WeaponMorphedAttack = "Sheep Attack",
     -- artemis assist
     ArtemisSniperBolt = "Artemis",
     ArtemisVolleyShot = "Artemis",
@@ -34,12 +36,27 @@ JowdayDPS.NameLookup = {
     SteamWallBlast = "Steam",
     SteamTrapFast = "Steam",
     SteamCubeExplosion = "Steam",
+    SteamBlast = "Steam",
     BrambleTrap = "Brambles",
     ThornTreeThorn = "Thorns",
     FieldsDestructiblePillarDestruction = "Collapsing Pillar",
     SpikeTrapWeapon = "Spikes",
     LavaTileWeapon = "Lava",
-    BaseCollision = "Wall Slam"
+    BaseCollision = "Wall Slam",
+    BeamTrap = "Beam",
+    FireBarrelExplosion = "Fire Barrel Explosion",
+    -- also misc
+    HeraCastSummonProjectile = "Cast",
+    LamiaMiasma = "Enemy",
+    LamiaSkyCast_Miniboss = "Enemy",
+    MournerRampage = "Enemy",
+    LycanSwarmerChomp = "Enemy",
+    CorruptedShadeMRam = "Enemy",
+    LycanthropeLeapKnockback = "Enemy",
+    SatyrLanceThrow = "Enemy",
+    ShadeMercSpiritball = "Necromantic Influence",
+    FrogFamiliarLand = "Frinos",
+    SoulPylonSpiritball = "Pylon Spirits"
 }
 
 JowdayDPS.SourceLookup = {
@@ -67,7 +84,21 @@ JowdayDPS.SourceLookup = {
         ["Special"] = "Ice Flourish",
         ["Dash"] = "Frigid Sprint",
         ["Cast"] = "Arctic Ring",
-        ["DemeterSprintStorm"] = "Frigid Sprint"
+        ["DemeterSprintStorm"] = "Frigid Sprint",
+        ["DemeterChillKill"] = "Winter Harvest",
+    },
+    Hades = {
+        ["WeaponCastProjectileHades"] = "Howling Soul",
+        ["Old Grudge"] = "Old Grudge"
+    },    
+    Hera = {
+        ["Attack"] = "Sworn Strike",
+        ["Special"] = "Sworn Flourish",
+        ["Cast"] = "Engagement Ring",
+        ["HeraDamageShareProjectile"] = "Nasty Comeback",
+        --["HeraCastSummonProjectile"] = "Engagement Ring",
+        ["DamageShareEffect"] = "Hitch",
+        ["DamageShareDeath"] = "Dying Wish"
     },
     Hestia = {
         ["Attack"] = "Flame Strike",
@@ -78,17 +109,18 @@ JowdayDPS.SourceLookup = {
         ["BurnEffect"] = "Scorch",
         ["ProjectileFireball"] = "Controlled Burn"
     },
-    Hades = {
-        ["WeaponCastProjectileHades"] = "Howling Soul",
-    },
     Hephaestus = {
         ["Attack"] = "Volcanic Strike",
         ["Special"] = "Volcanic Flourish",
         ["Cast"] = "Anvil Ring",
         ["Dash"] = "Smithy Sprint",
         ["MassiveSlamBlast"] = "Blast",
+        ["MassiveSlamBlastCast"] = "Seismic Hammer", -- also duo
         ["HephSprintBlast"] = "Smithy Sprint",
         ["DelayedKnockbackEffect"] = "Furnace Blast"
+    },
+    OdysseusKeepsake = {
+        ["Knuckle Bones"] = "Knuckle Bones"
     },
     Poseidon = {
         ["Attack"] = "Wave Strike",
@@ -97,7 +129,8 @@ JowdayDPS.SourceLookup = {
         ["Cast"] = "Geyser Ring",
         ["PoseidonSplashSplinter"] = "Poseidon Waves",
         ["PoseidonSprintBlast"] = "Breaker Sprint",
-        ["PoseidonCollisionBlast"] = "Crashing Wave"
+        ["PoseidonCollisionBlast"] = "Crashing Wave",
+        ["ProjectileSprintBall"] = "Beach Ball" -- duo x apollo
     },
     Selene = {
         ["WeaponSpellLaser"] = "Lunar Ray",
@@ -118,7 +151,8 @@ JowdayDPS.SourceLookup = {
         ["ZeusZeroManaStrike"] = "Spirit Surge",
         ["ZeusRetaliateStrike"] = "Divine Vengeance",
         ["WeaponAnywhereCast"] = "Lightning Lance",
-        ["ZeusSprintStrike"] = "Thunder Sprint"
+        ["ZeusSprintStrike"] = "Thunder Sprint",
+        ["ZeusOnSpawn"] = "Shocking Loss"
     },
 }
 
@@ -150,6 +184,9 @@ JowdayDPS.DpsColors = {
     Hades = {
         BarColor = Color.HadesVoice,
     },
+    Hera = {
+        BarColor = Color.HeraDamage
+    },
     Hestia = {
         BarColor = Color.HestiaDamageLight,
         Icons = { "Hestia" }
@@ -172,6 +209,18 @@ JowdayDPS.DpsColors = {
     NemesisAssist = {
         BarColor = Color.NemesisVoice,
         LabelColor = Color.NemesisVoice
+    },
+    OdysseusKeepsake = {
+        BarColor = Color.OdysseusVoice,
+        LabelColor = Color.OdysseusVoice
+    },
+    Shade = {
+        BarColor = {51, 222, 160, 255},
+        LabelColor = {51, 222, 160, 255}
+    },
+    Frinos = {
+        BarColor = { 143, 229, 131, 255 },
+        LabelColor = { 143, 229, 131 ,255 }
     },
     Default = {
         BarColor = { 195, 175, 175, 255 }
