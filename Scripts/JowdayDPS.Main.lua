@@ -77,8 +77,8 @@ function JowdayDPS.calculateDps(list)
     local maxDamage = totalDamageBySource[sourcesSortedByDamage[#sourcesSortedByDamage]]
 
     -- UI constants to shift whole UI around
-    local initialY = 830
-    local xPos = 320      --ScreenCenterX - 550
+    local initialY = 840
+    local xPos = 270      --ScreenCenterX - 550
     local yPos = initialY --ScreenCenterY - 200
 
     -- Delete any existing UI (e.g the bars from last update)
@@ -103,7 +103,7 @@ function JowdayDPS.calculateDps(list)
     if #sourcesSortedByDamage > 0 then
         JowdayDPS.createDpsHeader("DpsMeter", math.floor(totalDamage + 0.5), dps, xPos, yPos - 5)
         local margin = 40
-        local width = 500
+        local width = 400
         local height = (initialY - yPos + margin)
         JowdayDPS.createDpsOverlayBackground("DpsBackground", xPos + margin, yPos - 20 + height / 2, width, height)
     else
@@ -254,7 +254,7 @@ function JowdayDPS.createDpsHeader(obstacleName, totalDamage, dps, x, y)
         CreateTextBox({
             Id = ScreenAnchors[obstacleName],
             Text = text,
-            OffsetX = 0,
+            OffsetX = -5,
             OffsetY = 0,
             Font = "LatoMedium",
             FontSize = 14,
@@ -325,12 +325,12 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
             OffsetX = 1,
             OffsetY = -2,
             Font = "LatoMedium",
-            FontSize = 10,
+            FontSize = 8,
             Justification = "Left",
             Color = Color.White,
             OutlineThickness = 2.0,
             OutlineColor = Color.Black,
-            ShadowOffset = { 1, 2 },
+            ShadowOffset = { 1, 1 },
             ShadowBlur = 0,
             ShadowAlpha = 1,
             ShadowColor = Color.Black
