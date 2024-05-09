@@ -418,14 +418,13 @@ function JowdayDPS.findColor(source)
     -- color in our friends :)
     if source == 'Artemis' then
         return colors["ArtemisAssist"]
-    end
-    if source == 'Nemesis' then
+    elseif source == 'Nemesis' then
         return colors["NemesisAssist"]
-    end
-    if source == "Necromantic Influence" or source == "Pylon Spirits" then
+    elseif source == 'Heracles' then
+        return colors["HeraclesAssist"]
+    elseif source == "Necromantic Influence" or source == "Pylon Spirits" then
         return colors["Shade"]
-    end
-    if source == "Frinos" then
+    elseif source == "Frinos" then
         return colors["Frinos"]
     end
 

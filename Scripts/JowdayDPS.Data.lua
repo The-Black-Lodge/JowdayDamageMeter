@@ -31,6 +31,9 @@ JowdayDPS.NameLookup = {
     NemesisAttack2 = "Nemesis",
     NemesisAttack3 = "Nemesis",
     NemesisDash = "Nemesis",
+    -- heracles assist
+    HeraclesLeap = "Heracles",
+    HeraclesArcRight = "Heracles",
     -- misc environment
     DestructibleTreeSplinter = "Tree Splinters",
     SteamWallBlast = "Steam",
@@ -44,7 +47,9 @@ JowdayDPS.NameLookup = {
     LavaTileWeapon = "Lava",
     BaseCollision = "Wall Slam",
     BeamTrap = "Beam",
-    FireBarrelExplosion = "Fire Barrel Explosion",
+    FireBarrelExplosion = "Fire Barrel",
+    FireBarrelFireLob = "Fire Barrel",
+    PolyphemusBoulderSky = "Polyphemus Boulder",
     -- also misc
     HeraCastSummonProjectile = "Cast",
     LamiaMiasma = "Enemy",
@@ -209,6 +214,10 @@ JowdayDPS.DpsColors = {
     NemesisAssist = {
         BarColor = Color.NemesisVoice,
         LabelColor = Color.NemesisVoice
+    },
+    HeraclesAssist = {
+        BarColor = Color.HeraclesVoice,
+        LabelColor = Color.HeraclesVoice
     },
     OdysseusKeepsake = {
         BarColor = Color.OdysseusVoice,
