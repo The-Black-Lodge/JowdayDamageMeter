@@ -34,8 +34,12 @@ JowdayDPS.NameLookup = {
     -- heracles assist
     HeraclesLeap = "Heracles",
     HeraclesArcRight = "Heracles",
+    -- icarus assist / boon
+    IcarusBombardment = "Icarus",
+    IcarusBombardment_Large = "Icarus",
+    IcarusExplosion = "Explosive Intent",
     -- misc environment
-    DestructibleTreeSplinter = "Tree Splinters",
+    DestructibleTreeSplinter = "Splinters",
     SteamWallBlast = "Steam",
     SteamTrapFast = "Steam",
     SteamCubeExplosion = "Steam",
@@ -50,6 +54,10 @@ JowdayDPS.NameLookup = {
     FireBarrelExplosion = "Fire Barrel",
     FireBarrelFireLob = "Fire Barrel",
     PolyphemusBoulderSky = "Polyphemus Boulder",
+    OilPuddleFire = "Oil Fire",
+    OilPuddleFire02 = "Oil Fire",
+    OilPuddleFire03 = "Oil Fire",
+    OilPuddleFire04 = "Oil Fire",
     -- also misc
     HeraCastSummonProjectile = "Cast",
     LamiaMiasma = "Enemy",
@@ -218,6 +226,13 @@ JowdayDPS.DpsColors = {
     HeraclesAssist = {
         BarColor = Color.HeraclesVoice,
         LabelColor = Color.HeraclesVoice
+    },
+    Icarus = {
+        BarColor = Color.IcarusVoice
+    },
+    IcarusAssist = {
+        BarColor = Color.IcarusVoice,
+        LabelColor = Color.IcarusVoice
     },
     OdysseusKeepsake = {
         BarColor = Color.OdysseusVoice,

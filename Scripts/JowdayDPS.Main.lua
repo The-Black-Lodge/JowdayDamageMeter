@@ -422,6 +422,10 @@ function JowdayDPS.findColor(source)
         return colors["NemesisAssist"]
     elseif source == 'Heracles' then
         return colors["HeraclesAssist"]
+    elseif source == 'Icarus' then
+        return colors["IcarusAssist"]
+    elseif source == 'Explosive Intent' then
+        return colors["Icarus"]
     elseif source == "Necromantic Influence" or source == "Pylon Spirits" then
         return colors["Shade"]
     elseif source == "Frinos" then
