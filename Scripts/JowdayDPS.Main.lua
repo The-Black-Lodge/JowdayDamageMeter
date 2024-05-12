@@ -300,12 +300,17 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     local portion = damage / totalDamage
     local scale = damage / maxDamage * .6
     local percentDamage = math.floor(portion * 100 + .5)
-    local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
 
     local labelColor = colors["LabelColor"] or Color.White
     local barColor = colors["BarColor"] or Color.White
 
+    local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
     SetAnimation({ Name = "DpsBarWhite", DestinationId = dpsBar.Id })
+    -- Scale damage bar
+    SetScaleX({ Id = dpsBar.Id, Fraction = scale, Duration = 0.0 })
+    -- color damage bar
+    SetColor({ Id = dpsBar.Id, Color = barColor })
+
     mod.DpsBars["DpsBar" .. label] = dpsBar
 
     -- name label
@@ -327,12 +332,26 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     })
     ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
-    -- Scale damage bar
-    SetScaleX({ Id = dpsBar.Id, Fraction = scale, Duration = 0.0 })
-    -- color damage bar
-    SetColor({ Id = dpsBar.Id, Color = barColor })
+    -- damage percentage label
+    CreateTextBox({
+        Id = dpsBar.Id,
+        Text = percentDamage .. "%",
+        OffsetX = 320 * scale + 25,
+        OffsetY = -2,
+        Font = "LatoMedium",
+        FontSize = 10,
+        Justification = "Right",
+        Color = Color.White,
+        OutlineThickness = 2.0,
+        OutlineColor = Color.Black,
+        ShadowOffset = { 1, 2 },
+        ShadowBlur = 0,
+        ShadowAlpha = 1,
+        ShadowColor = Color.Black
+    })
+    ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
-    -- Create damage total label
+    -- damage total label
     if scale > .1 then
         CreateTextBox({
             Id = dpsBar.Id,
@@ -352,25 +371,6 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
         })
         ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
     end
-
-    -- Create damage portion percentage label
-    CreateTextBox({
-        Id = dpsBar.Id,
-        Text = percentDamage .. "%",
-        OffsetX = 320 * scale + 25,
-        OffsetY = -2,
-        Font = "LatoMedium",
-        FontSize = 10,
-        Justification = "Right",
-        Color = Color.White,
-        OutlineThickness = 2.0,
-        OutlineColor = Color.Black,
-        ShadowOffset = { 1, 2 },
-        ShadowBlur = 0,
-        ShadowAlpha = 1,
-        ShadowColor = Color.Black
-    })
-    ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
     -- add icons
     -- if mod.Config.ShowIcons == true then
