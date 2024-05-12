@@ -1,20 +1,22 @@
-JowdayDPS.List = {}
+local mod = JowdayDPS
+
+mod.List = {}
 -- List functions
-function JowdayDPS.List.new(maxSize)
+function mod.List.new(maxSize)
     return { first = 0, last = -1, count = 0, max = maxSize }
 end
 
-function JowdayDPS.List.addValue(list, value)
+function mod.List.addValue(list, value)
     local last = list.last + 1
     list.last = last
     list[last] = value
     list.count = list.count + 1
     if list.count > list.max then
-        JowdayDPS.List.removeHead(list)
+        mod.List.removeHead(list)
     end
 end
 
-function JowdayDPS.List.removeHead(list)
+function mod.List.removeHead(list)
     local first = list.first
     if first > list.last then error("list is empty") end
     local value = list[first]
@@ -24,23 +26,23 @@ function JowdayDPS.List.removeHead(list)
     return value
 end
 
-function JowdayDPS.List.emptyList(list)
+function mod.List.emptyList(list)
     while list.count > 0 do
-        JowdayDPS.List.removeHead(list)
+        mod.List.removeHead(list)
     end
 end
 
-JowdayDPS.DamageHistory = JowdayDPS.List.new(10000)
-JowdayDPS.CurrentGods = {}
-JowdayDPS.WeaponVar = {}
-JowdayDPS.DpsUpdateThread = false
-JowdayDPS.DpsBars = {}
-JowdayDPS.DpsIcons = {}
-JowdayDPS.LastDpsPosition = {}
-JowdayDPS.LastDpsBackgroundPosition = {}
+mod.DamageHistory = mod.List.new(10000)
+mod.CurrentGods = {}
+mod.WeaponVar = {}
+mod.DpsUpdateThread = false
+mod.DpsBars = {}
+mod.DpsIcons = {}
+mod.LastDpsPosition = {}
+mod.LastDpsBackgroundPosition = {}
 
 -- damage/data functions
-function JowdayDPS.calculateDps(list)
+function mod.calculateDps(list)
     -- sum up damage dealt from each source
     local totalDamage = 0
     local earliestTimestamp = 999999;
@@ -49,7 +51,7 @@ function JowdayDPS.calculateDps(list)
     for i = list.first, list.last do
         local damageData = list[i]
         local time = GetTime({})
-        if damageData.Timestamp > (time - JowdayDPS.Config.DpsInterval) then
+        if damageData.Timestamp > (time - mod.Config.DpsInterval) then
             totalDamage = totalDamage + damageData.Damage
             totalDamageBySource[damageData.Source] = (totalDamageBySource[damageData.Source] or 0) + damageData.Damage
             if damageData.Timestamp < earliestTimestamp then
@@ -70,36 +72,52 @@ function JowdayDPS.calculateDps(list)
     end)
     local maxDamage = totalDamageBySource[sourcesSortedByDamage[#sourcesSortedByDamage]]
 
-    -- UI constants to shift whole UI around
-    local initialY = 840
-    local xPos = 270      --ScreenCenterX - 550
-    local yPos = initialY --ScreenCenterY - 200
-
     -- Delete any existing UI (e.g the bars from last update)
     -- TODO: Consider resizing / renaming bars instead of destroying and recreating (no performance issues so far though)
-    for bar, component in pairs(JowdayDPS.DpsBars) do
+    for bar, component in pairs(mod.DpsBars) do
         Destroy({ Id = component.Id })
-        JowdayDPS.DpsBars[bar] = nil
+        mod.DpsBars[bar] = nil
     end
 
-    for bar, component in pairs(JowdayDPS.DpsIcons) do
+    for bar, component in pairs(mod.DpsIcons) do
         Destroy({ Id = component.Id })
-        JowdayDPS.DpsIcons[bar] = nil
+        mod.DpsIcons[bar] = nil
     end
 
+    local yPos = mod.Config.InitialY
     -- Create UI to show DPS bars for each source
     for i, source in ipairs(sourcesSortedByDamage) do
-        JowdayDPS.createDpsBar(source, math.floor(totalDamageBySource[source] + 0.5), maxDamage, totalDamage, xPos, yPos)
-        yPos = yPos - 20
+        local barDamageRounded = math.floor(totalDamageBySource[source] + 0.5)
+        mod.createDpsBar(
+            source,
+            barDamageRounded,
+            maxDamage,
+            totalDamage,
+            mod.Config.XPosition,
+            yPos
+        )
+        yPos = yPos + mod.Config.YPositionIncrement
     end
 
     -- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
     if #sourcesSortedByDamage > 0 then
-        JowdayDPS.createDpsHeader("DpsMeter", math.floor(totalDamage + 0.5), dps, xPos, yPos - 5)
-        local margin = 40
-        local width = 400
-        local height = (initialY - yPos + margin)
-        JowdayDPS.createDpsOverlayBackground("DpsBackground", xPos + margin, yPos - 20 + height / 2, width, height)
+        local totalDamageRounded = math.floor(totalDamage + 0.5)
+        mod.createDpsHeader(
+            "DpsMeter",
+            totalDamageRounded,
+            dps,
+            mod.Config.XPosition,
+            yPos - 5
+        )
+        local height = (mod.Config.InitialY - yPos + mod.Config.Margin)
+        local yPosOverlay = yPos + mod.Config.YPositionIncrement + height / 2
+        mod.createDpsOverlayBackground(
+            "DpsBackground",
+            mod.Config.XPosition + mod.Config.Margin,
+            yPosOverlay,
+            mod.Config.DisplayWidth,
+            height
+        )
     else
         Destroy({ Id = ScreenAnchors["DpsMeter"] })
         Destroy({ Id = ScreenAnchors["DpsBackground"] })
@@ -109,7 +127,7 @@ function JowdayDPS.calculateDps(list)
 end
 
 -- there is no longer a God attribute on traits, so here we are
-function JowdayDPS.godMatcher(name)
+function mod.godMatcher(name)
     if name == nil then return end
 
     if name:match("Apollo") then return "Apollo" end
@@ -125,48 +143,48 @@ function JowdayDPS.godMatcher(name)
 end
 
 -- -- add more accurate names, and build an array of gods
-function JowdayDPS.getEquippedBoons(trait)
+function mod.getEquippedBoons(trait)
     local slot = trait.Slot or ''
     local name = trait.Name or ''
-    local god = JowdayDPS.godMatcher(name) or ''
+    local god = mod.godMatcher(name) or ''
 
     if slot == "Melee" and god then
-        JowdayDPS.WeaponVar["Attack"] = god
+        mod.WeaponVar["Attack"] = god
     end
     if slot == "Secondary" and god then
-        JowdayDPS.WeaponVar["Special"] = god
+        mod.WeaponVar["Special"] = god
     end
     if slot == "Ranged" and name then
         if god ~= nil then
-            JowdayDPS.WeaponVar["Cast"] = god
+            mod.WeaponVar["Cast"] = god
         end
-        JowdayDPS.NameLookup["RangedWeapon"] = name
+        mod.NameLookup["RangedWeapon"] = name
     end
     if slot == "Rush" and name then
         if god ~= nil then
-            JowdayDPS.WeaponVar["Dash"] = god
+            mod.WeaponVar["Dash"] = god
         end
     end
     -- most boons have a God value in the trait
     if god ~= nil then
-        JowdayDPS.CurrentGods[god] = true
+        mod.CurrentGods[god] = true
     end
 end
 
 -- reset attack, special, cast, etc.
-function JowdayDPS.clearWeaponInfo()
-    JowdayDPS.NameLookup["RangedWeapon"] = "Cast"
-    JowdayDPS.WeaponVar["Attack"] = nil
-    JowdayDPS.WeaponVar["Special"] = nil
-    JowdayDPS.WeaponVar["Cast"] = nil
-    JowdayDPS.WeaponVar["Dash"] = nil
+function mod.clearWeaponInfo()
+    mod.NameLookup["RangedWeapon"] = "Cast"
+    mod.WeaponVar["Attack"] = nil
+    mod.WeaponVar["Special"] = nil
+    mod.WeaponVar["Cast"] = nil
+    mod.WeaponVar["Dash"] = nil
 
     -- also reset god list
-    JowdayDPS.CurrentGods = {}
+    mod.CurrentGods = {}
 end
 
 -- partial name lookup - consolidates attack/special/etc. into single types
-function JowdayDPS.getSourceName(triggerArgs, victim)
+function mod.getSourceName(triggerArgs, victim)
     local attackerWeaponData = triggerArgs.AttackerWeaponData or {}
     local attackerTable = triggerArgs.AttackerTable or {}
     local source = 'Unknown'
@@ -176,7 +194,7 @@ function JowdayDPS.getSourceName(triggerArgs, victim)
     source = triggerArgs.SourceProjectile or source
     source = triggerArgs.SourceWeapon or source
     source = attackerWeaponData.LinkedUpgrades or source
-    source = JowdayDPS.NameLookup[source] or source
+    source = mod.NameLookup[source] or source
 
     if attackerTable.Charmed then
         source = "Charm"
@@ -199,50 +217,53 @@ function JowdayDPS.getSourceName(triggerArgs, victim)
 end
 
 -- creates a thread that runs until we tell it not to
-function JowdayDPS.createPollingThread(currentHubRoom)
+function mod.createPollingThread(currentHubRoom)
     thread(function()
-        while JowdayDPS.DpsUpdateThread do
+        while mod.DpsUpdateThread do
             -- in training room only, empty list after 5 seconds of no activity
-            if currentHubRoom == 'Hub_PreRun' and JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last] ~= nil then
-                if GetTime({}) - JowdayDPS.DamageHistory[JowdayDPS.DamageHistory.last].Timestamp > 5 then
-                    JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
+            if currentHubRoom == 'Hub_PreRun' and mod.DamageHistory[mod.DamageHistory.last] ~= nil then
+                if GetTime({}) - mod.DamageHistory[mod.DamageHistory.last].Timestamp > 5 then
+                    mod.List.emptyList(mod.DamageHistory)
                 end
             end
             -- calculate dps every .2 sec
-            JowdayDPS.calculateDps(JowdayDPS.DamageHistory)
-            wait(.2)
+            mod.calculateDps(mod.DamageHistory)
+            wait(mod.Config.PollingInterval)
         end
     end)
 end
 
 -- UI functions
 -- Creates a transparent background behind the dps. Resizes and moves the existing component if this is called with new height and position
-function JowdayDPS.createDpsOverlayBackground(obstacleName, x, y, width, height)
+function mod.createDpsOverlayBackground(obstacleName, x, y, width, height)
+        local scaleWidth = width / (mod.Config.DisplayWidth + mod.Config.Margin * 2)
+        local scaleHeight = height / 270
     if ScreenAnchors[obstacleName] ~= nil then
-        SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
-        SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
+
+        SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
+        SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
         Move({
             Ids = ScreenAnchors[obstacleName],
             Angle = 90,
-            Distance = JowdayDPS.LastDpsBackgroundPosition.y - y,
+            Distance = mod.LastDpsBackgroundPosition.y - y,
             Speed = 1000
         })
     else
-        ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "rectangle01", X = x, Y = y }) -- width 480, height 267
-        SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = width / 480 })
-        SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = height / 267 })
-        SetColor({ Id = ScreenAnchors[obstacleName], Color = { 0.090, 0.055, 0.157, 0.6 } })
+        ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "rectangle01", X = x, Y = y })
+        SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
+        SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
+        SetColor({ Id = ScreenAnchors[obstacleName], Color = mod.Config.BackgroundColor })
     end
-    JowdayDPS.LastDpsBackgroundPosition.y = y
+    mod.LastDpsBackgroundPosition.y = y
 end
 
 -- Create a header that shows overall DPS and overall damage total
-function JowdayDPS.createDpsHeader(obstacleName, totalDamage, dps, x, y)
+function mod.createDpsHeader(obstacleName, totalDamage, dps, x, y)
     local text = dps .. " DPS / Total Damage: " .. totalDamage
 
     if ScreenAnchors[obstacleName] ~= nil then
         ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
-        Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = JowdayDPS.LastDpsPosition.y - y, Speed = 1000 })
+        Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = mod.LastDpsPosition.y - y, Speed = 1000 })
     else
         ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "BlankObstacle", X = x, Y = y })
         CreateTextBox({
@@ -264,12 +285,12 @@ function JowdayDPS.createDpsHeader(obstacleName, totalDamage, dps, x, y)
         ModifyTextBox({ Id = ScreenAnchors[obstacleName], FadeTarget = 1, FadeDuration = 0.0 })
     end
 
-    JowdayDPS.LastDpsPosition.y = y
+    mod.LastDpsPosition.y = y
 end
 
 -- Create a single DPS bar with damage source, damage amount, and damage portion labels
-function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
-    local colors, niceLabel = JowdayDPS.findColor(label)
+function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
+    local colors, niceLabel = mod.findColor(label)
 
     local abilityName = label
     if niceLabel ~= nil then
@@ -285,7 +306,7 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     local barColor = colors["BarColor"] or Color.White
 
     SetAnimation({ Name = "DpsBarWhite", DestinationId = dpsBar.Id })
-    JowdayDPS.DpsBars["DpsBar" .. label] = dpsBar
+    mod.DpsBars["DpsBar" .. label] = dpsBar
 
     -- name label
     CreateTextBox({
@@ -352,19 +373,19 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
     -- add icons
-    -- if JowdayDPS.Config.ShowIcons == true then
-    --     JowdayDPS.generateBarIcons(colors, label, dpsBar)
+    -- if mod.Config.ShowIcons == true then
+    --     mod.generateBarIcons(colors, label, dpsBar)
     -- end
 end
 
 -- determines colors and looks up a nice name
-function JowdayDPS.findColor(source)
-    local sources = JowdayDPS.SourceLookup
-    local colors = JowdayDPS.DpsColors
-    local attack = JowdayDPS.WeaponVar["Attack"]
-    local special = JowdayDPS.WeaponVar["Special"]
-    local cast = JowdayDPS.WeaponVar["Cast"]
-    local dash = JowdayDPS.WeaponVar["Dash"]
+function mod.findColor(source)
+    local sources = mod.SourceLookup
+    local colors = mod.DpsColors
+    local attack = mod.WeaponVar["Attack"]
+    local special = mod.WeaponVar["Special"]
+    local cast = mod.WeaponVar["Cast"]
+    local dash = mod.WeaponVar["Dash"]
 
     local color
     local niceLabel
@@ -462,11 +483,11 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         local damageInstance = {}
         damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
         damageInstance.Timestamp = GetTime({})
-        damageInstance.Source = JowdayDPS.getSourceName(triggerArgs, victim)
+        damageInstance.Source = mod.getSourceName(triggerArgs, victim)
 
-        JowdayDPS.List.addValue(JowdayDPS.DamageHistory, damageInstance)
+        mod.List.addValue(mod.DamageHistory, damageInstance)
     end
-end, JowdayDPS)
+end, mod)
 
 --[[ on room unlock:
     - stop polling
@@ -474,50 +495,50 @@ end, JowdayDPS)
     - clear list ]]
 ModUtil.Path.Wrap("DoUnlockRoomExits", function(baseFunc, run, room)
     baseFunc(run, room)
-    JowdayDPS.DpsUpdateThread = false
-    JowdayDPS.calculateDps(JowdayDPS.DamageHistory)
-    JowdayDPS.List.emptyList(JowdayDPS.DamageHistory)
-end, JowdayDPS)
+    mod.DpsUpdateThread = false
+    mod.calculateDps(mod.DamageHistory)
+    mod.List.emptyList(mod.DamageHistory)
+end, mod)
 
 --[[ on room start:
     - clear weapon info
     - regenerate list of equipped boons ]]
 ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
     baseFunc(run, room)
-    JowdayDPS.clearWeaponInfo()
+    mod.clearWeaponInfo()
     for i, trait in pairs(CurrentRun.Hero.Traits) do
-        JowdayDPS.getEquippedBoons(trait)
+        mod.getEquippedBoons(trait)
     end
-end, JowdayDPS)
+end, mod)
 
 --[[ on run start:
     - start polling
     - regenerate list of equipped boons ]]
 ModUtil.Path.Wrap("BeginOpeningEncounter", function(baseFunc)
     baseFunc()
-    JowdayDPS.createPollingThread()
+    mod.createPollingThread()
     for i, trait in pairs(CurrentRun.Hero.Traits) do
-        JowdayDPS.getEquippedBoons(trait)
+        mod.getEquippedBoons(trait)
     end
-end, JowdayDPS)
+end, mod)
 
 --[[ on player death:
     - stop polling
     - clear weapon info]]
 ModUtil.Path.Wrap("KillHero", function(baseFunc, victim, triggerArgs)
     baseFunc(victim, triggerArgs)
-    JowdayDPS.DpsUpdateThread = false
-    JowdayDPS.clearWeaponInfo()
-end, JowdayDPS)
+    mod.DpsUpdateThread = false
+    mod.clearWeaponInfo()
+end, mod)
 
 
 -- set up polling if it isn't already
 OnAnyLoad { function()
     -- turn polling on in training room
     local currentHubRoom = ModUtil.Path.Get("CurrentHubRoom.Name")
-    if currentHubRoom == 'Hub_PreRun' then JowdayDPS.DpsUpdateThread = false end
+    if currentHubRoom == 'Hub_PreRun' then mod.DpsUpdateThread = false end
     -- turn polling on (almost) everywhere else
-    if JowdayDPS.DpsUpdateThread then return end
-    JowdayDPS.DpsUpdateThread = true
-    JowdayDPS.createPollingThread(currentHubRoom)
+    if mod.DpsUpdateThread then return end
+    mod.DpsUpdateThread = true
+    mod.createPollingThread(currentHubRoom)
 end }
