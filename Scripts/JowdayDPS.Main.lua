@@ -298,7 +298,7 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     end
 
     local portion = damage / totalDamage
-    local scale = damage / maxDamage * .6
+    local scale = damage / maxDamage
     local percentDamage = math.floor(portion * 100 + .5)
 
     local labelColor = colors["LabelColor"] or Color.White
@@ -307,18 +307,19 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
     SetAnimation({ Name = "DpsBarWhite", DestinationId = dpsBar.Id })
     -- Scale damage bar
-    SetScaleX({ Id = dpsBar.Id, Fraction = scale, Duration = 0.0 })
+    SetScaleX({ Id = dpsBar.Id, Fraction = scale * 0.5, Duration = 0.0 })
     -- color damage bar
     SetColor({ Id = dpsBar.Id, Color = barColor })
 
     mod.DpsBars["DpsBar" .. label] = dpsBar
 
+    local textOffsetY = -2
     -- name label
     CreateTextBox({
         Id = dpsBar.Id,
         Text = abilityName,
         OffsetX = -7,
-        OffsetY = -2,
+        OffsetY = textOffsetY,
         Font = "LatoMedium",
         FontSize = 10,
         Justification = "Right",
@@ -330,26 +331,27 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
         ShadowAlpha = 1,
         ShadowColor = Color.Black,
     })
-    ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
     -- damage percentage label
+    local padding = 5 - 5 * scale
+    local offsetX = 155 * scale + padding
+
     CreateTextBox({
         Id = dpsBar.Id,
         Text = percentDamage .. "%",
-        OffsetX = 320 * scale + 25,
-        OffsetY = -2,
+        OffsetX = offsetX,
+        OffsetY = textOffsetY,
         Font = "LatoMedium",
         FontSize = 10,
-        Justification = "Right",
+        Justification = "Left",
         Color = Color.White,
         OutlineThickness = 2.0,
         OutlineColor = Color.Black,
         ShadowOffset = { 1, 2 },
         ShadowBlur = 0,
         ShadowAlpha = 1,
-        ShadowColor = Color.Black
+        ShadowColor = Color.Black,
     })
-    ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
     -- damage total label
     if scale > .1 then
@@ -357,7 +359,7 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
             Id = dpsBar.Id,
             Text = damage,
             OffsetX = 1,
-            OffsetY = -2,
+            OffsetY = textOffsetY,
             Font = "LatoMedium",
             FontSize = 8,
             Justification = "Left",
@@ -367,10 +369,12 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
             ShadowOffset = { 1, 1 },
             ShadowBlur = 0,
             ShadowAlpha = 1,
-            ShadowColor = Color.Black
+            ShadowColor = Color.Black,
         })
-        ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
     end
+
+    -- this prevents the text from flickering/fading. it only needs to be set once
+    ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
     -- add icons
     -- if mod.Config.ShowIcons == true then
