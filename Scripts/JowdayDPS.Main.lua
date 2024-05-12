@@ -333,13 +333,10 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     })
 
     -- damage percentage label
-    local padding = 5 - 5 * scale
-    local offsetX = 155 * scale + padding
-
     CreateTextBox({
         Id = dpsBar.Id,
         Text = percentDamage .. "%",
-        OffsetX = offsetX,
+        OffsetX = 150 * scale + 5,
         OffsetY = textOffsetY,
         Font = "LatoMedium",
         FontSize = 10,
