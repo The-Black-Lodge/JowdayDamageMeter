@@ -1,9 +1,3 @@
-JowdayDPS = ModUtil.Mod.Register("JowdayDPS")
-JowdayDPS.Config = {
-    DpsInterval = 99999999,
-    ShowIcons = true
-}
-
 JowdayDPS.List = {}
 -- List functions
 function JowdayDPS.List.new(maxSize)

@@ -1,6 +1,10 @@
-:: Jowday's DPS Mod v2.0.a
-Import "Scripts/JowdayDPS.Main.lua"
-Import "Scripts/JowdayDPS.Data.lua"
+:: Jowday's DPS Mod v2.0.1
+Import "scripts/JowdayDPS.Main.lua"
+Import "scripts/JowdayDPS.Data.lua"
 
 To "Game/Animations/GUIAnimations.sjson"
-SJSON "SJSON/GUIAnimations.sjson
+SJSON "sjson/GUIAnimations.sjson
+
+To "Scripts/Main.lua"
+Top Import register.lua
+Top Import config.lua
