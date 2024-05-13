@@ -260,7 +260,7 @@ end
 
 -- Create a header that shows overall DPS and overall damage total
 function mod.createDpsHeader(obstacleName, totalDamage, dps, x, y)
-    local text = dps .. " DPS / Total Damage: " .. totalDamage
+    local text = dps .. mod.HeaderText .. totalDamage
 
     if ScreenAnchors[obstacleName] ~= nil then
         ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })

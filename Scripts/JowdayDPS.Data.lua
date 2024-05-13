@@ -1,44 +1,22 @@
 ---@meta _
 
-JowdayDPS.NameLookup = {
-    WeaponDagger = "Attack",
-    WeaponDaggerThrow = "Special",
-    WeaponCast = "Cast",
-    WeaponCastProjectile = "Cast",
-    WeaponBlink = "Dash",
-    --
-    WeaponStaffSwing = "Attack",
-    WeaponStaffBall = "Special",
-    --
-    WeaponTorch = "Attack",
-    WeaponTorchSpecial = "Special",
-    --
-    WeaponAxe = "Attack",
-    WeaponAxeSpecialSwing = "Special",
-    WeaponAxeDash = "Attack",
-    WeaponAxeSpin = "Attack",
-    WeaponAxeBlock2 = "Special",
-    --
-    WeaponLob = "Attack",
-    WeaponLobSpecial = "Special",
-    WeaponLobPulse = "Attack",
+local mod = JowdayDPS
+
+mod.HeaderText = " DPS / Total Damage: "
+mod.AttackText = "Attack"
+mod.SpecialText = "Special"
+mod.CastText = "Cast"
+mod.DashText = "Dash"
+mod.EnemyText = "Enemy"
+-- npc assists
+mod.ArtemisName = "Artemis"
+mod.NemesisName = "Nemesis"
+mod.HeraclesName = "Heracles"
+mod.IcarusName = "Icarus"
+
+mod.NameLookup = {
     -- sheep?
     WeaponMorphedAttack = "Sheep Attack",
-    -- artemis assist
-    ArtemisSniperBolt = "Artemis",
-    ArtemisVolleyShot = "Artemis",
-    -- nemesis assist
-    NemesisSpecial = "Nemesis",
-    NemesisAttack1 = "Nemesis",
-    NemesisAttack2 = "Nemesis",
-    NemesisAttack3 = "Nemesis",
-    NemesisDash = "Nemesis",
-    -- heracles assist
-    HeraclesLeap = "Heracles",
-    HeraclesArcRight = "Heracles",
-    -- icarus assist / boon
-    IcarusBombardment = "Icarus",
-    IcarusBombardment_Large = "Icarus",
     IcarusExplosion = "Explosive Intent",
     -- misc environment
     DestructibleTreeSplinter = "Splinters",
@@ -62,23 +40,61 @@ JowdayDPS.NameLookup = {
     OilPuddleFire03 = "Oil Fire",
     OilPuddleFire04 = "Oil Fire",
     RubbleFall = "Falling Rubble",
-    -- also misc
-    HeraCastSummonProjectile = "Cast",
-    LamiaMiasma = "Enemy",
-    LamiaSkyCast_Miniboss = "Enemy",
-    MournerRampage = "Enemy",
-    LycanSwarmerChomp = "Enemy",
-    CorruptedShadeMRam = "Enemy",
-    LycanthropeLeapKnockback = "Enemy",
-    InfestedCerberusSwipe = "Enemy",
-    SatyrLanceThrow = "Enemy",
     ShadeMercSpiritball = "Necromantic Influence",
     FrogFamiliarLand = "Frinos",
     CatFamiliarPounce = "Toula",
-    SoulPylonSpiritball = "Pylon Spirits"
+    SoulPylonSpiritball = "Pylon Spirits",
+    -----------------------------
+    WeaponDagger = mod.AttackText,
+    WeaponDaggerThrow = mod.SpecialText,
+    WeaponCast = mod.CastText,
+    WeaponCastProjectile = mod.CastText,
+    WeaponBlink = mod.DashText,
+    --
+    WeaponStaffSwing = mod.AttackText,
+    WeaponStaffBall = mod.SpecialText,
+    --
+    WeaponTorch = mod.AttackText,
+    WeaponTorchSpecial = mod.SpecialText,
+    --
+    WeaponAxe = mod.AttackText,
+    WeaponAxeSpecialSwing = mod.SpecialText,
+    WeaponAxeDash = mod.AttackText,
+    WeaponAxeSpin = mod.AttackText,
+    WeaponAxeBlock2 = mod.SpecialText,
+    --
+    WeaponLob = mod.AttackText,
+    WeaponLobSpecial = mod.SpecialText,
+    WeaponLobPulse = mod.AttackText,
+    --
+    HeraCastSummonProjectile = mod.CastText,
+    -- artemis assist
+    ArtemisSniperBolt = mod.ArtemisName,
+    ArtemisVolleyShot = mod.ArtemisName,
+    -- nemesis assist
+    NemesisSpecial = mod.NemesisName,
+    NemesisAttack1 = mod.NemesisName,
+    NemesisAttack2 = mod.NemesisName,
+    NemesisAttack3 = mod.NemesisName,
+    NemesisDash = mod.NemesisName,
+    -- heracles assist
+    HeraclesLeap = mod.HeraclesName,
+    HeraclesArcRight = mod.HeraclesName,
+    -- icarus assist / boon
+    IcarusBombardment = mod.IcarusName,
+    IcarusBombardment_Large = mod.IcarusName,
+    --
+    LamiaMiasma = mod.EnemyText,
+    LamiaSkyCast_Miniboss = mod.EnemyText,
+    MournerRampage = mod.EnemyText,
+    LycanSwarmerChomp = mod.EnemyText,
+    CorruptedShadeMRam = mod.EnemyText,
+    LycanthropeLeapKnockback = mod.EnemyText,
+    InfestedCerberusSwipe = mod.EnemyText,
+    SatyrLanceThrow = mod.EnemyText,
 }
 
-JowdayDPS.SourceLookup = {
+mod.SourceLookup = {
     Aphrodite = {
         ["Attack"] = "Flutter Strike",
         ["Special"] = "Flutter Flourish",
@@ -115,7 +131,6 @@ JowdayDPS.SourceLookup = {
         ["Special"] = "Sworn Flourish",
         ["Cast"] = "Engagement Ring",
         ["HeraDamageShareProjectile"] = "Nasty Comeback",
-        --["HeraCastSummonProjectile"] = "Engagement Ring",
         ["DamageShareEffect"] = "Hitch",
         ["DamageShareDeath"] = "Dying Wish"
     },
@@ -185,7 +200,7 @@ JowdayDPS.SourceLookup = {
     }
 }
 
-JowdayDPS.DpsColors = {
+mod.DpsColors = {
     Aphrodite = {
         BarColor = Color.AphroditeDamage,
         Icons = { "Aphrodite" }
@@ -291,7 +306,7 @@ JowdayDPS.DpsColors = {
     }
 }
 
-JowdayDPS.Icons = {
+mod.Icons = {
     Aphrodite = { Name = "BoonInfoSymbolAphroditeIcon", Scale = 0.15 },
     Apollo = { Name = "BoonInfoSymbolApolloIcon", Scale = 0.2 },
     Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis2", Scale = 0.075 },
