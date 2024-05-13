@@ -314,12 +314,14 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 
     mod.DpsBars["DpsBar" .. label] = dpsBar
 
+    local textOffsetX = -7
+    if mod.Config.ShowIcons == true then textOffsetX = -25 end
     local textOffsetY = -2
     -- name label
     CreateTextBox({
         Id = dpsBar.Id,
         Text = abilityName,
-        OffsetX = -7,
+        OffsetX = textOffsetX,
         OffsetY = textOffsetY,
         Font = "LatoMedium",
         FontSize = 10,
@@ -471,33 +473,27 @@ function mod.generateBarIcons(colors, label, dpsBar)
     local godIcons = ShallowCopyTable(colors["Icons"])
 
     if godIcons ~= nil then
-        -- set default icon scaling
-        local scale1 = 0.1
-        local scale2 = 0.1
-
         -- if one icon, center it
-        local iconOffset = -18
+        local iconOffsetX = -12
         -- if two, make room for both
         if #godIcons == 2 then
-            iconOffset = -10
+            iconOffsetX = -8
         end
 
         local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
-        local icon1 = mod.Icons[godIcons[1]].Name
-        print('icon1: ' .. icon1)
-        SetAnimation({ Name = icon1, DestinationId = dpsIcon1.Id, Scale = scale1 })
+        local icon1 = mod.Icons[godIcons[1]]
+        SetAnimation({ Name = icon1.Name, DestinationId = dpsIcon1.Id, Scale = icon1.Scale })
         mod.DpsIcons["DpsIcon" .. label] = dpsIcon1
         -- if it's a duo, add the icon and attach it
         if #godIcons > 1 then
             local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
-            local icon2 = mod.Icons[godIcons[2]].Name
-            print('icon 2: ' .. icon2)
-            SetAnimation({ Name = icon2, DestinationId = dpsIcon2.Id, Scale = scale2 })
+            local icon2 = mod.Icons[godIcons[2]]
+            SetAnimation({ Name = icon2.Name, DestinationId = dpsIcon2.Id, Scale = icon2.Scale })
             mod.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
-            Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
+            Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -10 })
         end
         -- anchor to the given dps bar
-        Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffset })
+        Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffsetX, OffsetY = -3 })
     end
 end
 

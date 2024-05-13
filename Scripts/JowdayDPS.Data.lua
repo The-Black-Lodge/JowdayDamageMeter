@@ -44,10 +44,12 @@ JowdayDPS.NameLookup = {
     DestructibleTreeSplinter = "Splinters",
     SteamWallBlast = "Steam Trap",
     SteamTrapFast = "Steam Trap",
+    SteamTrap = "Steam Trap",
     SteamCubeExplosion = "Steam Trap",
     BrambleTrap = "Brambles",
     ThornTreeThorn = "Thorns",
     FieldsDestructiblePillarDestruction = "Collapsing Pillar",
+    BlastCubeExplosion = "Trap",
     SpikeTrapWeapon = "Spikes",
     LavaTileWeapon = "Lava",
     BaseCollision = "Wall Slam",
@@ -179,7 +181,7 @@ JowdayDPS.SourceLookup = {
         ["MassiveSlamBlastCast"] = "Seismic Hammer",
     },
     DuoHestiaPoseidon = {
-        ["SteamBlast"] = "Steam"
+        ["SteamBlast"] = "Scalding Vapor"
     }
 }
 
@@ -290,15 +292,15 @@ JowdayDPS.DpsColors = {
 }
 
 JowdayDPS.Icons = {
-    Aphrodite = { Name = "BoonSymbolAphroditeIcon" },
-    Apollo = { Name = "BoonInfoSymbolApolloIcon" },
-    Artemis = { Name = "BoonSymbolArtemisIcon" },
-    Demeter = { Name = "BoonInfoSymbolDemeterIcon" },
-    Hades = { Name = "Boon_Hades_01" },
-    Hera = { Name = "BoonInfoSymbolHeraIcon" },
-    Hestia = { Name = "BoonInfoSymbolHestiaIcon" },
-    Hephaestus = { Name = "BoonSymbolHephaestusIcon" },
-    Poseidon = { Name = "BoonInfoSymbolPoseidonIcon" },
-    Selene = { Name = "Boon_Selene_01" },
-    Zeus = { Name = "BoonInfoSymbolZeusIcon" }
+    Aphrodite = { Name = "BoonInfoSymbolAphroditeIcon", Scale = 0.15 },
+    Apollo = { Name = "BoonInfoSymbolApolloIcon", Scale = 0.2 },
+    Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis2", Scale = 0.075 },
+    Demeter = { Name = "BoonInfoSymbolDemeterIcon", Scale = 0.21 },
+    Hades = { Name = "GUI\\Icons\\Hades_Symbol_01", Scale = 0.09 },
+    Hera = { Name = "BoonInfoSymbolHeraIcon", Scale = 0.2 },
+    Hestia = { Name = "BoonInfoSymbolHestiaIcon", Scale = 0.2 },
+    Hephaestus = { Name = "BoonSymbolHephaestusIcon", Scale = 0.2 },
+    Poseidon = { Name = "BoonInfoSymbolPoseidonIcon", Scale = 0.2 },
+    Selene = { Name = "Items\\Loot\\SpellDrop_Preview", Scale = 0.2 },
+    Zeus = { Name = "BoonInfoSymbolZeusIcon", Scale = 0.2 }
 }
