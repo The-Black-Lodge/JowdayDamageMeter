@@ -7,44 +7,67 @@ mod.AttackText = "Attack"
 mod.SpecialText = "Special"
 mod.CastText = "Cast"
 mod.DashText = "Dash"
+mod.WallSlam = "Wall Slam"
 mod.EnemyText = "Enemy"
 -- npc assists
 mod.ArtemisName = "Artemis"
 mod.NemesisName = "Nemesis"
 mod.HeraclesName = "Heracles"
 mod.IcarusName = "Icarus"
+-- familiars
+mod.Frinos = "Frinos"
+mod.Toula = "Toula"
+-- traps
+mod.SteamTrap = "Steam Trap"
+mod.OilFire = "Oil Fire"
+mod.FireBarrel = "Fire Barrel"
+mod.SpikeTrap = "Spike Trap"
+mod.BrambleTrap = "Brambles"
+mod.ThornTrap = "Thorns"
+mod.Splinters = "Splinters"
+mod.BeamTrap = "Beam"
+mod.Pillar = "Collapsing Pillar"
+mod.Lava = "Lava"
+mod.Rubble = "Falling Rubble"
+mod.GenericTrap = "Trap"
+--  misc
+mod.SheepAttack = "Sheep Attack"
+mod.Boulder = "Polyphemus Boulder"
+mod.ShadeSprint = "Necromantic Influence"
+mod.EphyraPylon = "Pylon Spirits"
 
 mod.NameLookup = {
     -- sheep?
-    WeaponMorphedAttack = "Sheep Attack",
-    IcarusExplosion = "Explosive Intent",
+    WeaponMorphedAttack = mod.SheepAttack,
+    -- familiars
+    FrogFamiliarLand = mod.Frinos,
+    CatFamiliarPounce = mod.Toula,
     -- misc environment
-    DestructibleTreeSplinter = "Splinters",
-    SteamWallBlast = "Steam Trap",
-    SteamTrapFast = "Steam Trap",
-    SteamTrap = "Steam Trap",
-    SteamCubeExplosion = "Steam Trap",
-    BrambleTrap = "Brambles",
-    ThornTreeThorn = "Thorns",
-    FieldsDestructiblePillarDestruction = "Collapsing Pillar",
-    BlastCubeExplosion = "Trap",
-    SpikeTrapWeapon = "Spikes",
-    LavaTileWeapon = "Lava",
-    BaseCollision = "Wall Slam",
-    BeamTrap = "Beam",
-    FireBarrelExplosion = "Fire Barrel",
-    FireBarrelFireLob = "Fire Barrel",
-    PolyphemusBoulderSky = "Polyphemus Boulder",
-    OilPuddleFire = "Oil Fire",
-    OilPuddleFire02 = "Oil Fire",
-    OilPuddleFire03 = "Oil Fire",
-    OilPuddleFire04 = "Oil Fire",
-    RubbleFall = "Falling Rubble",
-    ShadeMercSpiritball = "Necromantic Influence",
-    FrogFamiliarLand = "Frinos",
-    CatFamiliarPounce = "Toula",
-    SoulPylonSpiritball = "Pylon Spirits",
-    -----------------------------
+    PolyphemusBoulderSky = mod.Boulder,
+    ShadeMercSpiritball = mod.ShadeSprint,
+    SoulPylonSpiritball = mod.EphyraPylon,
+    --- traps
+    FireBarrelExplosion = mod.FireBarrel,
+    FireBarrelFireLob = mod.FireBarrel,
+    SteamWallBlast = mod.SteamTrap,
+    SteamTrapFast = mod.SteamTrap,
+    SteamTrap = mod.SteamTrap,
+    SteamCubeExplosion = mod.SteamTrap,
+    OilPuddleFire = mod.OilFire,
+    OilPuddleFire02 = mod.OilFire,
+    OilPuddleFire03 = mod.OilFire,
+    OilPuddleFire04 = mod.OilFire,
+    DestructibleTreeSplinter = mod.Splinters,
+    BrambleTrap = mod.BrambleTrap,
+    ThornTreeThorn = mod.ThornTrap,
+    FieldsDestructiblePillarDestruction = mod.Pillar,
+    BlastCubeExplosion = mod.GenericTrap,
+    SpikeTrapWeapon = mod.SpikeTrap,
+    LavaTileWeapon = mod.Lava,
+    BaseCollision = mod.WallSlam,
+    BeamTrap = mod.BeamTrap,
+    RubbleFall = mod.Rubble,
+    --
     WeaponDagger = mod.AttackText,
     WeaponDaggerThrow = mod.SpecialText,
     WeaponCast = mod.CastText,
@@ -151,6 +174,9 @@ mod.SourceLookup = {
         ["MassiveSlamBlast"] = "Blast",
         ["HephSprintBlast"] = "Smithy Sprint",
         ["DelayedKnockbackEffect"] = "Furnace Blast"
+    },
+    IcarusBoon = {
+        ["IcarusExplosion"] = "Explosive Intent",
     },
     OdysseusKeepsake = {
         ["Knuckle Bones"] = "Knuckle Bones"
@@ -278,7 +304,7 @@ mod.DpsColors = {
         BarColor = Color.HeraclesVoice,
         LabelColor = Color.HeraclesVoice
     },
-    Icarus = {
+    IcarusBoon = {
         BarColor = Color.IcarusVoice
     },
     IcarusAssist = {
