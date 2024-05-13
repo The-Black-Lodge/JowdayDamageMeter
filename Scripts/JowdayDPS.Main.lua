@@ -237,10 +237,9 @@ end
 -- UI functions
 -- Creates a transparent background behind the dps. Resizes and moves the existing component if this is called with new height and position
 function mod.createDpsOverlayBackground(obstacleName, x, y, width, height)
-        local scaleWidth = width / (mod.Config.DisplayWidth + mod.Config.Margin * 2)
-        local scaleHeight = height / 270
+    local scaleWidth = width / (mod.Config.DisplayWidth + mod.Config.Margin * 2)
+    local scaleHeight = height / 270
     if ScreenAnchors[obstacleName] ~= nil then
-
         SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
         SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
         Move({
@@ -464,6 +463,37 @@ function mod.findColor(source)
         color = colors["Default"]
     end
     return color, niceLabel
+end
+
+-- add icons to the bar if available
+function mod.generateBarIcons(colors, label, dpsBar)
+    local godIcons = ShallowCopyTable(colors["Icons"])
+
+    if godIcons ~= nil then
+        -- set default icon scaling
+        local scale1 = 0.1
+        local scale2 = 0.1
+
+        -- if one icon, center it
+        local iconOffset = -18
+        -- if two, make room for both
+        if #godIcons == 2 then
+            iconOffset = -10
+        end
+
+        local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
+        SetAnimation({ Name = mod.Icons[godIcons[1]], DestinationId = dpsIcon1.Id, Scale = scale1 })
+        mod.DpsIcons["DpsIcon" .. label] = dpsIcon1
+        -- if it's a duo, add the icon and attach it
+        if #godIcons > 1 then
+            local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
+            SetAnimation({ Name = mod.Icons[godIcons[2]], DestinationId = dpsIcon2.Id, Scale = scale2 })
+            mod.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
+            Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
+        end
+        -- anchor to the given dps bar
+        Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffset })
+    end
 end
 
 -- overrides

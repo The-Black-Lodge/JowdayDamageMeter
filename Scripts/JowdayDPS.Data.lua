@@ -57,6 +57,7 @@ JowdayDPS.NameLookup = {
     OilPuddleFire02 = "Oil Fire",
     OilPuddleFire03 = "Oil Fire",
     OilPuddleFire04 = "Oil Fire",
+    RubbleFall = "Falling Rubble",
     -- also misc
     HeraCastSummonProjectile = "Cast",
     LamiaMiasma = "Enemy",
@@ -65,6 +66,7 @@ JowdayDPS.NameLookup = {
     LycanSwarmerChomp = "Enemy",
     CorruptedShadeMRam = "Enemy",
     LycanthropeLeapKnockback = "Enemy",
+    InfestedCerberusSwipe = "Enemy",
     SatyrLanceThrow = "Enemy",
     ShadeMercSpiritball = "Necromantic Influence",
     FrogFamiliarLand = "Frinos",
@@ -79,7 +81,6 @@ JowdayDPS.SourceLookup = {
         ["Dash"] = "Passion Dash",
         ["Cast"] = "Rapture Ring",
         ["AphroditeBurst"] = "Heart Breaker",
-        ["ShadeMercFireball"] = "Burning Desire", -- duo x hestia
     },
     Apollo = {
         ["Attack"] = "Nova Strike",
@@ -104,7 +105,7 @@ JowdayDPS.SourceLookup = {
     Hades = {
         ["WeaponCastProjectileHades"] = "Howling Soul",
         ["Old Grudge"] = "Old Grudge"
-    },    
+    },
     Hera = {
         ["Attack"] = "Sworn Strike",
         ["Special"] = "Sworn Flourish",
@@ -129,7 +130,6 @@ JowdayDPS.SourceLookup = {
         ["Cast"] = "Anvil Ring",
         ["Dash"] = "Smithy Sprint",
         ["MassiveSlamBlast"] = "Blast",
-        ["MassiveSlamBlastCast"] = "Seismic Hammer", -- also duo
         ["HephSprintBlast"] = "Smithy Sprint",
         ["DelayedKnockbackEffect"] = "Furnace Blast"
     },
@@ -144,8 +144,6 @@ JowdayDPS.SourceLookup = {
         ["PoseidonSplashSplinter"] = "Poseidon Waves",
         ["PoseidonSprintBlast"] = "Breaker Sprint",
         ["PoseidonCollisionBlast"] = "Crashing Wave",
-        ["ProjectileSprintBall"] = "Beach Ball", -- duo x apollo
-        ["SteamBlast"] = "Steam" -- duo x hestia
     },
     Selene = {
         ["WeaponSpellLaser"] = "Lunar Ray",
@@ -169,6 +167,18 @@ JowdayDPS.SourceLookup = {
         ["ZeusSprintStrike"] = "Thunder Sprint",
         ["ZeusOnSpawn"] = "Shocking Loss"
     },
+    DuoAphroditeHestia = {
+        ["ShadeMercFireball"] = "Burning Desire",
+    },
+    DuoApolloPosedidon = {
+        ["ProjectileSprintBall"] = "Beach Ball",
+    },
+    DuoHephaestusPoseidon = {
+        ["MassiveSlamBlastCast"] = "Seismic Hammer",
+    },
+    DuoHestiaPoseidon = {
+        ["SteamBlast"] = "Steam"
+    }
 }
 
 JowdayDPS.DpsColors = {
@@ -187,7 +197,7 @@ JowdayDPS.DpsColors = {
     },
     Apollo = {
         BarColor = Color.ApolloDamageLight,
-        Icons = {"Apollo"}
+        Icons = { "Apollo" }
     },
     Athena = {
         BarColor = Color.AthenaDamageLight,
@@ -199,11 +209,11 @@ JowdayDPS.DpsColors = {
     },
     Hades = {
         BarColor = Color.HadesVoice,
-        Icons = {"Hades"}
+        Icons = { "Hades" }
     },
     Hera = {
         BarColor = Color.HeraDamage,
-        Icons = {"Hera"}
+        Icons = { "Hera" }
     },
     Hestia = {
         BarColor = Color.HestiaDamageLight,
@@ -225,6 +235,22 @@ JowdayDPS.DpsColors = {
         BarColor = Color.ZeusDamageLight,
         Icons = { "Zeus" }
     },
+    DuoAphroditeHestia = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Aphrodite", "Hestia" }
+    },
+    DuoApolloPosedidon = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Apollo", "Poseidon" }
+    },
+    DuoHephaestusPoseidon = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Hephaestus", "Poseidon" }
+    },
+    DuoHestiaPoseidon = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Hestia", "Poseidon" }
+    },
     NemesisAssist = {
         BarColor = Color.NemesisVoice,
         LabelColor = Color.NemesisVoice
@@ -245,12 +271,12 @@ JowdayDPS.DpsColors = {
         LabelColor = Color.OdysseusVoice
     },
     Shade = {
-        BarColor = {51, 222, 160, 255},
-        LabelColor = {51, 222, 160, 255}
+        BarColor = { 51, 222, 160, 255 },
+        LabelColor = { 51, 222, 160, 255 }
     },
     Frinos = {
         BarColor = { 143, 229, 131, 255 },
-        LabelColor = { 143, 229, 131 ,255 }
+        LabelColor = { 143, 229, 131, 255 }
     },
     Toula = {
         BarColor = Color.LightGold,
@@ -259,4 +285,18 @@ JowdayDPS.DpsColors = {
     Default = {
         BarColor = { 195, 175, 175, 255 }
     }
+}
+
+JowdayDPS.Icons = {
+    Aphrodite = { name = "BoonSymbolAphroditeIcon" },
+    Apollo = { name = "BoonInfoSymbolApolloIcon" },
+    Artemis = { name = "BoonSymbolArtemisIcon" },
+    Demeter = { name = "BoonInfoSymbolDemeterIcon" },
+    Hades = { name = "Boon_Hades_01" },
+    Hera = { name = "BoonInfoSymbolHeraIcon" },
+    Hestia = { name = "BoonInfoSymbolHestiaIcon" },
+    Hephaestus = { name = "BoonSymbolHephaestusIcon" },
+    Poseidon = { name = "BoonInfoSymbolPoseidonIcon" },
+    Selene = { name = "Boon_Selene_01" },
+    Zeus = { name = "BoonInfoSymbolZeusIcon" }
 }
