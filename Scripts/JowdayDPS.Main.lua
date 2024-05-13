@@ -1,3 +1,5 @@
+---@meta _
+
 local mod = JowdayDPS
 
 mod.List = {}
@@ -220,7 +222,6 @@ end
 function mod.createPollingThread(currentHubRoom)
     thread(function()
         while mod.DpsUpdateThread do
-            print('polling')
             -- in training room only, empty list after 5 seconds of no activity
             if currentHubRoom == 'Hub_PreRun' and mod.DamageHistory[mod.DamageHistory.last] ~= nil then
                 if GetTime({}) - mod.DamageHistory[mod.DamageHistory.last].Timestamp > mod.Config.TrainingRoomClearTime then
@@ -374,9 +375,9 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
     -- add icons
-    -- if mod.Config.ShowIcons == true then
-    --     mod.generateBarIcons(colors, label, dpsBar)
-    -- end
+    if mod.Config.ShowIcons == true then
+        mod.generateBarIcons(colors, label, dpsBar)
+    end
 end
 
 -- determines colors and looks up a nice name
@@ -482,12 +483,16 @@ function mod.generateBarIcons(colors, label, dpsBar)
         end
 
         local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
-        SetAnimation({ Name = mod.Icons[godIcons[1]], DestinationId = dpsIcon1.Id, Scale = scale1 })
+        local icon1 = mod.Icons[godIcons[1]].Name
+        print('icon1: ' .. icon1)
+        SetAnimation({ Name = icon1, DestinationId = dpsIcon1.Id, Scale = scale1 })
         mod.DpsIcons["DpsIcon" .. label] = dpsIcon1
         -- if it's a duo, add the icon and attach it
         if #godIcons > 1 then
             local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
-            SetAnimation({ Name = mod.Icons[godIcons[2]], DestinationId = dpsIcon2.Id, Scale = scale2 })
+            local icon2 = mod.Icons[godIcons[2]].Name
+            print('icon 2: ' .. icon2)
+            SetAnimation({ Name = icon2, DestinationId = dpsIcon2.Id, Scale = scale2 })
             mod.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
             Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -13 })
         end

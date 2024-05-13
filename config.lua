@@ -1,3 +1,5 @@
+---@meta _
+
 local config = {
     DpsInterval = 99999999,
     PollingInterval = 1, -- how often to update bars

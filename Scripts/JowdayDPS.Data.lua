@@ -1,3 +1,5 @@
+---@meta _
+
 JowdayDPS.NameLookup = {
     WeaponDagger = "Attack",
     WeaponDaggerThrow = "Special",
@@ -288,15 +290,15 @@ JowdayDPS.DpsColors = {
 }
 
 JowdayDPS.Icons = {
-    Aphrodite = { name = "BoonSymbolAphroditeIcon" },
-    Apollo = { name = "BoonInfoSymbolApolloIcon" },
-    Artemis = { name = "BoonSymbolArtemisIcon" },
-    Demeter = { name = "BoonInfoSymbolDemeterIcon" },
-    Hades = { name = "Boon_Hades_01" },
-    Hera = { name = "BoonInfoSymbolHeraIcon" },
-    Hestia = { name = "BoonInfoSymbolHestiaIcon" },
-    Hephaestus = { name = "BoonSymbolHephaestusIcon" },
-    Poseidon = { name = "BoonInfoSymbolPoseidonIcon" },
-    Selene = { name = "Boon_Selene_01" },
-    Zeus = { name = "BoonInfoSymbolZeusIcon" }
+    Aphrodite = { Name = "BoonSymbolAphroditeIcon" },
+    Apollo = { Name = "BoonInfoSymbolApolloIcon" },
+    Artemis = { Name = "BoonSymbolArtemisIcon" },
+    Demeter = { Name = "BoonInfoSymbolDemeterIcon" },
+    Hades = { Name = "Boon_Hades_01" },
+    Hera = { Name = "BoonInfoSymbolHeraIcon" },
+    Hestia = { Name = "BoonInfoSymbolHestiaIcon" },
+    Hephaestus = { Name = "BoonSymbolHephaestusIcon" },
+    Poseidon = { Name = "BoonInfoSymbolPoseidonIcon" },
+    Selene = { Name = "Boon_Selene_01" },
+    Zeus = { Name = "BoonInfoSymbolZeusIcon" }
 }
