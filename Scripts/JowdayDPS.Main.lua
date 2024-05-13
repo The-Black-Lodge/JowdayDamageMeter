@@ -201,7 +201,7 @@ function mod.getSourceName(triggerArgs, victim)
     end
 
     if source == 'Unknown' then
-        -- distinguish between Old Grudge (20%) and Knuckle Bones (15%)
+        -- distinguish between Old Grudge (20%) and Knuckle Bones (<=15%)
         if triggerArgs.Silent and victim.IsBoss == true then
             local damage = triggerArgs.DamageAmount or 0
             local maxhealth = victim.MaxHealth
@@ -220,13 +220,14 @@ end
 function mod.createPollingThread(currentHubRoom)
     thread(function()
         while mod.DpsUpdateThread do
+            print('polling')
             -- in training room only, empty list after 5 seconds of no activity
             if currentHubRoom == 'Hub_PreRun' and mod.DamageHistory[mod.DamageHistory.last] ~= nil then
-                if GetTime({}) - mod.DamageHistory[mod.DamageHistory.last].Timestamp > 5 then
+                if GetTime({}) - mod.DamageHistory[mod.DamageHistory.last].Timestamp > mod.Config.TrainingRoomClearTime then
                     mod.List.emptyList(mod.DamageHistory)
                 end
             end
-            -- calculate dps every .2 sec
+            -- calculate dps every interval
             mod.calculateDps(mod.DamageHistory)
             wait(mod.Config.PollingInterval)
         end
@@ -351,7 +352,7 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     })
 
     -- damage total label
-    if scale > .1 then
+    if scale > .2 then
         CreateTextBox({
             Id = dpsBar.Id,
             Text = damage,
@@ -446,6 +447,8 @@ function mod.findColor(source)
         return colors["Shade"]
     elseif source == "Frinos" then
         return colors["Frinos"]
+    elseif source == "Toula" then
+        return colors["Toula"]
     end
 
     if color == nil then

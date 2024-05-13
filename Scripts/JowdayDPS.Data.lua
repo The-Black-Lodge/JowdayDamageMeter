@@ -40,10 +40,9 @@ JowdayDPS.NameLookup = {
     IcarusExplosion = "Explosive Intent",
     -- misc environment
     DestructibleTreeSplinter = "Splinters",
-    SteamWallBlast = "Steam",
-    SteamTrapFast = "Steam",
-    SteamCubeExplosion = "Steam",
-    SteamBlast = "Steam",
+    SteamWallBlast = "Steam Trap",
+    SteamTrapFast = "Steam Trap",
+    SteamCubeExplosion = "Steam Trap",
     BrambleTrap = "Brambles",
     ThornTreeThorn = "Thorns",
     FieldsDestructiblePillarDestruction = "Collapsing Pillar",
@@ -69,6 +68,7 @@ JowdayDPS.NameLookup = {
     SatyrLanceThrow = "Enemy",
     ShadeMercSpiritball = "Necromantic Influence",
     FrogFamiliarLand = "Frinos",
+    CatFamiliarPounce = "Toula",
     SoulPylonSpiritball = "Pylon Spirits"
 }
 
@@ -78,7 +78,8 @@ JowdayDPS.SourceLookup = {
         ["Special"] = "Flutter Flourish",
         ["Dash"] = "Passion Dash",
         ["Cast"] = "Rapture Ring",
-        ["AphroditeBurst"] = "Heart Breaker"
+        ["AphroditeBurst"] = "Heart Breaker",
+        ["ShadeMercFireball"] = "Burning Desire", -- duo x hestia
     },
     Apollo = {
         ["Attack"] = "Nova Strike",
@@ -143,7 +144,8 @@ JowdayDPS.SourceLookup = {
         ["PoseidonSplashSplinter"] = "Poseidon Waves",
         ["PoseidonSprintBlast"] = "Breaker Sprint",
         ["PoseidonCollisionBlast"] = "Crashing Wave",
-        ["ProjectileSprintBall"] = "Beach Ball" -- duo x apollo
+        ["ProjectileSprintBall"] = "Beach Ball", -- duo x apollo
+        ["SteamBlast"] = "Steam" -- duo x hestia
     },
     Selene = {
         ["WeaponSpellLaser"] = "Lunar Ray",
@@ -184,7 +186,8 @@ JowdayDPS.DpsColors = {
         Icons = { "Artemis" }
     },
     Apollo = {
-        BarColor = Color.ApolloDamageLight
+        BarColor = Color.ApolloDamageLight,
+        Icons = {"Apollo"}
     },
     Athena = {
         BarColor = Color.AthenaDamageLight,
@@ -196,9 +199,11 @@ JowdayDPS.DpsColors = {
     },
     Hades = {
         BarColor = Color.HadesVoice,
+        Icons = {"Hades"}
     },
     Hera = {
-        BarColor = Color.HeraDamage
+        BarColor = Color.HeraDamage,
+        Icons = {"Hera"}
     },
     Hestia = {
         BarColor = Color.HestiaDamageLight,
@@ -213,7 +218,8 @@ JowdayDPS.DpsColors = {
         Icons = { "Poseidon" }
     },
     Selene = {
-        BarColor = Color.SeleneVoice
+        BarColor = Color.SeleneVoice,
+        Icons = { "Selene" }
     },
     Zeus = {
         BarColor = Color.ZeusDamageLight,
@@ -245,6 +251,10 @@ JowdayDPS.DpsColors = {
     Frinos = {
         BarColor = { 143, 229, 131, 255 },
         LabelColor = { 143, 229, 131 ,255 }
+    },
+    Toula = {
+        BarColor = Color.LightGold,
+        LabelColor = Color.LightGold
     },
     Default = {
         BarColor = { 195, 175, 175, 255 }
