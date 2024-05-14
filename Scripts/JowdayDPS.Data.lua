@@ -35,6 +35,90 @@ mod.SheepAttack = "Sheep Attack"
 mod.Boulder = "Polyphemus Boulder"
 mod.ShadeSprint = "Necromantic Influence"
 mod.EphyraPylon = "Pylon Spirits"
+-- these correspond with Id/DisplayName in TraitText.[lang].sjson or HelpText.[lang].sjson
+-- aphrodite
+mod.AphroditeWeaponBoon = "Flutter Strike"
+mod.AphroditeSpecialBoon = "Flutter Flourish"
+mod.AphroditeCastBoon = "Rapture Ring"
+mod.AphroditeSprintBoon = "Passion Dash"
+mod.ManaBurstBoon = "Heart Breaker"
+-- apollo
+mod.ApolloWeaponBoon = "Nova Strike"
+mod.ApolloSpecialBoon = "Nova Flourish"
+mod.ApolloCastBoon = "Solar Ring"
+mod.ApolloSprintBoon = "Blinding Sprint"
+mod.ApolloRetaliateBoon = "Light Smite"
+mod.ApolloMissStrikeBoon = "Critical Miss"
+-- artemis
+mod.SupportingFireBoon = "Support Fire"
+mod.OmegaCastVolleyBoon = "Easy Shot"
+-- demeter
+mod.DemeterWeaponBoon = "Ice Strike"
+mod.DemeterSpecialBoon = "Ice Flourish"
+mod.DemeterCastBoon = "Arctic Ring"
+mod.DemeterSprintBoon = "Frigid Sprint"
+mod.InstantRootKill = "Winter Harvest"
+-- hades
+mod.HadesCastProjectileBoon = "Howling Soul"
+mod.HadesPreDamageBoon = "Old Grudge"
+-- hera
+mod.HeraWeaponBoon = "Sworn Strike"
+mod.HeraSpecialBoon = "Sworn Flourish"
+mod.HeraCastBoon = "Engagement Ring"
+mod.HeraSprintBoon = "Nexus Sprint" -- not currently used
+mod.DamageShareRetaliateBoon = "Nasty Comeback"
+mod.Link = "Hitch" --HelpText
+mod.LinkedDeathDamageBoon = "Dying Wish"
+-- hestia
+mod.HestiaWeaponBoon = "Flame Strike"
+mod.HestiaSpecialBoon = "Flame Flourish"
+mod.HestiaSprintBoon = "Soot Sprint"
+mod.HestiaCastBoon = "Smolder Ring"
+mod.BurnExplodeBoon = "Natural Gas"
+mod.Burn = "Scorch" -- HelpText
+mod.FireballManaSpecialBoon = "Controlled Burn"
+mod.CastProjectileBoon = "Glowing Coal"
+-- hephaestus
+mod.HephaestusWeaponBoon = "Volcanic Strike"
+mod.HephaestusSpecialBoon = "Volcanic Flourish"
+mod.HephaestusCastBoon = "Anvil Ring"
+mod.HephaestusSprintBoon = "Smithy Sprint"
+mod.MassiveSlam_Name = "Blast"
+mod.MassiveKnockupBoon = "Furnace Blast"
+-- icarus
+mod.OmegaExplodeBoon = "Explosive Intent"
+mod.CastHazardBoon = "Hazard Boom"
+mod.BreakExplosiveArmorBoon = "Destructive Coating"
+-- odysseus
+mod.BossPreDamageKeepsake = "Knuckle Bones"
+-- poseidon
+mod.PoseidonWeaponBoon = "Wave Strike"
+mod.PoseidonSpecialBoon = "Wave Flourish"
+mod.PoseidonCastBoon = "Geyser Ring"
+mod.PoseidonSprintBoon = "Breaker Sprint"
+mod.PoseidonSplash_Name = "Waves"
+mod.SlamExplosionBoon = "Crashing Wave"
+-- selene
+mod.SpellLaserTrait = "Lunar Ray"
+mod.SpellLeapTrait = "Wolf Howl"
+mod.SpellMeteorTrait = "Total Eclipse"
+mod.SpellTransformTrait = "Dark Side"
+-- zeus
+mod.ZeusWeaponBoon = "Heaven Strike"
+mod.ZeusSpecialBoon = "Heaven Flourish"
+mod.ZeusSprintBoon = "Thunder Sprint"
+mod.ZeusCastBoon = "Storm Ring"
+mod.Echo = "Blitz" -- HelpText
+mod.FocusLightningBoon = "Static Shock"
+mod.ZeusManaBoltBoon = "Spirit Surge"
+mod.BoltRetaliateBoon = "Divine Vengeance"
+mod.CastAnywhereBoon = "Lightning Lance"
+mod.SpawnKillBoon = "Shocking Loss"
+-- duo
+mod.ShadeMercFireballBoon = "Burning Desire" -- aphrodite x hestia
+mod.PoseidonSplashSprintBoon = "Beach Ball"  -- apollo x poseidon
+mod.MassiveCastBoon = "Seismic Hammer"  -- hephaestus x poseidon
+mod.SteamBoon = "Scalding Vapor" -- hestia x poseidon
 
 mod.NameLookup = {
     -- sheep?
@@ -71,7 +155,6 @@ mod.NameLookup = {
     WeaponDagger = mod.AttackText,
     WeaponDaggerThrow = mod.SpecialText,
     WeaponCast = mod.CastText,
-    WeaponCastProjectile = mod.CastText,
     WeaponBlink = mod.DashText,
     --
     WeaponStaffSwing = mod.AttackText,
@@ -89,8 +172,6 @@ mod.NameLookup = {
     WeaponLob = mod.AttackText,
     WeaponLobSpecial = mod.SpecialText,
     WeaponLobPulse = mod.AttackText,
-    --
-    HeraCastSummonProjectile = mod.CastText,
     -- artemis assist
     ArtemisSniperBolt = mod.ArtemisName,
     ArtemisVolleyShot = mod.ArtemisName,
@@ -115,114 +196,119 @@ mod.NameLookup = {
     LycanthropeLeapKnockback = mod.EnemyText,
     InfestedCerberusSwipe = mod.EnemyText,
     SatyrLanceThrow = mod.EnemyText,
+    -- don't translate these
+    HeraCastSummonProjectile = "Cast",
+    DemeterSprintStorm = "Dash",
+    HephSprintBlast = "Dash",
+    PoseidonSprintBlast = "Dash",
+    ZeusSprintStrike = "Dash"
 }
 
 mod.SourceLookup = {
     Aphrodite = {
-        ["Attack"] = "Flutter Strike",
-        ["Special"] = "Flutter Flourish",
-        ["Dash"] = "Passion Dash",
-        ["Cast"] = "Rapture Ring",
-        ["AphroditeBurst"] = "Heart Breaker",
+        ["Attack"] = mod.AphroditeWeaponBoon,
+        ["Special"] = mod.AphroditeSpecialBoon,
+        ["Dash"] = mod.AphroditeSprintBoon,
+        ["Cast"] = mod.AphroditeCastBoon,
+        ["AphroditeBurst"] = mod.ManaBurstBoon,
     },
     Apollo = {
-        ["Attack"] = "Nova Strike",
-        ["Special"] = "Nova Flourish",
-        ["Dash"] = "Blinding Sprint",
-        ["Cast"] = "Solar Ring",
-        ['ApolloRetaliateStrike'] = "Light Smite",
-        ['ApolloPerfectDashStrike'] = "Critical Miss"
+        ["Attack"] = mod.ApolloWeaponBoon,
+        ["Special"] = mod.ApolloSpecialBoon,
+        ["Dash"] = mod.ApolloSprintBoon,
+        ["Cast"] = mod.ApolloCastBoon,
+        ["ApolloRetaliateStrike"] = mod.ApolloRetaliateBoon,
+        ["ApolloPerfectDashStrike"] = mod.ApolloMissStrikeBoon
     },
     Artemis = {
-        ["ArtemisSupportingFire"] = "Support Fire",
-        ["ArtemisCastVolley"] = "Easy Shot"
+        ["ArtemisSupportingFire"] = mod.SupportingFireBoon,
+        ["ArtemisCastVolley"] = mod.OmegaCastVolleyBoon
     },
     Demeter = {
-        ["Attack"] = "Ice Strike",
-        ["Special"] = "Ice Flourish",
-        ["Dash"] = "Frigid Sprint",
-        ["Cast"] = "Arctic Ring",
-        ["DemeterSprintStorm"] = "Frigid Sprint",
-        ["DemeterChillKill"] = "Winter Harvest",
+        ["Attack"] = mod.DemeterWeaponBoon,
+        ["Special"] = mod.DemeterSpecialBoon,
+        ["Dash"] = mod.DemeterSprintBoon,
+        ["Cast"] = mod.DemeterCastBoon,
+        ["DemeterChillKill"] = mod.InstantRootKill,
     },
     Hades = {
-        ["WeaponCastProjectileHades"] = "Howling Soul",
-        ["Old Grudge"] = "Old Grudge"
+        ["WeaponCastProjectileHades"] = mod.HadesCastProjectileBoon,
+        ["Old Grudge"] = mod.HadesPreDamageBoon
     },
     Hera = {
-        ["Attack"] = "Sworn Strike",
-        ["Special"] = "Sworn Flourish",
-        ["Cast"] = "Engagement Ring",
-        ["HeraDamageShareProjectile"] = "Nasty Comeback",
-        ["DamageShareEffect"] = "Hitch",
-        ["DamageShareDeath"] = "Dying Wish"
+        ["Attack"] = mod.HeraWeaponBoon,
+        ["Special"] = mod.HeraSpecialBoon,
+        ["Cast"] = mod.HeraCastBoon,
+        ["HeraDamageShareProjectile"] = mod.DamageShareRetaliateBoon,
+        ["DamageShareEffect"] = mod.Link,
+        ["DamageShareDeath"] = mod.LinkedDeathDamageBoon
     },
     Hestia = {
-        ["Attack"] = "Flame Strike",
-        ["Special"] = "Flame Flourish",
-        ["Dash"] = "Soot Sprint",
-        ["Cast"] = "Smolder Ring",
-        ["BurnNova"] = "Natural Gas",
-        ["BurnEffect"] = "Scorch",
-        ["ProjectileFireball"] = "Controlled Burn"
+        ["Attack"] = mod.HestiaWeaponBoon,
+        ["Special"] = mod.HestiaSpecialBoon,
+        ["Dash"] = mod.HestiaSprintBoon,
+        ["Cast"] = mod.HestiaCastBoon,
+        ["BurnNova"] = mod.BurnExplodeBoon,
+        ["BurnEffect"] = mod.Burn,
+        ["ProjectileFireball"] = mod.FireballManaSpecialBoon,
+        ["WeaponCastProjectile"] = mod.CastProjectileBoon
     },
     Hephaestus = {
-        ["Attack"] = "Volcanic Strike",
-        ["Special"] = "Volcanic Flourish",
-        ["Cast"] = "Anvil Ring",
-        ["Dash"] = "Smithy Sprint",
-        ["MassiveSlamBlast"] = "Blast",
-        ["HephSprintBlast"] = "Smithy Sprint",
-        ["DelayedKnockbackEffect"] = "Furnace Blast"
+        ["Attack"] = mod.HephaestusWeaponBoon,
+        ["Special"] = mod.HephaestusSpecialBoon,
+        ["Cast"] = mod.HephaestusCastBoon,
+        ["Dash"] = mod.HephaestusCastBoon,
+        ["MassiveSlamBlast"] = mod.MassiveSlam_Name,
+        ["DelayedKnockbackEffect"] = mod.MassiveKnockupBoon
     },
     IcarusBoon = {
-        ["IcarusExplosion"] = "Explosive Intent",
+        ["IcarusExplosion"] = mod.OmegaExplodeBoon,
+        ["IcarusHazardExplosion"] = mod.CastHazardBoon,
+        ["IcarusArmorExplosion"] = mod.BreakExplosiveArmorBoon
     },
     OdysseusKeepsake = {
-        ["Knuckle Bones"] = "Knuckle Bones"
+        ["Knuckle Bones"] = mod.BossPreDamageKeepsake
     },
     Poseidon = {
-        ["Attack"] = "Wave Strike",
-        ["Special"] = "Wave Flourish",
-        ["Dash"] = "Breaker Sprint",
-        ["Cast"] = "Geyser Ring",
-        ["PoseidonSplashSplinter"] = "Poseidon Waves",
-        ["PoseidonSprintBlast"] = "Breaker Sprint",
-        ["PoseidonCollisionBlast"] = "Crashing Wave",
+        ["Attack"] = mod.PoseidonWeaponBoon,
+        ["Special"] = mod.PoseidonSpecialBoon,
+        ["Dash"] = mod.PoseidonSprintBoon,
+        ["Cast"] = mod.PoseidonCastBoon,
+        ["PoseidonSplashSplinter"] = mod.PoseidonSplash_Name,
+        ["PoseidonCollisionBlast"] = mod.SlamExplosionBoon,
     },
     Selene = {
-        ["WeaponSpellLaser"] = "Lunar Ray",
-        ["WeaponSpellLeap"] = "Wolf Howl",
-        ["WeaponSpellMeteor"] = "Meteor",
-        ["WeaponTransformSpecial"] = "Dark Side Special",
-        ["WeaponTransformAttack"] = "Dark Side Attack",
-        ["WeaponTransformBlink"] = "Dark Side Sprint",
-        ["WeaponTransformCast"] = "Dark Side Cast",
+        ["WeaponSpellLaser"] = mod.SpellLaserTrait,
+        ["WeaponSpellLeap"] = mod.SpellLeapTrait,
+        ["WeaponSpellMeteor"] = mod.SpellMeteorTrait,
+        ["WeaponTransformSpecial"] = mod.SpellTransformTrait .. ' ' .. mod.SpecialText,
+        ["WeaponTransformAttack"] = mod.SpellTransformTrait .. ' ' .. mod.AttackText,
+        ["WeaponTransformBlink"] = mod.SpellTransformTrait .. ' ' .. mod.DashText,
+        ["WeaponTransformCast"] = mod.SpellTransformTrait .. ' ' .. mod.CastText,
     },
     Zeus = {
-        ["Attack"] = "Heaven Strike",
-        ["Special"] = "Heaven Flourish",
-        ["Dash"] = "Thunder Sprint",
-        ["Cast"] = "Storm Ring",
-        ["ZeusEchoStrike"] = "Blitz",
-        ["ProjectileZeusSpark"] = "Static Shock",
-        ["ZeusZeroManaStrike"] = "Spirit Surge",
-        ["ZeusRetaliateStrike"] = "Divine Vengeance",
-        ["WeaponAnywhereCast"] = "Lightning Lance",
-        ["ZeusSprintStrike"] = "Thunder Sprint",
-        ["ZeusOnSpawn"] = "Shocking Loss"
+        ["Attack"] = mod.ZeusWeaponBoon,
+        ["Special"] = mod.ZeusSpecialBoon,
+        ["Dash"] = mod.ZeusSprintBoon,
+        ["Cast"] = mod.ZeusCastBoon,
+        ["ZeusEchoStrike"] = mod.Echo,
+        ["ProjectileZeusSpark"] = mod.FocusLightningBoon,
+        ["ZeusZeroManaStrike"] = mod.ZeusManaBoltBoon,
+        ["ZeusRetaliateStrike"] = mod.BoltRetaliateBoon,
+        ["WeaponAnywhereCast"] = mod.CastAnywhereBoon,
+        ["ZeusOnSpawn"] = mod.SpawnKillBoon
     },
     DuoAphroditeHestia = {
-        ["ShadeMercFireball"] = "Burning Desire",
+        ["ShadeMercFireball"] = mod.ShadeMercFireballBoon,
     },
     DuoApolloPosedidon = {
-        ["ProjectileSprintBall"] = "Beach Ball",
+        ["ProjectileSprintBall"] = mod.PoseidonSplashSprintBoon,
     },
     DuoHephaestusPoseidon = {
-        ["MassiveSlamBlastCast"] = "Seismic Hammer",
+        ["MassiveSlamBlastCast"] = mod.MassiveCastBoon,
     },
     DuoHestiaPoseidon = {
-        ["SteamBlast"] = "Scalding Vapor"
+        ["SteamBlast"] = mod.SteamBoon
     }
 }
 
