@@ -6,5 +6,8 @@ SJSON "sjson/GUIAnimations.sjson
 To "Scripts/RoomLogic.lua"
 Import register.lua
 Import config.lua
+Import localize.lua
+Import "lang/en.lua"
+Import "lang/fr.lua"
 Import "scripts/JowdayDPS.Main.lua"
 Import "scripts/JowdayDPS.Data.lua"

@@ -2,6 +2,21 @@
 
 local mod = JowdayDPS
 
+local function setupMainData()
+    mod.CurrentLocale = GetLanguage()
+    mod.Locale = setmetatable({}, {
+        __index = function(_, k)
+            return mod.GetLanguageString(k)
+        end
+    })
+end
+
+function mod.UpdateScreenData()
+	if mod.CurrentLocale ~= GetLanguage() then
+		mod.CurrentLocale = GetLanguage()
+	end
+end
+
 mod.List = {}
 -- List functions
 function mod.List.new(maxSize)
@@ -260,7 +275,7 @@ end
 
 -- Create a header that shows overall DPS and overall damage total
 function mod.createDpsHeader(obstacleName, totalDamage, dps, x, y)
-    local text = dps .. mod.HeaderText .. totalDamage
+    local text = dps .. mod.Locale.HeaderText .. totalDamage
 
     if ScreenAnchors[obstacleName] ~= nil then
         ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
@@ -382,7 +397,7 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     end
 end
 
--- determines colors and looks up a nice name
+-- determines colors and looks up a nice name, so the function name is no longer fully accurate
 function mod.findColor(source)
     local sources = mod.SourceLookup
     local colors = mod.DpsColors
@@ -400,7 +415,7 @@ function mod.findColor(source)
             niceLabel = sources[attack]["Attack"]
             return color, niceLabel
         else
-            return colors["Default"]
+            return colors["Default"], mod.Locale.AttackText
         end
     end
 
@@ -410,7 +425,7 @@ function mod.findColor(source)
             niceLabel = sources[special]["Special"]
             return color, niceLabel
         else
-            return colors["Default"]
+            return colors["Default"], mod.Locale.SpecialText
         end
     end
 
@@ -420,7 +435,7 @@ function mod.findColor(source)
             niceLabel = sources[cast]["Cast"]
             return color, niceLabel
         else
-            return colors["Default"]
+            return colors["Default"], mod.Locale.CastText
         end
     end
 
@@ -430,27 +445,30 @@ function mod.findColor(source)
             niceLabel = sources[dash]["Dash"]
             return color, niceLabel
         else
-            return colors["Default"]
+            return colors["Default"], mod.Locale.DashText
         end
     end
 
     -- color in our friends :)
     if source == 'Artemis' then
-        return colors["ArtemisAssist"]
+        return colors["ArtemisAssist"], mod.Locale.ArtemisName
     elseif source == 'Nemesis' then
-        return colors["NemesisAssist"]
+        return colors["NemesisAssist"], mod.Locale.NemesisName
     elseif source == 'Heracles' then
-        return colors["HeraclesAssist"]
+        return colors["HeraclesAssist"], mod.Locale.HeraclesName
     elseif source == 'Icarus' then
-        return colors["IcarusAssist"]
-    elseif source == 'Explosive Intent' then
-        return colors["Icarus"]
-    elseif source == "Necromantic Influence" or source == "Pylon Spirits" then
-        return colors["Shade"]
+        return colors["IcarusAssist"], mod.Locale.IcarusName
+    elseif source == "Necromantic Influence" then
+        return colors["Shade"], mod.Locale.ShadeSprint
+    elseif source == "Pylon Spirits" then
+        return colors["Shade"], mod.Locale.EphyraPylon
     elseif source == "Frinos" then
-        return colors["Frinos"]
+        return colors["Frinos"], mod.Locale.Frinos
     elseif source == "Toula" then
-        return colors["Toula"]
+        return colors["Toula"], mod.Locale.Toula
+        -- and some localization
+    elseif source == "Charm" then
+        return colors["Default"], mod.Locale.Charm
     end
 
     if color == nil then
@@ -569,6 +587,7 @@ end, mod)
 
 -- set up polling if it isn't already
 OnAnyLoad { function()
+    mod.UpdateScreenData()
     -- turn polling on in training room
     local currentHubRoom = ModUtil.Path.Get("CurrentHubRoom.Name")
     if currentHubRoom == 'Hub_PreRun' then mod.DpsUpdateThread = false end
@@ -577,3 +596,5 @@ OnAnyLoad { function()
     mod.DpsUpdateThread = true
     mod.createPollingThread(currentHubRoom)
 end }
+
+setupMainData()
