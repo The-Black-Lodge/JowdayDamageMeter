@@ -16,8 +16,8 @@ permissions:
 
 env:
   changelog: CHANGELOG.md
-  source-dir: src/
-  artifact-name: hades2-mod-template.zip
+  thunderstore-config: thunderstore.toml
+  build-dir: build/
   artifact-content-type: application/zip
 
 jobs:
@@ -42,31 +42,46 @@ jobs:
         with:
           tag: ${{ inputs.tag }}
 
-      - name: Build template
+      - name: Rotate version in Thunderstore CLI config
         run: |
-          cd ${{ env.source-dir }}
-          zip ../${{ env.artifact-name }} -r .
+          sed -i 's/versionNumber = ".*"/versionNumber = "${{ inputs.tag }}"/' ${{ env.thunderstore-config }}
+
+      - name: Install Thunderstore CLI
+        run: dotnet tool install -g tcli
+
+      - name: Build package
+        run: |
+          tcli build
+          ARTIFACT_NAME=$(find "${{ env.build-dir }}" -type f -printf "%f\n")
+          echo "artifact-name=${ARTIFACT_NAME}" >> "$GITHUB_ENV"
+          echo "artifact-path=${{ env.build-dir }}/${ARTIFACT_NAME}" >> "$GITHUB_ENV"
 
       - name: Upload artifact to workflow
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
         with:
           name: ${{ env.artifact-name }}
-          path: ${{ env.artifact-name }}
+          path: ${{ env.artifact-path }}
           retention-days: 1
 
-      - name: Push updated files to repository and tag
+      - name: Publish package
+        if: ${{ !inputs.is-dry-run }}
+        env:
+          TCLI_AUTH_TOKEN: ${{ secrets.TCLI_AUTH_TOKEN }}
+        run: tcli publish --file ${{ env.artifact-path }}
+
+      - name: Tag and push to repository
         if: ${{ !inputs.is-dry-run }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add ${{ env.changelog }}
+          git add ${{ env.changelog }} ${{ env.thunderstore-config }}
           git commit --message "Release ${{ inputs.tag }}"
           git tag ${{ inputs.tag }}
           git push origin HEAD:${{ github.ref_name }} --tags
 
       - name: Create release
-        if: ${{ !inputs.is-dry-run }}
         id: release
+        if: ${{ !inputs.is-dry-run }}
         uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e
         with:
           release_name: ${{ inputs.tag }}
@@ -81,7 +96,7 @@ jobs:
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_name: ${{ env.artifact-name }}
-          asset_path: ${{ env.artifact-name }}
+          asset_path: ${{ env.artifact-path }}
           asset_content_type: ${{ env.artifact-content-type }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
