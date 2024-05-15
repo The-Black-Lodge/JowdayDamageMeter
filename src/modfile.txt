@@ -1,4 +1,4 @@
-:: Jowday's DPS Mod v2.1.1
+:: Jowday's DPS Mod v2.2.0
 
 To "Game/Animations/GUIAnimations.sjson"
 SJSON "sjson/GUIAnimations.sjson
