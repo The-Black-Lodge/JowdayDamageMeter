@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+- localization
+  - pt-BR translation
+  - add Medea ability for en/fr
+
 ## [2.2.0] - 2024-05-15
 
 ### Added

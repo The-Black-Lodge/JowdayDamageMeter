@@ -87,6 +87,8 @@ JowdayDPS.AddLocale('fr', {
     OmegaExplodeBoon = "Humeur Explosive",
     CastHazardBoon = "Dangereuse Déflagration",
     BreakExplosiveArmorBoon = "Revêtement Destructeur",
+    -- medea
+    DeathDefianceRetaliateCurse = "Œil pour Œil",
     -- odysseus
     BossPreDamageKeepsake = "Osselets",
     -- poseidon
