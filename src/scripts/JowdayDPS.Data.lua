@@ -148,6 +148,9 @@ mod.SourceLookup = {
         ["IcarusHazardExplosion"] = mod.Locale.CastHazardBoon,
         ["IcarusArmorExplosion"] = mod.Locale.BreakExplosiveArmorBoon
     },
+    MedeaBoon = {
+        ["MedeaCurse"] = mod.Locale.DeathDefianceRetaliateCurse
+    },
     OdysseusKeepsake = {
         ["Knuckle Bones"] = mod.Locale.BossPreDamageKeepsake
     },
@@ -235,6 +238,9 @@ mod.DpsColors = {
     Hephaestus = {
         BarColor = Color.HephaestusDamage,
         Icons = { "Hephaestus" }
+    },
+    MedeaBoon = {
+        BarColor = Color.MedeaVoice
     },
     Poseidon = {
         BarColor = Color.PoseidonDamage,

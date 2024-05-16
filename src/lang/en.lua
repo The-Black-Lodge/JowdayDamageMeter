@@ -87,6 +87,8 @@ JowdayDPS.AddLocale('en', {
     OmegaExplodeBoon = "Explosive Intent",
     CastHazardBoon = "Hazard Boom",
     BreakExplosiveArmorBoon = "Destructive Coating",
+    -- medea
+    DeathDefianceRetaliateCurse = "Malice in Kind",
     -- odysseus
     BossPreDamageKeepsake = "Knuckle Bones",
     -- poseidon
