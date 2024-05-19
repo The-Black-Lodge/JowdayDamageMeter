@@ -76,6 +76,7 @@ JowdayDPS.AddLocale('fr', {
     Burn = "Brûlure", -- HelpText
     FireballManaSpecialBoon = "Brûlage Dirigé",
     CastProjectileBoon = "Charbon Ardent",
+    BurnConsumeBoon = "Extinction Brutale",
     -- hephaestus
     HephaestusWeaponBoon = "Frappe Volcanique",
     HephaestusSpecialBoon = "Technique Volcanique",
@@ -89,6 +90,7 @@ JowdayDPS.AddLocale('fr', {
     BreakExplosiveArmorBoon = "Revêtement Destructeur",
     -- medea
     DeathDefianceRetaliateCurse = "Œil pour Œil",
+    SpawnDamageCurse = "Souffrance Subite",
     -- odysseus
     BossPreDamageKeepsake = "Osselets",
     -- poseidon

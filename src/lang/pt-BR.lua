@@ -76,6 +76,7 @@ JowdayDPS.AddLocale('pt-BR', {
     Burn = "Abrasamento", -- HelpText
     FireballManaSpecialBoon = "Fogo Controlado",
     CastProjectileBoon = "Carvão em Brasa",
+    BurnConsumeBoon = "Extinção de Incêndios",
     -- hephaestus
     HephaestusWeaponBoon = "Golpe Vulcânico",
     HephaestusSpecialBoon = "Floreio Vulcânico",
@@ -87,6 +88,9 @@ JowdayDPS.AddLocale('pt-BR', {
     OmegaExplodeBoon = "Intuito Explosivo",
     CastHazardBoon = "Explosão Temerária",
     BreakExplosiveArmorBoon = "Resina Exterminante",
+    -- medea
+	DeathDefianceRetaliateCurse = "Olho por Olho",
+    SpawnDamageCurse = "Suplício Imediato",
     -- odysseus
     BossPreDamageKeepsake = "Astrágalos",
     -- poseidon
@@ -117,6 +121,4 @@ JowdayDPS.AddLocale('pt-BR', {
     PoseidonSplashSprintBoon = "Orbe D'Água",  -- apollo x poseidon
     MassiveCastBoon = "Martelo Sísmico",  -- hephaestus x poseidon
     SteamBoon = "Vapor Escaldante", -- hestia x poseidon
-	--Seceip Edit
-	DeathDefianceRetaliateCurse = "Olho por Olho"
 })

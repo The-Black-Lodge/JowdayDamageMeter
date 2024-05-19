@@ -76,6 +76,7 @@ JowdayDPS.AddLocale('en', {
     Burn = "Scorch", -- HelpText
     FireballManaSpecialBoon = "Controlled Burn",
     CastProjectileBoon = "Glowing Coal",
+    BurnConsumeBoon = "Fire Extinguisher",
     -- hephaestus
     HephaestusWeaponBoon = "Volcanic Strike",
     HephaestusSpecialBoon = "Volcanic Flourish",
@@ -89,6 +90,7 @@ JowdayDPS.AddLocale('en', {
     BreakExplosiveArmorBoon = "Destructive Coating",
     -- medea
     DeathDefianceRetaliateCurse = "Malice in Kind",
+    SpawnDamageCurse = "Suffering on Sight",
     -- odysseus
     BossPreDamageKeepsake = "Knuckle Bones",
     -- poseidon

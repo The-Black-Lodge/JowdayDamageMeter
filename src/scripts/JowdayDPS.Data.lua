@@ -78,6 +78,8 @@ mod.NameLookup = {
     LycanthropeLeapKnockback = mod.Locale.EnemyText,
     InfestedCerberusSwipe = mod.Locale.EnemyText,
     SatyrLanceThrow = mod.Locale.EnemyText,
+    MageRanged = mod.Locale.EnemyText,
+    GuardMelee = mod.Locale.EnemyText,
     -- don't translate these
     HeraCastSummonProjectile = "Cast",
     DemeterSprintStorm = "Dash",
@@ -133,7 +135,8 @@ mod.SourceLookup = {
         ["BurnNova"] = mod.Locale.BurnExplodeBoon,
         ["BurnEffect"] = mod.Locale.Burn,
         ["ProjectileFireball"] = mod.Locale.FireballManaSpecialBoon,
-        ["WeaponCastProjectile"] = mod.Locale.CastProjectileBoon
+        ["WeaponCastProjectile"] = mod.Locale.CastProjectileBoon,
+        ["HestiaBurnConsumeStrike"] = mod.Locale.BurnConsumeBoon
     },
     Hephaestus = {
         ["Attack"] = mod.Locale.HephaestusWeaponBoon,
@@ -149,7 +152,9 @@ mod.SourceLookup = {
         ["IcarusArmorExplosion"] = mod.Locale.BreakExplosiveArmorBoon
     },
     MedeaBoon = {
-        ["MedeaCurse"] = mod.Locale.DeathDefianceRetaliateCurse
+        ["MedeaCurse"] = mod.Locale.SpawnDamageCurse, -- fallback
+        ["SpawnDamageCurse"] = mod.Locale.SpawnDamageCurse,
+        ["DeathDefianceRetaliateCurse"] = mod.Locale.DeathDefianceRetaliateCurse
     },
     OdysseusKeepsake = {
         ["Knuckle Bones"] = mod.Locale.BossPreDamageKeepsake

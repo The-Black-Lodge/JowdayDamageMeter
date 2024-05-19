@@ -186,6 +186,10 @@ function mod.getEquippedBoons(trait)
     if god ~= nil then
         mod.CurrentGods[god] = true
     end
+    -- medea - game reports both of these as "MedeaCurse" so determine via trait
+    if name ~= nil and (name == 'SpawnDamageCurse' or name == 'DeathDefianceRetaliateCurse') then
+        mod.WeaponVar["MedeaCurse"] = name
+    end
 end
 
 -- reset attack, special, cast, etc.
@@ -195,6 +199,7 @@ function mod.clearWeaponInfo()
     mod.WeaponVar["Special"] = nil
     mod.WeaponVar["Cast"] = nil
     mod.WeaponVar["Dash"] = nil
+    mod.WeaponVar["MedeaCurse"] = nil
 
     -- also reset god list
     mod.CurrentGods = {}
@@ -204,6 +209,8 @@ end
 function mod.getSourceName(triggerArgs, victim)
     local attackerWeaponData = triggerArgs.AttackerWeaponData or {}
     local attackerTable = triggerArgs.AttackerTable or {}
+    local activeEffects = attackerTable.ActiveEffects or {}
+    local activeEffectsStart = attackerTable.ActiveEffectsAtDamageStart or {}
     local source = 'Unknown'
     -- WeaponName > EffectName > SourceProjectile > SourceWeapon > LinkedUpgrades > name lookup
     source = triggerArgs.WeaponName or source
@@ -213,8 +220,13 @@ function mod.getSourceName(triggerArgs, victim)
     source = attackerWeaponData.LinkedUpgrades or source
     source = mod.NameLookup[source] or source
 
-    if attackerTable.Charmed then
+    -- charm has several flavors
+    if attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1 then
         source = "Charm"
+    end
+
+    if source == "MedeaCurse" and mod.WeaponVar["MedeaCurse"] ~= nil then
+        source = mod.WeaponVar["MedeaCurse"]
     end
 
     if source == 'Unknown' then
@@ -230,6 +242,7 @@ function mod.getSourceName(triggerArgs, victim)
             end
         end
     end
+
     return source
 end
 
@@ -587,7 +600,12 @@ end, mod)
 
 -- set up polling if it isn't already
 OnAnyLoad { function()
-    mod.UpdateScreenData()
+    mod.UpdateScreenData() -- check localization
+    mod.clearWeaponInfo()  -- empty weapons
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        mod.getEquippedBoons(trait)
+    end
+
     -- turn polling on in training room
     local currentHubRoom = ModUtil.Path.Get("CurrentHubRoom.Name")
     if currentHubRoom == 'Hub_PreRun' then mod.DpsUpdateThread = false end
