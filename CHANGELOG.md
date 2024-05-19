@@ -2,12 +2,19 @@
 
 ## [Unreleased]
 
+## Added
+
+- improved charm detection
+- abilities added (en/fr/pt-BR)
+  - medea: suffering on sight
+  - hestia: fire extinguisher
+
 ## [2.2.1] - 2024-05-16
 
 ### Added
 
 - localization
-  - pt-BR translation
+  - pt-BR translation by Seceip
   - add Medea ability for en/fr
 
 ## [2.2.0] - 2024-05-15
