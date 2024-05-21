@@ -1,3 +1,6 @@
+---@meta _
+---@diagnostic disable
+
 JowdayDPS.AddLocale('pt-BR', {
     HeaderText = " DPS / Dano Total: ",
     AttackText = "Ataque",

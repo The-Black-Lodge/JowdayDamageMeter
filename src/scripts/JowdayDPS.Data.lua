@@ -1,4 +1,5 @@
 ---@meta _
+---@diagnostic disable
 
 local mod = JowdayDPS
 

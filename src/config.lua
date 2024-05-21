@@ -1,4 +1,5 @@
 ---@meta _
+---@diagnostic disable
 
 local config = {
     DpsInterval = 99999999,
