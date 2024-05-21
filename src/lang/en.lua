@@ -91,6 +91,7 @@ JowdayDPS.AddLocale('en', {
     -- medea
     DeathDefianceRetaliateCurse = "Malice in Kind",
     SpawnDamageCurse = "Suffering on Sight",
+    ArmorPenaltyCurse = "Corrosion on Sight",
     -- odysseus
     BossPreDamageKeepsake = "Knuckle Bones",
     -- poseidon

@@ -186,8 +186,8 @@ function mod.getEquippedBoons(trait)
     if god ~= nil then
         mod.CurrentGods[god] = true
     end
-    -- medea - game reports both of these as "MedeaCurse" so determine via trait
-    if name ~= nil and (name == 'SpawnDamageCurse' or name == 'DeathDefianceRetaliateCurse') then
+    -- game reports all the Medea stuff "MedeaCurse" so determine via trait
+    if name ~= nil and (name == 'SpawnDamageCurse' or name == 'DeathDefianceRetaliateCurse' or name == 'ArmorPenaltyCurse') then
         mod.WeaponVar["MedeaCurse"] = name
     end
 end

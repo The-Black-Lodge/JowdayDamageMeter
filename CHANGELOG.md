@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Added
+- abilities added (en/fr/pt-BR)
+  - medea: corrosion on sight
+
 ## [2.2.2] - 2024-05-19
 
 ## Added

@@ -154,7 +154,8 @@ mod.SourceLookup = {
     MedeaBoon = {
         ["MedeaCurse"] = mod.Locale.SpawnDamageCurse, -- fallback
         ["SpawnDamageCurse"] = mod.Locale.SpawnDamageCurse,
-        ["DeathDefianceRetaliateCurse"] = mod.Locale.DeathDefianceRetaliateCurse
+        ["DeathDefianceRetaliateCurse"] = mod.Locale.DeathDefianceRetaliateCurse,
+        ["ArmorPenaltyCurse"] = mod.Locale.ArmorPenaltyCurse
     },
     OdysseusKeepsake = {
         ["Knuckle Bones"] = mod.Locale.BossPreDamageKeepsake

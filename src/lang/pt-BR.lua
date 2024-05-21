@@ -91,6 +91,7 @@ JowdayDPS.AddLocale('pt-BR', {
     -- medea
 	DeathDefianceRetaliateCurse = "Olho por Olho",
     SpawnDamageCurse = "Suplício Imediato",
+    ArmorPenaltyCurse = "Corrosão Imediata",
     -- odysseus
     BossPreDamageKeepsake = "Astrágalos",
     -- poseidon
