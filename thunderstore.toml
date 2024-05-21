@@ -5,7 +5,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "Jowday"
 name = "DamageMeter"
-versionNumber = "2.2.2"
+versionNumber = "2.2.3"
 description = "Adds some damage meters to your screen."
 websiteUrl = "https://github.com/The-Black-Lodge/JowdayDamageMeter"
 containsNsfwContent = false
