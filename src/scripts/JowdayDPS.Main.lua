@@ -13,10 +13,48 @@ local function setupMainData()
 end
 
 function mod.UpdateScreenData()
-	if mod.CurrentLocale ~= GetLanguage() then
-		mod.CurrentLocale = GetLanguage()
-	end
+    if mod.CurrentLocale ~= GetLanguage() then
+        mod.CurrentLocale = GetLanguage()
+    end
 end
+
+local sjson = rom.mods['SGG_Modding-SJSON']
+
+local order = {
+    'Name',
+    'FilePath',
+    'EndFrame',
+    'NumFrames',
+    'StartFrame',
+    'DieWithOwner',
+    'Material',
+    'OriginX',
+    'OriginY',
+    'ScaleX',
+    'ScaleY',
+    'Scale',
+}
+
+local newdata = sjson.to_object({
+    Name = "DpsBarWhite",
+    FilePath = "GUI\\HUD\\HealthBarFull",
+    EndFrame = 1,
+    NumFrames = 1,
+    StartFrame = 1,
+    DieWithOwner = true,
+    Material = "Unlit",
+    OriginX = 0.0,
+    OriginY = 10.0,
+    ScaleX = 1.0,
+    ScaleY = 1.0,
+    Scale = 1.0,
+}, order)
+
+local path = rom.path.combine(rom.paths.Content, 'Game/Animations/GUIAnimations.sjson')
+
+sjson.hook(path, function(data)
+    table.insert(data.Animations, newdata)
+end)
 
 mod.List = {}
 -- List functions
@@ -455,10 +493,10 @@ function mod.findColor(source)
         if source == 'OAttack' then prefix = "{!Icons.Omega_NoTooltip}" end
         if attack ~= nil and sources[attack] ~= nil then
             color = colors[attack]
-            niceLabel = prefix..sources[attack]["Attack"]
+            niceLabel = prefix .. sources[attack]["Attack"]
             return color, niceLabel
         else
-            return colors["Default"], prefix..mod.Locale.AttackText
+            return colors["Default"], prefix .. mod.Locale.AttackText
         end
     end
 
@@ -467,10 +505,10 @@ function mod.findColor(source)
         if source == 'OSpecial' then prefix = "{!Icons.Omega_NoTooltip}" end
         if special ~= nil and sources[special] ~= nil then
             color = colors[special]
-            niceLabel = prefix..sources[special]["Special"]
+            niceLabel = prefix .. sources[special]["Special"]
             return color, niceLabel
         else
-            return colors["Default"], prefix..mod.Locale.SpecialText
+            return colors["Default"], prefix .. mod.Locale.SpecialText
         end
     end
 
