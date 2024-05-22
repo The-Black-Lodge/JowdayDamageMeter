@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## Added
+- omega damage for attack/special now gets separate bars
+  - if you don't like this, in the mod configuration change SplitOmega to false
+  - omega is not tracked for the following:
+    - dagger special
+    - skull special
+
 ## [2.2.3] - 2024-05-21
 
 ## Added
