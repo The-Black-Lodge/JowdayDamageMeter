@@ -25,7 +25,7 @@ JowdayDPS.AddLocale('zh-CN', {
     SpikeTrap = "尖刺陷阱",
     BrambleTrap = "荆棘陷阱",
     ThornTrap = "荆棘",
-    Splinters = "Splinters",
+    Splinters = "碎片",
     BeamTrap = "激光",
     Pillar = "崩塌支柱",
     Lava = "熔浆",
