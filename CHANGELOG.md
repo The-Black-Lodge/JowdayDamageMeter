@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 
+## [2.2.4] - 2024-05-22
+
 ## Added
+
 - omega damage for attack/special now gets separate bars
   - if you don't like this, in the mod configuration change SplitOmega to false
   - omega is not tracked for the following:
@@ -42,7 +45,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.3...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.4...HEAD
+[2.2.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/southpawgeek/JowdayDPS/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/southpawgeek/JowdayDPS/compare/2.2.0...2.2.1
