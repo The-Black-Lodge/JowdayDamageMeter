@@ -219,6 +219,33 @@ function mod.getSourceName(triggerArgs, victim)
     source = triggerArgs.SourceProjectile or source
     source = triggerArgs.SourceWeapon or source
     source = attackerWeaponData.LinkedUpgrades or source
+
+    if mod.Config.SplitOmega == true then
+        local sourceProjectile = triggerArgs.SourceProjectile or nil
+        local sourceWeapon = triggerArgs.SourceWeapon or nil
+        if sourceProjectile ~= nil then print('sourceProjectile: ' .. sourceProjectile) end
+        if sourceWeapon ~= nil then print('sourceWeapon: ' .. sourceWeapon) end
+        local isAttackEX = false
+        local isSpecialEX = false
+        if sourceWeapon ~= nil then
+            for k, v in pairs(mod.AttackEXLookup) do
+                if sourceWeapon:match(v) or sourceProjectile:match(v) then
+                    isAttackEX = true
+                end
+            end
+            for k, v in pairs(mod.SpecialEXLookup) do
+                if sourceWeapon:match(v) or sourceProjectile:match(v) then
+                    isSpecialEX = true
+                end
+            end
+            if isAttackEX == true then
+                source = "OAttack"
+            elseif isSpecialEX == true then
+                source = "OSpecial"
+            end
+        end
+    end
+
     source = mod.NameLookup[source] or source
 
     -- charm has several flavors
@@ -423,23 +450,27 @@ function mod.findColor(source)
     local color
     local niceLabel
 
-    if source == 'Attack' then
+    if source == 'Attack' or source == 'OAttack' then
+        local prefix = ''
+        if source == 'OAttack' then prefix = "{!Icons.Omega_NoTooltip}" end
         if attack ~= nil and sources[attack] ~= nil then
             color = colors[attack]
-            niceLabel = sources[attack]["Attack"]
+            niceLabel = prefix..sources[attack]["Attack"]
             return color, niceLabel
         else
-            return colors["Default"], mod.Locale.AttackText
+            return colors["Default"], prefix..mod.Locale.AttackText
         end
     end
 
-    if source == 'Special' then
+    if source == 'Special' or source == 'OSpecial' then
+        local prefix = ''
+        if source == 'OSpecial' then prefix = "{!Icons.Omega_NoTooltip}" end
         if special ~= nil and sources[special] ~= nil then
             color = colors[special]
-            niceLabel = sources[special]["Special"]
+            niceLabel = prefix..sources[special]["Special"]
             return color, niceLabel
         else
-            return colors["Default"], mod.Locale.SpecialText
+            return colors["Default"], prefix..mod.Locale.SpecialText
         end
     end
 

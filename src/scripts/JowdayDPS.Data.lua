@@ -89,6 +89,14 @@ mod.NameLookup = {
     ZeusSprintStrike = "Dash"
 }
 
+mod.AttackEXLookup = {
+    "WeaponStaffSwing5", "WeaponDagger5", "WeaponAxeSpin", "ProjectileTorchBallLarge", "ProjectileLobCharged"
+}
+
+mod.SpecialEXLookup = {
+    "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbit"
+}
+
 mod.SourceLookup = {
     Aphrodite = {
         ["Attack"] = mod.Locale.AphroditeWeaponBoon,
