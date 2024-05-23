@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
+## [2.3.0] - 2024-05-23
+
 ## Added
+
 - localization
- - zh-CN translation by Dafeigy
+
+- zh-CN translation by Dafeigy
 
 - drop support for modimporter
 
@@ -51,7 +55,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.4...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.0...HEAD
+[2.3.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.4...2.3.0
 [2.2.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/southpawgeek/JowdayDPS/compare/2.2.1...2.2.2
