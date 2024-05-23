@@ -223,8 +223,6 @@ function mod.getSourceName(triggerArgs, victim)
     if mod.Config.SplitOmega == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil
         local sourceWeapon = triggerArgs.SourceWeapon or nil
-        if sourceProjectile ~= nil then print('sourceProjectile: ' .. sourceProjectile) end
-        if sourceWeapon ~= nil then print('sourceWeapon: ' .. sourceWeapon) end
         local isAttackEX = false
         local isSpecialEX = false
         if sourceWeapon ~= nil then

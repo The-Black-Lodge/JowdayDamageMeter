@@ -1,4 +1,4 @@
-:: Jowday's DPS Mod v2.2.4
+:: Jowday's DPS Mod v2.2.5
 
 To "Game/Animations/GUIAnimations.sjson"
 SJSON "sjson/GUIAnimations.sjson
@@ -10,5 +10,6 @@ Import localize.lua
 Import "lang/en.lua"
 Import "lang/fr.lua"
 Import "lang/pt-BR.lua"
+Import "lang/zh-CN.lua"
 Import "scripts/JowdayDPS.Main.lua"
 Import "scripts/JowdayDPS.Data.lua"
