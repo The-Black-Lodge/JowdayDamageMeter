@@ -1,7 +1,24 @@
 ---@meta _
 ---@diagnostic disable
 
-local newdata = {
+local sjson = rom.mods['SGG_Modding-SJSON']
+
+local order = {
+    'Name',
+    'FilePath',
+    'EndFrame',
+    'NumFrames',
+    'StartFrame',
+    'DieWithOwner',
+    'Material',
+    'OriginX',
+    'OriginY',
+    'ScaleX',
+    'ScaleY',
+    'Scale',
+}
+
+local newdata = sjson.to_object({
     Name = "DpsBarWhite",
     FilePath = "GUI\\HUD\\HealthBarFull",
     EndFrame = 1,
@@ -14,11 +31,10 @@ local newdata = {
     ScaleX = 1.0,
     ScaleY = 1.0,
     Scale = 1.0,
-}
+}, order)
 
 local path = rom.path.combine(rom.paths.Content, 'Game/Animations/GUIAnimations.sjson')
 
 sjson.hook(path, function(data)
-    local order = sjson.get_order(select(2, next(data.Animations)))
-    table.insert(data.Animations, sjson.to_object(newdata, order))
+    table.insert(data.Animations, newdata)
 end)

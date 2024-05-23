@@ -14,8 +14,6 @@ game = rom.game
 ---@module 'game-import'
 import_as_fallback(game)
 
----@module 'SGG_Modding-SJSON'
-sjson = mods['SGG_Modding-SJSON']
 ---@module 'SGG_Modding-ModUtil'
 modutil = mods['SGG_Modding-ModUtil']
 
@@ -30,12 +28,12 @@ public.config = config
 
 local function on_ready()
     if config.enabled == false then return end
-
+    
+    import 'scripts/sjson.lua'
     import 'localize.lua'
     import 'lang/en.lua'
     import 'lang/fr.lua'
     import 'lang/pt-BR.lua'
-    import 'scripts/sjson.lua'
     import 'scripts/JowdayDPS.Main.lua'
     import 'scripts/JowdayDPS.Data.lua'
 end
