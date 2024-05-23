@@ -1,7 +1,7 @@
 ---@meta _
 ---@diagnostic disable
 
-JowdayDPS.AddLocale('zh-CN', {
+AddLocale('zh-CN', {
     HeaderText = " DPS / 总伤害: ",
     AttackText = "攻击",
     SpecialText = "特技",

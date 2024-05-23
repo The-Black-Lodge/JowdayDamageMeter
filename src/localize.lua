@@ -1,15 +1,13 @@
 ---@meta _
 ---@diagnostic disable
 
-local mod = JowdayDPS
+Locales = Locales or {}
 
-mod.Locales = mod.Locales or {}
-
-function mod.GetLanguageString(path)
-    local locale = mod.Locales[GetLanguage()] or mod.Locales.en
-    return ModUtil.Path.Get(path, locale) or ModUtil.Path.Get(path, mod.Locales.en)
+function GetLanguageString(path)
+    local locale = Locales[game.GetLanguage()] or Locales.en
+    return ModUtil.Path.Get(path, locale) or ModUtil.Path.Get(path, Locales.en)
 end
 
-function mod.AddLocale(lang, data)
-    mod.Locales[lang] = data
+function AddLocale(lang, data)
+    Locales[lang] = data
 end

@@ -15,5 +15,6 @@ Now available in both English and French!
 - Credit to Magic_Gonads and PonyWarrior for the localization code.
 - Thank you to Shido for the French translation.
 - Thank you to Seceip for the Brazilian Portuguese translation.
+- Thank you to Dafeigy for the Chinese translation.
 
 Please join the [Hades Modding Discord](https://discord.gg/KuMbyrN) for support. Contact me there if you are interested in contributing additional translations!

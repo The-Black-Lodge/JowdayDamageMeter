@@ -1,39 +1,37 @@
 ---@meta _
 ---@diagnostic disable
 
-local mod = JowdayDPS
-
-mod.NameLookup = {
+NameLookup = {
     -- sheep?
-    WeaponMorphedAttack = mod.Locale.SheepAttack,
+    WeaponMorphedAttack = Locale.SheepAttack,
     -- familiars
     FrogFamiliarLand = "Frinos",
     CatFamiliarPounce = "Toula",
     -- misc environment
-    PolyphemusBoulderSky = mod.Locale.Boulder,
-    ShadeMercSpiritball = mod.Locale.ShadeSprint,
-    SoulPylonSpiritball = mod.Locale.EphyraPylon,
+    PolyphemusBoulderSky = Locale.Boulder,
+    ShadeMercSpiritball = Locale.ShadeSprint,
+    SoulPylonSpiritball = Locale.EphyraPylon,
     --- traps
-    FireBarrelExplosion = mod.Locale.FireBarrel,
-    FireBarrelFireLob = mod.Locale.FireBarrel,
-    SteamWallBlast = mod.Locale.SteamTrap,
-    SteamTrapFast = mod.Locale.SteamTrap,
-    SteamTrap = mod.Locale.SteamTrap,
-    SteamCubeExplosion = mod.Locale.SteamTrap,
-    OilPuddleFire = mod.Locale.OilFire,
-    OilPuddleFire02 = mod.Locale.OilFire,
-    OilPuddleFire03 = mod.Locale.OilFire,
-    OilPuddleFire04 = mod.Locale.OilFire,
-    DestructibleTreeSplinter = mod.Locale.Splinters,
-    BrambleTrap = mod.Locale.BrambleTrap,
-    ThornTreeThorn = mod.Locale.ThornTrap,
-    FieldsDestructiblePillarDestruction = mod.Locale.Pillar,
-    BlastCubeExplosion = mod.Locale.GenericTrap,
-    SpikeTrapWeapon = mod.Locale.SpikeTrap,
-    LavaTileWeapon = mod.Locale.Lava,
-    BaseCollision = mod.Locale.WallSlam,
-    BeamTrap = mod.Locale.BeamTrap,
-    RubbleFall = mod.Locale.Rubble,
+    FireBarrelExplosion = Locale.FireBarrel,
+    FireBarrelFireLob = Locale.FireBarrel,
+    SteamWallBlast = Locale.SteamTrap,
+    SteamTrapFast = Locale.SteamTrap,
+    SteamTrap = Locale.SteamTrap,
+    SteamCubeExplosion = Locale.SteamTrap,
+    OilPuddleFire = Locale.OilFire,
+    OilPuddleFire02 = Locale.OilFire,
+    OilPuddleFire03 = Locale.OilFire,
+    OilPuddleFire04 = Locale.OilFire,
+    DestructibleTreeSplinter = Locale.Splinters,
+    BrambleTrap = Locale.BrambleTrap,
+    ThornTreeThorn = Locale.ThornTrap,
+    FieldsDestructiblePillarDestruction = Locale.Pillar,
+    BlastCubeExplosion = Locale.GenericTrap,
+    SpikeTrapWeapon = Locale.SpikeTrap,
+    LavaTileWeapon = Locale.Lava,
+    BaseCollision = Locale.WallSlam,
+    BeamTrap = Locale.BeamTrap,
+    RubbleFall = Locale.Rubble,
     --
     WeaponDagger = "Attack",
     WeaponDaggerThrow = "Special",
@@ -71,16 +69,16 @@ mod.NameLookup = {
     IcarusBombardment = "Icarus",
     IcarusBombardment_Large = "Icarus",
     --
-    LamiaMiasma = mod.Locale.EnemyText,
-    LamiaSkyCast_Miniboss = mod.Locale.EnemyText,
-    MournerRampage = mod.Locale.EnemyText,
-    LycanSwarmerChomp = mod.Locale.EnemyText,
-    CorruptedShadeMRam = mod.Locale.EnemyText,
-    LycanthropeLeapKnockback = mod.Locale.EnemyText,
-    InfestedCerberusSwipe = mod.Locale.EnemyText,
-    SatyrLanceThrow = mod.Locale.EnemyText,
-    MageRanged = mod.Locale.EnemyText,
-    GuardMelee = mod.Locale.EnemyText,
+    LamiaMiasma = Locale.EnemyText,
+    LamiaSkyCast_Miniboss = Locale.EnemyText,
+    MournerRampage = Locale.EnemyText,
+    LycanSwarmerChomp = Locale.EnemyText,
+    CorruptedShadeMRam = Locale.EnemyText,
+    LycanthropeLeapKnockback = Locale.EnemyText,
+    InfestedCerberusSwipe = Locale.EnemyText,
+    SatyrLanceThrow = Locale.EnemyText,
+    MageRanged = Locale.EnemyText,
+    GuardMelee = Locale.EnemyText,
     -- don't translate these
     HeraCastSummonProjectile = "Cast",
     DemeterSprintStorm = "Dash",
@@ -89,130 +87,130 @@ mod.NameLookup = {
     ZeusSprintStrike = "Dash"
 }
 
-mod.AttackEXLookup = {
+AttackEXLookup = {
     "WeaponStaffSwing5", "WeaponDagger5", "WeaponAxeSpin", "ProjectileTorchBallLarge", "ProjectileLobCharged"
 }
 
-mod.SpecialEXLookup = {
+SpecialEXLookup = {
     "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbit"
 }
 
-mod.SourceLookup = {
+SourceLookup = {
     Aphrodite = {
-        ["Attack"] = mod.Locale.AphroditeWeaponBoon,
-        ["Special"] = mod.Locale.AphroditeSpecialBoon,
-        ["Dash"] = mod.Locale.AphroditeSprintBoon,
-        ["Cast"] = mod.Locale.AphroditeCastBoon,
-        ["AphroditeBurst"] = mod.Locale.ManaBurstBoon,
+        ["Attack"] = Locale.AphroditeWeaponBoon,
+        ["Special"] = Locale.AphroditeSpecialBoon,
+        ["Dash"] = Locale.AphroditeSprintBoon,
+        ["Cast"] = Locale.AphroditeCastBoon,
+        ["AphroditeBurst"] = Locale.ManaBurstBoon,
     },
     Apollo = {
-        ["Attack"] = mod.Locale.ApolloWeaponBoon,
-        ["Special"] = mod.Locale.ApolloSpecialBoon,
-        ["Dash"] = mod.Locale.ApolloSprintBoon,
-        ["Cast"] = mod.Locale.ApolloCastBoon,
-        ["ApolloRetaliateStrike"] = mod.Locale.ApolloRetaliateBoon,
-        ["ApolloPerfectDashStrike"] = mod.Locale.ApolloMissStrikeBoon
+        ["Attack"] = Locale.ApolloWeaponBoon,
+        ["Special"] = Locale.ApolloSpecialBoon,
+        ["Dash"] = Locale.ApolloSprintBoon,
+        ["Cast"] = Locale.ApolloCastBoon,
+        ["ApolloRetaliateStrike"] = Locale.ApolloRetaliateBoon,
+        ["ApolloPerfectDashStrike"] = Locale.ApolloMissStrikeBoon
     },
     Artemis = {
-        ["ArtemisSupportingFire"] = mod.Locale.SupportingFireBoon,
-        ["ArtemisCastVolley"] = mod.Locale.OmegaCastVolleyBoon
+        ["ArtemisSupportingFire"] = Locale.SupportingFireBoon,
+        ["ArtemisCastVolley"] = Locale.OmegaCastVolleyBoon
     },
     Demeter = {
-        ["Attack"] = mod.Locale.DemeterWeaponBoon,
-        ["Special"] = mod.Locale.DemeterSpecialBoon,
-        ["Dash"] = mod.Locale.DemeterSprintBoon,
-        ["Cast"] = mod.Locale.DemeterCastBoon,
-        ["DemeterChillKill"] = mod.Locale.InstantRootKill,
+        ["Attack"] = Locale.DemeterWeaponBoon,
+        ["Special"] = Locale.DemeterSpecialBoon,
+        ["Dash"] = Locale.DemeterSprintBoon,
+        ["Cast"] = Locale.DemeterCastBoon,
+        ["DemeterChillKill"] = Locale.InstantRootKill,
     },
     Hades = {
-        ["WeaponCastProjectileHades"] = mod.Locale.HadesCastProjectileBoon,
-        ["Old Grudge"] = mod.Locale.HadesPreDamageBoon
+        ["WeaponCastProjectileHades"] = Locale.HadesCastProjectileBoon,
+        ["Old Grudge"] = Locale.HadesPreDamageBoon
     },
     Hera = {
-        ["Attack"] = mod.Locale.HeraWeaponBoon,
-        ["Special"] = mod.Locale.HeraSpecialBoon,
-        ["Cast"] = mod.Locale.HeraCastBoon,
-        ["HeraDamageShareProjectile"] = mod.Locale.DamageShareRetaliateBoon,
-        ["DamageShareEffect"] = mod.Locale.Link,
-        ["DamageShareDeath"] = mod.Locale.LinkedDeathDamageBoon
+        ["Attack"] = Locale.HeraWeaponBoon,
+        ["Special"] = Locale.HeraSpecialBoon,
+        ["Cast"] = Locale.HeraCastBoon,
+        ["HeraDamageShareProjectile"] = Locale.DamageShareRetaliateBoon,
+        ["DamageShareEffect"] = Locale.Link,
+        ["DamageShareDeath"] = Locale.LinkedDeathDamageBoon
     },
     Hestia = {
-        ["Attack"] = mod.Locale.HestiaWeaponBoon,
-        ["Special"] = mod.Locale.HestiaSpecialBoon,
-        ["Dash"] = mod.Locale.HestiaSprintBoon,
-        ["Cast"] = mod.Locale.HestiaCastBoon,
-        ["BurnNova"] = mod.Locale.BurnExplodeBoon,
-        ["BurnEffect"] = mod.Locale.Burn,
-        ["ProjectileFireball"] = mod.Locale.FireballManaSpecialBoon,
-        ["WeaponCastProjectile"] = mod.Locale.CastProjectileBoon,
-        ["HestiaBurnConsumeStrike"] = mod.Locale.BurnConsumeBoon
+        ["Attack"] = Locale.HestiaWeaponBoon,
+        ["Special"] = Locale.HestiaSpecialBoon,
+        ["Dash"] = Locale.HestiaSprintBoon,
+        ["Cast"] = Locale.HestiaCastBoon,
+        ["BurnNova"] = Locale.BurnExplodeBoon,
+        ["BurnEffect"] = Locale.Burn,
+        ["ProjectileFireball"] = Locale.FireballManaSpecialBoon,
+        ["WeaponCastProjectile"] = Locale.CastProjectileBoon,
+        ["HestiaBurnConsumeStrike"] = Locale.BurnConsumeBoon
     },
     Hephaestus = {
-        ["Attack"] = mod.Locale.HephaestusWeaponBoon,
-        ["Special"] = mod.Locale.HephaestusSpecialBoon,
-        ["Cast"] = mod.Locale.HephaestusCastBoon,
-        ["Dash"] = mod.Locale.HephaestusCastBoon,
-        ["MassiveSlamBlast"] = mod.Locale.MassiveSlam_Name,
-        ["DelayedKnockbackEffect"] = mod.Locale.MassiveKnockupBoon
+        ["Attack"] = Locale.HephaestusWeaponBoon,
+        ["Special"] = Locale.HephaestusSpecialBoon,
+        ["Cast"] = Locale.HephaestusCastBoon,
+        ["Dash"] = Locale.HephaestusCastBoon,
+        ["MassiveSlamBlast"] = Locale.MassiveSlam_Name,
+        ["DelayedKnockbackEffect"] = Locale.MassiveKnockupBoon
     },
     IcarusBoon = {
-        ["IcarusExplosion"] = mod.Locale.OmegaExplodeBoon,
-        ["IcarusHazardExplosion"] = mod.Locale.CastHazardBoon,
-        ["IcarusArmorExplosion"] = mod.Locale.BreakExplosiveArmorBoon
+        ["IcarusExplosion"] = Locale.OmegaExplodeBoon,
+        ["IcarusHazardExplosion"] = Locale.CastHazardBoon,
+        ["IcarusArmorExplosion"] = Locale.BreakExplosiveArmorBoon
     },
     MedeaBoon = {
-        ["MedeaCurse"] = mod.Locale.SpawnDamageCurse, -- fallback
-        ["SpawnDamageCurse"] = mod.Locale.SpawnDamageCurse,
-        ["DeathDefianceRetaliateCurse"] = mod.Locale.DeathDefianceRetaliateCurse,
-        ["ArmorPenaltyCurse"] = mod.Locale.ArmorPenaltyCurse
+        ["MedeaCurse"] = Locale.SpawnDamageCurse, -- fallback
+        ["SpawnDamageCurse"] = Locale.SpawnDamageCurse,
+        ["DeathDefianceRetaliateCurse"] = Locale.DeathDefianceRetaliateCurse,
+        ["ArmorPenaltyCurse"] = Locale.ArmorPenaltyCurse
     },
     OdysseusKeepsake = {
-        ["Knuckle Bones"] = mod.Locale.BossPreDamageKeepsake
+        ["Knuckle Bones"] = Locale.BossPreDamageKeepsake
     },
     Poseidon = {
-        ["Attack"] = mod.Locale.PoseidonWeaponBoon,
-        ["Special"] = mod.Locale.PoseidonSpecialBoon,
-        ["Dash"] = mod.Locale.PoseidonSprintBoon,
-        ["Cast"] = mod.Locale.PoseidonCastBoon,
-        ["PoseidonSplashSplinter"] = mod.Locale.PoseidonSplash_Name,
-        ["PoseidonCollisionBlast"] = mod.Locale.SlamExplosionBoon,
+        ["Attack"] = Locale.PoseidonWeaponBoon,
+        ["Special"] = Locale.PoseidonSpecialBoon,
+        ["Dash"] = Locale.PoseidonSprintBoon,
+        ["Cast"] = Locale.PoseidonCastBoon,
+        ["PoseidonSplashSplinter"] = Locale.PoseidonSplash_Name,
+        ["PoseidonCollisionBlast"] = Locale.SlamExplosionBoon,
     },
     Selene = {
-        ["WeaponSpellLaser"] = mod.Locale.SpellLaserTrait,
-        ["WeaponSpellLeap"] = mod.Locale.SpellLeapTrait,
-        ["WeaponSpellMeteor"] = mod.Locale.SpellMeteorTrait,
-        ["WeaponTransformSpecial"] = mod.Locale.SpellTransformTrait .. ' (' .. mod.Locale.SpecialText .. ')',
-        ["WeaponTransformAttack"] = mod.Locale.SpellTransformTrait .. ' (' .. mod.Locale.AttackText .. ')',
-        ["WeaponTransformBlink"] = mod.Locale.SpellTransformTrait .. ' (' .. mod.Locale.DashText .. ')',
-        ["WeaponTransformCast"] = mod.Locale.SpellTransformTrait .. ' (' .. mod.Locale.CastText .. ')',
+        ["WeaponSpellLaser"] = Locale.SpellLaserTrait,
+        ["WeaponSpellLeap"] = Locale.SpellLeapTrait,
+        ["WeaponSpellMeteor"] = Locale.SpellMeteorTrait,
+        ["WeaponTransformSpecial"] = Locale.SpellTransformTrait .. ' (' .. Locale.SpecialText .. ')',
+        ["WeaponTransformAttack"] = Locale.SpellTransformTrait .. ' (' .. Locale.AttackText .. ')',
+        ["WeaponTransformBlink"] = Locale.SpellTransformTrait .. ' (' .. Locale.DashText .. ')',
+        ["WeaponTransformCast"] = Locale.SpellTransformTrait .. ' (' .. Locale.CastText .. ')',
     },
     Zeus = {
-        ["Attack"] = mod.Locale.ZeusWeaponBoon,
-        ["Special"] = mod.Locale.ZeusSpecialBoon,
-        ["Dash"] = mod.Locale.ZeusSprintBoon,
-        ["Cast"] = mod.Locale.ZeusCastBoon,
-        ["ZeusEchoStrike"] = mod.Locale.Echo,
-        ["ProjectileZeusSpark"] = mod.Locale.FocusLightningBoon,
-        ["ZeusZeroManaStrike"] = mod.Locale.ZeusManaBoltBoon,
-        ["ZeusRetaliateStrike"] = mod.Locale.BoltRetaliateBoon,
-        ["WeaponAnywhereCast"] = mod.Locale.CastAnywhereBoon,
-        ["ZeusOnSpawn"] = mod.Locale.SpawnKillBoon
+        ["Attack"] = Locale.ZeusWeaponBoon,
+        ["Special"] = Locale.ZeusSpecialBoon,
+        ["Dash"] = Locale.ZeusSprintBoon,
+        ["Cast"] = Locale.ZeusCastBoon,
+        ["ZeusEchoStrike"] = Locale.Echo,
+        ["ProjectileZeusSpark"] = Locale.FocusLightningBoon,
+        ["ZeusZeroManaStrike"] = Locale.ZeusManaBoltBoon,
+        ["ZeusRetaliateStrike"] = Locale.BoltRetaliateBoon,
+        ["WeaponAnywhereCast"] = Locale.CastAnywhereBoon,
+        ["ZeusOnSpawn"] = Locale.SpawnKillBoon
     },
     DuoAphroditeHestia = {
-        ["ShadeMercFireball"] = mod.Locale.ShadeMercFireballBoon,
+        ["ShadeMercFireball"] = Locale.ShadeMercFireballBoon,
     },
     DuoApolloPosedidon = {
-        ["ProjectileSprintBall"] = mod.Locale.PoseidonSplashSprintBoon,
+        ["ProjectileSprintBall"] = Locale.PoseidonSplashSprintBoon,
     },
     DuoHephaestusPoseidon = {
-        ["MassiveSlamBlastCast"] = mod.Locale.MassiveCastBoon,
+        ["MassiveSlamBlastCast"] = Locale.MassiveCastBoon,
     },
     DuoHestiaPoseidon = {
-        ["SteamBlast"] = mod.Locale.SteamBoon
+        ["SteamBlast"] = Locale.SteamBoon
     }
 }
 
-mod.DpsColors = {
+DpsColors = {
     Aphrodite = {
         BarColor = Color.AphroditeDamage,
         Icons = { "Aphrodite" }
@@ -321,7 +319,7 @@ mod.DpsColors = {
     }
 }
 
-mod.Icons = {
+Icons = {
     Aphrodite = { Name = "BoonInfoSymbolAphroditeIcon", Scale = 0.15 },
     Apollo = { Name = "BoonInfoSymbolApolloIcon", Scale = 0.2 },
     Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis2", Scale = 0.075 },

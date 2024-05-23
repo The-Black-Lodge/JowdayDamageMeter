@@ -1,40 +1,38 @@
 ---@meta _
 ---@diagnostic disable
 
-local mod = JowdayDPS
-
 local function setupMainData()
-    mod.CurrentLocale = GetLanguage()
-    mod.Locale = setmetatable({}, {
+    CurrentLocale = game.GetLanguage()
+    Locale = setmetatable({}, {
         __index = function(_, k)
-            return mod.GetLanguageString(k)
+            return GetLanguageString(k)
         end
     })
 end
 
-function mod.UpdateScreenData()
-	if mod.CurrentLocale ~= GetLanguage() then
-		mod.CurrentLocale = GetLanguage()
-	end
+function UpdateScreenData()
+    if CurrentLocale ~= game.GetLanguage() then
+        CurrentLocale = game.GetLanguage()
+    end
 end
 
-mod.List = {}
+List = {}
 -- List functions
-function mod.List.new(maxSize)
+function List.new(maxSize)
     return { first = 0, last = -1, count = 0, max = maxSize }
 end
 
-function mod.List.addValue(list, value)
+function List.addValue(list, value)
     local last = list.last + 1
     list.last = last
     list[last] = value
     list.count = list.count + 1
     if list.count > list.max then
-        mod.List.removeHead(list)
+        List.removeHead(list)
     end
 end
 
-function mod.List.removeHead(list)
+function List.removeHead(list)
     local first = list.first
     if first > list.last then error("list is empty") end
     local value = list[first]
@@ -44,23 +42,23 @@ function mod.List.removeHead(list)
     return value
 end
 
-function mod.List.emptyList(list)
+function List.emptyList(list)
     while list.count > 0 do
-        mod.List.removeHead(list)
+        List.removeHead(list)
     end
 end
 
-mod.DamageHistory = mod.List.new(10000)
-mod.CurrentGods = {}
-mod.WeaponVar = {}
-mod.DpsUpdateThread = false
-mod.DpsBars = {}
-mod.DpsIcons = {}
-mod.LastDpsPosition = {}
-mod.LastDpsBackgroundPosition = {}
+DamageHistory = List.new(10000)
+CurrentGods = {}
+WeaponVar = {}
+DpsUpdateThread = false
+DpsBars = {}
+DpsIcons = {}
+LastDpsPosition = {}
+LastDpsBackgroundPosition = {}
 
 -- damage/data functions
-function mod.calculateDps(list)
+function calculateDps(list)
     -- sum up damage dealt from each source
     local totalDamage = 0
     local earliestTimestamp = 999999;
@@ -68,8 +66,8 @@ function mod.calculateDps(list)
     local totalDamageBySource = {}
     for i = list.first, list.last do
         local damageData = list[i]
-        local time = GetTime({})
-        if damageData.Timestamp > (time - mod.Config.DpsInterval) then
+        local time = game.GetTime({})
+        if damageData.Timestamp > (time - config.DpsInterval) then
             totalDamage = totalDamage + damageData.Damage
             totalDamageBySource[damageData.Source] = (totalDamageBySource[damageData.Source] or 0) + damageData.Damage
             if damageData.Timestamp < earliestTimestamp then
@@ -92,60 +90,60 @@ function mod.calculateDps(list)
 
     -- Delete any existing UI (e.g the bars from last update)
     -- TODO: Consider resizing / renaming bars instead of destroying and recreating (no performance issues so far though)
-    for bar, component in pairs(mod.DpsBars) do
-        Destroy({ Id = component.Id })
-        mod.DpsBars[bar] = nil
+    for bar, component in pairs(DpsBars) do
+        game.Destroy({ Id = component.Id })
+        DpsBars[bar] = nil
     end
 
-    for bar, component in pairs(mod.DpsIcons) do
-        Destroy({ Id = component.Id })
-        mod.DpsIcons[bar] = nil
+    for bar, component in pairs(DpsIcons) do
+        game.Destroy({ Id = component.Id })
+        DpsIcons[bar] = nil
     end
 
-    local yPos = mod.Config.InitialY
+    local yPos = config.InitialY
     -- Create UI to show DPS bars for each source
     for i, source in ipairs(sourcesSortedByDamage) do
         local barDamageRounded = math.floor(totalDamageBySource[source] + 0.5)
-        mod.createDpsBar(
+        createDpsBar(
             source,
             barDamageRounded,
             maxDamage,
             totalDamage,
-            mod.Config.XPosition,
+            config.XPosition,
             yPos
         )
-        yPos = yPos + mod.Config.YPositionIncrement
+        yPos = yPos + config.YPositionIncrement
     end
 
     -- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
     if #sourcesSortedByDamage > 0 then
         local totalDamageRounded = math.floor(totalDamage + 0.5)
-        mod.createDpsHeader(
+        createDpsHeader(
             "DpsMeter",
             totalDamageRounded,
             dps,
-            mod.Config.XPosition,
+            config.XPosition,
             yPos - 5
         )
-        local height = (mod.Config.InitialY - yPos + mod.Config.Margin)
-        local yPosOverlay = yPos + mod.Config.YPositionIncrement + height / 2
-        mod.createDpsOverlayBackground(
+        local height = (config.InitialY - yPos + config.Margin)
+        local yPosOverlay = yPos + config.YPositionIncrement + height / 2
+        createDpsOverlayBackground(
             "DpsBackground",
-            mod.Config.XPosition + mod.Config.Margin,
+            config.XPosition + config.Margin,
             yPosOverlay,
-            mod.Config.DisplayWidth,
+            config.DisplayWidth,
             height
         )
     else
-        Destroy({ Id = ScreenAnchors["DpsMeter"] })
-        Destroy({ Id = ScreenAnchors["DpsBackground"] })
+        game.Destroy({ Id = ScreenAnchors["DpsMeter"] })
+        game.Destroy({ Id = ScreenAnchors["DpsBackground"] })
         ScreenAnchors["DpsMeter"] = nil
         ScreenAnchors["DpsBackground"] = nil
     end
 end
 
 -- there is no longer a God attribute on traits, so here we are
-function mod.godMatcher(name)
+function godMatcher(name)
     if name == nil then return end
 
     if name:match("Apollo") then return "Apollo" end
@@ -161,53 +159,53 @@ function mod.godMatcher(name)
 end
 
 -- -- add more accurate names, and build an array of gods
-function mod.getEquippedBoons(trait)
+function getEquippedBoons(trait)
     local slot = trait.Slot or ''
     local name = trait.Name or ''
-    local god = mod.godMatcher(name) or ''
+    local god = godMatcher(name) or ''
 
     if slot == "Melee" and god then
-        mod.WeaponVar["Attack"] = god
+        WeaponVar["Attack"] = god
     end
     if slot == "Secondary" and god then
-        mod.WeaponVar["Special"] = god
+        WeaponVar["Special"] = god
     end
     if slot == "Ranged" and name then
         if god ~= nil then
-            mod.WeaponVar["Cast"] = god
+            WeaponVar["Cast"] = god
         end
-        mod.NameLookup["RangedWeapon"] = name
+        NameLookup["RangedWeapon"] = name
     end
     if slot == "Rush" and name then
         if god ~= nil then
-            mod.WeaponVar["Dash"] = god
+            WeaponVar["Dash"] = god
         end
     end
     -- most boons have a God value in the trait
     if god ~= nil then
-        mod.CurrentGods[god] = true
+        CurrentGods[god] = true
     end
     -- game reports all the Medea stuff "MedeaCurse" so determine via trait
     if name ~= nil and (name == 'SpawnDamageCurse' or name == 'DeathDefianceRetaliateCurse' or name == 'ArmorPenaltyCurse') then
-        mod.WeaponVar["MedeaCurse"] = name
+        WeaponVar["MedeaCurse"] = name
     end
 end
 
 -- reset attack, special, cast, etc.
-function mod.clearWeaponInfo()
-    mod.NameLookup["RangedWeapon"] = "Cast"
-    mod.WeaponVar["Attack"] = nil
-    mod.WeaponVar["Special"] = nil
-    mod.WeaponVar["Cast"] = nil
-    mod.WeaponVar["Dash"] = nil
-    mod.WeaponVar["MedeaCurse"] = nil
+function clearWeaponInfo()
+    NameLookup["RangedWeapon"] = "Cast"
+    WeaponVar["Attack"] = nil
+    WeaponVar["Special"] = nil
+    WeaponVar["Cast"] = nil
+    WeaponVar["Dash"] = nil
+    WeaponVar["MedeaCurse"] = nil
 
     -- also reset god list
-    mod.CurrentGods = {}
+    CurrentGods = {}
 end
 
 -- partial name lookup - consolidates attack/special/etc. into single types
-function mod.getSourceName(triggerArgs, victim)
+function getSourceName(triggerArgs, victim)
     local attackerWeaponData = triggerArgs.AttackerWeaponData or {}
     local attackerTable = triggerArgs.AttackerTable or {}
     local activeEffects = attackerTable.ActiveEffects or {}
@@ -220,18 +218,18 @@ function mod.getSourceName(triggerArgs, victim)
     source = triggerArgs.SourceWeapon or source
     source = attackerWeaponData.LinkedUpgrades or source
 
-    if mod.Config.SplitOmega == true then
+    if config.SplitOmega == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil
         local sourceWeapon = triggerArgs.SourceWeapon or nil
         local isAttackEX = false
         local isSpecialEX = false
         if sourceWeapon ~= nil then
-            for k, v in pairs(mod.AttackEXLookup) do
+            for k, v in pairs(AttackEXLookup) do
                 if sourceWeapon:match(v) or sourceProjectile:match(v) then
                     isAttackEX = true
                 end
             end
-            for k, v in pairs(mod.SpecialEXLookup) do
+            for k, v in pairs(SpecialEXLookup) do
                 if sourceWeapon:match(v) or sourceProjectile:match(v) then
                     isSpecialEX = true
                 end
@@ -244,15 +242,15 @@ function mod.getSourceName(triggerArgs, victim)
         end
     end
 
-    source = mod.NameLookup[source] or source
+    source = NameLookup[source] or source
 
     -- charm has several flavors
     if attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1 then
         source = "Charm"
     end
 
-    if source == "MedeaCurse" and mod.WeaponVar["MedeaCurse"] ~= nil then
-        source = mod.WeaponVar["MedeaCurse"]
+    if source == "MedeaCurse" and WeaponVar["MedeaCurse"] ~= nil then
+        source = WeaponVar["MedeaCurse"]
     end
 
     if source == 'Unknown' then
@@ -273,55 +271,55 @@ function mod.getSourceName(triggerArgs, victim)
 end
 
 -- creates a thread that runs until we tell it not to
-function mod.createPollingThread(currentHubRoom)
-    thread(function()
-        while mod.DpsUpdateThread do
+function createPollingThread(currentHubRoom)
+    game.thread(function()
+        while DpsUpdateThread do
             -- in training room only, empty list after 5 seconds of no activity
-            if currentHubRoom == 'Hub_PreRun' and mod.DamageHistory[mod.DamageHistory.last] ~= nil then
-                if GetTime({}) - mod.DamageHistory[mod.DamageHistory.last].Timestamp > mod.Config.TrainingRoomClearTime then
-                    mod.List.emptyList(mod.DamageHistory)
+            if currentHubRoom == 'Hub_PreRun' and DamageHistory[DamageHistory.last] ~= nil then
+                if game.GetTime({}) - DamageHistory[DamageHistory.last].Timestamp > config.TrainingRoomClearTime then
+                    List.emptyList(DamageHistory)
                 end
             end
             -- calculate dps every interval
-            mod.calculateDps(mod.DamageHistory)
-            wait(mod.Config.PollingInterval)
+            calculateDps(DamageHistory)
+            game.wait(config.PollingInterval)
         end
     end)
 end
 
 -- UI functions
 -- Creates a transparent background behind the dps. Resizes and moves the existing component if this is called with new height and position
-function mod.createDpsOverlayBackground(obstacleName, x, y, width, height)
-    local scaleWidth = width / (mod.Config.DisplayWidth + mod.Config.Margin * 2)
+function createDpsOverlayBackground(obstacleName, x, y, width, height)
+    local scaleWidth = width / (config.DisplayWidth + config.Margin * 2)
     local scaleHeight = height / 270
     if ScreenAnchors[obstacleName] ~= nil then
-        SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
-        SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
-        Move({
+        game.SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
+        game.SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
+        game.Move({
             Ids = ScreenAnchors[obstacleName],
             Angle = 90,
-            Distance = mod.LastDpsBackgroundPosition.y - y,
+            Distance = LastDpsBackgroundPosition.y - y,
             Speed = 1000
         })
     else
-        ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "rectangle01", X = x, Y = y })
-        SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
-        SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
-        SetColor({ Id = ScreenAnchors[obstacleName], Color = mod.Config.BackgroundColor })
+        ScreenAnchors[obstacleName] = game.CreateScreenObstacle({ Name = "rectangle01", X = x, Y = y })
+        game.SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
+        game.SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
+        game.SetColor({ Id = ScreenAnchors[obstacleName], Color = config.BackgroundColor })
     end
-    mod.LastDpsBackgroundPosition.y = y
+    LastDpsBackgroundPosition.y = y
 end
 
 -- Create a header that shows overall DPS and overall damage total
-function mod.createDpsHeader(obstacleName, totalDamage, dps, x, y)
-    local text = dps .. mod.Locale.HeaderText .. totalDamage
+function createDpsHeader(obstacleName, totalDamage, dps, x, y)
+    local text = dps .. Locale.HeaderText .. totalDamage
 
     if ScreenAnchors[obstacleName] ~= nil then
-        ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
-        Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = mod.LastDpsPosition.y - y, Speed = 1000 })
+        game.ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
+        game.Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = LastDpsPosition.y - y, Speed = 1000 })
     else
-        ScreenAnchors[obstacleName] = CreateScreenObstacle({ Name = "BlankObstacle", X = x, Y = y })
-        CreateTextBox({
+        ScreenAnchors[obstacleName] = game.CreateScreenObstacle({ Name = "BlankObstacle", X = x, Y = y })
+        game.CreateTextBox({
             Id = ScreenAnchors[obstacleName],
             Text = text,
             OffsetX = -5,
@@ -337,15 +335,15 @@ function mod.createDpsHeader(obstacleName, totalDamage, dps, x, y)
             ShadowAlpha = 1,
             ShadowColor = Color.Black
         })
-        ModifyTextBox({ Id = ScreenAnchors[obstacleName], FadeTarget = 1, FadeDuration = 0.0 })
+        game.ModifyTextBox({ Id = ScreenAnchors[obstacleName], FadeTarget = 1, FadeDuration = 0.0 })
     end
 
-    mod.LastDpsPosition.y = y
+    LastDpsPosition.y = y
 end
 
 -- Create a single DPS bar with damage source, damage amount, and damage portion labels
-function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
-    local colors, niceLabel = mod.findColor(label)
+function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
+    local colors, niceLabel = findColor(label)
 
     local abilityName = label
     if niceLabel ~= nil then
@@ -359,20 +357,20 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     local labelColor = colors["LabelColor"] or Color.White
     local barColor = colors["BarColor"] or Color.White
 
-    local dpsBar = CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
-    SetAnimation({ Name = "DpsBarWhite", DestinationId = dpsBar.Id })
+    local dpsBar = game.CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
+    game.SetAnimation({ Name = "DpsBarWhite", DestinationId = dpsBar.Id })
     -- Scale damage bar
-    SetScaleX({ Id = dpsBar.Id, Fraction = scale * 0.5, Duration = 0.0 })
+    game.SetScaleX({ Id = dpsBar.Id, Fraction = scale * 0.5, Duration = 0.0 })
     -- color damage bar
-    SetColor({ Id = dpsBar.Id, Color = barColor })
+    game.SetColor({ Id = dpsBar.Id, Color = barColor })
 
-    mod.DpsBars["DpsBar" .. label] = dpsBar
+    DpsBars["DpsBar" .. label] = dpsBar
 
     local textOffsetX = -7
-    if mod.Config.ShowIcons == true then textOffsetX = -25 end
+    if config.ShowIcons == true then textOffsetX = -25 end
     local textOffsetY = -2
     -- name label
-    CreateTextBox({
+    game.CreateTextBox({
         Id = dpsBar.Id,
         Text = abilityName,
         OffsetX = textOffsetX,
@@ -390,7 +388,7 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     })
 
     -- damage percentage label
-    CreateTextBox({
+    game.CreateTextBox({
         Id = dpsBar.Id,
         Text = percentDamage .. "%",
         OffsetX = 150 * scale + 5,
@@ -409,7 +407,7 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 
     -- damage total label
     if scale > .2 then
-        CreateTextBox({
+        game.CreateTextBox({
             Id = dpsBar.Id,
             Text = damage,
             OffsetX = 1,
@@ -428,22 +426,22 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     end
 
     -- this prevents the text from flickering/fading. it only needs to be set once
-    ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
+    game.ModifyTextBox({ Id = dpsBar.Id, FadeTarget = 1, FadeDuration = 0.0 })
 
     -- add icons
-    if mod.Config.ShowIcons == true then
-        mod.generateBarIcons(colors, label, dpsBar)
+    if config.ShowIcons == true then
+        generateBarIcons(colors, label, dpsBar)
     end
 end
 
 -- determines colors and looks up a nice name, so the function name is no longer fully accurate
-function mod.findColor(source)
-    local sources = mod.SourceLookup
-    local colors = mod.DpsColors
-    local attack = mod.WeaponVar["Attack"]
-    local special = mod.WeaponVar["Special"]
-    local cast = mod.WeaponVar["Cast"]
-    local dash = mod.WeaponVar["Dash"]
+function findColor(source)
+    local sources = SourceLookup
+    local colors = DpsColors
+    local attack = WeaponVar["Attack"]
+    local special = WeaponVar["Special"]
+    local cast = WeaponVar["Cast"]
+    local dash = WeaponVar["Dash"]
 
     local color
     local niceLabel
@@ -453,10 +451,10 @@ function mod.findColor(source)
         if source == 'OAttack' then prefix = "{!Icons.Omega_NoTooltip}" end
         if attack ~= nil and sources[attack] ~= nil then
             color = colors[attack]
-            niceLabel = prefix..sources[attack]["Attack"]
+            niceLabel = prefix .. sources[attack]["Attack"]
             return color, niceLabel
         else
-            return colors["Default"], prefix..mod.Locale.AttackText
+            return colors["Default"], prefix .. Locale.AttackText
         end
     end
 
@@ -465,10 +463,10 @@ function mod.findColor(source)
         if source == 'OSpecial' then prefix = "{!Icons.Omega_NoTooltip}" end
         if special ~= nil and sources[special] ~= nil then
             color = colors[special]
-            niceLabel = prefix..sources[special]["Special"]
+            niceLabel = prefix .. sources[special]["Special"]
             return color, niceLabel
         else
-            return colors["Default"], prefix..mod.Locale.SpecialText
+            return colors["Default"], prefix .. Locale.SpecialText
         end
     end
 
@@ -478,7 +476,7 @@ function mod.findColor(source)
             niceLabel = sources[cast]["Cast"]
             return color, niceLabel
         else
-            return colors["Default"], mod.Locale.CastText
+            return colors["Default"], Locale.CastText
         end
     end
 
@@ -488,30 +486,30 @@ function mod.findColor(source)
             niceLabel = sources[dash]["Dash"]
             return color, niceLabel
         else
-            return colors["Default"], mod.Locale.DashText
+            return colors["Default"], Locale.DashText
         end
     end
 
     -- color in our friends :)
     if source == 'Artemis' then
-        return colors["ArtemisAssist"], mod.Locale.ArtemisName
+        return colors["ArtemisAssist"], Locale.ArtemisName
     elseif source == 'Nemesis' then
-        return colors["NemesisAssist"], mod.Locale.NemesisName
+        return colors["NemesisAssist"], Locale.NemesisName
     elseif source == 'Heracles' then
-        return colors["HeraclesAssist"], mod.Locale.HeraclesName
+        return colors["HeraclesAssist"], Locale.HeraclesName
     elseif source == 'Icarus' then
-        return colors["IcarusAssist"], mod.Locale.IcarusName
+        return colors["IcarusAssist"], Locale.IcarusName
     elseif source == "Necromantic Influence" then
-        return colors["Shade"], mod.Locale.ShadeSprint
+        return colors["Shade"], Locale.ShadeSprint
     elseif source == "Pylon Spirits" then
-        return colors["Shade"], mod.Locale.EphyraPylon
+        return colors["Shade"], Locale.EphyraPylon
     elseif source == "Frinos" then
-        return colors["Frinos"], mod.Locale.Frinos
+        return colors["Frinos"], Locale.Frinos
     elseif source == "Toula" then
-        return colors["Toula"], mod.Locale.Toula
+        return colors["Toula"], Locale.Toula
         -- and some localization
     elseif source == "Charm" then
-        return colors["Default"], mod.Locale.Charm
+        return colors["Default"], Locale.Charm
     end
 
     if color == nil then
@@ -530,7 +528,7 @@ function mod.findColor(source)
 end
 
 -- add icons to the bar if available
-function mod.generateBarIcons(colors, label, dpsBar)
+function generateBarIcons(colors, label, dpsBar)
     local godIcons = ShallowCopyTable(colors["Icons"])
 
     if godIcons ~= nil then
@@ -541,20 +539,20 @@ function mod.generateBarIcons(colors, label, dpsBar)
             iconOffsetX = -8
         end
 
-        local dpsIcon1 = CreateScreenComponent({ Name = "BlankObstacle" })
-        local icon1 = mod.Icons[godIcons[1]]
-        SetAnimation({ Name = icon1.Name, DestinationId = dpsIcon1.Id, Scale = icon1.Scale })
-        mod.DpsIcons["DpsIcon" .. label] = dpsIcon1
+        local dpsIcon1 = game.CreateScreenComponent({ Name = "BlankObstacle" })
+        local icon1 = Icons[godIcons[1]]
+        game.SetAnimation({ Name = icon1.Name, DestinationId = dpsIcon1.Id, Scale = icon1.Scale })
+        DpsIcons["DpsIcon" .. label] = dpsIcon1
         -- if it's a duo, add the icon and attach it
         if #godIcons > 1 then
-            local dpsIcon2 = CreateScreenComponent({ Name = "BlankObstacle" })
-            local icon2 = mod.Icons[godIcons[2]]
-            SetAnimation({ Name = icon2.Name, DestinationId = dpsIcon2.Id, Scale = icon2.Scale })
-            mod.DpsIcons["DpsIconDuo" .. label] = dpsIcon2
-            Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -10 })
+            local dpsIcon2 = game.CreateScreenComponent({ Name = "BlankObstacle" })
+            local icon2 = Icons[godIcons[2]]
+            game.SetAnimation({ Name = icon2.Name, DestinationId = dpsIcon2.Id, Scale = icon2.Scale })
+            DpsIcons["DpsIconDuo" .. label] = dpsIcon2
+            game.Attach({ Id = dpsIcon2.Id, DestinationId = dpsIcon1.Id, OffsetX = -10 })
         end
         -- anchor to the given dps bar
-        Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffsetX, OffsetY = -3 })
+        game.Attach({ Id = dpsIcon1.Id, DestinationId = dpsBar.Id, OffsetX = iconOffsetX, OffsetY = -3 })
     end
 end
 
@@ -579,9 +577,9 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         local damageInstance = {}
         damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
         damageInstance.Timestamp = GetTime({})
-        damageInstance.Source = mod.getSourceName(triggerArgs, victim)
+        damageInstance.Source = getSourceName(triggerArgs, victim)
 
-        mod.List.addValue(mod.DamageHistory, damageInstance)
+        List.addValue(DamageHistory, damageInstance)
     end
 end, mod)
 
@@ -591,9 +589,9 @@ end, mod)
     - clear list ]]
 ModUtil.Path.Wrap("DoUnlockRoomExits", function(baseFunc, run, room)
     baseFunc(run, room)
-    mod.DpsUpdateThread = false
-    mod.calculateDps(mod.DamageHistory)
-    mod.List.emptyList(mod.DamageHistory)
+    DpsUpdateThread = false
+    calculateDps(DamageHistory)
+    List.emptyList(DamageHistory)
 end, mod)
 
 --[[ on room start:
@@ -601,9 +599,9 @@ end, mod)
     - regenerate list of equipped boons ]]
 ModUtil.Path.Wrap("StartRoom", function(baseFunc, run, room)
     baseFunc(run, room)
-    mod.clearWeaponInfo()
+    clearWeaponInfo()
     for i, trait in pairs(CurrentRun.Hero.Traits) do
-        mod.getEquippedBoons(trait)
+        getEquippedBoons(trait)
     end
 end, mod)
 
@@ -612,9 +610,9 @@ end, mod)
     - regenerate list of equipped boons ]]
 ModUtil.Path.Wrap("BeginOpeningEncounter", function(baseFunc)
     baseFunc()
-    mod.createPollingThread()
+    createPollingThread()
     for i, trait in pairs(CurrentRun.Hero.Traits) do
-        mod.getEquippedBoons(trait)
+        getEquippedBoons(trait)
     end
 end, mod)
 
@@ -623,26 +621,26 @@ end, mod)
     - clear weapon info]]
 ModUtil.Path.Wrap("KillHero", function(baseFunc, victim, triggerArgs)
     baseFunc(victim, triggerArgs)
-    mod.DpsUpdateThread = false
-    mod.clearWeaponInfo()
+    DpsUpdateThread = false
+    clearWeaponInfo()
 end, mod)
 
 
 -- set up polling if it isn't already
 OnAnyLoad { function()
-    mod.UpdateScreenData() -- check localization
-    mod.clearWeaponInfo()  -- empty weapons
+    UpdateScreenData() -- check localization
+    clearWeaponInfo()  -- empty weapons
     for i, trait in pairs(CurrentRun.Hero.Traits) do
-        mod.getEquippedBoons(trait)
+        getEquippedBoons(trait)
     end
 
     -- turn polling on in training room
     local currentHubRoom = ModUtil.Path.Get("CurrentHubRoom.Name")
-    if currentHubRoom == 'Hub_PreRun' then mod.DpsUpdateThread = false end
+    if currentHubRoom == 'Hub_PreRun' then DpsUpdateThread = false end
     -- turn polling on (almost) everywhere else
-    if mod.DpsUpdateThread then return end
-    mod.DpsUpdateThread = true
-    mod.createPollingThread(currentHubRoom)
+    if DpsUpdateThread then return end
+    DpsUpdateThread = true
+    createPollingThread(currentHubRoom)
 end }
 
 setupMainData()

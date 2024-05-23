@@ -29,5 +29,4 @@ local configDesc = {
     SplitOmega = "Show Omega attacks/specials in separate bars"
 }
 
-JowdayDPS.Config = config
 return config, configDesc

@@ -10,9 +10,13 @@ description = "Adds some damage meters to your screen."
 websiteUrl = "https://github.com/The-Black-Lodge/JowdayDamageMeter"
 containsNsfwContent = false
 
+
 [package.dependencies]
-SGG_Modding-DemonDaemon = "1.0.0"
-SGG_Modding-ModUtil = "3.0.0"
+SGG_Modding-ENVY = "1.0.0"
+SGG_Modding-Chalk = "2.0.2"
+SGG_Modding-ReLoad = "1.0.1"
+SGG_Modding-ModUtil = "3.1.1"
+SGG_Modding-SJSON = "1.0.0"
 
 
 [build]
@@ -20,13 +24,16 @@ icon = "./icon.png"
 readme = "./README.md"
 outdir = "./build"
 
+
 [[build.copy]]
 source = "./CHANGELOG.md"
 target = "./CHANGELOG.md"
 
+
 [[build.copy]]
 source = "./LICENSE"
 target = "./LICENSE"
+
 
 [[build.copy]]
 source = "./src"
@@ -36,6 +43,7 @@ target = "./plugins"
 [publish]
 repository = "https://thunderstore.io"
 communities = [ "hades-ii", ]
+
 
 [publish.categories]
 hades-ii = [ "mods", ]
