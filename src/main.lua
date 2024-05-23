@@ -33,7 +33,8 @@ local function on_ready()
     import 'localize.lua'
     import 'lang/en.lua'
     import 'lang/fr.lua'
-    import 'lang/pt-BR.lua'
+    import 'lang/ptBR.lua'
+    import 'lang/zhCN.lua'
     import 'scripts/JowdayDPS.Main.lua'
     import 'scripts/JowdayDPS.Data.lua'
 end
