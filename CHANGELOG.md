@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## Added
+- localization
+ - zh-CN translation by Dafeigy
+
+- drop support for modimporter
+
 ## [2.2.4] - 2024-05-22
 
 ## Added
