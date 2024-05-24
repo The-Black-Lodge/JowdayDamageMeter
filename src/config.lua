@@ -2,11 +2,11 @@
 ---@diagnostic disable
 
 local config = {
-    DpsInterval = 99999999,
+    version = 1.0,
     PollingInterval = 0.2,
     TrainingRoomClearTime = 5,
     InitialY = 840,
-    XPosition = 270,
+    XPosition = 280,
     YPositionIncrement = -20,
     Margin = 40,
     DisplayWidth = 400,
@@ -16,7 +16,6 @@ local config = {
 }
 
 local configDesc = {
-    DpsInterval = "Leave this alone",
     PollingInterval = "How often to update bars, in seconds",
     TrainingRoomClearTime = "How soon to clear the window in Skelly's room, in seconds",
     InitialY = "Y position of meter",

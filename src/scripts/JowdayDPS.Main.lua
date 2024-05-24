@@ -56,6 +56,7 @@ DpsBars = {}
 DpsIcons = {}
 LastDpsPosition = {}
 LastDpsBackgroundPosition = {}
+local dpsInterval = 999999
 
 -- damage/data functions
 function calculateDps(list)
@@ -67,7 +68,7 @@ function calculateDps(list)
     for i = list.first, list.last do
         local damageData = list[i]
         local time = game.GetTime({})
-        if damageData.Timestamp > (time - config.DpsInterval) then
+        if damageData.Timestamp > (time - dpsInterval) then
             totalDamage = totalDamage + damageData.Damage
             totalDamageBySource[damageData.Source] = (totalDamageBySource[damageData.Source] or 0) + damageData.Damage
             if damageData.Timestamp < earliestTimestamp then
@@ -290,8 +291,8 @@ end
 -- UI functions
 -- Creates a transparent background behind the dps. Resizes and moves the existing component if this is called with new height and position
 function createDpsOverlayBackground(obstacleName, x, y, width, height)
-    local scaleWidth = width / (config.DisplayWidth + config.Margin * 2)
-    local scaleHeight = height / 270
+    local scaleWidth = width / (config.DisplayWidth + config.Margin)
+    local scaleHeight = height / 250
     if ScreenAnchors[obstacleName] ~= nil then
         game.SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
         game.SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
@@ -312,6 +313,7 @@ end
 
 -- Create a header that shows overall DPS and overall damage total
 function createDpsHeader(obstacleName, totalDamage, dps, x, y)
+    if tostring(dps) == 'inf' then dps = '···' end
     local text = dps .. Locale.HeaderText .. totalDamage
 
     if ScreenAnchors[obstacleName] ~= nil then
@@ -324,7 +326,7 @@ function createDpsHeader(obstacleName, totalDamage, dps, x, y)
             Text = text,
             OffsetX = -5,
             OffsetY = 0,
-            Font = "LatoMedium",
+            Font = "LatoSemibold",
             FontSize = 14,
             Justification = "Left",
             Color = Color.White,
@@ -373,15 +375,14 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     game.CreateTextBox({
         Id = dpsBar.Id,
         Text = abilityName,
+        TextSymbolScale = 0.65,
         OffsetX = textOffsetX,
         OffsetY = textOffsetY,
-        Font = "LatoMedium",
+        Font = "LatoSemibold",
         FontSize = 10,
         Justification = "Right",
         Color = labelColor,
-        OutlineThickness = 2.0,
-        OutlineColor = Color.Black,
-        ShadowOffset = { 1, 2 },
+        ShadowOffset = { 1, 1 },
         ShadowBlur = 0,
         ShadowAlpha = 1,
         ShadowColor = Color.Black,
@@ -393,13 +394,11 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
         Text = percentDamage .. "%",
         OffsetX = 150 * scale + 5,
         OffsetY = textOffsetY,
-        Font = "LatoMedium",
+        Font = "LatoSemibold",
         FontSize = 10,
         Justification = "Left",
         Color = Color.White,
-        OutlineThickness = 2.0,
-        OutlineColor = Color.Black,
-        ShadowOffset = { 1, 2 },
+        ShadowOffset = { 1, 1 },
         ShadowBlur = 0,
         ShadowAlpha = 1,
         ShadowColor = Color.Black,
@@ -412,12 +411,12 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
             Text = damage,
             OffsetX = 1,
             OffsetY = textOffsetY,
-            Font = "LatoMedium",
+            Font = "LatoSemibold",
             FontSize = 8,
             Justification = "Left",
             Color = Color.White,
-            OutlineThickness = 2.0,
-            OutlineColor = Color.Black,
+            OutlineThickness = 1.0,
+            OutlineColor = Color.Gray,
             ShadowOffset = { 1, 1 },
             ShadowBlur = 0,
             ShadowAlpha = 1,
@@ -448,7 +447,7 @@ function findColor(source)
 
     if source == 'Attack' or source == 'OAttack' then
         local prefix = ''
-        if source == 'OAttack' then prefix = "{!Icons.Omega_NoTooltip}" end
+        if source == 'OAttack' then prefix = "{!Icons.Omega_NoTooltip} " end
         if attack ~= nil and sources[attack] ~= nil then
             color = colors[attack]
             niceLabel = prefix .. sources[attack]["Attack"]
@@ -460,7 +459,7 @@ function findColor(source)
 
     if source == 'Special' or source == 'OSpecial' then
         local prefix = ''
-        if source == 'OSpecial' then prefix = "{!Icons.Omega_NoTooltip}" end
+        if source == 'OSpecial' then prefix = "{!Icons.Omega_NoTooltip} " end
         if special ~= nil and sources[special] ~= nil then
             color = colors[special]
             niceLabel = prefix .. sources[special]["Special"]
