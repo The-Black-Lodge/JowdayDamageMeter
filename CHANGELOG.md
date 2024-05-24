@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## Added
+
+- customizable omega attack/special prefix
+  - this is the OmegaIndicator value in configuration
+  - the default omega icon will flicker on some PC configurations, so this allows you to set a plain text indicator if needed
+
 ## [2.3.1] - 2024-05-24
 
 ## Changed

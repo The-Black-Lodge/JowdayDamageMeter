@@ -447,7 +447,7 @@ function findColor(source)
 
     if source == 'Attack' or source == 'OAttack' then
         local prefix = ''
-        if source == 'OAttack' then prefix = "{!Icons.Omega_NoTooltip} " end
+        if source == 'OAttack' then prefix = config.OmegaIndicator end
         if attack ~= nil and sources[attack] ~= nil then
             color = colors[attack]
             niceLabel = prefix .. sources[attack]["Attack"]
@@ -459,7 +459,7 @@ function findColor(source)
 
     if source == 'Special' or source == 'OSpecial' then
         local prefix = ''
-        if source == 'OSpecial' then prefix = "{!Icons.Omega_NoTooltip} " end
+        if source == 'OSpecial' then prefix = config.OmegaIndicator end
         if special ~= nil and sources[special] ~= nil then
             color = colors[special]
             niceLabel = prefix .. sources[special]["Special"]
