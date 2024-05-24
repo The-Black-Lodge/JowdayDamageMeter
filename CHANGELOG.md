@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Changed
+- attempt to fix the "crunchy" looking text by changing font
+- removed config value that shouldn't be modified
+
 ## [2.3.0] - 2024-05-23
 
 ## Added
