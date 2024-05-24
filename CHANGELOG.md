@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 
+## [2.3.1] - 2024-05-24
+
 ## Changed
+
 - attempt to fix the "crunchy" looking text by changing font
 - removed config value that shouldn't be modified
 
@@ -59,7 +62,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.0...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.1...HEAD
+[2.3.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.4...2.3.0
 [2.2.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.2...2.2.3
