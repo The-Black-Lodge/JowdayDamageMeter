@@ -40,7 +40,7 @@ local function on_ready()
 end
 
 local function on_reload()
-
+    rom.inputs.on_key_pressed({config.ToggleMeterBind, Name = "Toggle Meter Visibility", function() ShowMeter = not ShowMeter end})
 end
 
 -- this allows us to limit certain functions to not be reloaded.

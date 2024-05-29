@@ -13,7 +13,8 @@ local config = {
     BackgroundColor = { 0.090, 0.055, 0.157, 0.6 },
     ShowIcons = true,
     SplitOmega = true,
-    OmegaIndicator = "{!Icons.Omega_NoTooltip}"
+    OmegaIndicator = "{!Icons.Omega_NoTooltip}",
+    ToggleMeterBind = "Ctrl Y"
 }
 
 local configDesc = {
@@ -28,7 +29,8 @@ local configDesc = {
     ShowIcons = "Show God icons next to ability names.",
     SplitOmega = "Show Omega attacks/specials in separate bars.",
     OmegaIndicator =
-    "If SplitOmega is enabled, this will prefix the given attack/special name. Can use plain text if the default icon causes flickering."
+    "If SplitOmega is enabled, this will prefix the given attack/special name. Can use plain text if the default icon causes flickering.",
+    ToggleMeterBind = "Press this to hide/show the meter."
 }
 
 return config, configDesc

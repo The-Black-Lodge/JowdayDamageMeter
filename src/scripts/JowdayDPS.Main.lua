@@ -56,6 +56,7 @@ DpsBars = {}
 DpsIcons = {}
 LastDpsPosition = {}
 LastDpsBackgroundPosition = {}
+ShowMeter = true
 local dpsInterval = 999999
 
 -- damage/data functions
@@ -101,40 +102,47 @@ function calculateDps(list)
         DpsIcons[bar] = nil
     end
 
-    local yPos = config.InitialY
-    -- Create UI to show DPS bars for each source
-    for i, source in ipairs(sourcesSortedByDamage) do
-        local barDamageRounded = math.floor(totalDamageBySource[source] + 0.5)
-        createDpsBar(
-            source,
-            barDamageRounded,
-            maxDamage,
-            totalDamage,
-            config.XPosition,
-            yPos
-        )
-        yPos = yPos + config.YPositionIncrement
-    end
+    if ShowMeter == true then
+        local yPos = config.InitialY
+        -- Create UI to show DPS bars for each source
+        for i, source in ipairs(sourcesSortedByDamage) do
+            local barDamageRounded = math.floor(totalDamageBySource[source] + 0.5)
+            createDpsBar(
+                source,
+                barDamageRounded,
+                maxDamage,
+                totalDamage,
+                config.XPosition,
+                yPos
+            )
+            yPos = yPos + config.YPositionIncrement
+        end
 
-    -- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
-    if #sourcesSortedByDamage > 0 then
-        local totalDamageRounded = math.floor(totalDamage + 0.5)
-        createDpsHeader(
-            "DpsMeter",
-            totalDamageRounded,
-            dps,
-            config.XPosition,
-            yPos - 5
-        )
-        local height = (config.InitialY - yPos + config.Margin)
-        local yPosOverlay = yPos + config.YPositionIncrement + height / 2
-        createDpsOverlayBackground(
-            "DpsBackground",
-            config.XPosition + config.Margin,
-            yPosOverlay,
-            config.DisplayWidth,
-            height
-        )
+        -- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
+        if #sourcesSortedByDamage > 0 then
+            local totalDamageRounded = math.floor(totalDamage + 0.5)
+            createDpsHeader(
+                "DpsMeter",
+                totalDamageRounded,
+                dps,
+                config.XPosition,
+                yPos - 5
+            )
+            local height = (config.InitialY - yPos + config.Margin)
+            local yPosOverlay = yPos + config.YPositionIncrement + height / 2
+            createDpsOverlayBackground(
+                "DpsBackground",
+                config.XPosition + config.Margin,
+                yPosOverlay,
+                config.DisplayWidth,
+                height
+            )
+        else
+            game.Destroy({ Id = ScreenAnchors["DpsMeter"] })
+            game.Destroy({ Id = ScreenAnchors["DpsBackground"] })
+            ScreenAnchors["DpsMeter"] = nil
+            ScreenAnchors["DpsBackground"] = nil
+        end
     else
         game.Destroy({ Id = ScreenAnchors["DpsMeter"] })
         game.Destroy({ Id = ScreenAnchors["DpsBackground"] })
