@@ -10,9 +10,10 @@ Available languages are English, French, Brazilian Portuguese, Chinese. It will 
 _* You may need to quit and reload your save if you change languages while playing._
 
 ### Config options you may be interested in:
- - SplitOmega - separates Omega attack/special into their own bars. enabled by default
- - ShowIcons - displays god icons next to ability names. enabled by default
- - OmegaIndicator - set a custom prefix for Omega attacks
+ - `ToggleMeterBind` sets a bind to toggle the display on/off (default is `Ctrl Y`)
+ - `SplitOmega` separates Omega attack/special into their own bars. enabled by default
+ - `ShowIcons` displays god icons next to ability names. enabled by default
+ - `OmegaIndicator` sets a custom prefix for Omega attacks
 
 These values can be changed in the r2modman config editor.
 

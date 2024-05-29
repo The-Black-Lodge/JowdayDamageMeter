@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- customizable keybind to toggle mod visibility
+  - default is `Ctrl Y` but it can be configured in r2modman
 
 ## [2.3.2] - 2024-05-24
 
