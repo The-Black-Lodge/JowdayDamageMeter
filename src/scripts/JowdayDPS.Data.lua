@@ -79,6 +79,7 @@ NameLookup = {
     SatyrLanceThrow = Locale.EnemyText,
     MageRanged = Locale.EnemyText,
     GuardMelee = Locale.EnemyText,
+    PolyphemusStomachAche = Locale.EnemyText,
     -- don't translate these
     HeraCastSummonProjectile = "Cast",
     DemeterSprintStorm = "Dash",
