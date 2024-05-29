@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.4.0] - 2024-05-29
+
 ## Added
+
 - customizable keybind to toggle mod visibility
   - default is `Ctrl Y` but it can be configured in r2modman
 
@@ -73,7 +77,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.2...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.4.0...HEAD
+[2.4.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.2...2.4.0
 [2.3.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.2.4...2.3.0
