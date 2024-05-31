@@ -11,6 +11,7 @@ _* You may need to quit and reload your save if you change languages while playi
 
 ### Config options you may be interested in:
  - `ToggleMeterBind` sets a bind to toggle the display on/off (default is `Ctrl Y`)
+ - `SplitDashStrike` separates out Dash-Strike damage into its own bar. enabled by default
  - `SplitOmega` separates Omega attack/special into their own bars. enabled by default
  - `ShowIcons` displays god icons next to ability names. enabled by default
  - `OmegaIndicator` sets a custom prefix for Omega attacks
@@ -18,6 +19,22 @@ _* You may need to quit and reload your save if you change languages while playi
 These values can be changed in the r2modman config editor.
 
 ## Example configurations
+#### SplitDashStrike enabled:
+```ini
+SplitDashStrike = true # default
+```
+![image](https://github.com/The-Black-Lodge/JowdayDamageMeter/assets/7319207/aa4bcaa5-7b0d-49a9-8065-456a2590e344)
+
+---
+
+#### SplitDashStrike disabled:
+```ini
+SplitDashStrike = false # custom value
+```
+![image](https://github.com/The-Black-Lodge/JowdayDamageMeter/assets/7319207/90dfe10b-ab6a-47ce-a614-968c0cb89e8a)
+
+---
+
 #### SplitOmega and ShowIcons enabled:
 ```ini
 SplitOmega = true # default
