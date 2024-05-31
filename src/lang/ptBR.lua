@@ -4,6 +4,7 @@
 AddLocale('pt-BR', {
     HeaderText = " DPS / Dano Total: ",
     AttackText = "Ataque",
+    DashStrikeText = "Investida",
     SpecialText = "Especial",
     CastText = "Conjuração",
     DashText = "Arranque",

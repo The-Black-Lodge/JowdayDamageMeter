@@ -227,6 +227,17 @@ function getSourceName(triggerArgs, victim)
     source = triggerArgs.SourceWeapon or source
     source = attackerWeaponData.LinkedUpgrades or source
 
+    if config.SplitDashStrike == true then
+        local sourceProjectile = triggerArgs.SourceProjectile or nil
+        if sourceProjectile ~= nil then
+            for k, v in pairs(DashStrikeLookup) do
+                if sourceProjectile:match(v) then
+                    source = 'AttackDashStrike'
+                end
+            end
+        end
+    end
+
     if config.SplitOmega == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil
         local sourceWeapon = triggerArgs.SourceWeapon or nil
@@ -465,6 +476,16 @@ function findColor(source)
         end
     end
 
+    if source == 'AttackDashStrike' then
+        niceLabel = Locale.DashStrikeText
+        if attack ~= nil and sources[attack] ~= nil then
+            color = colors[attack]
+            return color, niceLabel
+        else
+            return colors["Default"], niceLabel
+        end
+    end
+
     if source == 'Special' or source == 'OSpecial' then
         local prefix = ''
         if source == 'OSpecial' then prefix = config.OmegaIndicator end
@@ -506,9 +527,9 @@ function findColor(source)
         return colors["HeraclesAssist"], Locale.HeraclesName
     elseif source == 'Icarus' then
         return colors["IcarusAssist"], Locale.IcarusName
-    elseif source == "Necromantic Influence" then
+    elseif source == "ShadeMercSpiritball" then
         return colors["Shade"], Locale.ShadeSprint
-    elseif source == "Pylon Spirits" then
+    elseif source == "SoulPylonSpiritball" then
         return colors["Shade"], Locale.EphyraPylon
     elseif source == "Frinos" then
         return colors["Frinos"], Locale.Frinos

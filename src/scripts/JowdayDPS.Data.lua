@@ -9,8 +9,6 @@ NameLookup = {
     CatFamiliarPounce = "Toula",
     -- misc environment
     PolyphemusBoulderSky = Locale.Boulder,
-    ShadeMercSpiritball = Locale.ShadeSprint,
-    SoulPylonSpiritball = Locale.EphyraPylon,
     --- traps
     FireBarrelExplosion = Locale.FireBarrel,
     FireBarrelFireLob = Locale.FireBarrel,
@@ -46,7 +44,6 @@ NameLookup = {
     --
     WeaponAxe = "Attack",
     WeaponAxeSpecialSwing = "Special",
-    WeaponAxeDash = "Attack",
     WeaponAxeSpin = "Attack",
     WeaponAxeBlock2 = "Special",
     --
@@ -94,6 +91,10 @@ AttackEXLookup = {
 
 SpecialEXLookup = {
     "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbit"
+}
+
+DashStrikeLookup = {
+    "ProjectileDaggerDash", "ProjectileStaffDash", "ProjectileAxeDash"
 }
 
 SourceLookup = {

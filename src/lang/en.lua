@@ -4,6 +4,7 @@
 AddLocale('en', {
     HeaderText = " DPS / Total Damage: ",
     AttackText = "Attack",
+    DashStrikeText = "Dash-Strike",
     SpecialText = "Special",
     CastText = "Cast",
     DashText = "Dash",

@@ -12,6 +12,7 @@ local config = {
     DisplayWidth = 400,
     BackgroundColor = { 0.090, 0.055, 0.157, 0.6 },
     ShowIcons = true,
+    SplitDashStrike = true,
     SplitOmega = true,
     OmegaIndicator = "{!Icons.Omega_NoTooltip}",
     ToggleMeterBind = "Ctrl Y"
@@ -27,6 +28,7 @@ local configDesc = {
     DisplayWidth = "Width of the meter background.",
     BackgroundColor = "Color of the meter background.",
     ShowIcons = "Show God icons next to ability names.",
+    SplitDashStrike = "Show Dash-Strike in separate bar. Turn off to consolidate into Attack.",
     SplitOmega = "Show Omega attacks/specials in separate bars.",
     OmegaIndicator =
     "If SplitOmega is enabled, this will prefix the given attack/special name. Can use plain text if the default icon causes flickering.",

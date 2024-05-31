@@ -4,6 +4,7 @@
 AddLocale('zh-CN', {
     HeaderText = " DPS / 总伤害: ",
     AttackText = "攻击",
+    DashStrikeText = "冲刺攻击",
     SpecialText = "特技",
     CastText = "法阵",
     DashText = "冲刺",
