@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- option to separate out Dash-Strike damage
+  - config option is SplitDashStrike
 
 ## [2.4.0] - 2024-05-29
 
