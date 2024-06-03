@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.4.2] - 2024-06-03
+
 ## Fixed
+
 - fix ModUtil deprecation message
 
 ## [2.4.1] - 2024-05-31
@@ -86,7 +90,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.4.1...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.4.2...HEAD
+[2.4.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.2...2.4.0
 [2.3.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.3.1...2.3.2
