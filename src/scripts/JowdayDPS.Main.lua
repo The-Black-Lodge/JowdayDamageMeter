@@ -52,7 +52,8 @@ DamageHistory = List.new(10000)
 CurrentGods = {}
 WeaponVar = {}
 DpsUpdateThread = false
-DpsBars = {}
+public.DpsBars = {}
+DpsAnchors = {}
 DpsIcons = {}
 LastDpsPosition = {}
 LastDpsBackgroundPosition = {}
@@ -61,6 +62,7 @@ local dpsInterval = 999999
 
 -- damage/data functions
 function calculateDps(list)
+    print('---')
     -- sum up damage dealt from each source
     local totalDamage = 0
     local earliestTimestamp = 999999;
@@ -90,31 +92,31 @@ function calculateDps(list)
     end)
     local maxDamage = totalDamageBySource[sourcesSortedByDamage[#sourcesSortedByDamage]]
 
-    -- Delete any existing UI (e.g the bars from last update)
-    -- TODO: Consider resizing / renaming bars instead of destroying and recreating (no performance issues so far though)
-    for bar, component in pairs(DpsBars) do
-        game.Destroy({ Id = component.Id })
-        DpsBars[bar] = nil
-    end
-
-    for bar, component in pairs(DpsIcons) do
-        game.Destroy({ Id = component.Id })
-        DpsIcons[bar] = nil
-    end
-
     if ShowMeter == true then
         local yPos = config.InitialY
+
         -- Create UI to show DPS bars for each source
         for i, source in ipairs(sourcesSortedByDamage) do
             local barDamageRounded = math.floor(totalDamageBySource[source] + 0.5)
-            createDpsBar(
-                source,
-                barDamageRounded,
-                maxDamage,
-                totalDamage,
-                config.XPosition,
-                yPos
-            )
+            if ScreenAnchors["DpsBar" .. source] == nil then
+                createDpsBar(
+                    source,
+                    barDamageRounded,
+                    maxDamage,
+                    totalDamage,
+                    config.XPosition,
+                    yPos
+                )
+            else
+                updateDpsBar(
+                    source,
+                    barDamageRounded,
+                    maxDamage,
+                    totalDamage,
+                    config.XPosition,
+                    yPos
+                )
+            end
             yPos = yPos + config.YPositionIncrement
         end
 
@@ -137,17 +139,36 @@ function calculateDps(list)
                 config.DisplayWidth,
                 height
             )
-        else
-            game.Destroy({ Id = ScreenAnchors["DpsMeter"] })
-            game.Destroy({ Id = ScreenAnchors["DpsBackground"] })
-            ScreenAnchors["DpsMeter"] = nil
-            ScreenAnchors["DpsBackground"] = nil
+            -- else
+            --     game.Destroy({ Id = ScreenAnchors["DpsMeter"] })
+            --     game.Destroy({ Id = ScreenAnchors["DpsBackground"] })
+            --     ScreenAnchors["DpsMeter"] = nil
+            --     ScreenAnchors["DpsBackground"] = nil
         end
     else
-        game.Destroy({ Id = ScreenAnchors["DpsMeter"] })
-        game.Destroy({ Id = ScreenAnchors["DpsBackground"] })
-        ScreenAnchors["DpsMeter"] = nil
-        ScreenAnchors["DpsBackground"] = nil
+        clearOldBars()
+    end
+end
+
+function clearOldBars()
+    game.Destroy({ Id = ScreenAnchors["DpsMeter"] })
+    game.Destroy({ Id = ScreenAnchors["DpsBackground"] })
+    ScreenAnchors["DpsMeter"] = nil
+    ScreenAnchors["DpsBackground"] = nil
+
+    -- for bar, component in pairs(DpsBars) do
+    --     game.Destroy({ Id = component.Id })
+    --     DpsBars[bar] = nil
+    -- end
+
+    for bar, component in pairs(DpsIcons) do
+        game.Destroy({ Id = component.Id })
+        DpsIcons[bar] = nil
+    end
+
+    for bar, component in pairs(DpsAnchors) do
+        game.Destroy({ Id = component.Id })
+        DpsAnchors[bar] = nil
     end
 end
 
@@ -385,7 +406,7 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     -- color damage bar
     game.SetColor({ Id = dpsBar.Id, Color = barColor })
 
-    DpsBars["DpsBar" .. label] = dpsBar
+    ScreenAnchors["DpsBar" .. label] = dpsBar
 
     local textOffsetX = -7
     if config.ShowIcons == true then textOffsetX = -25 end
@@ -407,9 +428,11 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
         ShadowColor = Color.Black,
     })
 
+    local percentAnchor = game.CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
+    DpsAnchors["Percent" .. label] = percentAnchor
     -- damage percentage label
     game.CreateTextBox({
-        Id = dpsBar.Id,
+        Id = percentAnchor.Id,
         Text = percentDamage .. "%",
         OffsetX = 150 * scale + 5,
         OffsetY = textOffsetY,
@@ -423,10 +446,12 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
         ShadowColor = Color.Black,
     })
 
+    local totalAnchor = game.CreateScreenComponent({ Name = "BlankObstacle", X = x, Y = y })
+    DpsAnchors["Total" .. label] = totalAnchor
     -- damage total label
     if scale > .2 then
         game.CreateTextBox({
-            Id = dpsBar.Id,
+            Id = totalAnchor.Id,
             Text = damage,
             OffsetX = 1,
             OffsetY = textOffsetY,
@@ -449,6 +474,31 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     -- add icons
     if config.ShowIcons == true then
         generateBarIcons(colors, label, dpsBar)
+    end
+end
+
+function updateDpsBar(source, damage, maxDamage, totalDamage, x, y)
+    local bar = ScreenAnchors["DpsBar" .. source]
+    local percentBar = DpsAnchors["Percent" .. source]
+    local totalBar = DpsAnchors["Total" .. source]
+
+    local portion = damage / totalDamage
+    local scale = damage / maxDamage
+    local percentDamage = math.floor(portion * 100 + .5)
+
+    --print(source .. " @ " .. x .. ',' .. y)
+
+    local oldY = bar.Y
+    local yDiff = oldY - y
+    print(oldY .. ' ' .. y .. ' -> ' .. yDiff)
+
+    game.SetScaleX({ Id = bar.Id, Fraction = scale * 0.5, Duration = 0.0 })
+    game.ModifyTextBox({ Id = percentBar.Id, Text = percentDamage .. "%", OffsetX = 150 * scale + 5 })
+    game.ModifyTextBox({ Id = totalBar.Id, Text = damage })
+    game.Move({Id = bar.Id, X = x, Y = yDiff, Duration = 1.0})
+    if yDiff ~= 0 then
+        print('moving ' .. source .. ' from ' .. oldY .. ' to ' .. y)
+        --game.Move({ Id = bar.Id, Angle = 90, Distance = yDiff, Speed = 1000 })
     end
 end
 
@@ -651,6 +701,7 @@ ModUtil.Path.Wrap("KillHero", function(baseFunc, victim, triggerArgs)
     baseFunc(victim, triggerArgs)
     DpsUpdateThread = false
     clearWeaponInfo()
+    clearOldBars()
 end, mod)
 
 
@@ -661,6 +712,7 @@ OnAnyLoad { function()
     for i, trait in pairs(CurrentRun.Hero.Traits) do
         getEquippedBoons(trait)
     end
+    clearOldBars()
 
     -- turn polling on in training room
     local currentHubRoom = ModUtil.Path.Get("CurrentHubRoom.Name")
