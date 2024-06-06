@@ -28,15 +28,15 @@ public.config = config
 
 local function on_ready()
     if config.enabled == false then return end
-    
+
     import 'scripts/sjson.lua'
+    import 'scripts/JowdayDPS.Data.lua'
     import 'localize.lua'
     import 'lang/en.lua'
     import 'lang/fr.lua'
     import 'lang/ptBR.lua'
     import 'lang/zhCN.lua'
     import 'scripts/JowdayDPS.Main.lua'
-    import 'scripts/JowdayDPS.Data.lua'
 end
 
 local function on_reload()

@@ -14,6 +14,7 @@ function UpdateScreenData()
     if CurrentLocale ~= game.GetLanguage() then
         CurrentLocale = game.GetLanguage()
     end
+    getLocalizedNames()
 end
 
 List = {}
@@ -267,6 +268,10 @@ function getSourceName(triggerArgs, victim)
     -- charm has several flavors
     if attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1 then
         source = "Charm"
+    end
+
+    if triggerArgs.ProjectileDeflected then
+        source = "ParryHit"
     end
 
     if source == "MedeaCurse" and WeaponVar["MedeaCurse"] ~= nil then
