@@ -364,7 +364,7 @@ end
 
 -- Create a single DPS bar with damage source, damage amount, and damage portion labels
 function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
-    local colors, niceLabel = findColor(label)
+    local colors, niceLabel = getColorAndLabel(label)
 
     local abilityName = label
     if niceLabel ~= nil then
@@ -452,8 +452,8 @@ function createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     end
 end
 
--- determines colors and looks up a nice name, so the function name is no longer fully accurate
-function findColor(source)
+-- determines colors and looks up a nice name
+function getColorAndLabel(source)
     local sources = SourceLookup
     local colors = DpsColors
     local attack = WeaponVar["Attack"]
@@ -464,20 +464,27 @@ function findColor(source)
     local color
     local niceLabel
 
-    if source == 'Attack' or source == 'OAttack' then
-        local prefix = ''
-        if source == 'OAttack' then prefix = config.OmegaIndicator end
+    if source == 'Attack' then
         if attack ~= nil and sources[attack] ~= nil then
             color = colors[attack]
-            niceLabel = prefix .. sources[attack]["Attack"]
+            niceLabel = sources[attack]["Attack"]
             return color, niceLabel
         else
-            return colors["Default"], prefix .. Locale.AttackText
+            return colors["Default"], "Attack"
+        end
+    end
+    if source == 'OAttack' then
+        if attack ~= nil and sources[attack] ~= nil then
+            color = colors[attack]
+            niceLabel = sources[attack]["OAttack"]
+            return color, niceLabel
+        else
+            return colors["Default"], NameLookup.OAttackText
         end
     end
 
     if source == 'AttackDashStrike' then
-        niceLabel = Locale.DashStrikeText
+        niceLabel = "DashStrike"
         if attack ~= nil and sources[attack] ~= nil then
             color = colors[attack]
             return color, niceLabel
@@ -486,15 +493,22 @@ function findColor(source)
         end
     end
 
-    if source == 'Special' or source == 'OSpecial' then
-        local prefix = ''
-        if source == 'OSpecial' then prefix = config.OmegaIndicator end
+    if source == 'Special' then
         if special ~= nil and sources[special] ~= nil then
             color = colors[special]
-            niceLabel = prefix .. sources[special]["Special"]
+            niceLabel = sources[special]["Special"]
             return color, niceLabel
         else
-            return colors["Default"], prefix .. Locale.SpecialText
+            return colors["Default"], "Special"
+        end
+    end
+    if source == 'OSpecial' then
+        if special ~= nil and sources[special] ~= nil then
+            color = colors[special]
+            niceLabel = sources[special]["OSpecial"]
+            return color, niceLabel
+        else
+            return colors["Default"], NameLookup.OSpecialText
         end
     end
 
@@ -514,30 +528,30 @@ function findColor(source)
             niceLabel = sources[dash]["Dash"]
             return color, niceLabel
         else
-            return colors["Default"], Locale.DashText
+            return colors["Default"], "Dash"
         end
     end
 
     -- color in our friends :)
     if source == 'Artemis' then
-        return colors["ArtemisAssist"], Locale.ArtemisName
+        return colors["ArtemisAssist"], "NPC_Artemis_01"
     elseif source == 'Nemesis' then
-        return colors["NemesisAssist"], Locale.NemesisName
+        return colors["NemesisAssist"], "NPC_Nemesis_01"
     elseif source == 'Heracles' then
-        return colors["HeraclesAssist"], Locale.HeraclesName
+        return colors["HeraclesAssist"], "NPC_Nemesis_01"
     elseif source == 'Icarus' then
-        return colors["IcarusAssist"], Locale.IcarusName
+        return colors["IcarusAssist"], "NPC_Icarus_01"
     elseif source == "ShadeMercSpiritball" then
-        return colors["Shade"], Locale.ShadeSprint
+        return colors["Shade"], "WorldUpgradeShadeMercs"
     elseif source == "SoulPylonSpiritball" then
         return colors["Shade"], Locale.EphyraPylon
     elseif source == "Frinos" then
-        return colors["Frinos"], Locale.Frinos
+        return colors["Frinos"], "FrogFamiliar"
     elseif source == "Toula" then
-        return colors["Toula"], Locale.Toula
+        return colors["Toula"], "CatFamiliar"
         -- and some localization
-    elseif source == "Charm" then
-        return colors["Default"], Locale.Charm
+    -- elseif source == "Charm" then
+    --     return colors["Default"], Locale.Charm
     end
 
     if color == nil then
