@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- fixed omega attacks/specials showing up incorrectly
 
 ## [2.5.0] - 2024-06-06
 
