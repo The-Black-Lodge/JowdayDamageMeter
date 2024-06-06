@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## Changed
+
+- now using ~95% in-game localization!
+- all trap-type damage is consolidated
+
 ## [2.4.2] - 2024-06-03
 
 ## Fixed
