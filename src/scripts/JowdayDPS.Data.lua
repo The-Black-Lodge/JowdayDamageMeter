@@ -2,6 +2,7 @@
 ---@diagnostic disable
 
 NameLookup = {}
+SourceLookup = {}
 
 function getLocalizedNames()
     local omegaPrefix = config.OmegaIndicator
@@ -115,6 +116,137 @@ function getLocalizedNames()
         PoseidonSprintBlast = "Dash",
         ZeusSprintStrike = "Dash"
     }
+
+    SourceLookup = {
+        Aphrodite = {
+            ["Attack"] = "AphroditeWeaponBoon",
+            ["OAttack"] = aphOAttack,
+            ["Special"] = "AphroditeSpecialBoon",
+            ["OSpecial"] = aphOSpecial,
+            ["Dash"] = "AphroditeSprintBoon",
+            ["Cast"] = "AphroditeCastBoon",
+            ["AphroditeBurst"] = "ManaBurstBoon",
+        },
+        Apollo = {
+            ["Attack"] = "ApolloWeaponBoon",
+            ["OAttack"] = apoOAttack,
+            ["Special"] = "ApolloSpecialBoon",
+            ["OSpecial"] = apoOSpecial,
+            ["Dash"] = "ApolloSprintBoon",
+            ["Cast"] = "ApolloCastBoon",
+            ["ApolloRetaliateStrike"] = "ApolloRetaliateBoon",
+            ["ApolloPerfectDashStrike"] = "ApolloMissStrikeBoon"
+        },
+        Artemis = {
+            ["ArtemisSupportingFire"] = "SupportingFireBoon",
+            ["ArtemisCastVolley"] = "OmegaCastVolleyBoon"
+        },
+        Demeter = {
+            ["Attack"] = "DemeterWeaponBoon",
+            ["OAttack"] = demOAttack,
+            ["Special"] = "DemeterSpecialBoon",
+            ["OSpecial"] = demOSpecial,
+            ["Dash"] = "DemeterSprintBoon",
+            ["Cast"] = "DemeterCastBoon",
+            ["DemeterChillKill"] = "InstantRootKill",
+        },
+        Hades = {
+            ["WeaponCastProjectileHades"] = "HadesCastProjectileBoon",
+            ["Old Grudge"] = "HadesPreDamageBoon"
+        },
+        Hera = {
+            ["Attack"] = "HeraWeaponBoon",
+            ["OAttack"] = herOAttack,
+            ["Special"] = "HeraSpecialBoon",
+            ["OSpecial"] = herOSpecial,
+            ["Cast"] = "HeraCastBoon",
+            ["HeraDamageShareProjectile"] = "DamageShareRetaliateBoon",
+            ["DamageShareEffect"] = "Link",
+            ["DamageShareDeath"] = "LinkedDeathDamageBoon"
+        },
+        Hestia = {
+            ["Attack"] = "HestiaWeaponBoon",
+            ["OAttack"] = hesOAttack,
+            ["Special"] = "HestiaSpecialBoon",
+            ["OSpecial"] = hesOSpecial,
+            ["Dash"] = "HestiaSprintBoon",
+            ["Cast"] = "HestiaCastBoon",
+            ["BurnNova"] = "BurnExplodeBoon",
+            ["BurnEffect"] = "Burn",
+            ["ProjectileFireball"] = "FireballManaSpecialBoon",
+            ["WeaponCastProjectile"] = "CastProjectileBoon",
+            ["HestiaBurnConsumeStrike"] = "BurnConsumeBoon"
+        },
+        Hephaestus = {
+            ["Attack"] = "HephaestusWeaponBoon",
+            ["OAttack"] = hepOAttack,
+            ["Special"] = "HephaestusSpecialBoon",
+            ["OSpecial"] = hepOSpecial,
+            ["Cast"] = "HephaestusCastBoon",
+            ["Dash"] = "HephaestusCastBoon",
+            ["MassiveSlamBlast"] = "MassiveSlam_Name",
+            ["DelayedKnockbackEffect"] = "MassiveKnockupBoon"
+        },
+        IcarusBoon = {
+            ["IcarusExplosion"] = "OmegaExplodeBoon",
+            ["IcarusHazardExplosion"] = "CastHazardBoon",
+            ["IcarusArmorExplosion"] = "BreakExplosiveArmorBoon"
+        },
+        MedeaBoon = {
+            ["MedeaCurse"] = "SpawnDamageCurse", -- fallback
+            ["SpawnDamageCurse"] = "SpawnDamageCurse",
+            ["DeathDefianceRetaliateCurse"] = "DeathDefianceRetaliateCurse",
+            ["ArmorPenaltyCurse"] = "ArmorPenaltyCurse"
+        },
+        OdysseusKeepsake = {
+            ["Knuckle Bones"] = "BossPreDamageKeepsake"
+        },
+        Poseidon = {
+            ["Attack"] = "PoseidonWeaponBoon",
+            ["OAttack"] = posOAttack,
+            ["Special"] = "PoseidonSpecialBoon",
+            ["OSpecial"] = posOSpecial,
+            ["Dash"] = "PoseidonSprintBoon",
+            ["Cast"] = "PoseidonCastBoon",
+            ["PoseidonSplashSplinter"] = "PoseidonSplash_Name",
+            ["PoseidonCollisionBlast"] = "SlamExplosionBoon",
+        },
+        Selene = {
+            ["WeaponSpellLaser"] = "SpellLaserTrait",
+            ["WeaponSpellLeap"] = "SpellLeapTrait",
+            ["WeaponSpellMeteor"] = "SpellMeteorTrait",
+            ["WeaponTransformAttack"] = darkSideAttack,
+            ["WeaponTransformSpecial"] = darkSideSpecial,
+            ["WeaponTransformBlink"] = darkSideBlink,
+            ["WeaponTransformCast"] = darkSideCast,
+        },
+        Zeus = {
+            ["Attack"] = "ZeusWeaponBoon",
+            ["OAttack"] = zeuOAttack,
+            ["Special"] = "ZeusSpecialBoon",
+            ["OSpecial"] = zeuOSpecial,
+            ["Dash"] = "ZeusSprintBoon",
+            ["Cast"] = "ZeusCastBoon",
+            ["ZeusEchoStrike"] = "Echo",
+            ["ProjectileZeusSpark"] = "FocusLightningBoon",
+            ["ZeusZeroManaStrike"] = "ZeusManaBoltBoon",
+            ["ZeusRetaliateStrike"] = "BoltRetaliateBoon",
+            ["WeaponAnywhereCast"] = "CastAnywhereBoon",
+            ["ZeusOnSpawn"] = "SpawnKillBoon"
+        },
+        DuoAphroditeHestia = {
+            ["ShadeMercFireball"] = "ShadeMercFireballBoon"
+        },
+        DuoApolloPosedidon = {
+            ["ProjectileSprintBall"] = "PoseidonSplashSprintBoon"
+        },
+        DuoHephaestusPoseidon = {
+            ["MassiveSlamBlastCast"] = "MassiveCastBoon"
+        },
+        DuoHestiaPoseidon = {
+            ["SteamBlast"] = "SteamBoon"
+        }
+    }
 end
 
 AttackEXLookup = {
@@ -127,137 +259,6 @@ SpecialEXLookup = {
 
 DashStrikeLookup = {
     "ProjectileDaggerDash", "ProjectileStaffDash", "ProjectileAxeDash"
-}
-
-SourceLookup = {
-    Aphrodite = {
-        ["Attack"] = "AphroditeWeaponBoon",
-        ["OAttack"] = aphOAttack,
-        ["Special"] = "AphroditeSpecialBoon",
-        ["OSpecial"] = aphOSpecial,
-        ["Dash"] = "AphroditeSprintBoon",
-        ["Cast"] = "AphroditeCastBoon",
-        ["AphroditeBurst"] = "ManaBurstBoon",
-    },
-    Apollo = {
-        ["Attack"] = "ApolloWeaponBoon",
-        ["OAttack"] = apoOAttack,
-        ["Special"] = "ApolloSpecialBoon",
-        ["OSpecial"] = apoOSpecial,
-        ["Dash"] = "ApolloSprintBoon",
-        ["Cast"] = "ApolloCastBoon",
-        ["ApolloRetaliateStrike"] = "ApolloRetaliateBoon",
-        ["ApolloPerfectDashStrike"] = "ApolloMissStrikeBoon"
-    },
-    Artemis = {
-        ["ArtemisSupportingFire"] = "SupportingFireBoon",
-        ["ArtemisCastVolley"] = "OmegaCastVolleyBoon"
-    },
-    Demeter = {
-        ["Attack"] = "DemeterWeaponBoon",
-        ["OAttack"] = demOAttack,
-        ["Special"] = "DemeterSpecialBoon",
-        ["OSpecial"] = demOSpecial,
-        ["Dash"] = "DemeterSprintBoon",
-        ["Cast"] = "DemeterCastBoon",
-        ["DemeterChillKill"] = "InstantRootKill",
-    },
-    Hades = {
-        ["WeaponCastProjectileHades"] = "HadesCastProjectileBoon",
-        ["Old Grudge"] = "HadesPreDamageBoon"
-    },
-    Hera = {
-        ["Attack"] = "HeraWeaponBoon",
-        ["OAttack"] = herOAttack,
-        ["Special"] = "HeraSpecialBoon",
-        ["OSpecial"] = herOSpecial,
-        ["Cast"] = "HeraCastBoon",
-        ["HeraDamageShareProjectile"] = "DamageShareRetaliateBoon",
-        ["DamageShareEffect"] = "Link",
-        ["DamageShareDeath"] = "LinkedDeathDamageBoon"
-    },
-    Hestia = {
-        ["Attack"] = "HestiaWeaponBoon",
-        ["OAttack"] = hesOAttack,
-        ["Special"] = "HestiaSpecialBoon",
-        ["OSpecial"] = hesOSpecial,
-        ["Dash"] = "HestiaSprintBoon",
-        ["Cast"] = "HestiaCastBoon",
-        ["BurnNova"] = "BurnExplodeBoon",
-        ["BurnEffect"] = "Burn",
-        ["ProjectileFireball"] = "FireballManaSpecialBoon",
-        ["WeaponCastProjectile"] = "CastProjectileBoon",
-        ["HestiaBurnConsumeStrike"] = "BurnConsumeBoon"
-    },
-    Hephaestus = {
-        ["Attack"] = "HephaestusWeaponBoon",
-        ["OAttack"] = hepOAttack,
-        ["Special"] = "HephaestusSpecialBoon",
-        ["OSpecial"] = hepOSpecial,
-        ["Cast"] = "HephaestusCastBoon",
-        ["Dash"] = "HephaestusCastBoon",
-        ["MassiveSlamBlast"] = "MassiveSlam_Name",
-        ["DelayedKnockbackEffect"] = "MassiveKnockupBoon"
-    },
-    IcarusBoon = {
-        ["IcarusExplosion"] = "OmegaExplodeBoon",
-        ["IcarusHazardExplosion"] = "CastHazardBoon",
-        ["IcarusArmorExplosion"] = "BreakExplosiveArmorBoon"
-    },
-    MedeaBoon = {
-        ["MedeaCurse"] = "SpawnDamageCurse", -- fallback
-        ["SpawnDamageCurse"] = "SpawnDamageCurse",
-        ["DeathDefianceRetaliateCurse"] = "DeathDefianceRetaliateCurse",
-        ["ArmorPenaltyCurse"] = "ArmorPenaltyCurse"
-    },
-    OdysseusKeepsake = {
-        ["Knuckle Bones"] = "BossPreDamageKeepsake"
-    },
-    Poseidon = {
-        ["Attack"] = "PoseidonWeaponBoon",
-        ["OAttack"] = posOAttack,
-        ["Special"] = "PoseidonSpecialBoon",
-        ["OSpecial"] = posOSpecial,
-        ["Dash"] = "PoseidonSprintBoon",
-        ["Cast"] = "PoseidonCastBoon",
-        ["PoseidonSplashSplinter"] = "PoseidonSplash_Name",
-        ["PoseidonCollisionBlast"] = "SlamExplosionBoon",
-    },
-    Selene = {
-        ["WeaponSpellLaser"] = "SpellLaserTrait",
-        ["WeaponSpellLeap"] = "SpellLeapTrait",
-        ["WeaponSpellMeteor"] = "SpellMeteorTrait",
-        ["WeaponTransformAttack"] = darkSideAttack,
-        ["WeaponTransformSpecial"] = darkSideSpecial,
-        ["WeaponTransformBlink"] = darkSideBlink,
-        ["WeaponTransformCast"] = darkSideCast,
-    },
-    Zeus = {
-        ["Attack"] = "ZeusWeaponBoon",
-        ["OAttack"] = zeuOAttack,
-        ["Special"] = "ZeusSpecialBoon",
-        ["OSpecial"] = zeuOSpecial,
-        ["Dash"] = "ZeusSprintBoon",
-        ["Cast"] = "ZeusCastBoon",
-        ["ZeusEchoStrike"] = "Echo",
-        ["ProjectileZeusSpark"] = "FocusLightningBoon",
-        ["ZeusZeroManaStrike"] = "ZeusManaBoltBoon",
-        ["ZeusRetaliateStrike"] = "BoltRetaliateBoon",
-        ["WeaponAnywhereCast"] = "CastAnywhereBoon",
-        ["ZeusOnSpawn"] = "SpawnKillBoon"
-    },
-    DuoAphroditeHestia = {
-        ["ShadeMercFireball"] = "ShadeMercFireballBoon"
-    },
-    DuoApolloPosedidon = {
-        ["ProjectileSprintBall"] = "PoseidonSplashSprintBoon"
-    },
-    DuoHephaestusPoseidon = {
-        ["MassiveSlamBlastCast"] = "MassiveCastBoon"
-    },
-    DuoHestiaPoseidon = {
-        ["SteamBlast"] = "SteamBoon"
-    }
 }
 
 DpsColors = {
