@@ -6,7 +6,9 @@ Adds a damage meter that displays automatically in each room.
 
 Need to know exactly what's causing damage? Does Blitz even do anything? How much did Artemis help out? Did Toula even wake up? Find out what's working, and what isn't!
 
-Available languages are English, French, Brazilian Portuguese, Chinese. It will work based on your in-game language selection. \
+Most damage sources will use your in-game language selection. A few sources will fallback on English names. 
+
+100% translated languages are English, French, Brazilian Portuguese, Chinese. 
 _* You may need to quit and reload your save if you change languages while playing._
 
 ### Config options you may be interested in:
