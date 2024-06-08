@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Added
+
+- es translation with help from Aoro
+
 ## [2.5.1] - 2024-06-06
 
 ## Fixed

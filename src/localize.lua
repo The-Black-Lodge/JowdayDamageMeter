@@ -24,7 +24,7 @@ AddLocale('en', {
 AddLocale('es', {
     HeaderText = " DPS / Daño Total: ",
     EnemyText = "Enemigo",
-    WallSlam = "Empotrado",
+    WallSlam = "Aplastado",
     EphyraPylon = "Pilón de Espíritus",
     SheepAttack = "Ataque de Ovejas",
     Boulder = "Piedra de Polifemo",
