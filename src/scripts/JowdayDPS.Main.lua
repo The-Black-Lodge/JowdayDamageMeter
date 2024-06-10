@@ -543,7 +543,7 @@ function getColorAndLabel(source)
     elseif source == 'Nemesis' then
         return colors["NemesisAssist"], "NPC_Nemesis_01"
     elseif source == 'Heracles' then
-        return colors["HeraclesAssist"], "NPC_Nemesis_01"
+        return colors["HeraclesAssist"], "NPC_Heracles_01"
     elseif source == 'Icarus' then
         return colors["IcarusAssist"], "NPC_Icarus_01"
     elseif source == "ShadeMercSpiritball" then

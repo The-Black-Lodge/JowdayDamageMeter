@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- fix heracles name showing up incorrectly
 
 ## [2.5.1] - 2024-06-06
 
