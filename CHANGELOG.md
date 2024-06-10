@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.5.2] - 2024-06-10
+
 ## Fixed
+
 - fix heracles name showing up incorrectly
 
 ## [2.5.1] - 2024-06-06
@@ -105,7 +109,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.1...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.2...HEAD
+[2.5.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.1...2.5.2
 [2.5.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.0...2.5.1
 [2.5.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.4.2...2.5.0
 [2.4.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.4.1...2.4.2
