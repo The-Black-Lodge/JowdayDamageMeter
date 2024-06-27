@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- added/updated boons from 6/26 patch
 
 ## [2.5.2] - 2024-06-10
 

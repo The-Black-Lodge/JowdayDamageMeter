@@ -517,13 +517,13 @@ function getColorAndLabel(source)
         end
     end
 
-    if source == 'Cast' then
+    if source == 'WeaponCast' then
         if cast ~= nil and sources[cast] ~= nil then
             color = colors[cast]
-            niceLabel = sources[cast]["Cast"]
+            niceLabel = sources[cast]["WeaponCast"]
             return color, niceLabel
         else
-            return colors["Default"], Locale.CastText
+            return colors["Default"], NameLookup.OCastText
         end
     end
 
