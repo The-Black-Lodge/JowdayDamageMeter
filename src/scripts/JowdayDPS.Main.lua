@@ -517,13 +517,13 @@ function getColorAndLabel(source)
         end
     end
 
-    if source == 'Cast' then
+    if source == 'WeaponCast' then
         if cast ~= nil and sources[cast] ~= nil then
             color = colors[cast]
-            niceLabel = sources[cast]["Cast"]
+            niceLabel = sources[cast]["WeaponCast"]
             return color, niceLabel
         else
-            return colors["Default"], Locale.CastText
+            return colors["Default"], NameLookup.OCastText
         end
     end
 
@@ -543,7 +543,7 @@ function getColorAndLabel(source)
     elseif source == 'Nemesis' then
         return colors["NemesisAssist"], "NPC_Nemesis_01"
     elseif source == 'Heracles' then
-        return colors["HeraclesAssist"], "NPC_Nemesis_01"
+        return colors["HeraclesAssist"], "NPC_Heracles_01"
     elseif source == 'Icarus' then
         return colors["IcarusAssist"], "NPC_Icarus_01"
     elseif source == "ShadeMercSpiritball" then
