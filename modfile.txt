@@ -1,4 +1,4 @@
-:: Jowday's DPS Mod v2.2.5
+:: Jowday's DPS Mod v2.3-m
 
 To "Game/Animations/GUIAnimations.sjson"
 SJSON "sjson/GUIAnimations.sjson
@@ -7,9 +7,5 @@ To "Scripts/RoomLogic.lua"
 Import register.lua
 Import config.lua
 Import localize.lua
-Import "lang/en.lua"
-Import "lang/fr.lua"
-Import "lang/pt-BR.lua"
-Import "lang/zh-CN.lua"
 Import "scripts/JowdayDPS.Main.lua"
 Import "scripts/JowdayDPS.Data.lua"

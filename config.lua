@@ -2,31 +2,35 @@
 ---@diagnostic disable
 
 local config = {
-    DpsInterval = 99999999,
+    version = 1.0,
     PollingInterval = 0.2,
     TrainingRoomClearTime = 5,
     InitialY = 840,
-    XPosition = 270,
+    XPosition = 280,
     YPositionIncrement = -20,
     Margin = 40,
     DisplayWidth = 400,
     BackgroundColor = { 0.090, 0.055, 0.157, 0.6 },
     ShowIcons = true,
-    SplitOmega = true
+    SplitDashStrike = true,
+    SplitOmega = true,
+    OmegaIndicator = "{!Icons.Omega_NoTooltip}",
 }
 
 local configDesc = {
-    DpsInterval = "Leave this alone",
-    PollingInterval = "How often to update bars, in seconds",
-    TrainingRoomClearTime = "How soon to clear the window in Skelly's room, in seconds",
-    InitialY = "Y position of meter",
-    XPosition = "X position of meter",
-    YPositionIncrement = "Vertical spacing for each bar, negative number",
-    Margin = "Width around the thing",
-    DisplayWidth = "Width of the meter background",
-    BackgroundColor = "Color of the meter background",
-    ShowIcons = "Show God icons next to ability names",
-    SplitOmega = "Show Omega attacks/specials in separate bars"
+    PollingInterval = "How often to update bars, in seconds.",
+    TrainingRoomClearTime = "How soon to clear the window in Skelly's room, in seconds.",
+    InitialY = "Y position of meter.",
+    XPosition = "X position of meter.",
+    YPositionIncrement = "Vertical spacing for each bar, negative number.",
+    Margin = "Used for meter background scaling.",
+    DisplayWidth = "Width of the meter background.",
+    BackgroundColor = "Color of the meter background.",
+    ShowIcons = "Show God icons next to ability names.",
+    SplitDashStrike = "Show Dash-Strike in separate bar. Turn off to consolidate into Attack.",
+    SplitOmega = "Show Omega attacks/specials in separate bars.",
+    OmegaIndicator =
+    "If SplitOmega is enabled, this will prefix the given attack/special name. Can use plain text if the default icon causes flickering.",
 }
 
 JowdayDPS.Config = config

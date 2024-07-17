@@ -13,9 +13,10 @@ local function setupMainData()
 end
 
 function mod.UpdateScreenData()
-	if mod.CurrentLocale ~= GetLanguage() then
-		mod.CurrentLocale = GetLanguage()
-	end
+    if mod.CurrentLocale ~= GetLanguage() then
+        mod.CurrentLocale = GetLanguage()
+    end
+    mod.getLocalizedNames()
 end
 
 mod.List = {}
@@ -58,6 +59,7 @@ mod.DpsBars = {}
 mod.DpsIcons = {}
 mod.LastDpsPosition = {}
 mod.LastDpsBackgroundPosition = {}
+local dpsInterval = 999999
 
 -- damage/data functions
 function mod.calculateDps(list)
@@ -69,7 +71,7 @@ function mod.calculateDps(list)
     for i = list.first, list.last do
         local damageData = list[i]
         local time = GetTime({})
-        if damageData.Timestamp > (time - mod.Config.DpsInterval) then
+        if damageData.Timestamp > (time - dpsInterval) then
             totalDamage = totalDamage + damageData.Damage
             totalDamageBySource[damageData.Source] = (totalDamageBySource[damageData.Source] or 0) + damageData.Damage
             if damageData.Timestamp < earliestTimestamp then
@@ -220,11 +222,20 @@ function mod.getSourceName(triggerArgs, victim)
     source = triggerArgs.SourceWeapon or source
     source = attackerWeaponData.LinkedUpgrades or source
 
+    if mod.Config.SplitDashStrike == true then
+        local sourceProjectile = triggerArgs.SourceProjectile or nil
+        if sourceProjectile ~= nil then
+            for k, v in pairs(mod.DashStrikeLookup) do
+                if sourceProjectile:match(v) then
+                    source = 'AttackDashStrike'
+                end
+            end
+        end
+    end
+
     if mod.Config.SplitOmega == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil
         local sourceWeapon = triggerArgs.SourceWeapon or nil
-        if sourceProjectile ~= nil then print('sourceProjectile: ' .. sourceProjectile) end
-        if sourceWeapon ~= nil then print('sourceWeapon: ' .. sourceWeapon) end
         local isAttackEX = false
         local isSpecialEX = false
         if sourceWeapon ~= nil then
@@ -251,6 +262,10 @@ function mod.getSourceName(triggerArgs, victim)
     -- charm has several flavors
     if attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1 then
         source = "Charm"
+    end
+
+    if triggerArgs.ProjectileDeflected then
+        source = "ParryHit"
     end
 
     if source == "MedeaCurse" and mod.WeaponVar["MedeaCurse"] ~= nil then
@@ -294,8 +309,8 @@ end
 -- UI functions
 -- Creates a transparent background behind the dps. Resizes and moves the existing component if this is called with new height and position
 function mod.createDpsOverlayBackground(obstacleName, x, y, width, height)
-    local scaleWidth = width / (mod.Config.DisplayWidth + mod.Config.Margin * 2)
-    local scaleHeight = height / 270
+    local scaleWidth = width / (mod.Config.DisplayWidth + mod.Config.Margin)
+    local scaleHeight = height / 250
     if ScreenAnchors[obstacleName] ~= nil then
         SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
         SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
@@ -328,7 +343,7 @@ function mod.createDpsHeader(obstacleName, totalDamage, dps, x, y)
             Text = text,
             OffsetX = -5,
             OffsetY = 0,
-            Font = "LatoMedium",
+            Font = "LatoSemibold",
             FontSize = 14,
             Justification = "Left",
             Color = Color.White,
@@ -347,7 +362,7 @@ end
 
 -- Create a single DPS bar with damage source, damage amount, and damage portion labels
 function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
-    local colors, niceLabel = mod.findColor(label)
+    local colors, niceLabel = mod.getColorAndLabel(label)
 
     local abilityName = label
     if niceLabel ~= nil then
@@ -379,13 +394,12 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
         Text = abilityName,
         OffsetX = textOffsetX,
         OffsetY = textOffsetY,
-        Font = "LatoMedium",
+        TextSymbolScale = 0.65,
+        Font = "LatoSemibold",
         FontSize = 10,
         Justification = "Right",
         Color = labelColor,
-        OutlineThickness = 2.0,
-        OutlineColor = Color.Black,
-        ShadowOffset = { 1, 2 },
+        ShadowOffset = { 1, 1 },
         ShadowBlur = 0,
         ShadowAlpha = 1,
         ShadowColor = Color.Black,
@@ -397,13 +411,11 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
         Text = percentDamage .. "%",
         OffsetX = 150 * scale + 5,
         OffsetY = textOffsetY,
-        Font = "LatoMedium",
+        Font = "LatoSemibold",
         FontSize = 10,
         Justification = "Left",
         Color = Color.White,
-        OutlineThickness = 2.0,
-        OutlineColor = Color.Black,
-        ShadowOffset = { 1, 2 },
+        ShadowOffset = { 1, 1 },
         ShadowBlur = 0,
         ShadowAlpha = 1,
         ShadowColor = Color.Black,
@@ -416,12 +428,12 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
             Text = damage,
             OffsetX = 1,
             OffsetY = textOffsetY,
-            Font = "LatoMedium",
+            Font = "LatoSemibold",
             FontSize = 8,
             Justification = "Left",
             Color = Color.White,
-            OutlineThickness = 2.0,
-            OutlineColor = Color.Black,
+            OutlineThickness = 1.0,
+            OutlineColor = Color.Gray,
             ShadowOffset = { 1, 1 },
             ShadowBlur = 0,
             ShadowAlpha = 1,
@@ -439,7 +451,7 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 end
 
 -- determines colors and looks up a nice name, so the function name is no longer fully accurate
-function mod.findColor(source)
+function mod.getColorAndLabel(source)
     local sources = mod.SourceLookup
     local colors = mod.DpsColors
     local attack = mod.WeaponVar["Attack"]
@@ -450,37 +462,61 @@ function mod.findColor(source)
     local color
     local niceLabel
 
-    if source == 'Attack' or source == 'OAttack' then
-        local prefix = ''
-        if source == 'OAttack' then prefix = "{!Icons.Omega_NoTooltip}" end
+    if source == 'Attack' then
         if attack ~= nil and sources[attack] ~= nil then
             color = colors[attack]
-            niceLabel = prefix..sources[attack]["Attack"]
+            niceLabel = sources[attack]["Attack"]
             return color, niceLabel
         else
-            return colors["Default"], prefix..mod.Locale.AttackText
+            return colors["Default"], "Attack"
+        end
+    end
+    if source == 'OAttack' then
+        if attack ~= nil and sources[attack] ~= nil then
+            color = colors[attack]
+            niceLabel = sources[attack]["OAttack"]
+            return color, niceLabel
+        else
+            return colors["Default"], mod.NameLookup.OAttackText
         end
     end
 
-    if source == 'Special' or source == 'OSpecial' then
-        local prefix = ''
-        if source == 'OSpecial' then prefix = "{!Icons.Omega_NoTooltip}" end
+    if source == 'AttackDashStrike' then
+        niceLabel = "DashStrike"
+        if attack ~= nil and sources[attack] ~= nil then
+            color = colors[attack]
+            return color, niceLabel
+        else
+            return colors["Default"], niceLabel
+        end
+    end
+
+    if source == 'Special' then
         if special ~= nil and sources[special] ~= nil then
             color = colors[special]
-            niceLabel = prefix..sources[special]["Special"]
+            niceLabel = sources[special]["Special"]
             return color, niceLabel
         else
-            return colors["Default"], prefix..mod.Locale.SpecialText
+            return colors["Default"], "Special"
+        end
+    end
+    if source == 'OSpecial' then
+        if special ~= nil and sources[special] ~= nil then
+            color = colors[special]
+            niceLabel = sources[special]["OSpecial"]
+            return color, niceLabel
+        else
+            return colors["Default"], mod.NameLookup.OSpecialText
         end
     end
 
-    if source == 'Cast' then
+    if source == 'WeaponCast' then
         if cast ~= nil and sources[cast] ~= nil then
             color = colors[cast]
-            niceLabel = sources[cast]["Cast"]
+            niceLabel = sources[cast]["WeaponCast"]
             return color, niceLabel
         else
-            return colors["Default"], mod.Locale.CastText
+            return colors["Default"], mod.NameLookup.OCastText
         end
     end
 
@@ -496,24 +532,21 @@ function mod.findColor(source)
 
     -- color in our friends :)
     if source == 'Artemis' then
-        return colors["ArtemisAssist"], mod.Locale.ArtemisName
+        return colors["ArtemisAssist"], "NPC_Artemis_01"
     elseif source == 'Nemesis' then
-        return colors["NemesisAssist"], mod.Locale.NemesisName
+        return colors["NemesisAssist"], "NPC_Nemesis_01"
     elseif source == 'Heracles' then
-        return colors["HeraclesAssist"], mod.Locale.HeraclesName
+        return colors["HeraclesAssist"], "NPC_Heracles_01"
     elseif source == 'Icarus' then
-        return colors["IcarusAssist"], mod.Locale.IcarusName
-    elseif source == "Necromantic Influence" then
-        return colors["Shade"], mod.Locale.ShadeSprint
-    elseif source == "Pylon Spirits" then
+        return colors["IcarusAssist"], "NPC_Icarus_01"
+    elseif source == "ShadeMercSpiritball" then
+        return colors["Shade"], "WorldUpgradeShadeMercs"
+    elseif source == "SoulPylonSpiritball" then
         return colors["Shade"], mod.Locale.EphyraPylon
     elseif source == "Frinos" then
-        return colors["Frinos"], mod.Locale.Frinos
+        return colors["Frinos"], "FrogFamiliar"
     elseif source == "Toula" then
-        return colors["Toula"], mod.Locale.Toula
-        -- and some localization
-    elseif source == "Charm" then
-        return colors["Default"], mod.Locale.Charm
+        return colors["Toula"], "CatFamiliar"
     end
 
     if color == nil then
