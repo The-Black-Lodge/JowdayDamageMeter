@@ -1,6 +1,3 @@
----@meta _
----@diagnostic disable
-
 local mod = JowdayDPS
 
 mod.Locales = mod.Locales or {}
