@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 
+## [2.5.4] - 2024-07-17
+
 ## Added
+
 - Rousing Reception (new Hera boon)
 - es translation with help from Aoro
 
@@ -119,7 +122,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.3...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.4...HEAD
+[2.5.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.3...2.5.4
 [2.5.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.2...2.5.3
 [2.5.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.1...2.5.2
 [2.5.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.0...2.5.1
