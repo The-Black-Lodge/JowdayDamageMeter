@@ -3,8 +3,9 @@
 ## [Unreleased]
 
 ## Added
-
+- Rousing Reception (new Hera boon)
 - es translation with help from Aoro
+
 ## [2.5.3] - 2024-06-27
 
 ## Fixed
