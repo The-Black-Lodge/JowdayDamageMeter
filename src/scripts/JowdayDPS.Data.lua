@@ -159,7 +159,7 @@ function getLocalizedNames()
         },
         Hades = {
             ["WeaponCastProjectileHades"] = "HadesCastProjectileBoon",
-            ["Old Grudge"] = "HadesPreDamageBoon"
+            ["OldGrudge"] = "HadesPreDamageBoon"
         },
         Hera = {
             ["Attack"] = "HeraWeaponBoon",
@@ -171,7 +171,8 @@ function getLocalizedNames()
             ["DamageShareEffect"] = "Link",
             ["DamageShareDeath"] = "LinkedDeathDamageBoon",
             ["ProjectileHeraOmega"] = herOCast,
-            ["LinkNova"] = "SpawnCastDamageBoon"
+            ["LinkNova"] = "SpawnCastDamageBoon",
+            ["HeraSprintProjectile"] = "HeraSprintBoon"
         },
         Hestia = {
             ["Attack"] = "HestiaWeaponBoon",
@@ -209,7 +210,7 @@ function getLocalizedNames()
             ["ArmorPenaltyCurse"] = "ArmorPenaltyCurse"
         },
         OdysseusKeepsake = {
-            ["Knuckle Bones"] = "BossPreDamageKeepsake"
+            ["KnuckleBones"] = "BossPreDamageKeepsake"
         },
         Poseidon = {
             ["Attack"] = "PoseidonWeaponBoon",

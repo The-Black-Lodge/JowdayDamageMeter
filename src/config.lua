@@ -15,7 +15,10 @@ local config = {
     SplitDashStrike = true,
     SplitOmega = true,
     OmegaIndicator = "{!Icons.Omega_NoTooltip}",
-    ToggleMeterBind = "Ctrl Y"
+    ToggleMeterBind = "Ctrl Y",
+    ToggleMeterModifier = "Ctrl",
+    ToggleMeterKey = "Y",
+    ShowMeter = true
 }
 
 local configDesc = {
@@ -32,7 +35,10 @@ local configDesc = {
     SplitOmega = "Show Omega attacks/specials in separate bars.",
     OmegaIndicator =
     "If SplitOmega is enabled, this will prefix the given attack/special name. Can use plain text if the default icon causes flickering.",
-    ToggleMeterBind = "Press this to hide/show the meter."
+    ToggleMeterBind = "Press this to hide/show the meter.",
+    ToggleMeterModifier = "Modifier for meter bind. default is Ctrl",
+    ToggleMeterKey = "Key for meter bind. default is Y",
+    ShowMeter = "Display the meter. default is true"
 }
 
 return config, configDesc

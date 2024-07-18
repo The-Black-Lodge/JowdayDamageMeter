@@ -57,7 +57,6 @@ DpsBars = {}
 DpsIcons = {}
 LastDpsPosition = {}
 LastDpsBackgroundPosition = {}
-ShowMeter = true
 local dpsInterval = 999999
 
 -- damage/data functions
@@ -103,7 +102,7 @@ function calculateDps(list)
         DpsIcons[bar] = nil
     end
 
-    if ShowMeter == true then
+    if config.ShowMeter == true then
         local yPos = config.InitialY
         -- Create UI to show DPS bars for each source
         for i, source in ipairs(sourcesSortedByDamage) do
@@ -195,9 +194,17 @@ function getEquippedBoons(trait)
     if god ~= nil then
         CurrentGods[god] = true
     end
-    -- game reports all the Medea stuff "MedeaCurse" so determine via trait
-    if name ~= nil and (name == 'SpawnDamageCurse' or name == 'DeathDefianceRetaliateCurse' or name == 'ArmorPenaltyCurse') then
-        WeaponVar["MedeaCurse"] = name
+    -- check for Knuckle Bone uses
+    if name ~= nil and name == 'BossPreDamageKeepsake' and trait.Uses ~= nil and trait.Uses > 0 then
+        WeaponVar["KnuckleBones"] = trait.ReportedDamage
+    end
+    -- check for Old Grudge
+    if name ~= nil and name == 'HadesPreDamageBoon' and trait.Uses ~= nil and trait.Uses > 0 then
+        WeaponVar["OldGrudge"] = trait.ReportedDamage
+    end
+
+    if WeaponVar["KnuckleBones"] ~= nil or WeaponVar["OldGrudge"] ~= nil then
+        WeaponVar["BossPreDamage"] = true
     end
 end
 
@@ -208,7 +215,9 @@ function clearWeaponInfo()
     WeaponVar["Special"] = nil
     WeaponVar["Cast"] = nil
     WeaponVar["Dash"] = nil
-    WeaponVar["MedeaCurse"] = nil
+    WeaponVar["KnuckleBones"] = nil
+    WeaponVar["OldGrudge"] = nil
+    WeaponVar["BossPreDamage"] = nil
 
     -- also reset god list
     CurrentGods = {}
@@ -274,20 +283,22 @@ function getSourceName(triggerArgs, victim)
         source = "ParryHit"
     end
 
-    if source == "MedeaCurse" and WeaponVar["MedeaCurse"] ~= nil then
-        source = WeaponVar["MedeaCurse"]
+    if source == "MedeaCurse" then
+        source = triggerArgs.CurseName or "MedeaCurse"
     end
 
-    if source == 'Unknown' then
-        -- distinguish between Old Grudge (20%) and Knuckle Bones (<=15%)
-        if triggerArgs.Silent and victim.IsBoss == true then
-            local damage = triggerArgs.DamageAmount or 0
-            local maxhealth = victim.MaxHealth
-            local ratio = damage / maxhealth
-            if ratio > 0.15 then
-                source = "Old Grudge"
-            else
-                source = "Knuckle Bones"
+    if source == "Unknown" then
+        -- check if user has Old Grudge and/or Knuckle Bones
+        if WeaponVar["BossPreDamage"] ~= nil and triggerArgs.Silent and victim.IsBoss == true then
+            -- old grudge
+            if triggerArgs.PreDamageBossFunctionName ~= nil and triggerArgs.PreDamageBossFunctionName == "HadesPreDamagePresentation" then
+                source = "OldGrudge"
+                WeaponVar["OldGrudge"] = nil
+            end
+            -- knuckle bones
+            if WeaponVar["KnuckleBones"] ~= nil and triggerArgs.PreDamageBossFunctionName ~= nil and triggerArgs.PreDamageBossFunctionName == "PreDamagePresentation" then
+                source = "KnuckleBones"
+                WeaponVar["KnuckleBones"] = nil
             end
         end
     end
@@ -554,9 +565,6 @@ function getColorAndLabel(source)
         return colors["Frinos"], "FrogFamiliar"
     elseif source == "Toula" then
         return colors["Toula"], "CatFamiliar"
-        -- and some localization
-    -- elseif source == "Charm" then
-    --     return colors["Default"], Locale.Charm
     end
 
     if color == nil then
@@ -672,6 +680,38 @@ ModUtil.Path.Wrap("KillHero", function(baseFunc, victim, triggerArgs)
     clearWeaponInfo()
 end, mod)
 
+-- add the pre-damage function name to triggerArgs to be used later
+ModUtil.Path.Context.Wrap("PreDamageBoss", function(enemy, damageAmount, damageData)
+    ModUtil.Path.Wrap("Damage", function(base, victim, triggerArgs)
+        local preDamageName = damageData.PresentationFunctionName or "PreDamagePresentation"
+        local updatedArgs = { DamageAmount = damageAmount, Silent = true, PreDamageBossFunctionName = preDamageName }
+        base(victim, updatedArgs)
+    end)
+end)
+
+-- determine which of medea's curses is happening
+ModUtil.Path.Wrap("CheckSpawnCurseDamage", function(base, enemy, traitArgs)
+    traitArgs.CurseName = "SpawnDamageCurse"
+    base(enemy, traitArgs)
+end)
+
+ModUtil.Path.Wrap("CheckSpawnArmorDamage", function(base, enemy, traitArgs)
+    traitArgs.CurseName = "ArmorPenaltyCurse"
+    base(enemy, traitArgs)
+end)
+
+ModUtil.Path.Wrap("CurseRetaliate", function(base, functionArgs, triggerArgs)
+    functionArgs.CurseName = "DeathDefianceRetaliateCurse"
+    base(functionArgs, triggerArgs)
+end)
+
+ModUtil.Path.Context.Wrap("DoCurseDamage", function(enemy, traitArgs, damageAmount)
+    ModUtil.Path.Wrap("Damage", function(base, victim, triggerArgs)
+        local curseName = traitArgs.CurseName
+        local updatedArgs = { AttackerTable = game.CurrentRun.Hero, AttackerId = game.CurrentRun.Hero.ObjectId, SourceProjectile = "MedeaCurse", DamageAmount = damageAmount, Silent = false, PureDamage = true, CurseName = curseName }
+        base(victim, updatedArgs)
+    end)
+end)
 
 -- set up polling if it isn't already
 OnAnyLoad { function()
