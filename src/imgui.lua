@@ -49,7 +49,7 @@ function drawMenu()
     end
     rom.ImGui.Spacing()
 
-    if rom.ImGui.CollapsingHeader("Damage Meter Visibility Bind") then
+    if rom.ImGui.CollapsingHeader("Damage Meter Visibility and Bind") then
         value, checked = rom.ImGui.Checkbox("Show meter", config.ShowMeter)
         if checked then
             config.ShowMeter = value
@@ -82,19 +82,21 @@ function drawMenu()
         end
         rom.ImGui.PopItemWidth()
 
-        local saveWarning = false
-        if config.ToggleMeterBind ~= config.ToggleMeterModifier .. " " .. config.ToggleMeterKey then 
-            saveWarning = true 
+        local unsaved = false
+        if config.ToggleMeterBind ~= config.ToggleMeterModifier .. " " .. config.ToggleMeterKey then
+            unsaved = true
             rom.ImGui.PushStyleColor(rom.ImGuiCol.Button, 0.35, 0, 0, 1)
         end
+        rom.ImGui.BeginDisabled(not unsaved)
         save = rom.ImGui.Button("Save")
+        rom.ImGui.EndDisabled()
         if save then
             local bind = config.ToggleMeterModifier .. " " .. config.ToggleMeterKey
             config.ToggleMeterBind = bind
             setBind()
         end
 
-        if saveWarning then
+        if unsaved then
             rom.ImGui.SameLine()
             rom.ImGui.PushStyleColor(rom.ImGuiCol.Text, 0.5, 0, 0, 1)
             rom.ImGui.Text("Binding is not saved!")
