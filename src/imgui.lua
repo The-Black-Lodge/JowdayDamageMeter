@@ -82,12 +82,24 @@ function drawMenu()
         end
         rom.ImGui.PopItemWidth()
 
-        save = rom.ImGui.Button("Save Bind")
+        local saveWarning = false
+        if config.ToggleMeterBind ~= config.ToggleMeterModifier .. " " .. config.ToggleMeterKey then 
+            saveWarning = true 
+            rom.ImGui.PushStyleColor(rom.ImGuiCol.Button, 0.35, 0, 0, 1)
+        end
+        save = rom.ImGui.Button("Save")
         if save then
             local bind = config.ToggleMeterModifier .. " " .. config.ToggleMeterKey
             config.ToggleMeterBind = bind
             setBind()
         end
+
+        if saveWarning then
+            rom.ImGui.SameLine()
+            rom.ImGui.PushStyleColor(rom.ImGuiCol.Text, 0.5, 0, 0, 1)
+            rom.ImGui.Text("Binding is not saved!")
+        end
+        rom.ImGui.PopStyleColor(2)
     end
     rom.ImGui.Spacing()
 
