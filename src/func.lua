@@ -175,11 +175,14 @@ keycodeMap = {
 }
 
 function setBind()
-    rom.inputs.on_key_pressed({
+    if CurrentBind ~= nil then
+        rom.inputs.remove_on_key_pressed(CurrentBind)
+    end
+
+    CurrentBind = rom.inputs.on_key_pressed({
         config.ToggleMeterBind,
         Name = "Toggle Meter Visibility",
         function()
-            print(config.ToggleMeterBind)
             config.ShowMeter = not config.ShowMeter
         end
     })

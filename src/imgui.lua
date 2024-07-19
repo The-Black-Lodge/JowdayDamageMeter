@@ -57,7 +57,7 @@ function drawMenu()
 
         rom.ImGui.Separator()
 
-        rom.ImGui.TextWrapped("Sets a bind to toggle during gameplay. ")
+        rom.ImGui.TextWrapped("Sets a bind to toggle the meter during gameplay. ")
         rom.ImGui.Text("Modifier             Key")
         local modifierKeys = { "None", "Alt", "Ctrl", "Shift" }
         rom.ImGui.PushItemWidth(100)

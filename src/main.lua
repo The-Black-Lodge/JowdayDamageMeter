@@ -26,6 +26,8 @@ reload = mods['SGG_Modding-ReLoad']
 config = chalk.auto 'config.lua'
 public.config = config
 
+CurrentBind = nil
+
 local function on_ready()
     if config.enabled == false then return end
 
