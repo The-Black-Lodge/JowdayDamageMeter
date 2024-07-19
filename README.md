@@ -23,8 +23,8 @@ _\* You may need to quit and reload your save if you change languages while play
 ---
 
 ### NEW! Layout configuration (2024/7/19)
-Update the meter location via X/Y coordinates, as well as background color!
-Note the background will be a bit darker than what you select, still working on that.
+Update the meter location via X/Y coordinates, as well as background color! \
+Note the background will be a bit darker than what you select, still working on that. \
 ![image](https://github.com/user-attachments/assets/f7127b77-d2d9-4bd2-be73-029314645995)
 ![image](https://github.com/user-attachments/assets/10d3b150-9855-4ada-b59e-620b4d6f13e7)
 
