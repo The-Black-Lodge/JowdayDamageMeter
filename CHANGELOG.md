@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.6.0] - 2024-07-19
+
 ## Fixed
+
 - Old Grudge and Knuckle Bones are now properly differentiated
 - Medea curses are now properly differentiated
 - Nexus Sprint (Hera) fixed
@@ -127,7 +131,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.4...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.6.0...HEAD
+[2.6.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.4...2.6.0
 [2.5.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.3...2.5.4
 [2.5.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.2...2.5.3
 [2.5.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.1...2.5.2
