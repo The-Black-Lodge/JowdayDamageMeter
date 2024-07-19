@@ -2,7 +2,7 @@
 ---@diagnostic disable
 
 local config = {
-    version = 1.0,
+    version = 1.1,
     PollingInterval = 0.2,
     TrainingRoomClearTime = 5,
     InitialY = 840,
