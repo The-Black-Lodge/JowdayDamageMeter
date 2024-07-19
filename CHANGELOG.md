@@ -1,6 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Old Grudge and Knuckle Bones are now properly differentiated
+- Medea curses are now properly differentiated
+- Nexus Sprint (Hera) fixed
+- add ImGui config
 
 ## [2.5.4] - 2024-07-17
 
