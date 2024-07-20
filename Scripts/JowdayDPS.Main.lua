@@ -1,7 +1,8 @@
 JowdayDPS = ModUtil.Mod.Register("JowdayDPS")
 JowdayDPS.Config = {
 	DpsInterval = 99999999,
-	ShowIcons = true
+    ShowIcons = true,
+	DisplayFont = "AlegreyaSansRegular"
 }
 
 JowdayDPS.List = {}
@@ -286,7 +287,7 @@ function JowdayDPS.createDpsHeader(obstacleName, totalDamage, dps, x, y)
 			Text = text,
 			OffsetX = 0,
 			OffsetY = 0,
-			Font = "AlegreyaSansSCBold",
+			Font = JowdayDPS.Config.DisplayFont,
 			FontSize = 14,
 			Justification = "Left",
 			Color = Color.White,
@@ -323,8 +324,8 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 		Text = label,
 		OffsetX = -33,
 		OffsetY = -1,
-		Font = "AlegreyaSansSCBold",
-		FontSize = 14,
+		Font = JowdayDPS.Config.DisplayFont,
+		FontSize = 12,
 		Justification = "Right",
 		Color = labelColor,
 		OutlineThickness = 2.0,
@@ -348,7 +349,7 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 			Text = damage,
 			OffsetX = 320 * scale - 4,
 			OffsetY = -1,
-			Font = "AlegreyaSansSCBold",
+			Font = JowdayDPS.Config.DisplayFont,
 			FontSize = 10,
 			Justification = "Right",
 			Color = Color.White,
@@ -368,8 +369,8 @@ function JowdayDPS.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
 		Text = percentDamage .. "%",
 		OffsetX = 320 * scale + 20,
 		OffsetY = -1,
-		Font = "AlegreyaSansSCBold",
-		FontSize = 14,
+		Font = JowdayDPS.Config.DisplayFont,
+		FontSize = 12,
 		Justification = "Left",
 		Color = Color.White,
 		OutlineThickness = 2.0,
@@ -448,7 +449,7 @@ function JowdayDPS.generateBarIcons(colors, label, dpsBar)
 		end
 
 		-- there is one special case where dash-strike damage can be modified by both artemis and whatever god is on attack. if this is the case, tack on the artemis icon after
-		if label == "Dash-Strike" and JowdayDPS.WeaponVar["HunterDash"] == true then
+		if label == "BlinkStrike" and JowdayDPS.WeaponVar["HunterDash"] == true then
 			if godIcons[1] ~= "Artemis" then
 				table.insert(godIcons, 1, "Artemis")
 			end
