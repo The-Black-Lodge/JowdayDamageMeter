@@ -12,6 +12,18 @@ Most damage sources will use your in-game language selection. A few sources will
 100% translated languages are English, French, Brazilian Portuguese, Chinese, Spanish.
 _\* You may need to quit and reload your save if you change languages while playing._
 
+## NEW! Configure Skelly's health (2024/7/21)
+Give Skelly more health to help test out your build. \
+![image](https://github.com/user-attachments/assets/229dd662-0146-4190-9981-15226c9e99f1)
+
+---
+
+## NEW! Configure Overkill damage (2024/7/21)
+Uncaps the damage calculation. May be useful with mods like [Generalist](https://thunderstore.io/c/hades-ii/p/zannc/Generalist/), which allow for uncapped Pom scaling. \
+![image](https://github.com/user-attachments/assets/054150f5-21ca-4d30-9fb9-b52b7e97d0f9)
+
+---
+
 ## NEW! In-game configuration menu (2024/7/19)
 ![image](https://github.com/user-attachments/assets/9c2c424a-7b73-453f-95cf-0605f33bfddd)
 
