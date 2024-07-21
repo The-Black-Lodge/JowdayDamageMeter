@@ -34,7 +34,8 @@ function drawMenu()
 
         if config.SplitOmega then
             rom.ImGui.Indent(38)
-            rom.ImGui.TextWrapped("Visual indicator before the boon name. Set to a text value (i.e. *) if you notice flickering.")
+            rom.ImGui.TextWrapped(
+            "Visual indicator before the boon name. Set to a text value (i.e. *) if you notice flickering.")
             text, selected = rom.ImGui.InputText("###omega indicator", config.OmegaIndicator, 100)
             if selected then
                 config.OmegaIndicator = text
@@ -45,6 +46,13 @@ function drawMenu()
                 config.OmegaIndicator = "{!Icons.Omega_NoTooltip}"
             end
             rom.ImGui.Unindent(38)
+        end
+
+        rom.ImGui.Separator()
+        rom.ImGui.TextWrapped("Overkill damage is damage beyond the enemy's health/shield. For example, if you hit a 1hp enemy for 100 damage, 99 damage was overkill.")
+        value, checked = rom.ImGui.Checkbox("Include overkill damage", config.CountOverkillDamage)
+        if checked then
+            config.CountOverkillDamage = value
         end
     end
     rom.ImGui.Spacing()

@@ -41,6 +41,7 @@ local function on_reload()
     import 'func.lua'
     import 'imgui.lua'
     setBind()
+    adjustSkellyHealth()
 end
 
 -- this allows us to limit certain functions to not be reloaded.

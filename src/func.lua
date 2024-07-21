@@ -196,9 +196,11 @@ function adjustSkellyHealth()
     game.UnitSetData.NPC_Skelly.NPC_Skelly_01.MaxHealth = config.SkellyHealthMax
 
     local currentSkelly = nil
-    for _, npc in pairs(game.ActiveEnemies) do
-        if npc.Name == "NPC_Skelly_01" then
-            currentSkelly = npc
+    if game.ActiveEnemies ~= nil then
+        for _, npc in pairs(game.ActiveEnemies) do
+            if npc.Name == "NPC_Skelly_01" then
+                currentSkelly = npc
+            end
         end
     end
 

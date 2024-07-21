@@ -359,7 +359,7 @@ function createDpsHeader(obstacleName, totalDamage, dps, x, y)
         game.CreateTextBox({
             Id = ScreenAnchors[obstacleName],
             Text = text,
-            OffsetX = -5,
+            OffsetX = -50,
             OffsetY = 0,
             Font = "LatoSemibold",
             FontSize = 14,
@@ -630,7 +630,11 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         and not (victimCharmed and not playerWasAttacker)
     then
         local damageInstance = {}
-        damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
+        if config.CountOverkillDamage then
+            damageInstance.Damage = triggerArgs.DamageAmount
+        else
+            damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
+        end
         damageInstance.Timestamp = GetTime({})
         damageInstance.Source = getSourceName(triggerArgs, victim)
 
@@ -671,6 +675,32 @@ ModUtil.Path.Wrap("BeginOpeningEncounter", function(baseFunc)
     end
 end, mod)
 
+--[[ on trait add:
+    - recalculate weapon info
+    - this is so using something like PonyMenu will update immediately
+]] --
+ModUtil.Path.Wrap("AddTraitToHero", function(base, ...)
+    local trait = base(...)
+    clearWeaponInfo()
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        getEquippedBoons(trait)
+    end
+    return trait
+end, mod)
+
+--[[ on trait remove:
+    - recalculate weapon info
+    - this is so using something like PonyMenu will update immediately
+]] --
+ModUtil.Path.Wrap("RemoveTrait", function(base, ...)
+    local trait = base(...)
+    clearWeaponInfo()
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        getEquippedBoons(trait)
+    end
+    return trait
+end, mod)
+
 --[[ on player death:
     - stop polling
     - clear weapon info]]
@@ -708,7 +738,16 @@ end)
 ModUtil.Path.Context.Wrap("DoCurseDamage", function(enemy, traitArgs, damageAmount)
     ModUtil.Path.Wrap("Damage", function(base, victim, triggerArgs)
         local curseName = traitArgs.CurseName
-        local updatedArgs = { AttackerTable = game.CurrentRun.Hero, AttackerId = game.CurrentRun.Hero.ObjectId, SourceProjectile = "MedeaCurse", DamageAmount = damageAmount, Silent = false, PureDamage = true, CurseName = curseName }
+        local updatedArgs = {
+            AttackerTable = game.CurrentRun.Hero,
+            AttackerId = game.CurrentRun.Hero.ObjectId,
+            SourceProjectile =
+            "MedeaCurse",
+            DamageAmount = damageAmount,
+            Silent = false,
+            PureDamage = true,
+            CurseName = curseName
+        }
         base(victim, updatedArgs)
     end)
 end)

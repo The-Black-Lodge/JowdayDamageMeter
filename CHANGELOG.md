@@ -6,6 +6,7 @@
 ## Added
 - Turn Skelly into a training dummy!
   - configurable health
+- Display overkill damage option
 
 ## [2.6.0] - 2024-07-19
 

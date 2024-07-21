@@ -20,7 +20,8 @@ local config = {
     ToggleMeterKey = "Y",
     ShowMeter = true,
     CustomSkellyHealth = false,
-    SkellyHealthMax = 920
+    SkellyHealthMax = 920,
+    CountOverkillDamage = false
 }
 
 local configDesc = {
@@ -42,7 +43,8 @@ local configDesc = {
     ToggleMeterKey = "Key for meter bind. default is Y",
     ShowMeter = "Display the meter. default is true",
     CustomSkellyHealth = "Customize the amount of health Skelly has. default is false",
-    SkellyHealthMax = "How much health to give Skelly. default is 920"
+    SkellyHealthMax = "How much health to give Skelly. default is 920",
+    CountOverkillDamage = "Whether or not to count damage that goes over the enemy's health. default is false"
 }
 
 return config, configDesc
