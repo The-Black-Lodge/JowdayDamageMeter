@@ -18,7 +18,9 @@ local config = {
     ToggleMeterBind = "Ctrl Y",
     ToggleMeterModifier = "Ctrl",
     ToggleMeterKey = "Y",
-    ShowMeter = true
+    ShowMeter = true,
+    CustomSkellyHealth = false,
+    SkellyHealthMax = 920
 }
 
 local configDesc = {
@@ -38,7 +40,9 @@ local configDesc = {
     ToggleMeterBind = "Press this to hide/show the meter.",
     ToggleMeterModifier = "Modifier for meter bind. default is Ctrl",
     ToggleMeterKey = "Key for meter bind. default is Y",
-    ShowMeter = "Display the meter. default is true"
+    ShowMeter = "Display the meter. default is true",
+    CustomSkellyHealth = "Customize the amount of health Skelly has. default is false",
+    SkellyHealthMax = "How much health to give Skelly. default is 920"
 }
 
 return config, configDesc

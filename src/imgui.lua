@@ -105,17 +105,34 @@ function drawMenu()
     end
     rom.ImGui.Spacing()
 
-    if rom.ImGui.CollapsingHeader("Timer Configuration") then
-        rom.ImGui.TextWrapped("Interval at which the damage meter recalculates. Increase if you are having framerate issues.")
-        value, used = rom.ImGui.SliderFloat("Second(s)##polling", config.PollingInterval, 0.1, 2, "%.1f")
-        if used then
-            config.PollingInterval = value
+    if rom.ImGui.CollapsingHeader("Training Dummy and Timer Configuration") then
+
+        value, checked = rom.ImGui.Checkbox("Custom Skelly health", config.CustomSkellyHealth)
+        if checked then
+            config.CustomSkellyHealth = value
+            adjustSkellyHealth()
+        end
+
+        if config.CustomSkellyHealth == true then
+            value, used = rom.ImGui.InputInt("Skelly health", config.SkellyHealthMax, 1, 100000)
+            if used then
+                config.SkellyHealthMax = value
+                adjustSkellyHealth()
+            end
         end
 
         rom.ImGui.TextWrapped("Seconds before clearing the meter in the Training Area.")
         value, used = rom.ImGui.SliderInt("Second(s)##skelly", config.TrainingRoomClearTime, 1, 60)
         if used then
             config.TrainingRoomClearTime = value
+        end
+
+        rom.ImGui.Separator()
+
+        rom.ImGui.TextWrapped("Interval at which the damage meter recalculates. Increase if you are having framerate issues.")
+        value, used = rom.ImGui.SliderFloat("Second(s)##polling", config.PollingInterval, 0.1, 2, "%.1f")
+        if used then
+            config.PollingInterval = value
         end
     end
     rom.ImGui.Spacing()

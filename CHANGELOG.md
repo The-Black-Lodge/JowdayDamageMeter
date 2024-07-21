@@ -1,6 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Aphrodite sprint fixed
+## Added
+- Turn Skelly into a training dummy!
+  - configurable health
 
 ## [2.6.0] - 2024-07-19
 

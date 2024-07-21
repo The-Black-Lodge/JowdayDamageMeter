@@ -187,3 +187,24 @@ function setBind()
         end
     })
 end
+
+function adjustSkellyHealth()
+    if not config.CustomSkellyHealth then
+        config.SkellyHealthMax = 920
+    end
+
+    game.UnitSetData.NPC_Skelly.NPC_Skelly_01.MaxHealth = config.SkellyHealthMax
+
+    local currentSkelly = nil
+    for _, npc in pairs(game.ActiveEnemies) do
+        if npc.Name == "NPC_Skelly_01" then
+            currentSkelly = npc
+        end
+    end
+
+    game.UnitSetData.NPC_Skelly.NPC_Skelly_01.HealthBarType = barType
+    if currentSkelly ~= nil then
+        currentSkelly.MaxHealth = config.SkellyHealthMax
+        currentSkelly.Health = config.SkellyHealthMax
+    end
+end
