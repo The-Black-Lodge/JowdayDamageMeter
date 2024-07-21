@@ -3,6 +3,7 @@
 ## [Unreleased]
 ## Fixed
 - Aphrodite sprint fixed
+- Better detection of boons added via PonyMenu
 ## Added
 - Turn Skelly into a training dummy!
   - configurable health
