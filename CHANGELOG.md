@@ -1,10 +1,16 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.7.0] - 2024-07-21
+
 ## Fixed
+
 - Aphrodite sprint fixed
 - Better detection of boons added via PonyMenu
+
 ## Added
+
 - Turn Skelly into a training dummy!
   - configurable health
 - Display overkill damage option
@@ -138,7 +144,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.6.0...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.0...HEAD
+[2.7.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.6.0...2.7.0
 [2.6.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.4...2.6.0
 [2.5.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.3...2.5.4
 [2.5.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.2...2.5.3
