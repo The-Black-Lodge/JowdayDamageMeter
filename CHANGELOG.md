@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.7.1] - 2024-07-23
+
 ## Fixed
+
 - ensure updated omega indicator is properly set
 
 ## [2.7.0] - 2024-07-21
@@ -146,7 +150,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.0...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.1...HEAD
+[2.7.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.0...2.7.1
 [2.7.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.6.0...2.7.0
 [2.6.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.4...2.6.0
 [2.5.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.3...2.5.4
