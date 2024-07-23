@@ -39,11 +39,13 @@ function drawMenu()
             text, selected = rom.ImGui.InputText("###omega indicator", config.OmegaIndicator, 100)
             if selected then
                 config.OmegaIndicator = text
+                getLocalizedNames()
             end
             rom.ImGui.SameLine()
             reset = rom.ImGui.Button("Reset")
             if reset then
                 config.OmegaIndicator = "{!Icons.Omega_NoTooltip}"
+                getLocalizedNames()
             end
             rom.ImGui.Unindent(38)
         end

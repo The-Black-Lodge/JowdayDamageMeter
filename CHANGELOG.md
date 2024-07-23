@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- ensure updated omega indicator is properly set
 
 ## [2.7.0] - 2024-07-21
 
