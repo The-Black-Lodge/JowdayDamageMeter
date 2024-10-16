@@ -1,7 +1,7 @@
 :: Jowday's DPS Mod v2.3.0-m
 
-To "Game/Animations/GUIAnimations.sjson"
-SJSON "sjson/GUIAnimations.sjson
+To "Game/Animations/GUI_HUD_VFX.sjson"
+SJSON "sjson/GUI_HUD_VFX.sjson
 
 To "Scripts/RoomLogic.lua"
 Import register.lua
