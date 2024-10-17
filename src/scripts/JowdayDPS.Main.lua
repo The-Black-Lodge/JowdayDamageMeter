@@ -290,7 +290,8 @@ function getSourceName(triggerArgs, victim)
     source = NameLookup[source] or source
 
     -- charm has several flavors
-    if attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1 then
+    local isCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
+    if isCharmed then
         source = "Charm"
     end
 
@@ -641,6 +642,9 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     local attackerCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
 
     local playerWasAttacker = triggerArgs.AttackerName == "_PlayerUnit"
+
+    local preDamage = triggerArgs.PreDamageBossFunctionName ~= nil
+    local isCurse = triggerArgs.CurseName ~= nil
     -- print('attackerCharmed: ' .. tostring(attackerCharmed))
     -- print('victimCharmed: ' .. tostring(victimCharmed))
     -- print('playerWasAttacker: ' .. tostring(playerWasAttacker))
@@ -654,8 +658,8 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         -- this wonky logic is to discard charmed enemies being damaged by other enemies
         -- victim is charmed, hit by NPC
         and not (victimCharmed and not playerWasAttacker)
-        -- attacker is not charmed, victim is not charmed, hit by NPC
-        and not (not attackerCharmed and not victimCharmed and not playerWasAttacker)
+        -- attacker is not charmed, victim is not charmed, hit by NPC, and also not a boss pre-damage boon or a medea curse. whew
+        and not (not attackerCharmed and not victimCharmed and not playerWasAttacker and not preDamage and not isCurse)
     then
         local damageInstance = {}
         if config.CountOverkillDamage then

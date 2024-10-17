@@ -278,6 +278,9 @@ function getLocalizedNames()
         },
         DuoHestiaPoseidon = {
             ["SteamBlast"] = "SteamBoon"
+        },
+        DuoHeraHestia = {
+            ["ManaRestoreBlast"] = "ManaRestoreDamageBoon"
         }
     }
 end
@@ -374,6 +377,10 @@ DpsColors = {
     DuoHestiaPoseidon = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Hestia", "Poseidon" }
+    },
+    DuoHeraHestia = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Hestia", "Hera" }
     },
     NemesisAssist = {
         BarColor = Color.NemesisVoice,
