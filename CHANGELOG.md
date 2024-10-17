@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.0] - 2024-10-17
+
 ## Added
+
 - Artemis sprint boon
 - update sjson for october update
 
@@ -153,7 +157,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.1...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.0...HEAD
+[2.8.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.1...2.8.0
 [2.7.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.0...2.7.1
 [2.7.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.6.0...2.7.0
 [2.6.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.5.4...2.6.0
