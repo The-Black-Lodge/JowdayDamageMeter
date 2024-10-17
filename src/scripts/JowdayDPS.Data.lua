@@ -86,6 +86,9 @@ function getLocalizedNames()
         WeaponLob = "Attack",
         WeaponLobSpecial = "Special",
         WeaponLobPulse = "Attack",
+        --
+        WeaponSuit = "Attack",
+        WeaponSuitRanged = "Special",
         -- artemis assist
         ArtemisSniperBolt = "Artemis",
         ArtemisVolleyShot = "Artemis",
