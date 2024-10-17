@@ -146,7 +146,8 @@ function getLocalizedNames()
         },
         Artemis = {
             ["ArtemisSupportingFire"] = "SupportingFireBoon",
-            ["ArtemisCastVolley"] = "OmegaCastVolleyBoon"
+            ["ArtemisCastVolley"] = "OmegaCastVolleyBoon",
+            ["ArtemisSupportingFireSprint"] = "ArtemisSprintBoon"
         },
         Demeter = {
             ["Attack"] = "DemeterWeaponBoon",

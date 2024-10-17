@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- Artemis sprint boon
+- update sjson for october update
 
 ## [2.7.1] - 2024-07-23
 

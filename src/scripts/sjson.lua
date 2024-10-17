@@ -33,7 +33,7 @@ local newdata = sjson.to_object({
     Scale = 1.0,
 }, order)
 
-local path = rom.path.combine(rom.paths.Content, 'Game/Animations/GUIAnimations.sjson')
+local path = rom.path.combine(rom.paths.Content, 'Game/Animations/GUI_HUD_VFX.sjson')
 
 sjson.hook(path, function(data)
     table.insert(data.Animations, newdata)
