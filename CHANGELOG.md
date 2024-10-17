@@ -1,9 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.1] - 2024-10-17
+
 # Updated
+
 - properly filter out NPCs hitting other NPCs
-add Athena and Dionysus
+  add Athena and Dionysus
 
 ## [2.8.0] - 2024-10-17
 
@@ -160,7 +164,8 @@ add Athena and Dionysus
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.0...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.1...HEAD
+[2.8.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.0...2.8.1
 [2.8.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.1...2.8.0
 [2.7.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.0...2.7.1
 [2.7.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.6.0...2.7.0
