@@ -158,7 +158,9 @@ function godMatcher(name)
     if name:match("Apollo") then return "Apollo" end
     if name:match("Aphrodite") then return "Aphrodite" end
     if name:match("Artemis") then return "Artemis" end
+    if name:match("Athena") then return "Athena" end
     if name:match("Demeter") then return "Demeter" end
+    if name:match("Dionysus") then return "Dionysus" end
     if name:match("Hera") then return "Hera" end
     if name:match("Hephaestus") then return "Hephaestus" end
     if name:match("Hestia") then return "Hestia" end
@@ -237,6 +239,9 @@ function getSourceName(triggerArgs, victim)
     source = triggerArgs.SourceWeapon or source
     source = attackerWeaponData.LinkedUpgrades or source
 
+    -- investigate further, but special handling for divine dash
+    if (triggerArgs.SourceProjectile == 'AthenaRushProjectile') then source = 'AthenaRushProjectile' end
+
     if config.SplitDashStrike == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil
         if sourceProjectile ~= nil then
@@ -271,6 +276,16 @@ function getSourceName(triggerArgs, victim)
             end
         end
     end
+
+    -- print('---')
+    -- print(triggerArgs.WeaponName)
+    -- print(triggerArgs.EffectName)
+    -- print(triggerArgs.SourceProjectile)
+    -- print(triggerArgs.SourceWeapon)
+    -- print(attackerWeaponData.LinkedUpgrades)
+    -- print(game.TableToJSONString(triggerArgs))
+    -- print(game.TableToJSONString(victim))
+    -- print('final source before lookup: ' .. source)
 
     source = NameLookup[source] or source
 
@@ -617,8 +632,18 @@ end
 ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     local preHitHealth = victim.Health
     baseFunc(victim, triggerArgs)
+    local attackerTable = triggerArgs.AttackerTable or {}
+    local activeEffects = attackerTable.ActiveEffects or {}
+    local activeEffectsStart = attackerTable.ActiveEffectsAtDamageStart or {}
+
     local victimCharmed = IsCharmed({ Id = victim.ObjectId })
+    -- don't use ingame function here because reasons
+    local attackerCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
+
     local playerWasAttacker = triggerArgs.AttackerName == "_PlayerUnit"
+    -- print('attackerCharmed: ' .. tostring(attackerCharmed))
+    -- print('victimCharmed: ' .. tostring(victimCharmed))
+    -- print('playerWasAttacker: ' .. tostring(playerWasAttacker))
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
         and (victim.Name == "NPC_Skelly_01"
@@ -627,7 +652,10 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
             or victim.IsBoss
         )
         -- this wonky logic is to discard charmed enemies being damaged by other enemies
+        -- victim is charmed, hit by NPC
         and not (victimCharmed and not playerWasAttacker)
+        -- attacker is not charmed, victim is not charmed, hit by NPC
+        and not (not attackerCharmed and not victimCharmed and not playerWasAttacker)
     then
         local damageInstance = {}
         if config.CountOverkillDamage then
@@ -638,7 +666,10 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         damageInstance.Timestamp = GetTime({})
         damageInstance.Source = getSourceName(triggerArgs, victim)
 
-        List.addValue(DamageHistory, damageInstance)
+        -- don't log unknowns
+        if damageInstance.Source ~= 'Unknown' then
+            List.addValue(DamageHistory, damageInstance)
+        end
     end
 end, mod)
 

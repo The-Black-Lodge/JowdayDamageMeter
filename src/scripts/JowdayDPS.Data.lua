@@ -63,6 +63,8 @@ function getLocalizedNames()
         BaseCollision = "Traps",
         BeamTrap = "Traps",
         RubbleFall = "Traps",
+        RubbleFallOlympus = "Traps",
+        IcicleSplinter = "Traps",
         --
         OAttackText = oAttackText,
         OSpecialText = oSpecialText,
@@ -89,6 +91,7 @@ function getLocalizedNames()
         --
         WeaponSuit = "Attack",
         WeaponSuitRanged = "Special",
+        WeaponSprintEx = "NyxSprint",
         -- artemis assist
         ArtemisSniperBolt = "Artemis",
         ArtemisVolleyShot = "Artemis",
@@ -152,6 +155,11 @@ function getLocalizedNames()
             ["ArtemisCastVolley"] = "OmegaCastVolleyBoon",
             ["ArtemisSupportingFireSprint"] = "ArtemisSprintBoon"
         },
+        Athena = {
+            ["AthenaDeflectingProjectile"] = "AthenaProjectileBoon",
+            ["AthenaCastProjectile"] = "InvulnerabilityCastBoon",
+            ["AthenaRushProjectile"] = "InvulnerabilityDashBoon",
+        },
         Demeter = {
             ["Attack"] = "DemeterWeaponBoon",
             ["OAttack"] = demOAttack,
@@ -161,9 +169,14 @@ function getLocalizedNames()
             ["WeaponCast"] = "DemeterCastBoon",
             ["DemeterChillKill"] = "InstantRootKill",
         },
+        Dionysus = {
+            ["DamageOverTime"] = "DamageOverTime",
+            ["WeaponCastLob"] = "CastLobBoon"
+        },
         Hades = {
             ["WeaponCastProjectileHades"] = "HadesCastProjectileBoon",
-            ["OldGrudge"] = "HadesPreDamageBoon"
+            ["OldGrudge"] = "HadesPreDamageBoon",
+            ["HadesUrnDeath"] = "HadesManaUrnBoon",
         },
         Hera = {
             ["Attack"] = "HeraWeaponBoon",
@@ -235,6 +248,7 @@ function getLocalizedNames()
             ["WeaponTransformSpecial"] = darkSideSpecial,
             ["WeaponTransformBlink"] = darkSideBlink,
             ["WeaponTransformCast"] = darkSideCast,
+            ["WeaponSpellMoonBeam"] = "SpellMoonBeamTrait",
         },
         Zeus = {
             ["Attack"] = "ZeusWeaponBoon",
@@ -305,6 +319,10 @@ DpsColors = {
     Demeter = {
         BarColor = Color.DemeterDamage,
         Icons = { "Demeter" }
+    },
+    Dionysus = {
+        BarColor = Color.DionysusDamage,
+        Icons = { "Dionysus" }
     },
     Hades = {
         BarColor = Color.HadesVoice,
@@ -397,7 +415,9 @@ Icons = {
     Aphrodite = { Name = "BoonInfoSymbolAphroditeIcon", Scale = 0.15 },
     Apollo = { Name = "BoonInfoSymbolApolloIcon", Scale = 0.2 },
     Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis2", Scale = 0.075 },
+    Athena = { Name = "GUI\\Screens\\BoonSelectSymbols\\Athena2", Scale = 0.075 },
     Demeter = { Name = "BoonInfoSymbolDemeterIcon", Scale = 0.21 },
+    Dionysus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Dionysus2", Scale = 0.075 },
     Hades = { Name = "GUI\\Icons\\Hades_Symbol_01", Scale = 0.09 },
     Hera = { Name = "BoonInfoSymbolHeraIcon", Scale = 0.2 },
     Hestia = { Name = "BoonInfoSymbolHestiaIcon", Scale = 0.2 },

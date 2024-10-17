@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+# Updated
+- properly filter out NPCs hitting other NPCs
+add Athena and Dionysus
 
 ## [2.8.0] - 2024-10-17
 
