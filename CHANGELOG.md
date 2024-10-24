@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.2] - 2024-10-24
+
 ## Added
+
 - added support for Practical Gods
 - added new Thanatos axe special
 
@@ -167,7 +171,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.1...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.2...HEAD
+[2.8.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.1...2.8.2
 [2.8.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.0...2.8.1
 [2.8.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.1...2.8.0
 [2.7.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.0...2.7.1
