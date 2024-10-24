@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- added support for Practical Gods
+- added new Thanatos axe special
 
 ## [2.8.1] - 2024-10-17
 

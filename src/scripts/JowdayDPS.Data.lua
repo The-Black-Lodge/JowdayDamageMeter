@@ -33,6 +33,9 @@ function getLocalizedNames()
     local darkSideSpecial = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Special" }) .. ')'
     local darkSideBlink = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Dash" }) .. ')'
     local darkSideCast = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Cast" }) .. ')'
+    -- practical gods
+    local artOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ArtemisWeaponBoon" })
+    local artOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ArtemisSpecialBoon" })
 
     NameLookup = {
         -- sheep?
@@ -84,6 +87,7 @@ function getLocalizedNames()
         WeaponAxeSpecialSwing = "Special",
         WeaponAxeSpin = "Attack",
         WeaponAxeBlock2 = "Special",
+        WeaponAxeSpecial = "Special",
         --
         WeaponLob = "Attack",
         WeaponLobSpecial = "Special",
@@ -153,7 +157,12 @@ function getLocalizedNames()
         Artemis = {
             ["ArtemisSupportingFire"] = "SupportingFireBoon",
             ["ArtemisCastVolley"] = "OmegaCastVolleyBoon",
-            ["ArtemisSupportingFireSprint"] = "ArtemisSprintBoon"
+            ["ArtemisSupportingFireSprint"] = "ArtemisSprintBoon",
+            -- practical gods
+            ["Attack"] = "ArtemisWeaponBoon",
+            ["OAttack"] = artOAttack,
+            ["Special"] = "ArtemisSpecialBoon",
+            ["OSpecial"] = artOSpecial
         },
         Athena = {
             ["AthenaDeflectingProjectile"] = "AthenaProjectileBoon",

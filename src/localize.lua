@@ -19,6 +19,9 @@ AddLocale('en', {
     EphyraPylon = "Pylon Spirits",
     SheepAttack = "Sheep Attack",
     Boulder = "Polyphemus Boulder",
+    -- practical gods
+    ArtemisWeaponBoon = "Deadly Strike",
+    ArtemisSpecialBoon = "Deadly Flourish"
 })
 
 AddLocale('es', {
@@ -28,6 +31,9 @@ AddLocale('es', {
     EphyraPylon = "Pilón de Espíritus",
     SheepAttack = "Ataque de Ovejas",
     Boulder = "Piedra de Polifemo",
+    ---
+    ArtemisWeaponBoon = "Ataque Mortífero",
+    ArtemisSpecialBoon = "Puño Mortífero"
 })
 
 AddLocale('fr', {
@@ -37,6 +43,9 @@ AddLocale('fr', {
     EphyraPylon = "Pylône Spirituel",
     SheepAttack = "Dégâts laineux",
     Boulder = "Polyphème",
+    ---
+    ArtemisWeaponBoon = "Frappe Mortelle",
+    ArtemisSpecialBoon = "Technique Mortelle"
 })
 
 AddLocale('pt-BR', {
@@ -46,6 +55,9 @@ AddLocale('pt-BR', {
     EphyraPylon = "Pilão de Espíritos",
     SheepAttack = "Ataque de Ovelha",
     Boulder = "Pedregulho Polífemo",
+    ---
+    ArtemisWeaponBoon = "Ataque Certeiro",
+    ArtemisSpecialBoon = "Floreio Mortal"
 })
 
 AddLocale('zh-CN', {
@@ -55,4 +67,7 @@ AddLocale('zh-CN', {
     EphyraPylon = "晶石",
     SheepAttack = "羊群攻击",
     Boulder = "波吕斐摩斯的碎石",
+    ---
+    ArtemisWeaponBoon = "致命攻击",
+    ArtemisSpecialBoon = "致命乱舞"
 })
