@@ -2,9 +2,14 @@
 
 ## [Unreleased]
 
+## [2.8.3] - 2025-02-20
+
 ## Added
+
 - Ares support
+
 ## Updated
+
 - using the shiny new God icons, where available!
 
 ## [2.8.2] - 2024-10-24
@@ -176,7 +181,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.2...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.3...HEAD
+[2.8.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.2...2.8.3
 [2.8.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.1...2.8.2
 [2.8.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.0...2.8.1
 [2.8.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.7.1...2.8.0
