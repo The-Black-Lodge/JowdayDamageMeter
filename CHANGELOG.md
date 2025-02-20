@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## Added
+- Ares support
+## Updated
+- using the shiny new God icons, where available!
+
 ## [2.8.2] - 2024-10-24
 
 ## Added

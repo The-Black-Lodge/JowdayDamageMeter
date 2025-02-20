@@ -157,6 +157,7 @@ function godMatcher(name)
 
     if name:match("Apollo") then return "Apollo" end
     if name:match("Aphrodite") then return "Aphrodite" end
+    if name:match("Ares") then return "Ares" end
     if name:match("Artemis") then return "Artemis" end
     if name:match("Athena") then return "Athena" end
     if name:match("Demeter") then return "Demeter" end
@@ -252,6 +253,9 @@ function getSourceName(triggerArgs, victim)
             end
         end
     end
+
+    -- ares is acting weird
+    if source == 'AresProjectile' then source = 'OCastAres' end
 
     if config.SplitOmega == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil

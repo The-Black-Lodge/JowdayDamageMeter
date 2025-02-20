@@ -13,7 +13,10 @@ function getLocalizedNames()
     local aphOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "AphroditeSpecialBoon" })
     local apoOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ApolloWeaponBoon" })
     local apoOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ApolloSpecialBoon" })
-    local apoOCast = omegaPrefix .. game.GetDisplayName({Text = "ApolloExCastBoon"})
+    local apoOCast = omegaPrefix .. game.GetDisplayName({ Text = "ApolloExCastBoon" })
+    local areOAttack = omegaPrefix .. game.GetDisplayName({ Text = "AresWeaponBoon" })
+    local areOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "AresSpecialBoon" })
+    local areOCast = omegaPrefix .. game.GetDisplayName({ Text = "AresCastBoon" })
     local demOAttack = omegaPrefix .. game.GetDisplayName({ Text = "DemeterWeaponBoon" })
     local demOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "DemeterSpecialBoon" })
     local herOAttack = omegaPrefix .. game.GetDisplayName({ Text = "HeraWeaponBoon" })
@@ -153,6 +156,18 @@ function getLocalizedNames()
             ["WeaponCast"] = apoOCast,
             ["ApolloRetaliateStrike"] = "ApolloRetaliateBoon",
             ["ApolloPerfectDashStrike"] = "ApolloMissStrikeBoon",
+        },
+        Ares = {
+            ["Attack"] = "AresWeaponBoon",
+            ["OAttack"] = areOAttack,
+            ["Special"] = "AresSpecialBoon",
+            ["OSpecial"] = areOSpecial,
+            ["Dash"] = "AresSprintBoon",
+            ["ProjectileAresSwordEx"] = "OmegaDelayedDamageBoon",
+            ["ProjectileAresSwordWake"] = "AresSprintBoon",
+            ["ProjectileAresSwordCast"] = "AresCastBoon",
+            ["WeaponCast"] = areOCast,
+            ["OCastAres"] = "BladeRift"
         },
         Artemis = {
             ["ArtemisSupportingFire"] = "SupportingFireBoon",
@@ -311,6 +326,14 @@ DpsColors = {
         BarColor = Color.AphroditeDamage,
         Icons = { "Aphrodite" }
     },
+    Apollo = {
+        BarColor = Color.ApolloDamageLight,
+        Icons = { "Apollo" }
+    },
+    Ares = {
+        BarColor = Color.AresDamageLight,
+        Icons = { "Ares" }
+    },
     Artemis = {
         BarColor = Color.ArtemisDamage,
         Icons = { "Artemis" }
@@ -319,10 +342,6 @@ DpsColors = {
         BarColor = Color.ArtemisDamageLight,
         LabelColor = Color.ArtemisDamageLight,
         Icons = { "Artemis" }
-    },
-    Apollo = {
-        BarColor = Color.ApolloDamageLight,
-        Icons = { "Apollo" }
     },
     Athena = {
         BarColor = Color.AthenaDamageLight,
@@ -428,17 +447,18 @@ DpsColors = {
 }
 
 Icons = {
-    Aphrodite = { Name = "BoonInfoSymbolAphroditeIcon", Scale = 0.15 },
-    Apollo = { Name = "BoonInfoSymbolApolloIcon", Scale = 0.2 },
-    Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis2", Scale = 0.075 },
-    Athena = { Name = "GUI\\Screens\\BoonSelectSymbols\\Athena2", Scale = 0.075 },
-    Demeter = { Name = "BoonInfoSymbolDemeterIcon", Scale = 0.21 },
-    Dionysus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Dionysus2", Scale = 0.075 },
-    Hades = { Name = "GUI\\Icons\\Hades_Symbol_01", Scale = 0.09 },
-    Hera = { Name = "BoonInfoSymbolHeraIcon", Scale = 0.2 },
-    Hestia = { Name = "BoonInfoSymbolHestiaIcon", Scale = 0.2 },
-    Hephaestus = { Name = "BoonSymbolHephaestusIcon", Scale = 0.2 },
-    Poseidon = { Name = "BoonInfoSymbolPoseidonIcon", Scale = 0.2 },
+    Aphrodite = { Name = "GUI\\Screens\\BoonSelectSymbols\\Aphrodite", Scale = 0.1 },
+    Apollo = { Name = "GUI\\Screens\\BoonSelectSymbols\\Apollo", Scale = 0.1 },
+    Ares = { Name = "GUI\\Screens\\BoonSelectSymbols\\Ares", Scale = 0.1 },
+    Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis", Scale = 0.1 },
+    Athena = { Name = "GUI\\Screens\\BoonSelectSymbols\\Athena", Scale = 0.1 },
+    Demeter = { Name = "GUI\\Screens\\BoonSelectSymbols\\Demeter", Scale = 0.1 },
+    Dionysus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Dionysus", Scale = 0.1 },
+    Hades = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hades", Scale = 0.1 },
+    Hera = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hera", Scale = 0.1 },
+    Hestia = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hestia", Scale = 0.1 },
+    Hephaestus = { Name = "BoonSymbolHephaestus", Scale = 0.2 },
+    Poseidon = { Name = "GUI\\Screens\\BoonSelectSymbols\\Poseidon", Scale = 0.1 },
     Selene = { Name = "Items\\Loot\\SpellDrop_Preview", Scale = 0.2 },
-    Zeus = { Name = "BoonInfoSymbolZeusIcon", Scale = 0.2 }
+    Zeus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Zeus", Scale = 0.1 }
 }
