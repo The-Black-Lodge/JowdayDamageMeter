@@ -286,7 +286,7 @@ function getLocalizedNames()
             ["ZeusZeroManaStrike"] = "ZeusManaBoltBoon",
             ["ZeusRetaliateStrike"] = "BoltRetaliateBoon",
             ["WeaponAnywhereCast"] = "CastAnywhereBoon",
-            ["ZeusOnSpawn"] = "SpawnKillBoon"
+            ["ZeusOnSpawn"] = "SpawnKillBoon",
         },
         DuoAphroditeHestia = {
             ["ShadeMercFireball"] = "ShadeMercFireballBoon"
@@ -305,6 +305,9 @@ function getLocalizedNames()
         },
         DuoHeraHestia = {
             ["ManaRestoreBlast"] = "ManaRestoreDamageBoon"
+        },
+        DuoDemeterZeus = {
+            ["ZeusRootStrike"] = "RootStrikeBoon"
         }
     }
 end
@@ -409,6 +412,10 @@ DpsColors = {
     DuoHeraHestia = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Hestia", "Hera" }
+    },
+    DuoDemeterZeus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Demeter" }
     },
     NemesisAssist = {
         BarColor = Color.NemesisVoice,

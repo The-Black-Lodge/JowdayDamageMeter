@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- Zeus/Demeter boon - Hail Storm
 
 ## [2.8.3] - 2025-02-20
 
