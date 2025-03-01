@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.4] - 2025-02-22
+
 ## Added
+
 - Zeus/Demeter boon - Hail Storm
 
 ## [2.8.3] - 2025-02-20
@@ -183,7 +187,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.3...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.4...HEAD
+[2.8.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.3...2.8.4
 [2.8.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.2...2.8.3
 [2.8.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.1...2.8.2
 [2.8.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.0...2.8.1
