@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.5] - 2025-03-01
+
 ## Added
+
 - EXPERIMENTAL - Carrot mode
   - Hides the meter until after combat and next room(s) are available
   - Thank you TheCarrotGuy for the suggestion!
@@ -191,7 +195,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.4...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.5...HEAD
+[2.8.5]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.4...2.8.5
 [2.8.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.3...2.8.4
 [2.8.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.2...2.8.3
 [2.8.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.1...2.8.2
