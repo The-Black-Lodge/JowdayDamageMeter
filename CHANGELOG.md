@@ -1,6 +1,10 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- EXPERIMENTAL - Carrot mode
+  - Hides the meter until after combat and next room(s) are available
+  - Thank you TheCarrotGuy for the suggestion!
 
 ## [2.8.4] - 2025-02-22
 

@@ -101,7 +101,15 @@ function calculateDps(list)
         game.Destroy({ Id = component.Id })
         DpsIcons[bar] = nil
     end
-    if config.ShowMeter and (not config.CarrotMode or (config.CarrotMode and not DpsUpdateThread)) then
+    if config.ShowMeter
+        and (
+            not config.CarrotMode
+            or (
+                config.CarrotMode
+                and not DpsUpdateThread
+            )
+            or ModUtil.Path.Get("CurrentHubRoom.Name") == "Hub_PreRun"
+        ) then
         local yPos = config.InitialY
         -- Create UI to show DPS bars for each source
         for i, source in ipairs(sourcesSortedByDamage) do
