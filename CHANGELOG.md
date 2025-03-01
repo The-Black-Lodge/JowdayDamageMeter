@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- fixed Hephaestus icon scaling/bouncing
 
 ## [2.8.5] - 2025-03-01
 
