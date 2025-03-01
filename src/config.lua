@@ -21,7 +21,8 @@ local config = {
     ShowMeter = true,
     CustomSkellyHealth = false,
     SkellyHealthMax = 920,
-    CountOverkillDamage = false
+    CountOverkillDamage = false,
+    CarrotMode = false
 }
 
 local configDesc = {
@@ -44,7 +45,8 @@ local configDesc = {
     ShowMeter = "Display the meter. default is true",
     CustomSkellyHealth = "Customize the amount of health Skelly has. default is false",
     SkellyHealthMax = "How much health to give Skelly. default is 920",
-    CountOverkillDamage = "Whether or not to count damage that goes over the enemy's health. default is false"
+    CountOverkillDamage = "Whether or not to count damage that goes over the enemy's health. default is false",
+    CarrotMode = "Don't display the damage meter until combat has ended."
 }
 
 return config, configDesc

@@ -101,8 +101,7 @@ function calculateDps(list)
         game.Destroy({ Id = component.Id })
         DpsIcons[bar] = nil
     end
-
-    if config.ShowMeter == true then
+    if config.ShowMeter and (not config.CarrotMode or (config.CarrotMode and not DpsUpdateThread)) then
         local yPos = config.InitialY
         -- Create UI to show DPS bars for each source
         for i, source in ipairs(sourcesSortedByDamage) do

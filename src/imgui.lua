@@ -60,10 +60,23 @@ function drawMenu()
     rom.ImGui.Spacing()
 
     if rom.ImGui.CollapsingHeader("Damage Meter Visibility and Bind") then
-        value, checked = rom.ImGui.Checkbox("Show meter", config.ShowMeter)
+        value, checked = rom.ImGui.Checkbox("Show Meter", config.ShowMeter)
         if checked then
+            -- if this is turned off, also turn off CarrotMode
+            if value == false then config.CarrotMode = false end
+            -- this needs to be enabled if CarrotMode is enabled
             config.ShowMeter = value
         end
+        rom.ImGui.TextWrapped("Turning this off will also disable Carrot Mode")
+
+        rom.ImGui.TextWrapped("EXPERIMENTAL: Carrot Mode")
+        value, checked = rom.ImGui.Checkbox("Don't show until next Location is available *", config.CarrotMode)
+        if checked then
+            config.CarrotMode = value
+            -- make sure ShowMeter is enabled if CarrotMode is enabled
+            if value == true then config.ShowMeter = true end
+        end
+        rom.ImGui.TextWrapped("* Turning this on will also enable 'Show meter'.")
 
         rom.ImGui.Separator()
 
