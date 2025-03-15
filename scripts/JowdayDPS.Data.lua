@@ -15,19 +15,22 @@ function mod.getLocalizedNames()
     local aphOSpecial = omegaPrefix .. GetDisplayName({ Text = "AphroditeSpecialBoon" })
     local apoOAttack = omegaPrefix .. GetDisplayName({ Text = "ApolloWeaponBoon" })
     local apoOSpecial = omegaPrefix .. GetDisplayName({ Text = "ApolloSpecialBoon" })
-    local apoOCast = omegaPrefix .. GetDisplayName({Text = "ApolloExCastBoon"})
+    local apoOCast = omegaPrefix .. GetDisplayName({ Text = "ApolloExCastBoon" })
+    local areOAttack = omegaPrefix .. GetDisplayName({ Text = "AresWeaponBoon" })
+    local areOSpecial = omegaPrefix .. GetDisplayName({ Text = "AresSpecialBoon" })
+    local areOCast = omegaPrefix .. GetDisplayName({ Text = "AresCastBoon" })
     local demOAttack = omegaPrefix .. GetDisplayName({ Text = "DemeterWeaponBoon" })
     local demOSpecial = omegaPrefix .. GetDisplayName({ Text = "DemeterSpecialBoon" })
     local herOAttack = omegaPrefix .. GetDisplayName({ Text = "HeraWeaponBoon" })
     local herOSpecial = omegaPrefix .. GetDisplayName({ Text = "HeraSpecialBoon" })
-    local herOCast = omegaPrefix .. GetDisplayName({Text = "OmegaHeraProjectileBoon"})
+    local herOCast = omegaPrefix .. GetDisplayName({ Text = "OmegaHeraProjectileBoon" })
     local hesOAttack = omegaPrefix .. GetDisplayName({ Text = "HestiaWeaponBoon" })
     local hesOSpecial = omegaPrefix .. GetDisplayName({ Text = "HestiaSpecialBoon" })
     local hepOAttack = omegaPrefix .. GetDisplayName({ Text = "HephaestusWeaponBoon" })
     local hepOSpecial = omegaPrefix .. GetDisplayName({ Text = "HephaestusSpecialBoon" })
     local posOAttack = omegaPrefix .. GetDisplayName({ Text = "PoseidonWeaponBoon" })
     local posOSpecial = omegaPrefix .. GetDisplayName({ Text = "PoseidonSpecialBoon" })
-    local posOCast = omegaPrefix .. GetDisplayName( { Text = "OmegaPoseidonProjectileBoon" } )
+    local posOCast = omegaPrefix .. GetDisplayName({ Text = "OmegaPoseidonProjectileBoon" })
     local zeuOAttack = omegaPrefix .. GetDisplayName({ Text = "ZeusWeaponBoon" })
     local zeuOSpecial = omegaPrefix .. GetDisplayName({ Text = "ZeusSpecialBoon" })
     local spellTransformTrait = GetDisplayName({ Text = "SpellTransformTrait" })
@@ -35,6 +38,9 @@ function mod.getLocalizedNames()
     local darkSideSpecial = spellTransformTrait .. ' (' .. GetDisplayName({ Text = "Special" }) .. ')'
     local darkSideBlink = spellTransformTrait .. ' (' .. GetDisplayName({ Text = "Dash" }) .. ')'
     local darkSideCast = spellTransformTrait .. ' (' .. GetDisplayName({ Text = "Cast" }) .. ')'
+    -- practical gods
+    local artOAttack = omegaPrefix .. GetDisplayName({ Text = "ArtemisWeaponBoon" })
+    local artOSpecial = omegaPrefix .. GetDisplayName({ Text = "ArtemisSpecialBoon" })
 
     mod.NameLookup = {
         -- sheep?
@@ -65,6 +71,8 @@ function mod.getLocalizedNames()
         BaseCollision = "Traps",
         BeamTrap = "Traps",
         RubbleFall = "Traps",
+        RubbleFallOlympus = "Traps",
+        IcicleSplinter = "Traps",
         --
         OAttackText = oAttackText,
         OSpecialText = oSpecialText,
@@ -84,10 +92,15 @@ function mod.getLocalizedNames()
         WeaponAxeSpecialSwing = "Special",
         WeaponAxeSpin = "Attack",
         WeaponAxeBlock2 = "Special",
+        WeaponAxeSpecial = "Special",
         --
         WeaponLob = "Attack",
         WeaponLobSpecial = "Special",
         WeaponLobPulse = "Attack",
+        --
+        WeaponSuit = "Attack",
+        WeaponSuitRanged = "Special",
+        WeaponSprintEx = "NyxSprint",
         -- artemis assist
         ArtemisSniperBolt = "Artemis",
         ArtemisVolleyShot = "Artemis",
@@ -131,7 +144,7 @@ function mod.getLocalizedNames()
             ["OAttack"] = aphOAttack,
             ["Special"] = "AphroditeSpecialBoon",
             ["OSpecial"] = aphOSpecial,
-            ["Dash"] = "AphroditeSprintBoon",
+            ["AphroditeRushProjectile"] = "AphroditeSprintBoon",
             ["WeaponCast"] = "AphroditeCastBoon",
             ["AphroditeBurst"] = "ManaBurstBoon",
         },
@@ -146,22 +159,50 @@ function mod.getLocalizedNames()
             ["ApolloRetaliateStrike"] = "ApolloRetaliateBoon",
             ["ApolloPerfectDashStrike"] = "ApolloMissStrikeBoon",
         },
+        Ares = {
+            ["Attack"] = "AresWeaponBoon",
+            ["OAttack"] = areOAttack,
+            ["Special"] = "AresSpecialBoon",
+            ["OSpecial"] = areOSpecial,
+            ["Dash"] = "AresSprintBoon",
+            ["ProjectileAresSwordEx"] = "OmegaDelayedDamageBoon",
+            ["ProjectileAresSwordWake"] = "AresSprintBoon",
+            ["ProjectileAresSwordCast"] = "AresCastBoon",
+            ["WeaponCast"] = areOCast,
+            ["OCastAres"] = "BladeRift"
+        },
         Artemis = {
             ["ArtemisSupportingFire"] = "SupportingFireBoon",
-            ["ArtemisCastVolley"] = "OmegaCastVolleyBoon"
+            ["ArtemisCastVolley"] = "OmegaCastVolleyBoon",
+            ["ArtemisSupportingFireSprint"] = "ArtemisSprintBoon",
+            -- practical gods
+            ["Attack"] = "ArtemisWeaponBoon",
+            ["OAttack"] = artOAttack,
+            ["Special"] = "ArtemisSpecialBoon",
+            ["OSpecial"] = artOSpecial
+        },
+        Athena = {
+            ["AthenaDeflectingProjectile"] = "AthenaProjectileBoon",
+            ["AthenaCastProjectile"] = "InvulnerabilityCastBoon",
+            ["AthenaRushProjectile"] = "InvulnerabilityDashBoon",
         },
         Demeter = {
             ["Attack"] = "DemeterWeaponBoon",
             ["OAttack"] = demOAttack,
             ["Special"] = "DemeterSpecialBoon",
             ["OSpecial"] = demOSpecial,
-            ["DemeterSprintStorm"] = "DemeterSprintBoon",
+            ["Dash"] = "DemeterSprintBoon",
             ["WeaponCast"] = "DemeterCastBoon",
             ["DemeterChillKill"] = "InstantRootKill",
         },
+        Dionysus = {
+            ["DamageOverTime"] = "DamageOverTime",
+            ["WeaponCastLob"] = "CastLobBoon"
+        },
         Hades = {
             ["WeaponCastProjectileHades"] = "HadesCastProjectileBoon",
-            ["Old Grudge"] = "HadesPreDamageBoon"
+            ["OldGrudge"] = "HadesPreDamageBoon",
+            ["HadesUrnDeath"] = "HadesManaUrnBoon",
         },
         Hera = {
             ["Attack"] = "HeraWeaponBoon",
@@ -173,7 +214,8 @@ function mod.getLocalizedNames()
             ["DamageShareEffect"] = "Link",
             ["DamageShareDeath"] = "LinkedDeathDamageBoon",
             ["ProjectileHeraOmega"] = herOCast,
-            ["LinkNova"] = "SpawnCastDamageBoon"
+            ["LinkNova"] = "SpawnCastDamageBoon",
+            ["HeraSprintProjectile"] = "HeraSprintBoon"
         },
         Hestia = {
             ["Attack"] = "HestiaWeaponBoon",
@@ -211,7 +253,7 @@ function mod.getLocalizedNames()
             ["ArmorPenaltyCurse"] = "ArmorPenaltyCurse"
         },
         OdysseusKeepsake = {
-            ["Knuckle Bones"] = "BossPreDamageKeepsake"
+            ["KnuckleBones"] = "BossPreDamageKeepsake"
         },
         Poseidon = {
             ["Attack"] = "PoseidonWeaponBoon",
@@ -232,6 +274,7 @@ function mod.getLocalizedNames()
             ["WeaponTransformSpecial"] = darkSideSpecial,
             ["WeaponTransformBlink"] = darkSideBlink,
             ["WeaponTransformCast"] = darkSideCast,
+            ["WeaponSpellMoonBeam"] = "SpellMoonBeamTrait",
         },
         Zeus = {
             ["Attack"] = "ZeusWeaponBoon",
@@ -245,7 +288,7 @@ function mod.getLocalizedNames()
             ["ZeusZeroManaStrike"] = "ZeusManaBoltBoon",
             ["ZeusRetaliateStrike"] = "BoltRetaliateBoon",
             ["WeaponAnywhereCast"] = "CastAnywhereBoon",
-            ["ZeusOnSpawn"] = "SpawnKillBoon"
+            ["ZeusOnSpawn"] = "SpawnKillBoon",
         },
         DuoAphroditeHestia = {
             ["ShadeMercFireball"] = "ShadeMercFireballBoon"
@@ -261,6 +304,12 @@ function mod.getLocalizedNames()
         },
         DuoHestiaPoseidon = {
             ["SteamBlast"] = "SteamBoon"
+        },
+        DuoHeraHestia = {
+            ["ManaRestoreBlast"] = "ManaRestoreDamageBoon"
+        },
+        DuoDemeterZeus = {
+            ["ZeusRootStrike"] = "RootStrikeBoon"
         }
     }
 end
@@ -282,6 +331,14 @@ mod.DpsColors = {
         BarColor = Color.AphroditeDamage,
         Icons = { "Aphrodite" }
     },
+    Apollo = {
+        BarColor = Color.ApolloDamageLight,
+        Icons = { "Apollo" }
+    },
+    Ares = {
+        BarColor = Color.AresDamageLight,
+        Icons = { "Ares" }
+    },
     Artemis = {
         BarColor = Color.ArtemisDamage,
         Icons = { "Artemis" }
@@ -291,10 +348,6 @@ mod.DpsColors = {
         LabelColor = Color.ArtemisDamageLight,
         Icons = { "Artemis" }
     },
-    Apollo = {
-        BarColor = Color.ApolloDamageLight,
-        Icons = { "Apollo" }
-    },
     Athena = {
         BarColor = Color.AthenaDamageLight,
         Icons = { "Athena" }
@@ -302,6 +355,10 @@ mod.DpsColors = {
     Demeter = {
         BarColor = Color.DemeterDamage,
         Icons = { "Demeter" }
+    },
+    Dionysus = {
+        BarColor = Color.DionysusDamage,
+        Icons = { "Dionysus" }
     },
     Hades = {
         BarColor = Color.HadesVoice,
@@ -354,6 +411,14 @@ mod.DpsColors = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Hestia", "Poseidon" }
     },
+    DuoHeraHestia = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Hestia", "Hera" }
+    },
+    DuoDemeterZeus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Demeter" }
+    },
     NemesisAssist = {
         BarColor = Color.NemesisVoice,
         LabelColor = Color.NemesisVoice
@@ -391,15 +456,18 @@ mod.DpsColors = {
 }
 
 mod.Icons = {
-    Aphrodite = { Name = "BoonInfoSymbolAphroditeIcon", Scale = 0.15 },
-    Apollo = { Name = "BoonInfoSymbolApolloIcon", Scale = 0.2 },
-    Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis2", Scale = 0.075 },
-    Demeter = { Name = "BoonInfoSymbolDemeterIcon", Scale = 0.21 },
-    Hades = { Name = "GUI\\Icons\\Hades_Symbol_01", Scale = 0.09 },
-    Hera = { Name = "BoonInfoSymbolHeraIcon", Scale = 0.2 },
-    Hestia = { Name = "BoonInfoSymbolHestiaIcon", Scale = 0.2 },
-    Hephaestus = { Name = "BoonSymbolHephaestusIcon", Scale = 0.2 },
-    Poseidon = { Name = "BoonInfoSymbolPoseidonIcon", Scale = 0.2 },
+    Aphrodite = { Name = "GUI\\Screens\\BoonSelectSymbols\\Aphrodite", Scale = 0.1 },
+    Apollo = { Name = "GUI\\Screens\\BoonSelectSymbols\\Apollo", Scale = 0.1 },
+    Ares = { Name = "GUI\\Screens\\BoonSelectSymbols\\Ares", Scale = 0.1 },
+    Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis", Scale = 0.1 },
+    Athena = { Name = "GUI\\Screens\\BoonSelectSymbols\\Athena", Scale = 0.1 },
+    Demeter = { Name = "GUI\\Screens\\BoonSelectSymbols\\Demeter", Scale = 0.1 },
+    Dionysus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Dionysus", Scale = 0.1 },
+    Hades = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hades", Scale = 0.1 },
+    Hera = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hera", Scale = 0.1 },
+    Hestia = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hestia", Scale = 0.1 },
+    Hephaestus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hephaestus", Scale = 0.1 },
+    Poseidon = { Name = "GUI\\Screens\\BoonSelectSymbols\\Poseidon", Scale = 0.1 },
     Selene = { Name = "Items\\Loot\\SpellDrop_Preview", Scale = 0.2 },
-    Zeus = { Name = "BoonInfoSymbolZeusIcon", Scale = 0.2 }
+    Zeus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Zeus", Scale = 0.1 }
 }
