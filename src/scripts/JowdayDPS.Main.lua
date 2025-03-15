@@ -57,7 +57,6 @@ DpsBars = {}
 DpsIcons = {}
 LastDpsPosition = {}
 LastDpsBackgroundPosition = {}
-ShowMeter = true
 local dpsInterval = 999999
 
 -- damage/data functions
@@ -102,8 +101,15 @@ function calculateDps(list)
         game.Destroy({ Id = component.Id })
         DpsIcons[bar] = nil
     end
-
-    if ShowMeter == true then
+    if config.ShowMeter
+        and (
+            not config.CarrotMode
+            or (
+                config.CarrotMode
+                and not DpsUpdateThread
+            )
+            or ModUtil.Path.Get("CurrentHubRoom.Name") == "Hub_PreRun"
+        ) then
         local yPos = config.InitialY
         -- Create UI to show DPS bars for each source
         for i, source in ipairs(sourcesSortedByDamage) do
@@ -158,8 +164,11 @@ function godMatcher(name)
 
     if name:match("Apollo") then return "Apollo" end
     if name:match("Aphrodite") then return "Aphrodite" end
+    if name:match("Ares") then return "Ares" end
     if name:match("Artemis") then return "Artemis" end
+    if name:match("Athena") then return "Athena" end
     if name:match("Demeter") then return "Demeter" end
+    if name:match("Dionysus") then return "Dionysus" end
     if name:match("Hera") then return "Hera" end
     if name:match("Hephaestus") then return "Hephaestus" end
     if name:match("Hestia") then return "Hestia" end
@@ -195,9 +204,17 @@ function getEquippedBoons(trait)
     if god ~= nil then
         CurrentGods[god] = true
     end
-    -- game reports all the Medea stuff "MedeaCurse" so determine via trait
-    if name ~= nil and (name == 'SpawnDamageCurse' or name == 'DeathDefianceRetaliateCurse' or name == 'ArmorPenaltyCurse') then
-        WeaponVar["MedeaCurse"] = name
+    -- check for Knuckle Bone uses
+    if name ~= nil and name == 'BossPreDamageKeepsake' and trait.Uses ~= nil and trait.Uses > 0 then
+        WeaponVar["KnuckleBones"] = trait.ReportedDamage
+    end
+    -- check for Old Grudge
+    if name ~= nil and name == 'HadesPreDamageBoon' and trait.Uses ~= nil and trait.Uses > 0 then
+        WeaponVar["OldGrudge"] = trait.ReportedDamage
+    end
+
+    if WeaponVar["KnuckleBones"] ~= nil or WeaponVar["OldGrudge"] ~= nil then
+        WeaponVar["BossPreDamage"] = true
     end
 end
 
@@ -208,7 +225,9 @@ function clearWeaponInfo()
     WeaponVar["Special"] = nil
     WeaponVar["Cast"] = nil
     WeaponVar["Dash"] = nil
-    WeaponVar["MedeaCurse"] = nil
+    WeaponVar["KnuckleBones"] = nil
+    WeaponVar["OldGrudge"] = nil
+    WeaponVar["BossPreDamage"] = nil
 
     -- also reset god list
     CurrentGods = {}
@@ -228,6 +247,9 @@ function getSourceName(triggerArgs, victim)
     source = triggerArgs.SourceWeapon or source
     source = attackerWeaponData.LinkedUpgrades or source
 
+    -- investigate further, but special handling for divine dash
+    if (triggerArgs.SourceProjectile == 'AthenaRushProjectile') then source = 'AthenaRushProjectile' end
+
     if config.SplitDashStrike == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil
         if sourceProjectile ~= nil then
@@ -238,6 +260,9 @@ function getSourceName(triggerArgs, victim)
             end
         end
     end
+
+    -- ares is acting weird
+    if source == 'AresProjectile' then source = 'OCastAres' end
 
     if config.SplitOmega == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil
@@ -263,10 +288,21 @@ function getSourceName(triggerArgs, victim)
         end
     end
 
+    -- print('---')
+    -- print(triggerArgs.WeaponName)
+    -- print(triggerArgs.EffectName)
+    -- print(triggerArgs.SourceProjectile)
+    -- print(triggerArgs.SourceWeapon)
+    -- print(attackerWeaponData.LinkedUpgrades)
+    -- print(game.TableToJSONString(triggerArgs))
+    -- print(game.TableToJSONString(victim))
+    -- print('final source before lookup: ' .. source)
+
     source = NameLookup[source] or source
 
     -- charm has several flavors
-    if attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1 then
+    local isCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
+    if isCharmed then
         source = "Charm"
     end
 
@@ -274,20 +310,22 @@ function getSourceName(triggerArgs, victim)
         source = "ParryHit"
     end
 
-    if source == "MedeaCurse" and WeaponVar["MedeaCurse"] ~= nil then
-        source = WeaponVar["MedeaCurse"]
+    if source == "MedeaCurse" then
+        source = triggerArgs.CurseName or "MedeaCurse"
     end
 
-    if source == 'Unknown' then
-        -- distinguish between Old Grudge (20%) and Knuckle Bones (<=15%)
-        if triggerArgs.Silent and victim.IsBoss == true then
-            local damage = triggerArgs.DamageAmount or 0
-            local maxhealth = victim.MaxHealth
-            local ratio = damage / maxhealth
-            if ratio > 0.15 then
-                source = "Old Grudge"
-            else
-                source = "Knuckle Bones"
+    if source == "Unknown" then
+        -- check if user has Old Grudge and/or Knuckle Bones
+        if WeaponVar["BossPreDamage"] ~= nil and triggerArgs.Silent and victim.IsBoss == true then
+            -- old grudge
+            if triggerArgs.PreDamageBossFunctionName ~= nil and triggerArgs.PreDamageBossFunctionName == "HadesPreDamagePresentation" then
+                source = "OldGrudge"
+                WeaponVar["OldGrudge"] = nil
+            end
+            -- knuckle bones
+            if WeaponVar["KnuckleBones"] ~= nil and triggerArgs.PreDamageBossFunctionName ~= nil and triggerArgs.PreDamageBossFunctionName == "PreDamagePresentation" then
+                source = "KnuckleBones"
+                WeaponVar["KnuckleBones"] = nil
             end
         end
     end
@@ -348,7 +386,7 @@ function createDpsHeader(obstacleName, totalDamage, dps, x, y)
         game.CreateTextBox({
             Id = ScreenAnchors[obstacleName],
             Text = text,
-            OffsetX = -5,
+            OffsetX = -50,
             OffsetY = 0,
             Font = "LatoSemibold",
             FontSize = 14,
@@ -517,13 +555,13 @@ function getColorAndLabel(source)
         end
     end
 
-    if source == 'Cast' then
+    if source == 'WeaponCast' then
         if cast ~= nil and sources[cast] ~= nil then
             color = colors[cast]
-            niceLabel = sources[cast]["Cast"]
+            niceLabel = sources[cast]["WeaponCast"]
             return color, niceLabel
         else
-            return colors["Default"], Locale.CastText
+            return colors["Default"], NameLookup.OCastText
         end
     end
 
@@ -543,7 +581,7 @@ function getColorAndLabel(source)
     elseif source == 'Nemesis' then
         return colors["NemesisAssist"], "NPC_Nemesis_01"
     elseif source == 'Heracles' then
-        return colors["HeraclesAssist"], "NPC_Nemesis_01"
+        return colors["HeraclesAssist"], "NPC_Heracles_01"
     elseif source == 'Icarus' then
         return colors["IcarusAssist"], "NPC_Icarus_01"
     elseif source == "ShadeMercSpiritball" then
@@ -554,9 +592,6 @@ function getColorAndLabel(source)
         return colors["Frinos"], "FrogFamiliar"
     elseif source == "Toula" then
         return colors["Toula"], "CatFamiliar"
-        -- and some localization
-    -- elseif source == "Charm" then
-    --     return colors["Default"], Locale.Charm
     end
 
     if color == nil then
@@ -609,8 +644,21 @@ end
 ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     local preHitHealth = victim.Health
     baseFunc(victim, triggerArgs)
+    local attackerTable = triggerArgs.AttackerTable or {}
+    local activeEffects = attackerTable.ActiveEffects or {}
+    local activeEffectsStart = attackerTable.ActiveEffectsAtDamageStart or {}
+
     local victimCharmed = IsCharmed({ Id = victim.ObjectId })
+    -- don't use ingame function here because reasons
+    local attackerCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
+
     local playerWasAttacker = triggerArgs.AttackerName == "_PlayerUnit"
+
+    local preDamage = triggerArgs.PreDamageBossFunctionName ~= nil
+    local isCurse = triggerArgs.CurseName ~= nil
+    -- print('attackerCharmed: ' .. tostring(attackerCharmed))
+    -- print('victimCharmed: ' .. tostring(victimCharmed))
+    -- print('playerWasAttacker: ' .. tostring(playerWasAttacker))
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
         and (victim.Name == "NPC_Skelly_01"
@@ -619,14 +667,24 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
             or victim.IsBoss
         )
         -- this wonky logic is to discard charmed enemies being damaged by other enemies
+        -- victim is charmed, hit by NPC
         and not (victimCharmed and not playerWasAttacker)
+        -- attacker is not charmed, victim is not charmed, hit by NPC, and also not a boss pre-damage boon or a medea curse. whew
+        and not (not attackerCharmed and not victimCharmed and not playerWasAttacker and not preDamage and not isCurse)
     then
         local damageInstance = {}
-        damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
+        if config.CountOverkillDamage then
+            damageInstance.Damage = triggerArgs.DamageAmount
+        else
+            damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
+        end
         damageInstance.Timestamp = GetTime({})
         damageInstance.Source = getSourceName(triggerArgs, victim)
 
-        List.addValue(DamageHistory, damageInstance)
+        -- don't log unknowns
+        if damageInstance.Source ~= 'Unknown' then
+            List.addValue(DamageHistory, damageInstance)
+        end
     end
 end, mod)
 
@@ -663,6 +721,32 @@ ModUtil.Path.Wrap("BeginOpeningEncounter", function(baseFunc)
     end
 end, mod)
 
+--[[ on trait add:
+    - recalculate weapon info
+    - this is so using something like PonyMenu will update immediately
+]] --
+ModUtil.Path.Wrap("AddTraitToHero", function(base, ...)
+    local trait = base(...)
+    clearWeaponInfo()
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        getEquippedBoons(trait)
+    end
+    return trait
+end, mod)
+
+--[[ on trait remove:
+    - recalculate weapon info
+    - this is so using something like PonyMenu will update immediately
+]] --
+ModUtil.Path.Wrap("RemoveTrait", function(base, ...)
+    local trait = base(...)
+    clearWeaponInfo()
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        getEquippedBoons(trait)
+    end
+    return trait
+end, mod)
+
 --[[ on player death:
     - stop polling
     - clear weapon info]]
@@ -672,6 +756,47 @@ ModUtil.Path.Wrap("KillHero", function(baseFunc, victim, triggerArgs)
     clearWeaponInfo()
 end, mod)
 
+-- add the pre-damage function name to triggerArgs to be used later
+ModUtil.Path.Context.Wrap("PreDamageBoss", function(enemy, damageAmount, damageData)
+    ModUtil.Path.Wrap("Damage", function(base, victim, triggerArgs)
+        local preDamageName = damageData.PresentationFunctionName or "PreDamagePresentation"
+        local updatedArgs = { DamageAmount = damageAmount, Silent = true, PreDamageBossFunctionName = preDamageName }
+        base(victim, updatedArgs)
+    end)
+end)
+
+-- determine which of medea's curses is happening
+ModUtil.Path.Wrap("CheckSpawnCurseDamage", function(base, enemy, traitArgs)
+    traitArgs.CurseName = "SpawnDamageCurse"
+    base(enemy, traitArgs)
+end)
+
+ModUtil.Path.Wrap("CheckSpawnArmorDamage", function(base, enemy, traitArgs)
+    traitArgs.CurseName = "ArmorPenaltyCurse"
+    base(enemy, traitArgs)
+end)
+
+ModUtil.Path.Wrap("CurseRetaliate", function(base, functionArgs, triggerArgs)
+    functionArgs.CurseName = "DeathDefianceRetaliateCurse"
+    base(functionArgs, triggerArgs)
+end)
+
+ModUtil.Path.Context.Wrap("DoCurseDamage", function(enemy, traitArgs, damageAmount)
+    ModUtil.Path.Wrap("Damage", function(base, victim, triggerArgs)
+        local curseName = traitArgs.CurseName
+        local updatedArgs = {
+            AttackerTable = game.CurrentRun.Hero,
+            AttackerId = game.CurrentRun.Hero.ObjectId,
+            SourceProjectile =
+            "MedeaCurse",
+            DamageAmount = damageAmount,
+            Silent = false,
+            PureDamage = true,
+            CurseName = curseName
+        }
+        base(victim, updatedArgs)
+    end)
+end)
 
 -- set up polling if it isn't already
 OnAnyLoad { function()

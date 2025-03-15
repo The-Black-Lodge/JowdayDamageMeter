@@ -26,21 +26,22 @@ reload = mods['SGG_Modding-ReLoad']
 config = chalk.auto 'config.lua'
 public.config = config
 
+CurrentBind = nil
+
 local function on_ready()
     if config.enabled == false then return end
 
     import 'scripts/sjson.lua'
     import 'scripts/JowdayDPS.Data.lua'
     import 'localize.lua'
-    import 'lang/en.lua'
-    import 'lang/fr.lua'
-    import 'lang/ptBR.lua'
-    import 'lang/zhCN.lua'
     import 'scripts/JowdayDPS.Main.lua'
 end
 
 local function on_reload()
-    rom.inputs.on_key_pressed({config.ToggleMeterBind, Name = "Toggle Meter Visibility", function() ShowMeter = not ShowMeter end})
+    import 'func.lua'
+    import 'imgui.lua'
+    setBind()
+    adjustSkellyHealth()
 end
 
 -- this allows us to limit certain functions to not be reloaded.
@@ -48,5 +49,5 @@ local loader = reload.auto_single()
 
 -- this runs only when modutil and the game's lua is ready
 modutil.once_loaded.game(function()
-	loader.load(on_ready, on_reload)
+    loader.load(on_ready, on_reload)
 end)

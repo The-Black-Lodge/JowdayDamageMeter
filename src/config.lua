@@ -2,7 +2,7 @@
 ---@diagnostic disable
 
 local config = {
-    version = 1.0,
+    version = 1.1,
     PollingInterval = 0.2,
     TrainingRoomClearTime = 5,
     InitialY = 840,
@@ -15,7 +15,14 @@ local config = {
     SplitDashStrike = true,
     SplitOmega = true,
     OmegaIndicator = "{!Icons.Omega_NoTooltip}",
-    ToggleMeterBind = "Ctrl Y"
+    ToggleMeterBind = "Ctrl Y",
+    ToggleMeterModifier = "Ctrl",
+    ToggleMeterKey = "Y",
+    ShowMeter = true,
+    CustomSkellyHealth = false,
+    SkellyHealthMax = 920,
+    CountOverkillDamage = false,
+    CarrotMode = false
 }
 
 local configDesc = {
@@ -32,7 +39,14 @@ local configDesc = {
     SplitOmega = "Show Omega attacks/specials in separate bars.",
     OmegaIndicator =
     "If SplitOmega is enabled, this will prefix the given attack/special name. Can use plain text if the default icon causes flickering.",
-    ToggleMeterBind = "Press this to hide/show the meter."
+    ToggleMeterBind = "Press this to hide/show the meter.",
+    ToggleMeterModifier = "Modifier for meter bind. default is Ctrl",
+    ToggleMeterKey = "Key for meter bind. default is Y",
+    ShowMeter = "Display the meter. default is true",
+    CustomSkellyHealth = "Customize the amount of health Skelly has. default is false",
+    SkellyHealthMax = "How much health to give Skelly. default is 920",
+    CountOverkillDamage = "Whether or not to count damage that goes over the enemy's health. default is false",
+    CarrotMode = "Don't display the damage meter until combat has ended."
 }
 
 return config, configDesc
