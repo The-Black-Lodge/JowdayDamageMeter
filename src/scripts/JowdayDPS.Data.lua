@@ -21,14 +21,14 @@ function getLocalizedNames()
     local demOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "DemeterSpecialBoon" })
     local herOAttack = omegaPrefix .. game.GetDisplayName({ Text = "HeraWeaponBoon" })
     local herOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "HeraSpecialBoon" })
-    local herOCast = omegaPrefix .. game.GetDisplayName({Text = "OmegaHeraProjectileBoon"})
+    local herOCast = omegaPrefix .. game.GetDisplayName({ Text = "OmegaHeraProjectileBoon" })
     local hesOAttack = omegaPrefix .. game.GetDisplayName({ Text = "HestiaWeaponBoon" })
     local hesOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "HestiaSpecialBoon" })
     local hepOAttack = omegaPrefix .. game.GetDisplayName({ Text = "HephaestusWeaponBoon" })
     local hepOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "HephaestusSpecialBoon" })
     local posOAttack = omegaPrefix .. game.GetDisplayName({ Text = "PoseidonWeaponBoon" })
     local posOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "PoseidonSpecialBoon" })
-    local posOCast = omegaPrefix .. game.GetDisplayName( { Text = "OmegaPoseidonProjectileBoon" } )
+    local posOCast = omegaPrefix .. game.GetDisplayName({ Text = "OmegaPoseidonProjectileBoon" })
     local zeuOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ZeusWeaponBoon" })
     local zeuOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ZeusSpecialBoon" })
     local spellTransformTrait = game.GetDisplayName({ Text = "SpellTransformTrait" })
@@ -128,6 +128,7 @@ function getLocalizedNames()
         PolyphemusStomachAche = Locale.EnemyText,
         -- don't translate these
         HeraCastSummonProjectile = "WeaponCast",
+        HeraCastDamageProjectile = "WeaponCast",
         DemeterSprintStorm = "Dash",
         HephSprintBlast = "Dash",
         PoseidonSprintBlast = "Dash",
