@@ -244,8 +244,11 @@ function getSourceName(triggerArgs, victim)
     source = triggerArgs.WeaponName or source
     source = triggerArgs.EffectName or source
     source = triggerArgs.SourceProjectile or source
-    source = triggerArgs.SourceWeapon or source
-    source = attackerWeaponData.LinkedUpgrades or source
+    -- stop here if ApolloCast
+    if source ~= 'ApolloCast' then
+        source = triggerArgs.SourceWeapon or source
+        source = attackerWeaponData.LinkedUpgrades or source
+    end
 
     -- investigate further, but special handling for divine dash
     if (triggerArgs.SourceProjectile == 'AthenaRushProjectile') then source = 'AthenaRushProjectile' end
@@ -642,6 +645,7 @@ end
 --[[ on enemy damage:
     - create damage instance ]]
 ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
+    -- print(game.TableToJSONString(triggerArgs))
     local preHitHealth = victim.Health
     baseFunc(victim, triggerArgs)
     local attackerTable = triggerArgs.AttackerTable or {}
@@ -659,6 +663,8 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     -- print('attackerCharmed: ' .. tostring(attackerCharmed))
     -- print('victimCharmed: ' .. tostring(victimCharmed))
     -- print('playerWasAttacker: ' .. tostring(playerWasAttacker))
+    -- print('DamageAmount: ' .. triggerArgs.DamageAmount)
+    -- print('checking if we log the damage...')
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
         and (victim.Name == "NPC_Skelly_01"
@@ -672,6 +678,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         -- attacker is not charmed, victim is not charmed, hit by NPC, and also not a boss pre-damage boon or a medea curse. whew
         and not (not attackerCharmed and not victimCharmed and not playerWasAttacker and not preDamage and not isCurse)
     then
+        -- print('YES')
         local damageInstance = {}
         if config.CountOverkillDamage then
             damageInstance.Damage = triggerArgs.DamageAmount
@@ -680,11 +687,14 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         end
         damageInstance.Timestamp = GetTime({})
         damageInstance.Source = getSourceName(triggerArgs, victim)
+        -- print('source: ' .. damageInstance.Source)
 
         -- don't log unknowns
         if damageInstance.Source ~= 'Unknown' then
             List.addValue(DamageHistory, damageInstance)
         end
+    else
+        -- print('NO')
     end
 end, mod)
 

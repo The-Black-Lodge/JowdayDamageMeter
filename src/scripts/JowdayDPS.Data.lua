@@ -13,7 +13,8 @@ function getLocalizedNames()
     local aphOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "AphroditeSpecialBoon" })
     local apoOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ApolloWeaponBoon" })
     local apoOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ApolloSpecialBoon" })
-    local apoOCast = omegaPrefix .. game.GetDisplayName({ Text = "ApolloExCastBoon" })
+    local apoOCast = omegaPrefix .. game.GetDisplayName({ Text = "ApolloCastBoon" })
+    local apoOCastEx = omegaPrefix .. game.GetDisplayName({ Text = "ApolloExCastBoon" })
     local areOAttack = omegaPrefix .. game.GetDisplayName({ Text = "AresWeaponBoon" })
     local areOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "AresSpecialBoon" })
     local areOCast = omegaPrefix .. game.GetDisplayName({ Text = "AresCastBoon" })
@@ -153,6 +154,7 @@ function getLocalizedNames()
             ["Special"] = "ApolloSpecialBoon",
             ["OSpecial"] = apoOSpecial,
             ["Dash"] = "ApolloSprintBoon",
+            ["ApolloCast"] = apoOCastEx,
             ["ApolloSingleCastStrike"] = "ApolloCastBoon",
             ["WeaponCast"] = apoOCast,
             ["ApolloRetaliateStrike"] = "ApolloRetaliateBoon",

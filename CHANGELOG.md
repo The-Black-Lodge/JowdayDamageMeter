@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## Fixed
+- Prominence Flare was not properly tracked
+
 ## [2.8.7] - 2025-03-16
 
 ## [2.8.6] - 2025-03-01
