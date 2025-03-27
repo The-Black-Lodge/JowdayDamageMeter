@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 
+## [2.8.8] - 2025-03-27
+
 ## Fixed
+
 - Prominence Flare was not properly tracked
 
 ## [2.8.7] - 2025-03-16
@@ -206,7 +209,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.7...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.8...HEAD
+[2.8.8]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.7...2.8.8
 [2.8.7]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.6...2.8.7
 [2.8.6]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.5...2.8.6
 [2.8.5]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.4...2.8.5
