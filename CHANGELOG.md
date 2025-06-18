@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Updated
+- added some new abilities
 
 ## [2.8.8] - 2025-03-27
 

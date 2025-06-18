@@ -80,6 +80,7 @@ function getLocalizedNames()
         WeaponDagger = "Attack",
         WeaponDaggerThrow = "Special",
         WeaponBlink = "Dash",
+        WomboStrike = "TripleAspectStrike",
         --
         WeaponStaffSwing = "Attack",
         WeaponStaffBall = "Special",
@@ -186,6 +187,7 @@ function getLocalizedNames()
             ["AthenaDeflectingProjectile"] = "AthenaProjectileBoon",
             ["AthenaCastProjectile"] = "InvulnerabilityCastBoon",
             ["AthenaRushProjectile"] = "InvulnerabilityDashBoon",
+            ["ProjectileAthenaManaSpear"] = "ManaSpearBoon"
         },
         Demeter = {
             ["Attack"] = "DemeterWeaponBoon",
@@ -265,7 +267,8 @@ function getLocalizedNames()
             ["WeaponCast"] = "PoseidonCastBoon",
             ["PoseidonSplashSplinter"] = "PoseidonSplash_Name",
             ["PoseidonCollisionBlast"] = "SlamExplosionBoon",
-            ["PoseidonOmegaProjectile"] = posOCast
+            ["PoseidonOmegaProjectile"] = posOCast,
+            ["PoseidonEffectFont"] = "KnockbackAmplify"
         },
         Selene = {
             ["WeaponSpellLaser"] = "SpellLaserTrait",
