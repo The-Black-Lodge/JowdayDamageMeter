@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.9] - 2025-06-18
+
 ## Updated
+
 - added some new abilities
 
 ## [2.8.8] - 2025-03-27
@@ -211,7 +215,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.8...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.9...HEAD
+[2.8.9]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.8...2.8.9
 [2.8.8]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.7...2.8.8
 [2.8.7]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.6...2.8.7
 [2.8.6]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.5...2.8.6
