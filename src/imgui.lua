@@ -69,7 +69,7 @@ function drawMenu()
         end
         rom.ImGui.TextWrapped("Turning this off will also disable Carrot Mode")
 
-        rom.ImGui.TextWrapped("EXPERIMENTAL: Carrot Mode")
+        rom.ImGui.TextWrapped("Carrot Mode")
         value, checked = rom.ImGui.Checkbox("Don't show until next Location is available *", config.CarrotMode)
         if checked then
             config.CarrotMode = value
