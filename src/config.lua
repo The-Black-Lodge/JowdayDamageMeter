@@ -2,7 +2,7 @@
 ---@diagnostic disable
 
 local config = {
-    version = 1.1,
+    version = 1.2,
     PollingInterval = 0.2,
     TrainingRoomClearTime = 5,
     InitialY = 840,
@@ -22,7 +22,13 @@ local config = {
     CustomSkellyHealth = false,
     SkellyHealthMax = 920,
     CountOverkillDamage = false,
-    CarrotMode = false
+    CarrotMode = false,
+    -- Performance optimization settings
+    EnableAdaptivePolling = true,
+    EnableChangeDetection = true,
+    EnableUIComponentPooling = true,
+    MaxUIComponents = 20,
+    ChangeDetectionTolerance = 1
 }
 
 local configDesc = {
@@ -46,7 +52,13 @@ local configDesc = {
     CustomSkellyHealth = "Customize the amount of health Skelly has. default is false",
     SkellyHealthMax = "How much health to give Skelly. default is 920",
     CountOverkillDamage = "Whether or not to count damage that goes over the enemy's health. default is false",
-    CarrotMode = "Don't display the damage meter until combat has ended."
+    CarrotMode = "Don't display the damage meter until combat has ended.",
+    -- Performance optimization settings
+    EnableAdaptivePolling = "Enable adaptive polling frequency based on combat activity. Reduces CPU usage during low activity.",
+    EnableChangeDetection = "Only update UI when damage data actually changes. Prevents unnecessary redraws.",
+    EnableUIComponentPooling = "Reuse UI components instead of creating/destroying them. Eliminates flickering.",
+    MaxUIComponents = "Maximum number of UI components to pre-create for pooling.",
+    ChangeDetectionTolerance = "Damage tolerance for change detection. Higher values reduce sensitivity to small changes."
 }
 
 return config, configDesc

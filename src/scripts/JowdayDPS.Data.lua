@@ -35,8 +35,6 @@ function getLocalizedNames()
     local spellTransformTrait = game.GetDisplayName({ Text = "SpellTransformTrait" })
     local darkSideAttack = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Attack" }) .. ')'
     local darkSideSpecial = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Special" }) .. ')'
-    local darkSideBlink = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Dash" }) .. ')'
-    local darkSideCast = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Cast" }) .. ')'
     -- practical gods
     local artOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ArtemisWeaponBoon" })
     local artOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ArtemisSpecialBoon" })
@@ -47,6 +45,9 @@ function getLocalizedNames()
         -- familiars
         FrogFamiliarLand = "Frinos",
         CatFamiliarPounce = "Toula",
+        RavenFamiliarMelee = "RavenFamiliar",
+        RavenFamiliarMelee_Crit = "RavenFamiliar",
+        PolecatFamiliarMelee = "DodgeFamiliar",
         -- misc environment
         PolyphemusBoulderSky = Locale.Boulder,
         --- traps
@@ -72,6 +73,27 @@ function getLocalizedNames()
         RubbleFall = "Traps",
         RubbleFallOlympus = "Traps",
         IcicleSplinter = "Traps",
+        BrambleTrapBush = "Traps",
+        DestructibleMastSplinter = "Traps",
+        GunBombImmolation = "Traps",
+        LavaTile = "Traps",
+        LavaTileTriangle01 = "Traps",
+        LavaTileTriangle02 = "Traps",
+        LavaTileTriangle01Weapon = "Traps",
+        LavaTileTriangle02Weapon = "Traps",
+        PolyphemusBoulders = "Traps",
+        BloodMinePreFused = "Traps",
+        TyphonSpike = "Traps",
+        TyphonSpikeSplinter = "Traps",
+        TyphonEggExplosion = "Traps",
+        TyphonEgg = "Traps",
+        TyphonEggLarge = "Traps",
+        TyphonMine = "Traps",
+        HestiaStatueFireball = "Traps",
+        HestiaStatueFireRing = "Traps",
+        DemeterStatueFrostStorm = "Traps",
+        PoseidonStatueWave = "Traps",
+        ZeusStatueChasingStorm = "Traps",
         --
         OAttackText = oAttackText,
         OSpecialText = oSpecialText,
@@ -276,8 +298,6 @@ function getLocalizedNames()
             ["WeaponSpellMeteor"] = "SpellMeteorTrait",
             ["WeaponTransformAttack"] = darkSideAttack,
             ["WeaponTransformSpecial"] = darkSideSpecial,
-            ["WeaponTransformBlink"] = darkSideBlink,
-            ["WeaponTransformCast"] = darkSideCast,
             ["WeaponSpellMoonBeam"] = "SpellMoonBeamTrait",
         },
         Zeus = {
@@ -453,6 +473,14 @@ DpsColors = {
     Toula = {
         BarColor = Color.LightGold,
         LabelColor = Color.LightGold
+    },
+    Raven = {
+        BarColor = { 75, 45, 85, 255 },
+        LabelColor = { 75, 45, 85, 255 }
+    },
+    Gale = {
+        BarColor = { 160, 120, 80, 255 },
+        LabelColor = { 160, 120, 80, 255 }
     },
     Default = {
         BarColor = { 195, 175, 175, 255 }
