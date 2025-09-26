@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+# Fixed
+- fixed scorch not tracking (hopefully)
 
 ## [2.8.10] - 2025-06-23
 

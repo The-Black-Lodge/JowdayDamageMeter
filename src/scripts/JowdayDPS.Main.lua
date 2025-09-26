@@ -669,7 +669,11 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 
     -- bleh special case for scorch
     if (triggerArgs.AttackerId == CurrentRun.Hero.ObjectId) and (triggerArgs.EffectName == "BurnEffect") then
-        List.addValue(DamageHistory, {Source = "Burn", Damage = triggerArgs.DamageAmount, Timestamp = GetTime({})})
+        local damageAmount = triggerArgs.DamageAmount
+        if not config.CountOverkillDamage then
+            damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
+        end
+        List.addValue(DamageHistory, {Source = "Burn", Damage = damageAmount, Timestamp = GetTime({})})
         return
     end
     if (triggerArgs.DamageAmount or 0) > 0
