@@ -297,8 +297,8 @@ function getSourceName(triggerArgs, victim)
     -- print(triggerArgs.SourceProjectile)
     -- print(triggerArgs.SourceWeapon)
     -- print(attackerWeaponData.LinkedUpgrades)
-    -- print(game.TableToJSONString(triggerArgs))
-    -- print(game.TableToJSONString(victim))
+    -- print(TableToJSONString(triggerArgs))
+    -- print(TableToJSONString(victim))
     -- print('final source before lookup: ' .. source)
 
     source = NameLookup[source] or source
@@ -645,7 +645,8 @@ end
 --[[ on enemy damage:
     - create damage instance ]]
 ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
-    -- print(game.TableToJSONString(triggerArgs))
+    --print(TableToJSONString(triggerArgs))
+    --print(CurrentRun.Hero.ObjectId)
     local preHitHealth = victim.Health
     baseFunc(victim, triggerArgs)
     local attackerTable = triggerArgs.AttackerTable or {}
@@ -660,11 +661,17 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 
     local preDamage = triggerArgs.PreDamageBossFunctionName ~= nil
     local isCurse = triggerArgs.CurseName ~= nil
-    -- print('attackerCharmed: ' .. tostring(attackerCharmed))
-    -- print('victimCharmed: ' .. tostring(victimCharmed))
-    -- print('playerWasAttacker: ' .. tostring(playerWasAttacker))
-    -- print('DamageAmount: ' .. triggerArgs.DamageAmount)
-    -- print('checking if we log the damage...')
+    --print('attackerCharmed: ' .. tostring(attackerCharmed))
+    --print('victimCharmed: ' .. tostring(victimCharmed))
+    --print('playerWasAttacker: ' .. tostring(playerWasAttacker))
+    --print('DamageAmount: ' .. triggerArgs.DamageAmount)
+    --print('checking if we log the damage...')
+
+    -- bleh special case for scorch
+    if (triggerArgs.AttackerId == CurrentRun.Hero.ObjectId) and (triggerArgs.EffectName == "BurnEffect") then
+        List.addValue(DamageHistory, {Source = "Burn", Damage = triggerArgs.DamageAmount, Timestamp = GetTime({})})
+        return
+    end
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
         and (victim.Name == "NPC_Skelly_01"
@@ -678,7 +685,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         -- attacker is not charmed, victim is not charmed, hit by NPC, and also not a boss pre-damage boon or a medea curse. whew
         and not (not attackerCharmed and not victimCharmed and not playerWasAttacker and not preDamage and not isCurse)
     then
-        -- print('YES')
+        --print('YES')
         local damageInstance = {}
         if config.CountOverkillDamage then
             damageInstance.Damage = triggerArgs.DamageAmount
@@ -687,11 +694,13 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         end
         damageInstance.Timestamp = GetTime({})
         damageInstance.Source = getSourceName(triggerArgs, victim)
-        -- print('source: ' .. damageInstance.Source)
+        --print('source: ' .. damageInstance.Source)
 
         -- don't log unknowns
         if damageInstance.Source ~= 'Unknown' then
             List.addValue(DamageHistory, damageInstance)
+        else
+            --print('unknown damage source: ' .. damageInstance.Source)
         end
     else
         -- print('NO')
@@ -826,3 +835,75 @@ OnAnyLoad { function()
 end }
 
 setupMainData()
+
+function TableToJSONString( tableArg, keyBlacklist, name, depth, maxDepth )
+
+	-- Validating with: https://jsonformatter.curiousconcept.com/
+
+	if tableArg == nil then
+		return "null"
+	end
+
+	if depth == nil then
+		depth = 0
+	end
+	if maxDepth == nil then
+		maxDepth = 5
+	end
+	if depth > maxDepth then
+		return "null"
+	end
+	if keyBlacklist == nil then
+		keyBlacklist = {}
+	end
+
+	local outStr = "{"
+	local tableQueue = {
+		[1] =
+		{
+			Name = name,
+			Table = tableArg
+		}
+	}
+	local index = 0
+	while index < #tableQueue do
+		index = index + 1
+		local currentTable = tableQueue[index]
+
+		if depth == 0 then
+			outStr = outStr.."\""..tostring(currentTable.Name).."\": ".."{"
+		end
+
+		local tableLength = TableLength(currentTable.Table)
+		local entries = 0
+
+		for key, value in pairs(currentTable.Table) do
+
+			if not Contains(keyBlacklist, key) then
+				if type(value) == "table" then
+					outStr = outStr.."\""..tostring(key).."\": "..TableToJSONString( value, keyBlacklist, tostring(key), depth + 1, maxDepth )
+				else
+					if type(value) == "number" or type(value) == "boolean" then
+						outStr = outStr.."\""..tostring(key).."\": "..tostring(value)
+					elseif type(value) == "string" then
+						outStr = outStr.."\""..tostring(key).."\": \""..value.."\""
+					end
+				end
+
+				if entries < tableLength - 1 and tableLength > 1 then
+					outStr = outStr..","
+				end
+			end
+
+			entries = entries + 1
+		end
+
+		if depth == 0 then
+			outStr = outStr.."}"
+		end
+	end
+	outStr = outStr.."}"
+
+	return outStr
+
+end
