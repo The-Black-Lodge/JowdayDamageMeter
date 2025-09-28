@@ -292,7 +292,8 @@ function getLocalizedNames()
             ["PoseidonSplashSplinter"] = "PoseidonSplash_Name",
             ["PoseidonCollisionBlast"] = "SlamExplosionBoon",
             ["PoseidonOmegaProjectile"] = posOCast,
-            ["PoseidonEffectFont"] = "KnockbackAmplify"
+            ["PoseidonEffectFont"] = "KnockbackAmplify",
+            ["PoseidonOmegaWave"] = "OmegaPoseidonProjectileBoon"
         },
         Selene = {
             ["WeaponSpellLaser"] = "SpellLaserTrait",
