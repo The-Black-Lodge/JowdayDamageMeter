@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.12] - 2025-09-28
+
 ## Fixed
+
 - fixed scorch not tracking (hopefully)
 - added new damage
 
@@ -222,7 +226,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.11...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.12...HEAD
+[2.8.12]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.11...2.8.12
 [2.8.11]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.10...2.8.11
 [2.8.10]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.9...2.8.10
 [2.8.9]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.8...2.8.9
