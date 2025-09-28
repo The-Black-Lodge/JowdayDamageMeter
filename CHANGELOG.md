@@ -1,6 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- updated ui logic
+
+## Added
+- ocean swell
 
 ## [2.8.12] - 2025-09-28
 
