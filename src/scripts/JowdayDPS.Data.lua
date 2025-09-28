@@ -336,6 +336,9 @@ function getLocalizedNames()
         },
         DuoDemeterZeus = {
             ["ZeusRootStrike"] = "RootStrikeBoon"
+        },
+        DuoSeleneDemeter = {
+            ["DemeterTickEffect"] = "TimeSlowDemeterTalent"
         }
     }
 end
@@ -444,6 +447,10 @@ DpsColors = {
     DuoDemeterZeus = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Zeus", "Demeter" }
+    },
+    DuoSeleneDemeter = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Demeter", "Selene" }
     },
     NemesisAssist = {
         BarColor = Color.NemesisVoice,
