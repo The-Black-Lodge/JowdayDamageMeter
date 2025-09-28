@@ -219,6 +219,7 @@ function getLocalizedNames()
             ["Dash"] = "DemeterSprintBoon",
             ["WeaponCast"] = "DemeterCastBoon",
             ["DemeterChillKill"] = "InstantRootKill",
+            ["DemeterCastStorm"] = "CastNovaBoon"
         },
         Dionysus = {
             ["DamageOverTime"] = "DamageOverTime",
