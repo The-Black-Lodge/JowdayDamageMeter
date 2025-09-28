@@ -1,8 +1,9 @@
 # Changelog
 
 ## [Unreleased]
-# Fixed
+## Fixed
 - fixed scorch not tracking (hopefully)
+- added new damage
 
 ## [2.8.11] - 2025-09-26
 
