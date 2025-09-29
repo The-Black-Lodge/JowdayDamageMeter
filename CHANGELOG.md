@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.14] - 2025-09-29
+
 ## Added
+
 - demeter cast, hades slash
 
 ## [2.8.13] - 2025-09-28
@@ -238,7 +242,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.13...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.14...HEAD
+[2.8.14]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.13...2.8.14
 [2.8.13]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.12...2.8.13
 [2.8.12]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.11...2.8.12
 [2.8.11]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.10...2.8.11
