@@ -219,7 +219,8 @@ function getLocalizedNames()
             ["Dash"] = "DemeterSprintBoon",
             ["WeaponCast"] = "DemeterCastBoon",
             ["DemeterChillKill"] = "InstantRootKill",
-            ["DemeterCastStorm"] = "CastNovaBoon"
+            ["DemeterCastStorm"] = "CastNovaBoon",
+            ["DemeterCastBlast"] = "DemeterCastBoon"
         },
         Dionysus = {
             ["DamageOverTime"] = "DamageOverTime",
@@ -229,6 +230,7 @@ function getLocalizedNames()
             ["WeaponCastProjectileHades"] = "HadesCastProjectileBoon",
             ["OldGrudge"] = "HadesPreDamageBoon",
             ["HadesUrnDeath"] = "HadesManaUrnBoon",
+            ["SpearWeaponSpin"] = "HadesDashSweepBoon"
         },
         Hera = {
             ["Attack"] = "HeraWeaponBoon",

@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- demeter cast, hades slash
 
 ## [2.8.13] - 2025-09-28
 
