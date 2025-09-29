@@ -15,6 +15,9 @@ local config = {
     SplitDashStrike = true,
     SplitOmega = true,
     OmegaIndicator = "{!Icons.Omega_NoTooltip}",
+    ShowMeter = true,
+    CarrotMode = false,
+    CountOverkillDamage = false,
 }
 
 local configDesc = {
@@ -31,6 +34,9 @@ local configDesc = {
     SplitOmega = "Show Omega attacks/specials in separate bars.",
     OmegaIndicator =
     "If SplitOmega is enabled, this will prefix the given attack/special name. Can use plain text if the default icon causes flickering.",
+    ShowMeter = "Whether to display the damage meter at all.",
+    CarrotMode = "Hide meter during combat, show only between rooms.",
+    CountOverkillDamage = "Count damage that exceeds enemy health (overkill damage).",
 }
 
 JowdayDPS.Config = config

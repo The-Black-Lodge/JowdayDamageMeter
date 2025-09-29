@@ -103,41 +103,55 @@ function mod.calculateDps(list)
         Destroy({ Id = component.Id })
         mod.DpsIcons[bar] = nil
     end
+    if mod.Config.ShowMeter
+        and (
+            not mod.Config.CarrotMode
+            or (
+                mod.Config.CarrotMode
+                and not mod.DpsUpdateThread
+            )
+            or ModUtil.Path.Get("CurrentHubRoom.Name") == "Hub_PreRun"
+        ) then
+        local yPos = mod.Config.InitialY
+        -- Create UI to show DPS bars for each source
+        for i, source in ipairs(sourcesSortedByDamage) do
+            local barDamageRounded = math.floor(totalDamageBySource[source] + 0.5)
+            mod.createDpsBar(
+                source,
+                barDamageRounded,
+                maxDamage,
+                totalDamage,
+                mod.Config.XPosition,
+                yPos
+            )
+            yPos = yPos + mod.Config.YPositionIncrement
+        end
 
-    local yPos = mod.Config.InitialY
-    -- Create UI to show DPS bars for each source
-    for i, source in ipairs(sourcesSortedByDamage) do
-        local barDamageRounded = math.floor(totalDamageBySource[source] + 0.5)
-        mod.createDpsBar(
-            source,
-            barDamageRounded,
-            maxDamage,
-            totalDamage,
-            mod.Config.XPosition,
-            yPos
-        )
-        yPos = yPos + mod.Config.YPositionIncrement
-    end
-
-    -- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
-    if #sourcesSortedByDamage > 0 then
-        local totalDamageRounded = math.floor(totalDamage + 0.5)
-        mod.createDpsHeader(
-            "DpsMeter",
-            totalDamageRounded,
-            dps,
-            mod.Config.XPosition,
-            yPos - 5
-        )
-        local height = (mod.Config.InitialY - yPos + mod.Config.Margin)
-        local yPosOverlay = yPos + mod.Config.YPositionIncrement + height / 2
-        mod.createDpsOverlayBackground(
-            "DpsBackground",
-            mod.Config.XPosition + mod.Config.Margin,
-            yPosOverlay,
-            mod.Config.DisplayWidth,
-            height
-        )
+        -- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
+        if #sourcesSortedByDamage > 0 then
+            local totalDamageRounded = math.floor(totalDamage + 0.5)
+            mod.createDpsHeader(
+                "DpsMeter",
+                totalDamageRounded,
+                dps,
+                mod.Config.XPosition,
+                yPos - 5
+            )
+            local height = (mod.Config.InitialY - yPos + mod.Config.Margin)
+            local yPosOverlay = yPos + mod.Config.YPositionIncrement + height / 2
+            mod.createDpsOverlayBackground(
+                "DpsBackground",
+                mod.Config.XPosition + mod.Config.Margin,
+                yPosOverlay,
+                mod.Config.DisplayWidth,
+                height
+            )
+        else
+            Destroy({ Id = ScreenAnchors["DpsMeter"] })
+            Destroy({ Id = ScreenAnchors["DpsBackground"] })
+            ScreenAnchors["DpsMeter"] = nil
+            ScreenAnchors["DpsBackground"] = nil
+        end
     else
         Destroy({ Id = ScreenAnchors["DpsMeter"] })
         Destroy({ Id = ScreenAnchors["DpsBackground"] })
@@ -154,7 +168,9 @@ function mod.godMatcher(name)
     if name:match("Aphrodite") then return "Aphrodite" end
     if name:match("Ares") then return "Ares" end
     if name:match("Artemis") then return "Artemis" end
+    if name:match("Athena") then return "Athena" end
     if name:match("Demeter") then return "Demeter" end
+    if name:match("Dionysus") then return "Dionysus" end
     if name:match("Hera") then return "Hera" end
     if name:match("Hephaestus") then return "Hephaestus" end
     if name:match("Hestia") then return "Hestia" end
@@ -190,9 +206,17 @@ function mod.getEquippedBoons(trait)
     if god ~= nil then
         mod.CurrentGods[god] = true
     end
-    -- game reports all the Medea stuff "MedeaCurse" so determine via trait
-    if name ~= nil and (name == 'SpawnDamageCurse' or name == 'DeathDefianceRetaliateCurse' or name == 'ArmorPenaltyCurse') then
-        mod.WeaponVar["MedeaCurse"] = name
+    -- check for Knuckle Bone uses
+    if name ~= nil and name == 'BossPreDamageKeepsake' and trait.Uses ~= nil and trait.Uses > 0 then
+        mod.WeaponVar["KnuckleBones"] = trait.ReportedDamage
+    end
+    -- check for Old Grudge
+    if name ~= nil and name == 'HadesPreDamageBoon' and trait.Uses ~= nil and trait.Uses > 0 then
+        mod.WeaponVar["OldGrudge"] = trait.ReportedDamage
+    end
+
+    if mod.WeaponVar["KnuckleBones"] ~= nil or mod.WeaponVar["OldGrudge"] ~= nil then
+        mod.WeaponVar["BossPreDamage"] = true
     end
 end
 
@@ -203,7 +227,9 @@ function mod.clearWeaponInfo()
     mod.WeaponVar["Special"] = nil
     mod.WeaponVar["Cast"] = nil
     mod.WeaponVar["Dash"] = nil
-    mod.WeaponVar["MedeaCurse"] = nil
+    mod.WeaponVar["KnuckleBones"] = nil
+    mod.WeaponVar["OldGrudge"] = nil
+    mod.WeaponVar["BossPreDamage"] = nil
 
     -- also reset god list
     mod.CurrentGods = {}
@@ -220,8 +246,14 @@ function mod.getSourceName(triggerArgs, victim)
     source = triggerArgs.WeaponName or source
     source = triggerArgs.EffectName or source
     source = triggerArgs.SourceProjectile or source
-    source = triggerArgs.SourceWeapon or source
-    source = attackerWeaponData.LinkedUpgrades or source
+    -- stop here if ApolloCast
+    if source ~= 'ApolloCast' then
+        source = triggerArgs.SourceWeapon or source
+        source = attackerWeaponData.LinkedUpgrades or source
+    end
+
+    -- investigate further, but special handling for divine dash
+    if (triggerArgs.SourceProjectile == 'AthenaRushProjectile') then source = 'AthenaRushProjectile' end
 
     if mod.Config.SplitDashStrike == true then
         local sourceProjectile = triggerArgs.SourceProjectile or nil
@@ -271,20 +303,22 @@ function mod.getSourceName(triggerArgs, victim)
         source = "ParryHit"
     end
 
-    if source == "MedeaCurse" and mod.WeaponVar["MedeaCurse"] ~= nil then
-        source = mod.WeaponVar["MedeaCurse"]
+    if source == "MedeaCurse" then
+        source = triggerArgs.CurseName or "MedeaCurse"
     end
 
     if source == 'Unknown' then
-        -- distinguish between Old Grudge (20%) and Knuckle Bones (<=15%)
-        if triggerArgs.Silent and victim.IsBoss == true then
-            local damage = triggerArgs.DamageAmount or 0
-            local maxhealth = victim.MaxHealth
-            local ratio = damage / maxhealth
-            if ratio > 0.15 then
-                source = "Old Grudge"
-            else
-                source = "Knuckle Bones"
+        -- check if user has Old Grudge and/or Knuckle Bones
+        if mod.WeaponVar["BossPreDamage"] ~= nil and triggerArgs.Silent and victim.IsBoss == true then
+            -- old grudge
+            if triggerArgs.PreDamageBossFunctionName ~= nil and triggerArgs.PreDamageBossFunctionName == "HadesPreDamagePresentation" then
+                source = "OldGrudge"
+                mod.WeaponVar["OldGrudge"] = nil
+            end
+            -- knuckle bones
+            if mod.WeaponVar["KnuckleBones"] ~= nil and triggerArgs.PreDamageBossFunctionName ~= nil and triggerArgs.PreDamageBossFunctionName == "PreDamagePresentation" then
+                source = "KnuckleBones"
+                mod.WeaponVar["KnuckleBones"] = nil
             end
         end
     end
@@ -334,6 +368,7 @@ end
 
 -- Create a header that shows overall DPS and overall damage total
 function mod.createDpsHeader(obstacleName, totalDamage, dps, x, y)
+    if tostring(dps) == 'inf' then dps = '···' end
     local text = dps .. mod.Locale.HeaderText .. totalDamage
 
     if ScreenAnchors[obstacleName] ~= nil then
@@ -344,7 +379,7 @@ function mod.createDpsHeader(obstacleName, totalDamage, dps, x, y)
         CreateTextBox({
             Id = ScreenAnchors[obstacleName],
             Text = text,
-            OffsetX = -5,
+            OffsetX = -50,
             OffsetY = 0,
             Font = "LatoSemibold",
             FontSize = 14,
@@ -395,9 +430,9 @@ function mod.createDpsBar(label, damage, maxDamage, totalDamage, x, y)
     CreateTextBox({
         Id = dpsBar.Id,
         Text = abilityName,
+        TextSymbolScale = 0.65,
         OffsetX = textOffsetX,
         OffsetY = textOffsetY,
-        TextSymbolScale = 0.65,
         Font = "LatoSemibold",
         FontSize = 10,
         Justification = "Right",
@@ -529,7 +564,7 @@ function mod.getColorAndLabel(source)
             niceLabel = sources[dash]["Dash"]
             return color, niceLabel
         else
-            return colors["Default"], mod.Locale.DashText
+            return colors["Default"], "Dash"
         end
     end
 
@@ -600,10 +635,37 @@ end
 --[[ on enemy damage:
     - create damage instance ]]
 ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
+    --print(TableToJSONString(triggerArgs))
+    --print(CurrentRun.Hero.ObjectId)
     local preHitHealth = victim.Health
     baseFunc(victim, triggerArgs)
+    local attackerTable = triggerArgs.AttackerTable or {}
+    local activeEffects = attackerTable.ActiveEffects or {}
+    local activeEffectsStart = attackerTable.ActiveEffectsAtDamageStart or {}
+
     local victimCharmed = IsCharmed({ Id = victim.ObjectId })
+    -- don't use ingame function here because reasons
+    local attackerCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
+
     local playerWasAttacker = triggerArgs.AttackerName == "_PlayerUnit"
+
+    local preDamage = triggerArgs.PreDamageBossFunctionName ~= nil
+    local isCurse = triggerArgs.CurseName ~= nil
+    --print('attackerCharmed: ' .. tostring(attackerCharmed))
+    --print('victimCharmed: ' .. tostring(victimCharmed))
+    --print('playerWasAttacker: ' .. tostring(playerWasAttacker))
+    --print('DamageAmount: ' .. triggerArgs.DamageAmount)
+    --print('checking if we log the damage...')
+
+    -- bleh special case for scorch
+    if (triggerArgs.AttackerId == CurrentRun.Hero.ObjectId) and (triggerArgs.EffectName == "BurnEffect") then
+        local damageAmount = triggerArgs.DamageAmount
+        if not mod.Config.CountOverkillDamage then
+            damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
+        end
+        mod.List.addValue(mod.DamageHistory, {Source = "Burn", Damage = damageAmount, Timestamp = GetTime({})})
+        return
+    end
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
         and (victim.Name == "NPC_Skelly_01"
@@ -612,14 +674,30 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
             or victim.IsBoss
         )
         -- this wonky logic is to discard charmed enemies being damaged by other enemies
+        -- victim is charmed, hit by NPC
         and not (victimCharmed and not playerWasAttacker)
+        -- attacker is not charmed, victim is not charmed, hit by NPC, and also not a boss pre-damage boon or a medea curse. whew
+        and not (not attackerCharmed and not victimCharmed and not playerWasAttacker and not preDamage and not isCurse)
     then
+        --print('YES')
         local damageInstance = {}
-        damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
+        if mod.Config.CountOverkillDamage then
+            damageInstance.Damage = triggerArgs.DamageAmount
+        else
+            damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
+        end
         damageInstance.Timestamp = GetTime({})
         damageInstance.Source = mod.getSourceName(triggerArgs, victim)
+        --print('source: ' .. damageInstance.Source)
 
-        mod.List.addValue(mod.DamageHistory, damageInstance)
+        -- don't log unknowns
+        if damageInstance.Source ~= 'Unknown' then
+            mod.List.addValue(mod.DamageHistory, damageInstance)
+        else
+            --print('unknown damage source: ' .. damageInstance.Source)
+        end
+    else
+        -- print('NO')
     end
 end, mod)
 
@@ -659,11 +737,79 @@ end, mod)
 --[[ on player death:
     - stop polling
     - clear weapon info]]
+--[[ on trait add:
+    - recalculate weapon info
+    - this is so using something like PonyMenu will update immediately
+]] --
+ModUtil.Path.Wrap("AddTraitToHero", function(base, ...)
+    local trait = base(...)
+    mod.clearWeaponInfo()
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        mod.getEquippedBoons(trait)
+    end
+    return trait
+end, mod)
+
+--[[ on trait remove:
+    - recalculate weapon info
+    - this is so using something like PonyMenu will update immediately
+]] --
+ModUtil.Path.Wrap("RemoveTrait", function(base, ...)
+    local trait = base(...)
+    mod.clearWeaponInfo()
+    for i, trait in pairs(CurrentRun.Hero.Traits) do
+        mod.getEquippedBoons(trait)
+    end
+    return trait
+end, mod)
+
 ModUtil.Path.Wrap("KillHero", function(baseFunc, victim, triggerArgs)
     baseFunc(victim, triggerArgs)
     mod.DpsUpdateThread = false
     mod.clearWeaponInfo()
 end, mod)
+
+-- add the pre-damage function name to triggerArgs to be used later
+ModUtil.Path.Context.Wrap("PreDamageBoss", function(enemy, damageAmount, damageData)
+    ModUtil.Path.Wrap("Damage", function(base, victim, triggerArgs)
+        local preDamageName = damageData.PresentationFunctionName or "PreDamagePresentation"
+        local updatedArgs = { DamageAmount = damageAmount, Silent = true, PreDamageBossFunctionName = preDamageName }
+        base(victim, updatedArgs)
+    end)
+end)
+
+-- determine which of medea's curses is happening
+ModUtil.Path.Wrap("CheckSpawnCurseDamage", function(base, enemy, traitArgs)
+    traitArgs.CurseName = "SpawnDamageCurse"
+    base(enemy, traitArgs)
+end)
+
+ModUtil.Path.Wrap("CheckSpawnArmorDamage", function(base, enemy, traitArgs)
+    traitArgs.CurseName = "ArmorPenaltyCurse"
+    base(enemy, traitArgs)
+end)
+
+ModUtil.Path.Wrap("CurseRetaliate", function(base, functionArgs, triggerArgs)
+    functionArgs.CurseName = "DeathDefianceRetaliateCurse"
+    base(functionArgs, triggerArgs)
+end)
+
+ModUtil.Path.Context.Wrap("DoCurseDamage", function(enemy, traitArgs, damageAmount)
+    ModUtil.Path.Wrap("Damage", function(base, victim, triggerArgs)
+        local curseName = traitArgs.CurseName
+        local updatedArgs = {
+            AttackerTable = CurrentRun.Hero,
+            AttackerId = CurrentRun.Hero.ObjectId,
+            SourceProjectile =
+            "MedeaCurse",
+            DamageAmount = damageAmount,
+            Silent = false,
+            PureDamage = true,
+            CurseName = curseName
+        }
+        base(victim, updatedArgs)
+    end)
+end)
 
 
 -- set up polling if it isn't already

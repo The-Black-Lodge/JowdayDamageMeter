@@ -15,7 +15,8 @@ function mod.getLocalizedNames()
     local aphOSpecial = omegaPrefix .. GetDisplayName({ Text = "AphroditeSpecialBoon" })
     local apoOAttack = omegaPrefix .. GetDisplayName({ Text = "ApolloWeaponBoon" })
     local apoOSpecial = omegaPrefix .. GetDisplayName({ Text = "ApolloSpecialBoon" })
-    local apoOCast = omegaPrefix .. GetDisplayName({ Text = "ApolloExCastBoon" })
+    local apoOCast = omegaPrefix .. GetDisplayName({ Text = "ApolloCastBoon" })
+    local apoOCastEx = omegaPrefix .. GetDisplayName({ Text = "ApolloExCastBoon" })
     local areOAttack = omegaPrefix .. GetDisplayName({ Text = "AresWeaponBoon" })
     local areOSpecial = omegaPrefix .. GetDisplayName({ Text = "AresSpecialBoon" })
     local areOCast = omegaPrefix .. GetDisplayName({ Text = "AresCastBoon" })
@@ -48,6 +49,9 @@ function mod.getLocalizedNames()
         -- familiars
         FrogFamiliarLand = "Frinos",
         CatFamiliarPounce = "Toula",
+        RavenFamiliarMelee = "RavenFamiliar",
+        RavenFamiliarMelee_Crit = "RavenFamiliar",
+        PolecatFamiliarMelee = "DodgeFamiliar",
         -- misc environment
         PolyphemusBoulderSky = mod.Locale.Boulder,
         --- traps
@@ -73,6 +77,27 @@ function mod.getLocalizedNames()
         RubbleFall = "Traps",
         RubbleFallOlympus = "Traps",
         IcicleSplinter = "Traps",
+        BrambleTrapBush = "Traps",
+        DestructibleMastSplinter = "Traps",
+        GunBombImmolation = "Traps",
+        LavaTile = "Traps",
+        LavaTileTriangle01 = "Traps",
+        LavaTileTriangle02 = "Traps",
+        LavaTileTriangle01Weapon = "Traps",
+        LavaTileTriangle02Weapon = "Traps",
+        PolyphemusBoulders = "Traps",
+        BloodMinePreFused = "Traps",
+        TyphonSpike = "Traps",
+        TyphonSpikeSplinter = "Traps",
+        TyphonEggExplosion = "Traps",
+        TyphonEgg = "Traps",
+        TyphonEggLarge = "Traps",
+        TyphonMine = "Traps",
+        HestiaStatueFireball = "Traps",
+        HestiaStatueFireRing = "Traps",
+        DemeterStatueFrostStorm = "Traps",
+        PoseidonStatueWave = "Traps",
+        ZeusStatueChasingStorm = "Traps",
         --
         OAttackText = oAttackText,
         OSpecialText = oSpecialText,
@@ -81,6 +106,7 @@ function mod.getLocalizedNames()
         WeaponDagger = "Attack",
         WeaponDaggerThrow = "Special",
         WeaponBlink = "Dash",
+        WomboStrike = "TripleAspectStrike",
         --
         WeaponStaffSwing = "Attack",
         WeaponStaffBall = "Special",
@@ -130,6 +156,7 @@ function mod.getLocalizedNames()
         PolyphemusStomachAche = mod.Locale.EnemyText,
         -- don't translate these
         HeraCastSummonProjectile = "WeaponCast",
+        HeraCastDamageProjectile = "WeaponCast",
         DemeterSprintStorm = "Dash",
         HephSprintBlast = "Dash",
         PoseidonSprintBlast = "Dash",
@@ -154,6 +181,7 @@ function mod.getLocalizedNames()
             ["Special"] = "ApolloSpecialBoon",
             ["OSpecial"] = apoOSpecial,
             ["Dash"] = "ApolloSprintBoon",
+            ["ApolloCast"] = apoOCastEx,
             ["ApolloSingleCastStrike"] = "ApolloCastBoon",
             ["WeaponCast"] = apoOCast,
             ["ApolloRetaliateStrike"] = "ApolloRetaliateBoon",
@@ -185,6 +213,7 @@ function mod.getLocalizedNames()
             ["AthenaDeflectingProjectile"] = "AthenaProjectileBoon",
             ["AthenaCastProjectile"] = "InvulnerabilityCastBoon",
             ["AthenaRushProjectile"] = "InvulnerabilityDashBoon",
+            ["ProjectileAthenaManaSpear"] = "ManaSpearBoon"
         },
         Demeter = {
             ["Attack"] = "DemeterWeaponBoon",
@@ -194,6 +223,7 @@ function mod.getLocalizedNames()
             ["Dash"] = "DemeterSprintBoon",
             ["WeaponCast"] = "DemeterCastBoon",
             ["DemeterChillKill"] = "InstantRootKill",
+            ["DemeterCastStorm"] = "CastNovaBoon"
         },
         Dionysus = {
             ["DamageOverTime"] = "DamageOverTime",
@@ -229,7 +259,8 @@ function mod.getLocalizedNames()
             ["ProjectileFireball"] = "FireballManaSpecialBoon",
             ["WeaponCastProjectile"] = "CastProjectileBoon",
             ["HestiaBurnConsumeStrike"] = "BurnConsumeBoon",
-            ["HestiaSprintPuddle"] = "BurnSprintBoon"
+            ["HestiaSprintPuddle"] = "BurnSprintBoon",
+            ["Burn"] = "Burn"
         },
         Hephaestus = {
             ["Attack"] = "HephaestusWeaponBoon",
@@ -264,7 +295,9 @@ function mod.getLocalizedNames()
             ["WeaponCast"] = "PoseidonCastBoon",
             ["PoseidonSplashSplinter"] = "PoseidonSplash_Name",
             ["PoseidonCollisionBlast"] = "SlamExplosionBoon",
-            ["PoseidonOmegaProjectile"] = posOCast
+            ["PoseidonOmegaProjectile"] = posOCast,
+            ["PoseidonEffectFont"] = "KnockbackAmplify",
+            ["PoseidonOmegaWave"] = "OmegaPoseidonProjectileBoon"
         },
         Selene = {
             ["WeaponSpellLaser"] = "SpellLaserTrait",
@@ -272,8 +305,6 @@ function mod.getLocalizedNames()
             ["WeaponSpellMeteor"] = "SpellMeteorTrait",
             ["WeaponTransformAttack"] = darkSideAttack,
             ["WeaponTransformSpecial"] = darkSideSpecial,
-            ["WeaponTransformBlink"] = darkSideBlink,
-            ["WeaponTransformCast"] = darkSideCast,
             ["WeaponSpellMoonBeam"] = "SpellMoonBeamTrait",
         },
         Zeus = {
@@ -310,6 +341,9 @@ function mod.getLocalizedNames()
         },
         DuoDemeterZeus = {
             ["ZeusRootStrike"] = "RootStrikeBoon"
+        },
+        DuoSeleneDemeter = {
+            ["DemeterTickEffect"] = "TimeSlowDemeterTalent"
         }
     }
 end
@@ -419,6 +453,10 @@ mod.DpsColors = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Zeus", "Demeter" }
     },
+    DuoSeleneDemeter = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Demeter", "Selene" }
+    },
     NemesisAssist = {
         BarColor = Color.NemesisVoice,
         LabelColor = Color.NemesisVoice
@@ -449,6 +487,14 @@ mod.DpsColors = {
     Toula = {
         BarColor = Color.LightGold,
         LabelColor = Color.LightGold
+    },
+    Raven = {
+        BarColor = { 75, 45, 85, 255 },
+        LabelColor = { 75, 45, 85, 255 }
+    },
+    Gale = {
+        BarColor = { 160, 120, 80, 255 },
+        LabelColor = { 160, 120, 80, 255 }
     },
     Default = {
         BarColor = { 195, 175, 175, 255 }
