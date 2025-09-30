@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- poseidon dash, circe pet laser
 
 ## [2.8.14] - 2025-09-29
 

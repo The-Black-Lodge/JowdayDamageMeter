@@ -48,6 +48,7 @@ function getLocalizedNames()
         RavenFamiliarMelee = "RavenFamiliar",
         RavenFamiliarMelee_Crit = "RavenFamiliar",
         PolecatFamiliarMelee = "DodgeFamiliar",
+        FamiliarLinkLaser = "FamiliarBuff",
         -- misc environment
         PolyphemusBoulderSky = Locale.Boulder,
         --- traps
@@ -295,7 +296,8 @@ function getLocalizedNames()
             ["PoseidonCollisionBlast"] = "SlamExplosionBoon",
             ["PoseidonOmegaProjectile"] = posOCast,
             ["PoseidonEffectFont"] = "KnockbackAmplify",
-            ["PoseidonOmegaWave"] = "OmegaPoseidonProjectileBoon"
+            ["PoseidonOmegaWave"] = "OmegaPoseidonProjectileBoon",
+            ["PoseidonSprintSecondaryBlast"] = "PoseidonSprintBoon"
         },
         Selene = {
             ["WeaponSpellLaser"] = "SpellLaserTrait",
