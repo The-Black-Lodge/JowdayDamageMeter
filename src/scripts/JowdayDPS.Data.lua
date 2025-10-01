@@ -116,6 +116,7 @@ function getLocalizedNames()
         WeaponAxeSpin = "Attack",
         WeaponAxeBlock2 = "Special",
         WeaponAxeSpecial = "Special",
+        HammerAxeNova = "AxeRangedWhirlwindTrait",
         --
         WeaponLob = "Attack",
         WeaponLobSpecial = "Special",
@@ -306,6 +307,7 @@ function getLocalizedNames()
             ["WeaponTransformAttack"] = darkSideAttack,
             ["WeaponTransformSpecial"] = darkSideSpecial,
             ["WeaponSpellMoonBeam"] = "SpellMoonBeamTrait",
+            ["WeaponSpellPolymorph"] = "Polymorph"
         },
         Zeus = {
             ["Attack"] = "ZeusWeaponBoon",
@@ -344,6 +346,9 @@ function getLocalizedNames()
         },
         DuoSeleneDemeter = {
             ["DemeterTickEffect"] = "TimeSlowDemeterTalent"
+        },
+        DuoSeleneZeus = {
+            ["ZeusPolymorphStrike"] = "PolymorphZeusTalent"
         }
     }
 end
@@ -456,6 +461,10 @@ DpsColors = {
     DuoSeleneDemeter = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Demeter", "Selene" }
+    },
+    DuoSeleneZeus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Zeus", "Selene" }
     },
     NemesisAssist = {
         BarColor = Color.NemesisVoice,
