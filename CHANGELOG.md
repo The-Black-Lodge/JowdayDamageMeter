@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- torch was incorrectly categorizing omega attacks
 
 ## [2.8.16] - 2025-10-01
 

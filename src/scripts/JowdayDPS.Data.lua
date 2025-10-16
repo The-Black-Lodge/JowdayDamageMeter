@@ -358,7 +358,7 @@ AttackEXLookup = {
 }
 
 SpecialEXLookup = {
-    "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbit"
+    "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbitEx"
 }
 
 DashStrikeLookup = {
