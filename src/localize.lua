@@ -45,7 +45,7 @@ AddLocale('es', {
 })
 
 AddLocale('fr', {
-    TotalDmgText = " Dégâts totaux : ",
+    TotalDmgText = " Dégâts totaux: ",
     CurrentText = "Actuelle",
     MaxText = "Maximale",
     AverageText = "Moyenne",
