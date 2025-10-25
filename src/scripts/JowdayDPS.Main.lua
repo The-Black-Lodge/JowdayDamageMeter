@@ -402,8 +402,10 @@ end
 -- Create a header that shows overall DPS and overall damage total
 function createDpsHeader(obstacleName, totalDamage, currDPS, avgDPS, maxDPS, x, y)
     if tostring(avgDPS) == 'inf' then avgDPS = '···' end
-    local text = "Curr DPS: " .. currDPS .. " | Avg DPS: " .. avgDPS .. " \n"
-    text = text .. "Max DPS: " .. maxDPS .. " |" .. Locale.TotalDmgText .. totalDamage
+    local dpsTxt = Locale.DPSText
+    local text = string.format("%s %s: %d | %s %s: %s \n%s %s: %d | %s: %d",
+        Locale.CurrentText, dpsTxt, currDPS, Locale.AverageText, dpsTxt, avgDPS,
+        Locale.MaxText, dpsTxt, maxDPS, Locale.TotalDmgText, totalDamage)
 
     if ScreenAnchors[obstacleName] ~= nil then
         game.ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })

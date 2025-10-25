@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [2.9.0] - 2025-10-25
+
+## Added
+
+- Current DPS, Max DPS
+
 ## [2.8.17] - 2025-10-16
 
 ## Fixed
