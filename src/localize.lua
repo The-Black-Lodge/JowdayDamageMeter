@@ -13,7 +13,7 @@ function AddLocale(lang, data)
 end
 
 AddLocale('en', {
-    HeaderText = " DPS / Total Damage: ",
+    TotalDmgText = " Total Damage: ",
     EnemyText = "Enemy",
     WallSlam = "Wall Slam",
     EphyraPylon = "Pylon Spirits",
@@ -25,7 +25,7 @@ AddLocale('en', {
 })
 
 AddLocale('es', {
-    HeaderText = " DPS / Daño Total: ",
+    TotalDmgText = " Daño Total: ",
     EnemyText = "Enemigo",
     WallSlam = "Aplastado",
     EphyraPylon = "Pilón de Espíritus",
@@ -37,7 +37,7 @@ AddLocale('es', {
 })
 
 AddLocale('fr', {
-    HeaderText = " DPS / Dégâts totaux : ",
+    TotalDmgText = " Dégâts totaux : ",
     EnemyText = "Ennemis",
     WallSlam = "Choc Contre Les Murs",
     EphyraPylon = "Pylône Spirituel",
@@ -49,7 +49,7 @@ AddLocale('fr', {
 })
 
 AddLocale('pt-BR', {
-    HeaderText = " DPS / Dano Total: ",
+    TotalDmgText = " Dano Total: ",
     EnemyText = "Inimigo",
     WallSlam = "Contra-Parede",
     EphyraPylon = "Pilão de Espíritos",
@@ -61,7 +61,7 @@ AddLocale('pt-BR', {
 })
 
 AddLocale('zh-CN', {
-    HeaderText = " DPS / 总伤害: ",
+    TotalDmgText = " 总伤害: ",
     EnemyText = "敌人",
     WallSlam = "撞墙",
     EphyraPylon = "晶石",

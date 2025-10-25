@@ -50,6 +50,8 @@ function List.emptyList(list)
 end
 
 DamageHistory = List.new(10000)
+CurrDPSDamageInstances = List.new(10000)
+MaxDPS = 0
 CurrentGods = {}
 WeaponVar = {}
 DpsUpdateThread = false
@@ -81,14 +83,32 @@ function calculateDps(list)
         end
     end
 
+    -- calculate current
+    local newDamageInstances = List.new(10000)
+    local cuttoffTime = game.GetTime({}) - 1
+    local currDPS = 0
+    for i = CurrDPSDamageInstances.first, CurrDPSDamageInstances.last do
+        local damageData = CurrDPSDamageInstances[i]
+        if damageData.Timestamp > cuttoffTime then
+            List.addValue(newDamageInstances, damageData)
+            currDPS = currDPS + damageData.Damage
+        end
+    end
+    CurrDPSDamageInstances = newDamageInstances
+
+    -- calculate max DPS
+    if currDPS > MaxDPS then
+        MaxDPS = currDPS
+    end
+
     -- sort sources from most damage to least
-    local dps = round(totalDamage / (latestTimestamp - earliestTimestamp))
+    local avgDPS = round(totalDamage / (latestTimestamp - earliestTimestamp))
     local sourcesSortedByDamage = {}
     for source in pairs(totalDamageBySource) do table.insert(sourcesSortedByDamage, source) end
     table.sort(sourcesSortedByDamage, function(a, b)
         return totalDamageBySource[a] < totalDamageBySource[b]
     end)
-    local maxDamage = totalDamageBySource[sourcesSortedByDamage[#sourcesSortedByDamage]]
+    local maxSourceDamage = totalDamageBySource[sourcesSortedByDamage[#sourcesSortedByDamage]]
 
     -- Delete any existing UI (e.g the bars from last update)
     -- TODO: Consider resizing / renaming bars instead of destroying and recreating (no performance issues so far though)
@@ -117,7 +137,7 @@ function calculateDps(list)
             createDpsBar(
                 source,
                 barDamageRounded,
-                maxDamage,
+                maxSourceDamage,
                 totalDamage,
                 config.XPosition,
                 yPos
@@ -131,10 +151,13 @@ function calculateDps(list)
             createDpsHeader(
                 "DpsMeter",
                 totalDamageRounded,
-                dps,
+                currDPS,
+                avgDPS,
+                MaxDPS,
                 config.XPosition,
-                yPos - 5
+                yPos + config.YPositionIncrement
             )
+            yPos = yPos + config.YPositionIncrement
             local height = (config.InitialY - yPos + config.Margin)
             local yPosOverlay = yPos + config.YPositionIncrement + height / 2
             createDpsOverlayBackground(
@@ -357,7 +380,7 @@ end
 -- Creates a transparent background behind the dps. Resizes and moves the existing component if this is called with new height and position
 function createDpsOverlayBackground(obstacleName, x, y, width, height)
     local scaleWidth = width / (config.DisplayWidth + config.Margin)
-    local scaleHeight = height / 250
+    local scaleHeight = height / 200
     if ScreenAnchors[obstacleName] ~= nil then
         game.SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
         game.SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
@@ -377,9 +400,10 @@ function createDpsOverlayBackground(obstacleName, x, y, width, height)
 end
 
 -- Create a header that shows overall DPS and overall damage total
-function createDpsHeader(obstacleName, totalDamage, dps, x, y)
-    if tostring(dps) == 'inf' then dps = '···' end
-    local text = dps .. Locale.HeaderText .. totalDamage
+function createDpsHeader(obstacleName, totalDamage, currDPS, avgDPS, maxDPS, x, y)
+    if tostring(avgDPS) == 'inf' then avgDPS = '···' end
+    local text = "Curr DPS: " .. currDPS .. " | Avg DPS: " .. avgDPS .. " \n"
+    text = text .. "Max DPS: " .. maxDPS .. " |" .. Locale.TotalDmgText .. totalDamage
 
     if ScreenAnchors[obstacleName] ~= nil then
         game.ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
@@ -389,8 +413,8 @@ function createDpsHeader(obstacleName, totalDamage, dps, x, y)
         game.CreateTextBox({
             Id = ScreenAnchors[obstacleName],
             Text = text,
-            OffsetX = -50,
-            OffsetY = 0,
+            OffsetX = -100,
+            OffsetY = -5,
             Font = "LatoSemibold",
             FontSize = 14,
             Justification = "Left",
@@ -674,6 +698,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
             damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
         end
         List.addValue(DamageHistory, {Source = "Burn", Damage = damageAmount, Timestamp = GetTime({})})
+        List.addValue(CurrDPSDamageInstances, {Damage = damageAmount, Timestamp = GetTime({})})
         return
     end
     if (triggerArgs.DamageAmount or 0) > 0
@@ -703,6 +728,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         -- don't log unknowns
         if damageInstance.Source ~= 'Unknown' then
             List.addValue(DamageHistory, damageInstance)
+            List.addValue(CurrDPSDamageInstances, {Damage = damageInstance.Damage, Timestamp = damageInstance.Timestamp})
         else
             --print('unknown damage source: ' .. damageInstance.Source)
         end
@@ -720,6 +746,8 @@ ModUtil.Path.Wrap("DoUnlockRoomExits", function(baseFunc, run, room)
     DpsUpdateThread = false
     calculateDps(DamageHistory)
     List.emptyList(DamageHistory)
+    List.emptyList(CurrDPSDamageInstances)
+    MaxDPS = 0
 end, mod)
 
 --[[ on room start:
