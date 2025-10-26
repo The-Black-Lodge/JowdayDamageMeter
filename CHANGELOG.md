@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.19] - 2025-10-26
+
 ## Fixed
+
 - fixed necromantic influence/anubis aspect shades
 
 ## [2.8.18] - 2025-10-26
@@ -262,7 +266,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.18...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.19...HEAD
+[2.8.19]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.18...2.8.19
 [2.8.18]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.17...2.8.18
 [2.8.17]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.16...2.8.17
 [2.8.16]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.15...2.8.16
