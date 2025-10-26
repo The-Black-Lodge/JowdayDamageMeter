@@ -354,11 +354,11 @@ function getLocalizedNames()
 end
 
 AttackEXLookup = {
-    "WeaponStaffSwing5", "WeaponDagger5", "WeaponAxeSpin", "ProjectileTorchBallLarge", "ProjectileLobCharged"
+    "WeaponStaffSwing5", "WeaponDagger5", "WeaponAxeSpin", "ProjectileTorchBallLarge", "ProjectileLobCharged", "ProjectileSuitCharged", "ProjectileLobOverheat", "ProjectileTorchWave", "ProjectileTorchGhostLarge", "ProjectileTorchRepeatStrike", "ProjectileTorchSupayBallEx"
 }
 
 SpecialEXLookup = {
-    "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbitEx"
+    "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbitEx", "ProjectileThrowCharged", "ProjectileDaggerThrowCharged", "ProjectileSuitBomb", "ProjectileSuitRangedCharged"
 }
 
 DashStrikeLookup = {

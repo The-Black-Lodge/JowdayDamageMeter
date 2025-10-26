@@ -1,10 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+
 
 ## [2.8.17] - 2025-10-16
 
-## Fixed
+## Fixed omega detection for suit, skull, torch, dagger, coat (thank you ParanoidDrone for the report)
 
 - torch was incorrectly categorizing omega attacks
 
