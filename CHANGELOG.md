@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
-## [2.8.17] - 2025-10-16
+## [2.8.18] - 2025-10-26
 
 ## Fixed
+
+## [2.8.17] - 2025-10-16
+
+## Fixed omega detection for suit, skull, torch, dagger, coat (thank you ParanoidDrone for the report)
 
 - torch was incorrectly categorizing omega attacks
 
@@ -256,7 +260,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.17...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.18...HEAD
+[2.8.18]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.17...2.8.18
 [2.8.17]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.16...2.8.17
 [2.8.16]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.15...2.8.16
 [2.8.15]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.14...2.8.15
