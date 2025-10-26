@@ -661,11 +661,21 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 
     local preDamage = triggerArgs.PreDamageBossFunctionName ~= nil
     local isCurse = triggerArgs.CurseName ~= nil
-    --print('attackerCharmed: ' .. tostring(attackerCharmed))
-    --print('victimCharmed: ' .. tostring(victimCharmed))
-    --print('playerWasAttacker: ' .. tostring(playerWasAttacker))
-    --print('DamageAmount: ' .. triggerArgs.DamageAmount)
-    --print('checking if we log the damage...')
+    -- print('attackerCharmed: ' .. tostring(attackerCharmed))
+    -- print('victimCharmed: ' .. tostring(victimCharmed))
+    -- print('playerWasAttacker: ' .. tostring(playerWasAttacker))
+    -- print('DamageAmount: ' .. triggerArgs.DamageAmount)
+    -- print('checking if we log the damage...')
+
+    -- shade mercs have changed
+    if (triggerArgs.SourceProjectile == "ShadeMercSpiritball" or triggerArgs.SourceProjectile == "ShadeMercAspectSpiritball") then
+        local damageAmount = triggerArgs.DamageAmount
+        if not config.CountOverkillDamage then
+            damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
+        end
+        List.addValue(DamageHistory, { Source = "ShadeMercSpiritball", Damage = damageAmount, Timestamp = GetTime({}) })
+        return
+    end
 
     -- bleh special case for scorch
     if (triggerArgs.AttackerId == CurrentRun.Hero.ObjectId) and (triggerArgs.EffectName == "BurnEffect") then
@@ -689,7 +699,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         -- attacker is not charmed, victim is not charmed, hit by NPC, and also not a boss pre-damage boon or a medea curse. whew
         and not (not attackerCharmed and not victimCharmed and not playerWasAttacker and not preDamage and not isCurse)
     then
-        --print('YES')
+        -- print('YES')
         local damageInstance = {}
         if config.CountOverkillDamage then
             damageInstance.Damage = triggerArgs.DamageAmount
@@ -704,10 +714,12 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         if damageInstance.Source ~= 'Unknown' then
             List.addValue(DamageHistory, damageInstance)
         else
-            --print('unknown damage source: ' .. damageInstance.Source)
+            -- print('unknown damage source: ' .. damageInstance.Source)
         end
     else
         -- print('NO')
+        -- print(TableToJSONString(triggerArgs))
+
     end
 end, mod)
 

@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- fixed necromantic influence/anubis aspect shades
 
 ## [2.8.18] - 2025-10-26
 
