@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- NEW detailed DPS header (thank you wez470)
 
 ## [2.8.19] - 2025-10-26
 
