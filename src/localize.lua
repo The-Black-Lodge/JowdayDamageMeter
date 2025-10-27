@@ -13,7 +13,7 @@ function AddLocale(lang, data)
 end
 
 AddLocale('en', {
-    TotalDmgText = " Total Damage: ",
+    TotalDmgText = "Total Damage",
     CurrentText = "Curr",
     MaxText = "Max",
     AverageText = "Avg",
@@ -29,7 +29,7 @@ AddLocale('en', {
 })
 
 AddLocale('es', {
-    TotalDmgText = " Daño Total: ",
+    TotalDmgText = "Daño Total",
     CurrentText = "Actual",
     MaxText = "Máximo",
     AverageText = "Promedio",
@@ -45,7 +45,7 @@ AddLocale('es', {
 })
 
 AddLocale('fr', {
-    TotalDmgText = " Dégâts totaux: ",
+    TotalDmgText = "Dégâts totaux",
     CurrentText = "Actuelle",
     MaxText = "Maximale",
     AverageText = "Moyenne",
@@ -61,7 +61,7 @@ AddLocale('fr', {
 })
 
 AddLocale('pt-BR', {
-    TotalDmgText = " Dano Total: ",
+    TotalDmgText = "Dano Total",
     CurrentText = "Atual",
     MaxText = "Máximo",
     AverageText = "Médio",
@@ -77,7 +77,7 @@ AddLocale('pt-BR', {
 })
 
 AddLocale('zh-CN', {
-    TotalDmgText = " 总伤害: ",
+    TotalDmgText = "总伤害",
     CurrentText = "当前",
     MaxText = "最大",
     AverageText = "平均",

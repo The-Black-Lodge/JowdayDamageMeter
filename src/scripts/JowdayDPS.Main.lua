@@ -83,22 +83,25 @@ function calculateDps(list)
         end
     end
 
-    -- calculate current
-    local newDamageInstances = List.new(10000)
-    local cuttoffTime = game.GetTime({}) - 1
+    -- Only calculate current / max DPS if they're being displayed
     local currDPS = 0
-    for i = CurrDPSDamageInstances.first, CurrDPSDamageInstances.last do
-        local damageData = CurrDPSDamageInstances[i]
-        if damageData.Timestamp > cuttoffTime then
-            List.addValue(newDamageInstances, damageData)
-            currDPS = currDPS + damageData.Damage
+    if config.DetailedHeader then
+        -- calculate current
+        local newDamageInstances = List.new(10000)
+        local cuttoffTime = game.GetTime({}) - 1
+        for i = CurrDPSDamageInstances.first, CurrDPSDamageInstances.last do
+            local damageData = CurrDPSDamageInstances[i]
+            if damageData.Timestamp > cuttoffTime then
+                List.addValue(newDamageInstances, damageData)
+                currDPS = currDPS + damageData.Damage
+            end
         end
-    end
-    CurrDPSDamageInstances = newDamageInstances
+        CurrDPSDamageInstances = newDamageInstances
 
-    -- calculate max DPS
-    if currDPS > MaxDPS then
-        MaxDPS = currDPS
+        -- calculate max DPS
+        if currDPS > MaxDPS then
+            MaxDPS = currDPS
+        end
     end
 
     -- sort sources from most damage to least
@@ -148,6 +151,10 @@ function calculateDps(list)
         -- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
         if #sourcesSortedByDamage > 0 then
             local totalDamageRounded = math.floor(totalDamage + 0.5)
+            headerYPos = yPos - 5
+            if config.DetailedHeader then
+                headerYPos = yPos - 10
+            end
             createDpsHeader(
                 "DpsMeter",
                 totalDamageRounded,
@@ -155,9 +162,11 @@ function calculateDps(list)
                 avgDPS,
                 MaxDPS,
                 config.XPosition,
-                yPos + config.YPositionIncrement
+                headerYPos
             )
-            yPos = yPos + config.YPositionIncrement
+            if config.DetailedHeader then
+                yPos = yPos + config.YPositionIncrement
+            end
             local height = (config.InitialY - yPos + config.Margin)
             local yPosOverlay = yPos + config.YPositionIncrement + height / 2
             createDpsOverlayBackground(
@@ -380,7 +389,7 @@ end
 -- Creates a transparent background behind the dps. Resizes and moves the existing component if this is called with new height and position
 function createDpsOverlayBackground(obstacleName, x, y, width, height)
     local scaleWidth = width / (config.DisplayWidth + config.Margin)
-    local scaleHeight = height / 200
+    local scaleHeight = height / 250
     if ScreenAnchors[obstacleName] ~= nil then
         game.SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
         game.SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
@@ -402,21 +411,33 @@ end
 -- Create a header that shows overall DPS and overall damage total
 function createDpsHeader(obstacleName, totalDamage, currDPS, avgDPS, maxDPS, x, y)
     if tostring(avgDPS) == 'inf' then avgDPS = '···' end
-    local dpsTxt = Locale.DPSText
-    local text = string.format("%s %s: %d | %s %s: %s \n%s %s: %d | %s: %d",
-        Locale.CurrentText, dpsTxt, currDPS, Locale.AverageText, dpsTxt, avgDPS,
-        Locale.MaxText, dpsTxt, maxDPS, Locale.TotalDmgText, totalDamage)
+    local text = ""
+    if config.DetailedHeader then
+        local dpsTxt = Locale.DPSText
+        text = string.format("%s %s: %d | %s %s: %s \n%s %s: %d | %s: %d",
+            Locale.CurrentText, dpsTxt, currDPS, Locale.AverageText, dpsTxt, avgDPS,
+            Locale.MaxText, dpsTxt, maxDPS, Locale.TotalDmgText, totalDamage)
+    else
+        text = string.format("%s %s | %s: %d",
+             avgDPS, Locale.DPSText, Locale.TotalDmgText, totalDamage)
+    end
 
     if ScreenAnchors[obstacleName] ~= nil then
         game.ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
         game.Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = LastDpsPosition.y - y, Speed = 1000 })
     else
         ScreenAnchors[obstacleName] = game.CreateScreenObstacle({ Name = "BlankObstacle", X = x, Y = y })
+        local xOffset = -75
+        local yOffset = 0
+        if config.DetailedHeader then
+            xOffset = -100
+            yOffset = -5
+        end
         game.CreateTextBox({
             Id = ScreenAnchors[obstacleName],
             Text = text,
-            OffsetX = -100,
-            OffsetY = -5,
+            OffsetX = xOffset,
+            OffsetY = yOffset,
             Font = "LatoSemibold",
             FontSize = 14,
             Justification = "Left",
