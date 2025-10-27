@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.20] - 2025-10-27
+
 ## Added
+
 - NEW detailed DPS header (thank you wez470)
 
 ## [2.8.19] - 2025-10-26
@@ -268,7 +272,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.19...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.20...HEAD
+[2.8.20]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.19...2.8.20
 [2.8.19]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.18...2.8.19
 [2.8.18]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.17...2.8.18
 [2.8.17]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.16...2.8.17
