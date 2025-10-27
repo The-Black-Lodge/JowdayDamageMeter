@@ -50,6 +50,8 @@ function List.emptyList(list)
 end
 
 DamageHistory = List.new(10000)
+CurrDPSDamageInstances = List.new(10000)
+MaxDPS = 0
 CurrentGods = {}
 WeaponVar = {}
 DpsUpdateThread = false
@@ -81,14 +83,35 @@ function calculateDps(list)
         end
     end
 
+    -- Only calculate current / max DPS if they're being displayed
+    local currDPS = 0
+    if config.DetailedHeader then
+        -- calculate current
+        local newDamageInstances = List.new(10000)
+        local cuttoffTime = game.GetTime({}) - 1
+        for i = CurrDPSDamageInstances.first, CurrDPSDamageInstances.last do
+            local damageData = CurrDPSDamageInstances[i]
+            if damageData.Timestamp > cuttoffTime then
+                List.addValue(newDamageInstances, damageData)
+                currDPS = currDPS + damageData.Damage
+            end
+        end
+        CurrDPSDamageInstances = newDamageInstances
+
+        -- calculate max DPS
+        if currDPS > MaxDPS then
+            MaxDPS = currDPS
+        end
+    end
+
     -- sort sources from most damage to least
-    local dps = round(totalDamage / (latestTimestamp - earliestTimestamp))
+    local avgDPS = round(totalDamage / (latestTimestamp - earliestTimestamp))
     local sourcesSortedByDamage = {}
     for source in pairs(totalDamageBySource) do table.insert(sourcesSortedByDamage, source) end
     table.sort(sourcesSortedByDamage, function(a, b)
         return totalDamageBySource[a] < totalDamageBySource[b]
     end)
-    local maxDamage = totalDamageBySource[sourcesSortedByDamage[#sourcesSortedByDamage]]
+    local maxSourceDamage = totalDamageBySource[sourcesSortedByDamage[#sourcesSortedByDamage]]
 
     -- Delete any existing UI (e.g the bars from last update)
     -- TODO: Consider resizing / renaming bars instead of destroying and recreating (no performance issues so far though)
@@ -117,7 +140,7 @@ function calculateDps(list)
             createDpsBar(
                 source,
                 barDamageRounded,
-                maxDamage,
+                maxSourceDamage,
                 totalDamage,
                 config.XPosition,
                 yPos
@@ -128,13 +151,22 @@ function calculateDps(list)
         -- Show the DPS menu only if there are recorded instances of damage, otherwise destroy
         if #sourcesSortedByDamage > 0 then
             local totalDamageRounded = math.floor(totalDamage + 0.5)
+            headerYPos = yPos - 5
+            if config.DetailedHeader then
+                headerYPos = yPos - 10
+            end
             createDpsHeader(
                 "DpsMeter",
                 totalDamageRounded,
-                dps,
+                currDPS,
+                avgDPS,
+                MaxDPS,
                 config.XPosition,
-                yPos - 5
+                headerYPos
             )
+            if config.DetailedHeader then
+                yPos = yPos + config.YPositionIncrement
+            end
             local height = (config.InitialY - yPos + config.Margin)
             local yPosOverlay = yPos + config.YPositionIncrement + height / 2
             createDpsOverlayBackground(
@@ -377,20 +409,35 @@ function createDpsOverlayBackground(obstacleName, x, y, width, height)
 end
 
 -- Create a header that shows overall DPS and overall damage total
-function createDpsHeader(obstacleName, totalDamage, dps, x, y)
-    if tostring(dps) == 'inf' then dps = '···' end
-    local text = dps .. Locale.HeaderText .. totalDamage
+function createDpsHeader(obstacleName, totalDamage, currDPS, avgDPS, maxDPS, x, y)
+    if tostring(avgDPS) == 'inf' then avgDPS = '···' end
+    local text = ""
+    if config.DetailedHeader then
+        local dpsTxt = Locale.DPSText
+        text = string.format("%s %s: %d | %s %s: %s \n%s %s: %d | %s: %d",
+            Locale.CurrentText, dpsTxt, currDPS, Locale.AverageText, dpsTxt, avgDPS,
+            Locale.MaxText, dpsTxt, maxDPS, Locale.TotalDmgText, totalDamage)
+    else
+        text = string.format("%s %s | %s: %d",
+             avgDPS, Locale.DPSText, Locale.TotalDmgText, totalDamage)
+    end
 
     if ScreenAnchors[obstacleName] ~= nil then
         game.ModifyTextBox({ Id = ScreenAnchors[obstacleName], Text = text })
         game.Move({ Ids = ScreenAnchors[obstacleName], Angle = 90, Distance = LastDpsPosition.y - y, Speed = 1000 })
     else
         ScreenAnchors[obstacleName] = game.CreateScreenObstacle({ Name = "BlankObstacle", X = x, Y = y })
+        local xOffset = -75
+        local yOffset = 0
+        if config.DetailedHeader then
+            xOffset = -100
+            yOffset = -5
+        end
         game.CreateTextBox({
             Id = ScreenAnchors[obstacleName],
             Text = text,
-            OffsetX = -50,
-            OffsetY = 0,
+            OffsetX = xOffset,
+            OffsetY = yOffset,
             Font = "LatoSemibold",
             FontSize = 14,
             Justification = "Left",
@@ -684,6 +731,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
             damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
         end
         List.addValue(DamageHistory, {Source = "Burn", Damage = damageAmount, Timestamp = GetTime({})})
+        List.addValue(CurrDPSDamageInstances, {Damage = damageAmount, Timestamp = GetTime({})})
         return
     end
     if (triggerArgs.DamageAmount or 0) > 0
@@ -713,6 +761,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         -- don't log unknowns
         if damageInstance.Source ~= 'Unknown' then
             List.addValue(DamageHistory, damageInstance)
+            List.addValue(CurrDPSDamageInstances, {Damage = damageInstance.Damage, Timestamp = damageInstance.Timestamp})
         else
             -- print('unknown damage source: ' .. damageInstance.Source)
         end
@@ -732,6 +781,8 @@ ModUtil.Path.Wrap("DoUnlockRoomExits", function(baseFunc, run, room)
     DpsUpdateThread = false
     calculateDps(DamageHistory)
     List.emptyList(DamageHistory)
+    List.emptyList(CurrDPSDamageInstances)
+    MaxDPS = 0
 end, mod)
 
 --[[ on room start:

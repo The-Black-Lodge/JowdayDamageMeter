@@ -83,6 +83,12 @@ function drawMenu()
             config.CountOverkillDamage = value
             previousConfig.CountOverkillDamage = value
         end
+
+        value, checked = rom.ImGui.Checkbox("Enable detailed header (Shows current and max DPS)", config.DetailedHeader)
+        if checked and value ~= previousConfig.DetailedHeader then
+            config.DetailedHeader = value
+            previousConfig.DetailedHeader = value
+        end
     end
     rom.ImGui.Spacing()
 

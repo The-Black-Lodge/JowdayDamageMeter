@@ -13,7 +13,11 @@ function AddLocale(lang, data)
 end
 
 AddLocale('en', {
-    HeaderText = " DPS / Total Damage: ",
+    TotalDmgText = "Total Damage",
+    CurrentText = "Curr",
+    MaxText = "Max",
+    AverageText = "Avg",
+    DPSText = "DPS",
     EnemyText = "Enemy",
     WallSlam = "Wall Slam",
     EphyraPylon = "Pylon Spirits",
@@ -25,7 +29,11 @@ AddLocale('en', {
 })
 
 AddLocale('es', {
-    HeaderText = " DPS / Daño Total: ",
+    TotalDmgText = "Daño Total",
+    CurrentText = "Actual",
+    MaxText = "Máximo",
+    AverageText = "Promedio",
+    DPSText = "DPS",
     EnemyText = "Enemigo",
     WallSlam = "Aplastado",
     EphyraPylon = "Pilón de Espíritus",
@@ -37,7 +45,11 @@ AddLocale('es', {
 })
 
 AddLocale('fr', {
-    HeaderText = " DPS / Dégâts totaux : ",
+    TotalDmgText = "Dégâts totaux",
+    CurrentText = "Actuelle",
+    MaxText = "Maximale",
+    AverageText = "Moyenne",
+    DPSText = "DPS",
     EnemyText = "Ennemis",
     WallSlam = "Choc Contre Les Murs",
     EphyraPylon = "Pylône Spirituel",
@@ -49,7 +61,11 @@ AddLocale('fr', {
 })
 
 AddLocale('pt-BR', {
-    HeaderText = " DPS / Dano Total: ",
+    TotalDmgText = "Dano Total",
+    CurrentText = "Atual",
+    MaxText = "Máximo",
+    AverageText = "Médio",
+    DPSText = "DPS",
     EnemyText = "Inimigo",
     WallSlam = "Contra-Parede",
     EphyraPylon = "Pilão de Espíritos",
@@ -61,7 +77,11 @@ AddLocale('pt-BR', {
 })
 
 AddLocale('zh-CN', {
-    HeaderText = " DPS / 总伤害: ",
+    TotalDmgText = "总伤害",
+    CurrentText = "当前",
+    MaxText = "最大",
+    AverageText = "平均",
+    DPSText = "DPS",
     EnemyText = "敌人",
     WallSlam = "撞墙",
     EphyraPylon = "晶石",
