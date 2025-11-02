@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Smithy Rush was incorrectly labeled (thank you ParanoidDrone)
 
 ## [2.8.20] - 2025-10-27
 

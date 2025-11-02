@@ -268,7 +268,7 @@ function getLocalizedNames()
             ["Special"] = "HephaestusSpecialBoon",
             ["OSpecial"] = hepOSpecial,
             ["WeaponCast"] = "HephaestusCastBoon",
-            ["Dash"] = "HephaestusCastBoon",
+            ["Dash"] = "HephaestusSprintBoon",
             ["MassiveSlamBlast"] = "MassiveSlam_Name",
             ["DelayedKnockbackEffect"] = "MassiveKnockupBoon"
         },
