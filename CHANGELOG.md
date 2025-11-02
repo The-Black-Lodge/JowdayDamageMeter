@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.21] - 2025-11-02
+
 ## Fixed
+
 - Smithy Rush was incorrectly labeled (thank you ParanoidDrone)
 
 ## [2.8.20] - 2025-10-27
@@ -274,7 +278,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.20...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.21...HEAD
+[2.8.21]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.20...2.8.21
 [2.8.20]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.19...2.8.20
 [2.8.19]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.18...2.8.19
 [2.8.18]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.17...2.8.18
