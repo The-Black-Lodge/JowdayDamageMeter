@@ -184,6 +184,7 @@ function getLocalizedNames()
             ["WeaponCast"] = apoOCast,
             ["ApolloRetaliateStrike"] = "ApolloRetaliateBoon",
             ["ApolloPerfectDashStrike"] = "ApolloMissStrikeBoon",
+            ["ApolloCastRapid"] = "ApolloExCastBoon"
         },
         Ares = {
             ["Attack"] = "AresWeaponBoon",
@@ -332,6 +333,9 @@ function getLocalizedNames()
         DuoApolloPosedidon = {
             ["ProjectileSprintBall"] = "PoseidonSplashSprintBoon"
         },
+        DuoApolloZeus = {
+            ["ZeusApolloSynergyStrike"] = "ApolloSecondStageCastBoon"
+        },
         DuoHephaestusPoseidon = {
             ["MassiveSlamBlastCast"] = "MassiveCastBoon"
         },
@@ -441,6 +445,10 @@ DpsColors = {
     DuoApolloPosedidon = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Apollo", "Poseidon" }
+    },
+    DuoApolloZeus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Apollo", "Zeus" }
     },
     DuoHephaestusPoseidon = {
         BarColor = Color.BoonPatchDuo,

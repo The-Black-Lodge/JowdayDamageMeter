@@ -323,15 +323,30 @@ function getSourceName(triggerArgs, victim)
         end
     end
 
-    -- print('---')
-    -- print(triggerArgs.WeaponName)
-    -- print(triggerArgs.EffectName)
-    -- print(triggerArgs.SourceProjectile)
-    -- print(triggerArgs.SourceWeapon)
-    -- print(attackerWeaponData.LinkedUpgrades)
+        -- stop here if ZeusApolloSynergyStrike
+        if triggerArgs.SourceProjectile == 'ZeusApolloSynergyStrike' then
+            source = 'ZeusApolloSynergyStrike'
+        end
+
+    print('---')
+    print(triggerArgs.WeaponName)
+    print(triggerArgs.EffectName)
+    print(triggerArgs.SourceProjectile)
+    print(triggerArgs.SourceWeapon)
+    print(attackerWeaponData.LinkedUpgrades)
     -- print(TableToJSONString(triggerArgs))
-    -- print(TableToJSONString(victim))
-    -- print('final source before lookup: ' .. source)
+    --print(TableToJSONString(victim))
+    -- print(TableToJSONString(attackerTable.Traits))
+    -- print(triggerArgs.DamageAmount)
+
+    if victim.DamageShareAmount ~= nil then
+        print('DamageShareAmount: ' .. victim.DamageShareAmount)
+        print('DamageAmount: ' .. triggerArgs.DamageAmount)
+        local damageShareCalculated = triggerArgs.DamageAmount * victim.DamageShareAmount
+        local damageShareRounded = math.floor(damageShareCalculated + 0.5)
+        print('DamageShareCalculated: ' .. damageShareRounded)
+    end
+    print('final source before lookup: ' .. source)
 
     source = NameLookup[source] or source
 
@@ -730,8 +745,19 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         if not config.CountOverkillDamage then
             damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
         end
-        List.addValue(DamageHistory, {Source = "Burn", Damage = damageAmount, Timestamp = GetTime({})})
-        List.addValue(CurrDPSDamageInstances, {Damage = damageAmount, Timestamp = GetTime({})})
+        List.addValue(DamageHistory, { Source = "Burn", Damage = damageAmount, Timestamp = GetTime({}) })
+        List.addValue(CurrDPSDamageInstances, { Damage = damageAmount, Timestamp = GetTime({}) })
+        return
+    end
+    
+    -- Dying Wish
+    if triggerArgs.EffectName == "DamageShareDeath" then
+        print('DamageShareDeath: ' .. triggerArgs.DamageAmount)
+        if not config.CountOverkillDamage then
+            damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
+        end
+        List.addValue(DamageHistory, { Source = "DamageShareDeath", Damage = damageAmount, Timestamp = GetTime({}) })
+        List.addValue(CurrDPSDamageInstances, { Damage = damageAmount, Timestamp = GetTime({}) })
         return
     end
     if (triggerArgs.DamageAmount or 0) > 0
