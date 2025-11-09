@@ -61,6 +61,21 @@ LastDpsPosition = {}
 LastDpsBackgroundPosition = {}
 local dpsInterval = 999999
 
+local function getEffectiveDamage(preHitHealth, rawDamage)
+    if config.CountOverkillDamage then
+        return rawDamage
+    end
+    return math.min(preHitHealth, rawDamage)
+end
+
+local function logDamage(source, preHitHealth, rawDamage)
+    local damageAmount = getEffectiveDamage(preHitHealth, rawDamage)
+    local timestamp = GetTime({})
+    List.addValue(DamageHistory, { Source = source, Damage = damageAmount, Timestamp = timestamp })
+    List.addValue(CurrDPSDamageInstances, { Damage = damageAmount, Timestamp = timestamp })
+    return damageAmount, timestamp
+end
+
 -- damage/data functions
 function calculateDps(list)
     -- sum up damage dealt from each source
@@ -731,33 +746,19 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
 
     -- shade mercs have changed
     if (triggerArgs.SourceProjectile == "ShadeMercSpiritball" or triggerArgs.SourceProjectile == "ShadeMercAspectSpiritball") then
-        local damageAmount = triggerArgs.DamageAmount
-        if not config.CountOverkillDamage then
-            damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
-        end
-        List.addValue(DamageHistory, { Source = "ShadeMercSpiritball", Damage = damageAmount, Timestamp = GetTime({}) })
+        logDamage("ShadeMercSpiritball", preHitHealth, triggerArgs.DamageAmount)
         return
     end
 
     -- bleh special case for scorch
     if (triggerArgs.AttackerId == CurrentRun.Hero.ObjectId) and (triggerArgs.EffectName == "BurnEffect") then
-        local damageAmount = triggerArgs.DamageAmount
-        if not config.CountOverkillDamage then
-            damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
-        end
-        List.addValue(DamageHistory, { Source = "Burn", Damage = damageAmount, Timestamp = GetTime({}) })
-        List.addValue(CurrDPSDamageInstances, { Damage = damageAmount, Timestamp = GetTime({}) })
+        logDamage("Burn", preHitHealth, triggerArgs.DamageAmount)
         return
     end
     
     -- Dying Wish
     if triggerArgs.EffectName == "DamageShareDeath" then
-        print('DamageShareDeath: ' .. triggerArgs.DamageAmount)
-        if not config.CountOverkillDamage then
-            damageAmount = math.min(preHitHealth, triggerArgs.DamageAmount)
-        end
-        List.addValue(DamageHistory, { Source = "DamageShareDeath", Damage = damageAmount, Timestamp = GetTime({}) })
-        List.addValue(CurrDPSDamageInstances, { Damage = damageAmount, Timestamp = GetTime({}) })
+        logDamage("DamageShareDeath", preHitHealth, triggerArgs.DamageAmount)
         return
     end
     if (triggerArgs.DamageAmount or 0) > 0
@@ -774,22 +775,14 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         and not (not attackerCharmed and not victimCharmed and not playerWasAttacker and not preDamage and not isCurse)
     then
         -- print('YES')
-        local damageInstance = {}
-        if config.CountOverkillDamage then
-            damageInstance.Damage = triggerArgs.DamageAmount
-        else
-            damageInstance.Damage = math.min(preHitHealth, triggerArgs.DamageAmount)
-        end
-        damageInstance.Timestamp = GetTime({})
-        damageInstance.Source = getSourceName(triggerArgs, victim)
-        --print('source: ' .. damageInstance.Source)
+        local source = getSourceName(triggerArgs, victim)
+        --print('source: ' .. source)
 
         -- don't log unknowns
-        if damageInstance.Source ~= 'Unknown' then
-            List.addValue(DamageHistory, damageInstance)
-            List.addValue(CurrDPSDamageInstances, {Damage = damageInstance.Damage, Timestamp = damageInstance.Timestamp})
+        if source ~= 'Unknown' then
+            logDamage(source, preHitHealth, triggerArgs.DamageAmount)
         else
-            -- print('unknown damage source: ' .. damageInstance.Source)
+            -- print('unknown damage source: ' .. source)
         end
     else
         -- print('NO')
