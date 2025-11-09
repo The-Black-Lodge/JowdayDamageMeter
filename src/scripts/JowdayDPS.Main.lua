@@ -343,25 +343,25 @@ function getSourceName(triggerArgs, victim)
             source = 'ZeusApolloSynergyStrike'
         end
 
-    print('---')
-    print(triggerArgs.WeaponName)
-    print(triggerArgs.EffectName)
-    print(triggerArgs.SourceProjectile)
-    print(triggerArgs.SourceWeapon)
-    print(attackerWeaponData.LinkedUpgrades)
+    -- print('---')
+    -- print(triggerArgs.WeaponName)
+    -- print(triggerArgs.EffectName)
+    -- print(triggerArgs.SourceProjectile)
+    -- print(triggerArgs.SourceWeapon)
+    -- print(attackerWeaponData.LinkedUpgrades)
     -- print(TableToJSONString(triggerArgs))
     --print(TableToJSONString(victim))
     -- print(TableToJSONString(attackerTable.Traits))
     -- print(triggerArgs.DamageAmount)
 
-    if victim.DamageShareAmount ~= nil then
-        print('DamageShareAmount: ' .. victim.DamageShareAmount)
-        print('DamageAmount: ' .. triggerArgs.DamageAmount)
-        local damageShareCalculated = triggerArgs.DamageAmount * victim.DamageShareAmount
-        local damageShareRounded = math.floor(damageShareCalculated + 0.5)
-        print('DamageShareCalculated: ' .. damageShareRounded)
-    end
-    print('final source before lookup: ' .. source)
+    -- if victim.DamageShareAmount ~= nil then
+    --     print('DamageShareAmount: ' .. victim.DamageShareAmount)
+    --     print('DamageAmount: ' .. triggerArgs.DamageAmount)
+    --     local damageShareCalculated = triggerArgs.DamageAmount * victim.DamageShareAmount
+    --     local damageShareRounded = math.floor(damageShareCalculated + 0.5)
+    --     print('DamageShareCalculated: ' .. damageShareRounded)
+    -- end
+    -- print('final source before lookup: ' .. source)
 
     source = NameLookup[source] or source
 
@@ -718,6 +718,36 @@ function generateBarIcons(colors, label, dpsBar)
     end
 end
 
+function canHitchDamage(source)
+    if source == nil then
+        return false
+    end
+
+    if (source == "Attack" or source == "OAttack") and WeaponVar["Attack"] == "Hera" then
+        return true
+    end
+
+    if (source == "Special" or source == "OSpecial") and WeaponVar["Special"] == "Hera" then
+        return true
+    end
+
+    if source == "Dash" and WeaponVar["Dash"] == "Hera" then
+        return true
+    end
+
+    if source == "Cast" and WeaponVar["Cast"] == "Hera" then
+        return true
+    end
+
+    for _, hitchSource in ipairs(HitchDamageLookup or {}) do
+        if hitchSource == source then
+            return true
+        end
+    end
+    
+    return false
+end
+
 -- overrides
 --[[ on enemy damage:
     - create damage instance ]]
@@ -761,6 +791,18 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         logDamage("DamageShareDeath", preHitHealth, triggerArgs.DamageAmount)
         return
     end
+
+    local source = getSourceName(triggerArgs, victim)
+
+    -- properly display Hitch damage
+    if victim.DamageShareAmount and canHitchDamage(source) then
+        --print('victim.DamageShareAmount: ' .. victim.DamageShareAmount)
+        --print('triggerArgs.DamageAmount: ' .. triggerArgs.DamageAmount)
+        --print('preHitHealth: ' .. preHitHealth)
+        local hitchDamage = math.floor((math.min(triggerArgs.DamageAmount, preHitHealth) * victim.DamageShareAmount) + 0.5)
+        logDamage("DamageShareEffect", preHitHealth, hitchDamage)
+    end
+
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
         and (victim.Name == "NPC_Skelly_01"
@@ -775,8 +817,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         and not (not attackerCharmed and not victimCharmed and not playerWasAttacker and not preDamage and not isCurse)
     then
         -- print('YES')
-        local source = getSourceName(triggerArgs, victim)
-        --print('source: ' .. source)
+        -- print('source: ' .. source)
 
         -- don't log unknowns
         if source ~= 'Unknown' then

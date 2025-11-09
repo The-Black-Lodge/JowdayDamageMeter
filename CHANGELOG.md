@@ -3,7 +3,7 @@
 ## [Unreleased]
 ## Fixed
 - Apollo: Prominence Flare/Glorious Disaster (thanks ParanoidDrone)
-- Hera: Dying Wish should properly display now (thanks ParanoidDrone)
+- Hera: Dying Wish and Hitch damage should properly display now (thanks ParanoidDrone)
 
 ## [2.8.21] - 2025-11-02
 

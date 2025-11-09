@@ -369,6 +369,8 @@ DashStrikeLookup = {
     "ProjectileDaggerDash", "ProjectileStaffDash", "ProjectileAxeDash"
 }
 
+HitchDamageLookup = {"ManaRestoreBlast", "HeraSprintProjectile"}
+
 DpsColors = {
     Aphrodite = {
         BarColor = Color.AphroditeDamage,
