@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.22] - 2025-11-09
+
 ## Fixed
+
 - Apollo: Prominence Flare/Glorious Disaster (thanks ParanoidDrone)
 - Hera: Dying Wish and Hitch damage should properly display now (thanks ParanoidDrone)
 
@@ -281,7 +285,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.21...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.22...HEAD
+[2.8.22]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.21...2.8.22
 [2.8.21]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.20...2.8.21
 [2.8.20]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.19...2.8.20
 [2.8.19]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.18...2.8.19
