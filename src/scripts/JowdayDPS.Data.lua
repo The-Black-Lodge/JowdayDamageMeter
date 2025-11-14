@@ -260,7 +260,7 @@ function getLocalizedNames()
             ["ProjectileFireball"] = "FireballManaSpecialBoon",
             ["WeaponCastProjectile"] = "CastProjectileBoon",
             ["HestiaBurnConsumeStrike"] = "BurnConsumeBoon",
-            ["HestiaSprintPuddle"] = "BurnSprintBoon",
+            ["HestiaSprintPuddle"] = "HestiaSprintBoon",
             ["Burn"] = "Burn"
         },
         Hephaestus = {

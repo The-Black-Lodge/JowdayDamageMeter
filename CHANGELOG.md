@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Hestia: Heat Rush fixed (thanks ParanoidDrone)
 
 ## [2.8.22] - 2025-11-09
 
