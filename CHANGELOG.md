@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.23] - 2025-11-14
+
 ## Fixed
+
 - Hestia: Heat Rush fixed (thanks ParanoidDrone)
 
 ## [2.8.22] - 2025-11-09
@@ -287,7 +291,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.22...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.23...HEAD
+[2.8.23]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.22...2.8.23
 [2.8.22]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.21...2.8.22
 [2.8.21]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.20...2.8.21
 [2.8.20]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.19...2.8.20
