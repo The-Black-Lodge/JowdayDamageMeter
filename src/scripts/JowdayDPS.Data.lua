@@ -350,6 +350,9 @@ function getLocalizedNames()
         DuoDemeterZeus = {
             ["ZeusRootStrike"] = "RootStrikeBoon"
         },
+        DuoSeleneAres = {
+            ["ProjectileBloodMoonBeam"] = "MoonBeamAresTalent"
+        },
         DuoSeleneDemeter = {
             ["DemeterTickEffect"] = "TimeSlowDemeterTalent"
         },
@@ -472,6 +475,10 @@ DpsColors = {
     DuoDemeterZeus = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Zeus", "Demeter" }
+    },
+    DuoSeleneAres = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Ares", "Selene" }
     },
     DuoSeleneDemeter = {
         BarColor = Color.BoonPatchDuo,

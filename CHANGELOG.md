@@ -3,6 +3,7 @@
 ## [Unreleased]
 ## Fixed
 - Hephaestus: Cast and Godsent fixed (thanks ParanoidDrone)
+- Ares: add Lance of Ares (hopefully)
 
 ## [2.8.23] - 2025-11-14
 
