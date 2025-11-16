@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.24] - 2025-11-16
+
 ## Fixed
+
 - Hephaestus: Cast and Godsent fixed (thanks ParanoidDrone)
 - Ares: add Lance of Ares (hopefully)
 
@@ -294,7 +298,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.23...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.24...HEAD
+[2.8.24]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.23...2.8.24
 [2.8.23]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.22...2.8.23
 [2.8.22]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.21...2.8.22
 [2.8.21]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.20...2.8.21
