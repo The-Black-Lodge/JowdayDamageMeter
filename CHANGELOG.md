@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Hephaestus: Cast and Godsent fixed (thanks ParanoidDrone)
 
 ## [2.8.23] - 2025-11-14
 

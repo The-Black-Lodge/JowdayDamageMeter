@@ -343,12 +343,12 @@ function getSourceName(triggerArgs, victim)
             source = 'ZeusApolloSynergyStrike'
         end
 
-    -- print('---')
-    -- print(triggerArgs.WeaponName)
-    -- print(triggerArgs.EffectName)
-    -- print(triggerArgs.SourceProjectile)
-    -- print(triggerArgs.SourceWeapon)
-    -- print(attackerWeaponData.LinkedUpgrades)
+    print('---')
+    print(triggerArgs.WeaponName)
+    print(triggerArgs.EffectName)
+    print(triggerArgs.SourceProjectile)
+    print(triggerArgs.SourceWeapon)
+    print(attackerWeaponData.LinkedUpgrades)
     -- print(TableToJSONString(triggerArgs))
     --print(TableToJSONString(victim))
     -- print(TableToJSONString(attackerTable.Traits))

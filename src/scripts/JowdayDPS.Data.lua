@@ -27,6 +27,7 @@ function getLocalizedNames()
     local hesOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "HestiaSpecialBoon" })
     local hepOAttack = omegaPrefix .. game.GetDisplayName({ Text = "HephaestusWeaponBoon" })
     local hepOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "HephaestusSpecialBoon" })
+    local hepOCast = omegaPrefix .. game.GetDisplayName({ Text = "HephaestusCastBoon" })
     local posOAttack = omegaPrefix .. game.GetDisplayName({ Text = "PoseidonWeaponBoon" })
     local posOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "PoseidonSpecialBoon" })
     local posOCast = omegaPrefix .. game.GetDisplayName({ Text = "OmegaPoseidonProjectileBoon" })
@@ -268,7 +269,8 @@ function getLocalizedNames()
             ["OAttack"] = hepOAttack,
             ["Special"] = "HephaestusSpecialBoon",
             ["OSpecial"] = hepOSpecial,
-            ["WeaponCast"] = "HephaestusCastBoon",
+            ["HephCastBlast"] = "HephaestusCastBoon",
+            ["WeaponCast"] = hepOCast,
             ["Dash"] = "HephaestusSprintBoon",
             ["MassiveSlamBlast"] = "MassiveSlam_Name",
             ["DelayedKnockbackEffect"] = "MassiveKnockupBoon"
@@ -350,6 +352,9 @@ function getLocalizedNames()
         },
         DuoSeleneDemeter = {
             ["DemeterTickEffect"] = "TimeSlowDemeterTalent"
+        },
+        DuoSeleneHephaestus = {
+            ["HephLeapBlast"] = "LeapHephaestusTalent"
         },
         DuoSeleneZeus = {
             ["ZeusPolymorphStrike"] = "PolymorphZeusTalent"
@@ -471,6 +476,10 @@ DpsColors = {
     DuoSeleneDemeter = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Demeter", "Selene" }
+    },
+    DuoSeleneHephaestus = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Hephaestus", "Selene" }
     },
     DuoSeleneZeus = {
         BarColor = Color.BoonPatchDuo,
