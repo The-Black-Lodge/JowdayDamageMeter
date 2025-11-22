@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.25] - 2025-11-22
+
 ## Fixed
+
 - Ephyra Pylons, Circe Morph (thanks ParanoidDrone)
 
 ## [2.8.24] - 2025-11-16
@@ -300,7 +304,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.24...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.25...HEAD
+[2.8.25]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.24...2.8.25
 [2.8.24]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.23...2.8.24
 [2.8.23]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.22...2.8.23
 [2.8.22]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.21...2.8.22
