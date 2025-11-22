@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- adjust Circe Morph name
 
 ## [2.8.25] - 2025-11-22
 

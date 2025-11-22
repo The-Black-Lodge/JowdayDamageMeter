@@ -39,6 +39,8 @@ function getLocalizedNames()
     -- practical gods
     local artOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ArtemisWeaponBoon" })
     local artOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ArtemisSpecialBoon" })
+    -- circe
+    local circePoly = '(' .. game.GetDisplayName({ Text = "NPC_Circe_01"}) .. ') ' .. game.GetDisplayName({ Text = "Polymorph" })
 
     NameLookup = {
         -- sheep?
@@ -154,7 +156,7 @@ function getLocalizedNames()
         GuardMelee = Locale.EnemyText,
         PolyphemusStomachAche = Locale.EnemyText,
         -- circe also has a morph
-        MorphDamageProjectile = "Polymorph",
+        MorphDamageProjectile = circePoly,
         -- don't translate these
         HeraCastSummonProjectile = "WeaponCast",
         HeraCastDamageProjectile = "WeaponCast",
