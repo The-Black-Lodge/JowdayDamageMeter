@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.26] - 2025-11-22
+
 ## Fixed
+
 - adjust Circe Morph name
 
 ## [2.8.25] - 2025-11-22
@@ -306,7 +310,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.25...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.26...HEAD
+[2.8.26]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.25...2.8.26
 [2.8.25]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.24...2.8.25
 [2.8.24]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.23...2.8.24
 [2.8.23]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.22...2.8.23
