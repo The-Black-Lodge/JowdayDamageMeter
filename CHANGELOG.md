@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Ephyra Pylons, Circe Morph (thanks ParanoidDrone)
 
 ## [2.8.24] - 2025-11-16
 

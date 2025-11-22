@@ -774,6 +774,12 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     -- print('DamageAmount: ' .. triggerArgs.DamageAmount)
     -- print('checking if we log the damage...')
 
+    -- ephyra pylon
+    if (triggerArgs.SourceProjectile == "SoulPylonSpiritball") then
+        logDamage("SoulPylonSpiritball", preHitHealth, triggerArgs.DamageAmount)
+        return
+    end
+
     -- shade mercs have changed
     if (triggerArgs.SourceProjectile == "ShadeMercSpiritball" or triggerArgs.SourceProjectile == "ShadeMercAspectSpiritball") then
         logDamage("ShadeMercSpiritball", preHitHealth, triggerArgs.DamageAmount)

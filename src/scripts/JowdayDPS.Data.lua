@@ -153,6 +153,8 @@ function getLocalizedNames()
         MageRanged = Locale.EnemyText,
         GuardMelee = Locale.EnemyText,
         PolyphemusStomachAche = Locale.EnemyText,
+        -- circe also has a morph
+        MorphDamageProjectile = "Polymorph",
         -- don't translate these
         HeraCastSummonProjectile = "WeaponCast",
         HeraCastDamageProjectile = "WeaponCast",
