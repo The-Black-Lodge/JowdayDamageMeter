@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- remove debug print (thanks dwbl)
 
 ## [2.8.26] - 2025-11-22
 
