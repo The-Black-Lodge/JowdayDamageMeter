@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.27] - 2025-11-23
+
 ## Fixed
+
 - remove debug print (thanks dwbl)
 
 ## [2.8.26] - 2025-11-22
@@ -312,7 +316,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.26...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.27...HEAD
+[2.8.27]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.26...2.8.27
 [2.8.26]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.25...2.8.26
 [2.8.25]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.24...2.8.25
 [2.8.24]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.23...2.8.24
