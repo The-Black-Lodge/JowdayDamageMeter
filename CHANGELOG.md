@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.8.28] - 2025-11-28
+
 ## Fixed
+
 - Extinction, Freezer Burn (thanks ParanoidDrone)
 
 ## [2.8.27] - 2025-11-23
@@ -318,7 +322,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.27...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.28...HEAD
+[2.8.28]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.27...2.8.28
 [2.8.27]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.26...2.8.27
 [2.8.26]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.25...2.8.26
 [2.8.25]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.24...2.8.25
