@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Extinction, Freezer Burn (thanks ParanoidDrone)
 
 ## [2.8.27] - 2025-11-23
 

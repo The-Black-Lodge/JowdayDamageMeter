@@ -264,7 +264,6 @@ function getLocalizedNames()
             ["BurnEffect"] = "Burn",
             ["ProjectileFireball"] = "FireballManaSpecialBoon",
             ["WeaponCastProjectile"] = "CastProjectileBoon",
-            ["HestiaBurnConsumeStrike"] = "BurnConsumeBoon",
             ["HestiaSprintPuddle"] = "HestiaSprintBoon",
             ["Burn"] = "Burn"
         },
@@ -314,7 +313,8 @@ function getLocalizedNames()
             ["WeaponTransformAttack"] = darkSideAttack,
             ["WeaponTransformSpecial"] = darkSideSpecial,
             ["WeaponSpellMoonBeam"] = "SpellMoonBeamTrait",
-            ["WeaponSpellPolymorph"] = "Polymorph"
+            ["WeaponSpellPolymorph"] = "Polymorph",
+            ["PolymorphNova"] = "PolymorphDeathExplodeTalent"
         },
         Zeus = {
             ["Attack"] = "ZeusWeaponBoon",
@@ -344,6 +344,9 @@ function getLocalizedNames()
         },
         DuoHephaestusPoseidon = {
             ["MassiveSlamBlastCast"] = "MassiveCastBoon"
+        },
+        DuoHestiaDemeter = {
+            ["HestiaBurnConsumeStrike"] = "BurnConsumeBoon",
         },
         DuoHestiaPoseidon = {
             ["SteamBlast"] = "SteamBoon"
@@ -467,6 +470,10 @@ DpsColors = {
     DuoHephaestusPoseidon = {
         BarColor = Color.BoonPatchDuo,
         Icons = { "Hephaestus", "Poseidon" }
+    },
+    DuoHestiaDemeter = {
+        BarColor = Color.BoonPatchDuo,
+        Icons = { "Hestia", "Demeter" }
     },
     DuoHestiaPoseidon = {
         BarColor = Color.BoonPatchDuo,
