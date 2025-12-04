@@ -23,6 +23,7 @@ local config = {
     SkellyHealthMax = 920,
     CountOverkillDamage = false,
     CarrotMode = false,
+    CarrotModeType = "always", -- "always" or "bosses"
     DetailedHeader = false,
     -- Performance optimization settings
     EnableAdaptivePolling = true,
@@ -54,6 +55,7 @@ local configDesc = {
     SkellyHealthMax = "How much health to give Skelly. default is 920",
     CountOverkillDamage = "Whether or not to count damage that goes over the enemy's health. default is false",
     CarrotMode = "Don't display the damage meter until combat has ended.",
+    CarrotModeType = "When to apply Carrot Mode: 'always' (all combat) or 'bosses' (boss fights only).",
     DetailedHeader = "Show detailed DPS stats (Current, Avg, Max) in the header bar.",
     -- Performance optimization settings
     EnableAdaptivePolling = "Enable adaptive polling frequency based on combat activity. Reduces CPU usage during low activity.",

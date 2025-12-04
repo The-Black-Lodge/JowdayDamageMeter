@@ -61,6 +61,13 @@ LastDpsPosition = {}
 LastDpsBackgroundPosition = {}
 local dpsInterval = 999999
 
+local function isBossFight()
+    if CurrentRun and CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.Encounter then
+        return CurrentRun.CurrentRoom.Encounter.EncounterType == "Boss"
+    end
+    return false
+end
+
 local function getEffectiveDamage(preHitHealth, rawDamage)
     if config.CountOverkillDamage then
         return rawDamage
@@ -139,13 +146,21 @@ function calculateDps(list)
         game.Destroy({ Id = component.Id })
         DpsIcons[bar] = nil
     end
+    -- Determine if Carrot Mode should hide the meter
+    local shouldHideForCarrotMode = false
+    if config.CarrotMode then
+        if config.CarrotModeType == "bosses" then
+            -- Only hide during boss fights
+            shouldHideForCarrotMode = DpsUpdateThread and isBossFight()
+        else
+            -- Hide during all combat (default "always" behavior)
+            shouldHideForCarrotMode = DpsUpdateThread
+        end
+    end
+
     if config.ShowMeter
         and (
-            not config.CarrotMode
-            or (
-                config.CarrotMode
-                and not DpsUpdateThread
-            )
+            not shouldHideForCarrotMode
             or ModUtil.Path.Get("CurrentHubRoom.Name") == "Hub_PreRun"
         ) then
         local yPos = config.InitialY

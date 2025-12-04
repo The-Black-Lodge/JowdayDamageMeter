@@ -10,6 +10,7 @@ local previousConfig = {
     CountOverkillDamage = nil,
     ShowMeter = nil,
     CarrotMode = nil,
+    CarrotModeType = nil,
     ToggleMeterModifier = nil,
     ToggleMeterKey = nil,
     ToggleMeterBind = nil,
@@ -118,6 +119,29 @@ function drawMenu()
             end
         end
         rom.ImGui.TextWrapped("* Turning this on will also enable 'Show meter'.")
+
+        if config.CarrotMode then
+            rom.ImGui.Indent(38)
+            rom.ImGui.TextWrapped("When to apply Carrot Mode:")
+            
+            if rom.ImGui.RadioButton("Always", config.CarrotModeType == "always") then
+                if config.CarrotModeType ~= "always" then
+                    config.CarrotModeType = "always"
+                    previousConfig.CarrotModeType = "always"
+                end
+            end
+            
+            rom.ImGui.SameLine()
+            
+            if rom.ImGui.RadioButton("Only during boss fights", config.CarrotModeType == "bosses") then
+                if config.CarrotModeType ~= "bosses" then
+                    config.CarrotModeType = "bosses"
+                    previousConfig.CarrotModeType = "bosses"
+                end
+            end
+            
+            rom.ImGui.Unindent(38)
+        end
 
         rom.ImGui.Separator()
 
