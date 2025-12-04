@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.9.0] - 2025-12-04
+
 ## Added
+
 - further customize Carrot Mode (thank you Callypygia for the idea)
 
 ## [2.8.29] - 2025-12-04
@@ -330,7 +334,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.29...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.0...HEAD
+[2.9.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.29...2.9.0
 [2.8.29]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.28...2.8.29
 [2.8.28]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.27...2.8.28
 [2.8.27]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.26...2.8.27
