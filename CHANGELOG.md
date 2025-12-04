@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Added
+- further customize Carrot Mode (thank you Callypygia for the idea)
 
 ## [2.8.29] - 2025-12-04
 

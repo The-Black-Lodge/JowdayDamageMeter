@@ -11,6 +11,14 @@ local previousConfig = {
     ShowMeter = nil,
     CarrotMode = nil,
     CarrotModeType = nil,
+    CarrotModeEnabledBoss_Hecate = nil,
+    CarrotModeEnabledBoss_Scylla = nil,
+    CarrotModeEnabledBoss_Cerberus = nil,
+    CarrotModeEnabledBoss_Chronos = nil,
+    CarrotModeEnabledBoss_Polyphemus = nil,
+    CarrotModeEnabledBoss_Eris = nil,
+    CarrotModeEnabledBoss_Prometheus = nil,
+    CarrotModeEnabledBoss_Typhon = nil,
     ToggleMeterModifier = nil,
     ToggleMeterKey = nil,
     ToggleMeterBind = nil,
@@ -137,6 +145,71 @@ function drawMenu()
                 if config.CarrotModeType ~= "bosses" then
                     config.CarrotModeType = "bosses"
                     previousConfig.CarrotModeType = "bosses"
+                end
+            end
+            rom.ImGui.TextWrapped("EXPERIMENTAL: Please report any bugs on GitHub or Discord!")
+            
+            if config.CarrotModeType == "bosses" then
+                rom.ImGui.Spacing()
+                
+                if rom.ImGui.CollapsingHeader("Underworld") then
+                    rom.ImGui.Indent(20)
+                    
+                    value, checked = rom.ImGui.Checkbox("Hecate", config.CarrotModeEnabledBoss_Hecate)
+                    if checked and value ~= previousConfig.CarrotModeEnabledBoss_Hecate then
+                        config.CarrotModeEnabledBoss_Hecate = value
+                        previousConfig.CarrotModeEnabledBoss_Hecate = value
+                    end
+                    
+                    value, checked = rom.ImGui.Checkbox("Scylla", config.CarrotModeEnabledBoss_Scylla)
+                    if checked and value ~= previousConfig.CarrotModeEnabledBoss_Scylla then
+                        config.CarrotModeEnabledBoss_Scylla = value
+                        previousConfig.CarrotModeEnabledBoss_Scylla = value
+                    end
+                    
+                    value, checked = rom.ImGui.Checkbox("Cerberus", config.CarrotModeEnabledBoss_Cerberus)
+                    if checked and value ~= previousConfig.CarrotModeEnabledBoss_Cerberus then
+                        config.CarrotModeEnabledBoss_Cerberus = value
+                        previousConfig.CarrotModeEnabledBoss_Cerberus = value
+                    end
+                    
+                    value, checked = rom.ImGui.Checkbox("Chronos", config.CarrotModeEnabledBoss_Chronos)
+                    if checked and value ~= previousConfig.CarrotModeEnabledBoss_Chronos then
+                        config.CarrotModeEnabledBoss_Chronos = value
+                        previousConfig.CarrotModeEnabledBoss_Chronos = value
+                    end
+                    
+                    rom.ImGui.Unindent(20)
+                end
+                
+                if rom.ImGui.CollapsingHeader("Surface") then
+                    rom.ImGui.Indent(20)
+                    
+                    value, checked = rom.ImGui.Checkbox("Polyphemus", config.CarrotModeEnabledBoss_Polyphemus)
+                    if checked and value ~= previousConfig.CarrotModeEnabledBoss_Polyphemus then
+                        config.CarrotModeEnabledBoss_Polyphemus = value
+                        previousConfig.CarrotModeEnabledBoss_Polyphemus = value
+                    end
+                    
+                    value, checked = rom.ImGui.Checkbox("Eris", config.CarrotModeEnabledBoss_Eris)
+                    if checked and value ~= previousConfig.CarrotModeEnabledBoss_Eris then
+                        config.CarrotModeEnabledBoss_Eris = value
+                        previousConfig.CarrotModeEnabledBoss_Eris = value
+                    end
+                    
+                    value, checked = rom.ImGui.Checkbox("Prometheus", config.CarrotModeEnabledBoss_Prometheus)
+                    if checked and value ~= previousConfig.CarrotModeEnabledBoss_Prometheus then
+                        config.CarrotModeEnabledBoss_Prometheus = value
+                        previousConfig.CarrotModeEnabledBoss_Prometheus = value
+                    end
+                    
+                    value, checked = rom.ImGui.Checkbox("Typhon", config.CarrotModeEnabledBoss_Typhon)
+                    if checked and value ~= previousConfig.CarrotModeEnabledBoss_Typhon then
+                        config.CarrotModeEnabledBoss_Typhon = value
+                        previousConfig.CarrotModeEnabledBoss_Typhon = value
+                    end
+                    
+                    rom.ImGui.Unindent(20)
                 end
             end
             

@@ -24,6 +24,14 @@ local config = {
     CountOverkillDamage = false,
     CarrotMode = false,
     CarrotModeType = "always", -- "always" or "bosses"
+    CarrotModeEnabledBoss_Hecate = true,
+    CarrotModeEnabledBoss_Scylla = true,
+    CarrotModeEnabledBoss_Cerberus = true,
+    CarrotModeEnabledBoss_Chronos = true,
+    CarrotModeEnabledBoss_Polyphemus = true,
+    CarrotModeEnabledBoss_Eris = true,
+    CarrotModeEnabledBoss_Prometheus = true,
+    CarrotModeEnabledBoss_Typhon = true,
     DetailedHeader = false,
     -- Performance optimization settings
     EnableAdaptivePolling = true,

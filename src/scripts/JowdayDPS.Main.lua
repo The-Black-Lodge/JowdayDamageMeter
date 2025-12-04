@@ -61,9 +61,55 @@ LastDpsPosition = {}
 LastDpsBackgroundPosition = {}
 local dpsInterval = 999999
 
+local BossTypes = {
+    -- Underworld
+    Hecate = "BossHecate",
+    Scylla = "BossScylla",
+    Cerberus = "BossInfestedCerberus",
+    Chronos = "BossChronos",
+    -- Surface
+    Polyphemus = "BossPolyphemus",
+    Eris = "BossEris",
+    Prometheus = "BossPrometheus",
+    Typhon = "BossTyphon",
+}
+
 local function isBossFight()
     if CurrentRun and CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.Encounter then
-        return CurrentRun.CurrentRoom.Encounter.EncounterType == "Boss"
+        local encounterType = CurrentRun.CurrentRoom.Encounter.EncounterType
+        if encounterType == "Boss" then
+            if config.CarrotModeType == "bosses" then
+                local encounterName = CurrentRun.CurrentRoom.Encounter.Name or ""
+                
+                if config.CarrotModeEnabledBoss_Hecate and encounterName:sub(1, #BossTypes.Hecate) == BossTypes.Hecate then
+                    return true
+                end
+                if config.CarrotModeEnabledBoss_Scylla and encounterName:sub(1, #BossTypes.Scylla) == BossTypes.Scylla then
+                    return true
+                end
+                if config.CarrotModeEnabledBoss_Cerberus and encounterName:sub(1, #BossTypes.Cerberus) == BossTypes.Cerberus then
+                    return true
+                end
+                if config.CarrotModeEnabledBoss_Chronos and encounterName:sub(1, #BossTypes.Chronos) == BossTypes.Chronos then
+                    return true
+                end
+                if config.CarrotModeEnabledBoss_Polyphemus and encounterName:sub(1, #BossTypes.Polyphemus) == BossTypes.Polyphemus then
+                    return true
+                end
+                if config.CarrotModeEnabledBoss_Eris and encounterName:sub(1, #BossTypes.Eris) == BossTypes.Eris then
+                    return true
+                end
+                if config.CarrotModeEnabledBoss_Prometheus and encounterName:sub(1, #BossTypes.Prometheus) == BossTypes.Prometheus then
+                    return true
+                end
+                if config.CarrotModeEnabledBoss_Typhon and encounterName:sub(1, #BossTypes.Typhon) == BossTypes.Typhon then
+                    return true
+                end
+                return false
+            else
+                return true
+            end
+        end
     end
     return false
 end
@@ -158,10 +204,13 @@ function calculateDps(list)
         end
     end
 
+    local currentRoomName = (CurrentRun and CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.Name) or "unknown"
+    local isTrainingRoom = currentRoomName == "Hub_PreRun"
+    
     if config.ShowMeter
         and (
             not shouldHideForCarrotMode
-            or ModUtil.Path.Get("CurrentHubRoom.Name") == "Hub_PreRun"
+            or isTrainingRoom
         ) then
         local yPos = config.InitialY
         -- Create UI to show DPS bars for each source
