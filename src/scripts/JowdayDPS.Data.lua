@@ -158,7 +158,6 @@ function getLocalizedNames()
         -- circe also has a morph
         MorphDamageProjectile = circePoly,
         -- don't translate these
-        HeraCastSummonProjectile = "WeaponCast",
         HeraCastDamageProjectile = "WeaponCast",
         DemeterSprintStorm = "Dash",
         HephSprintBlast = "Dash",
@@ -251,7 +250,8 @@ function getLocalizedNames()
             ["DamageShareDeath"] = "LinkedDeathDamageBoon",
             ["ProjectileHeraOmega"] = herOCast,
             ["LinkNova"] = "SpawnCastDamageBoon",
-            ["HeraSprintProjectile"] = "HeraSprintBoon"
+            ["HeraSprintProjectile"] = "HeraSprintBoon",
+            ["HeraCastSummonProjectile"] = "SpawnCastDamageBoon"
         },
         Hestia = {
             ["Attack"] = "HestiaWeaponBoon",

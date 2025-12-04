@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Rousing Reception (thanks ParanoidDrone)
 
 ## [2.8.28] - 2025-11-28
 
