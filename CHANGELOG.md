@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- Harm for the Afflicted (thanks ParanoidDrone)
 
 ## [2.9.0] - 2025-12-04
 

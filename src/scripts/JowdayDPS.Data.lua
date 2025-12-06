@@ -287,7 +287,8 @@ function getLocalizedNames()
             ["MedeaCurse"] = "SpawnDamageCurse", -- fallback
             ["SpawnDamageCurse"] = "SpawnDamageCurse",
             ["DeathDefianceRetaliateCurse"] = "DeathDefianceRetaliateCurse",
-            ["ArmorPenaltyCurse"] = "ArmorPenaltyCurse"
+            ["ArmorPenaltyCurse"] = "ArmorPenaltyCurse",
+            ["MedeaStatusStrike"] = "NewStatusDamage"
         },
         OdysseusKeepsake = {
             ["KnuckleBones"] = "BossPreDamageKeepsake"
