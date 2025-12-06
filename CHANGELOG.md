@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.9.1] - 2025-12-06
+
 ## Fixed
+
 - Harm for the Afflicted (thanks ParanoidDrone)
 
 ## [2.9.0] - 2025-12-04
@@ -336,7 +340,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.0...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.1...HEAD
+[2.9.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.0...2.9.1
 [2.9.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.29...2.9.0
 [2.8.29]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.28...2.8.29
 [2.8.28]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.27...2.8.28
