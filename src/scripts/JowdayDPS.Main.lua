@@ -759,6 +759,11 @@ function getColorAndLabel(source)
         end
     end
 
+    -- get niceLabel from ScreenData.RunClear.DamageSourceMap table if available as a last resort
+    if niceLabel == nil then
+        niceLabel = game.ScreenData.RunClear.DamageSourceMap[source]
+    end
+
     if color == nil then
         color = colors["Default"]
     end
