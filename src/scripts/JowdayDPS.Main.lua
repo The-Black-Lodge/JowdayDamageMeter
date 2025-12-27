@@ -747,6 +747,18 @@ function getColorAndLabel(source)
         end
     end
 
+    -- get color from ProjectileData if available as a last resort
+    if color == nil then
+        local projectileData = game.ProjectileData[source]
+        if projectileData ~= nil then
+            if projectileData.DamageTextStartColor ~= nil then
+                color = {
+                    BarColor = projectileData.DamageTextStartColor
+                }
+            end
+        end
+    end
+
     if color == nil then
         color = colors["Default"]
     end
