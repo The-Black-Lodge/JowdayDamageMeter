@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.9.2] - 2025-12-29
+
 ## Fixed
+
 - better differentiation for omega casts (thanks ParanoidDrone)
 
 ## [2.9.1] - 2025-12-06
@@ -342,7 +346,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.1...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.2...HEAD
+[2.9.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.1...2.9.2
 [2.9.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.0...2.9.1
 [2.9.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.29...2.9.0
 [2.8.29]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.28...2.8.29
