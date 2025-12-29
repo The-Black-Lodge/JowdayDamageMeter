@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- better differentiation for omega casts (thanks ParanoidDrone)
 
 ## [2.9.1] - 2025-12-06
 

@@ -11,6 +11,7 @@ function getLocalizedNames()
     local oCastText = omegaPrefix .. game.GetDisplayName({ Text = "Cast" })
     local aphOAttack = omegaPrefix .. game.GetDisplayName({ Text = "AphroditeWeaponBoon" })
     local aphOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "AphroditeSpecialBoon" })
+    local aphOCast = omegaPrefix .. game.GetDisplayName({ Text = "AphroditeCastBoon" })
     local apoOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ApolloWeaponBoon" })
     local apoOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ApolloSpecialBoon" })
     local apoOCast = omegaPrefix .. game.GetDisplayName({ Text = "ApolloCastBoon" })
@@ -20,19 +21,22 @@ function getLocalizedNames()
     local areOCast = omegaPrefix .. game.GetDisplayName({ Text = "AresCastBoon" })
     local demOAttack = omegaPrefix .. game.GetDisplayName({ Text = "DemeterWeaponBoon" })
     local demOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "DemeterSpecialBoon" })
+    local demOCast = omegaPrefix .. game.GetDisplayName({ Text = "DemeterCastBoon" })
     local herOAttack = omegaPrefix .. game.GetDisplayName({ Text = "HeraWeaponBoon" })
     local herOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "HeraSpecialBoon" })
-    local herOCast = omegaPrefix .. game.GetDisplayName({ Text = "OmegaHeraProjectileBoon" })
+    local herOCast = omegaPrefix .. game.GetDisplayName({ Text = "HeraCastBoon" })
     local hesOAttack = omegaPrefix .. game.GetDisplayName({ Text = "HestiaWeaponBoon" })
     local hesOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "HestiaSpecialBoon" })
+    local hesOCast = omegaPrefix .. game.GetDisplayName({ Text = "HestiaCastBoon" })
     local hepOAttack = omegaPrefix .. game.GetDisplayName({ Text = "HephaestusWeaponBoon" })
     local hepOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "HephaestusSpecialBoon" })
     local hepOCast = omegaPrefix .. game.GetDisplayName({ Text = "HephaestusCastBoon" })
     local posOAttack = omegaPrefix .. game.GetDisplayName({ Text = "PoseidonWeaponBoon" })
     local posOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "PoseidonSpecialBoon" })
-    local posOCast = omegaPrefix .. game.GetDisplayName({ Text = "OmegaPoseidonProjectileBoon" })
+    local posOCast = omegaPrefix .. game.GetDisplayName({ Text = "PoseidonCastBoon" })
     local zeuOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ZeusWeaponBoon" })
     local zeuOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ZeusSpecialBoon" })
+    local zeuOCast = omegaPrefix .. game.GetDisplayName({ Text = "ZeusCastBoon" })
     local spellTransformTrait = game.GetDisplayName({ Text = "SpellTransformTrait" })
     local darkSideAttack = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Attack" }) .. ')'
     local darkSideSpecial = spellTransformTrait .. ' (' .. game.GetDisplayName({ Text = "Special" }) .. ')'
@@ -173,6 +177,7 @@ function getLocalizedNames()
             ["OAttack"] = aphOAttack,
             ["Special"] = "AphroditeSpecialBoon",
             ["OSpecial"] = aphOSpecial,
+            ["OCast"] = aphOCast,
             ["AphroditeRushProjectile"] = "AphroditeSprintBoon",
             ["WeaponCast"] = "AphroditeCastBoon",
             ["AphroditeBurst"] = "ManaBurstBoon",
@@ -182,6 +187,7 @@ function getLocalizedNames()
             ["OAttack"] = apoOAttack,
             ["Special"] = "ApolloSpecialBoon",
             ["OSpecial"] = apoOSpecial,
+            ["OCast"] = apoOCast,
             ["Dash"] = "ApolloSprintBoon",
             ["ApolloCast"] = apoOCastEx,
             ["ApolloSingleCastStrike"] = "ApolloCastBoon",
@@ -195,6 +201,7 @@ function getLocalizedNames()
             ["OAttack"] = areOAttack,
             ["Special"] = "AresSpecialBoon",
             ["OSpecial"] = areOSpecial,
+            ["OCast"] = areOCast,
             ["Dash"] = "AresSprintBoon",
             ["ProjectileAresSwordEx"] = "OmegaDelayedDamageBoon",
             ["ProjectileAresSwordWake"] = "AresSprintBoon",
@@ -223,6 +230,7 @@ function getLocalizedNames()
             ["OAttack"] = demOAttack,
             ["Special"] = "DemeterSpecialBoon",
             ["OSpecial"] = demOSpecial,
+            ["OCast"] = demOCast,
             ["Dash"] = "DemeterSprintBoon",
             ["WeaponCast"] = "DemeterCastBoon",
             ["DemeterChillKill"] = "InstantRootKill",
@@ -244,6 +252,7 @@ function getLocalizedNames()
             ["OAttack"] = herOAttack,
             ["Special"] = "HeraSpecialBoon",
             ["OSpecial"] = herOSpecial,
+            ["OCast"] = herOCast,
             ["WeaponCast"] = "HeraCastBoon",
             ["HeraDamageShareProjectile"] = "DamageShareRetaliateBoon",
             ["DamageShareEffect"] = "Link",
@@ -258,6 +267,7 @@ function getLocalizedNames()
             ["OAttack"] = hesOAttack,
             ["Special"] = "HestiaSpecialBoon",
             ["OSpecial"] = hesOSpecial,
+            ["OCast"] = hesOCast,
             ["Dash"] = "HestiaSprintBoon",
             ["WeaponCast"] = "HestiaCastBoon",
             ["BurnNova"] = "BurnExplodeBoon",
@@ -272,6 +282,7 @@ function getLocalizedNames()
             ["OAttack"] = hepOAttack,
             ["Special"] = "HephaestusSpecialBoon",
             ["OSpecial"] = hepOSpecial,
+            ["OCast"] = hepOCast,
             ["HephCastBlast"] = "HephaestusCastBoon",
             ["WeaponCast"] = hepOCast,
             ["Dash"] = "HephaestusSprintBoon",
@@ -298,6 +309,7 @@ function getLocalizedNames()
             ["OAttack"] = posOAttack,
             ["Special"] = "PoseidonSpecialBoon",
             ["OSpecial"] = posOSpecial,
+            ["OCast"] = posOCast,
             ["Dash"] = "PoseidonSprintBoon",
             ["WeaponCast"] = "PoseidonCastBoon",
             ["PoseidonSplashSplinter"] = "PoseidonSplash_Name",
@@ -322,6 +334,7 @@ function getLocalizedNames()
             ["OAttack"] = zeuOAttack,
             ["Special"] = "ZeusSpecialBoon",
             ["OSpecial"] = zeuOSpecial,
+            ["OCast"] = zeuOCast,
             ["Dash"] = "ZeusSprintBoon",
             ["WeaponCast"] = "ZeusCastBoon",
             ["ZeusEchoStrike"] = "Echo",
@@ -379,6 +392,10 @@ AttackEXLookup = {
 
 SpecialEXLookup = {
     "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbitEx", "ProjectileThrowCharged", "ProjectileDaggerThrowCharged", "ProjectileSuitBomb", "ProjectileSuitRangedCharged"
+}
+
+CastEXLookup = {
+    "ProjectileCast"
 }
 
 DashStrikeLookup = {

@@ -383,6 +383,7 @@ function getSourceName(triggerArgs, victim)
         local sourceWeapon = triggerArgs.SourceWeapon or nil
         local isAttackEX = false
         local isSpecialEX = false
+        local isCastEX = false
         if sourceWeapon ~= nil then
             for k, v in pairs(AttackEXLookup) do
                 if sourceWeapon:match(v) or sourceProjectile:match(v) then
@@ -399,6 +400,16 @@ function getSourceName(triggerArgs, victim)
             elseif isSpecialEX == true then
                 source = "OSpecial"
             end
+        end
+        if sourceProjectile ~= nil then
+            for k, v in pairs(CastEXLookup) do
+                if sourceProjectile:match(v) then
+                    isCastEX = true
+                end
+            end
+        end
+        if isCastEX == true then
+            source = "OCast"
         end
     end
 
@@ -703,6 +714,16 @@ function getColorAndLabel(source)
         if cast ~= nil and sources[cast] ~= nil then
             color = colors[cast]
             niceLabel = sources[cast]["WeaponCast"]
+            return color, niceLabel
+        else
+            return colors["Default"], NameLookup.OCastText
+        end
+    end
+
+    if source == 'OCast' then
+        if cast ~= nil and sources[cast] ~= nil and sources[cast]["OCast"] ~= nil then
+            color = colors[cast]
+            niceLabel = sources[cast]["OCast"]
             return color, niceLabel
         else
             return colors["Default"], NameLookup.OCastText
