@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.9.3] - 2026-01-03
+
 ## [2.9.2] - 2025-12-29
 
 ## Fixed
@@ -346,7 +348,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.2...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.3...HEAD
+[2.9.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.2...2.9.3
 [2.9.2]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.1...2.9.2
 [2.9.1]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.0...2.9.1
 [2.9.0]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.8.29...2.9.0

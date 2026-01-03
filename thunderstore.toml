@@ -5,7 +5,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "Jowday"
 name = "DamageMeter"
-versionNumber = "2.9.2"
+versionNumber = "2.9.3"
 description = "Adds some damage meters. Configure Skelly's health to test new builds! All languages supported! Uses localized names for most damage types (>95%)."
 websiteUrl = "https://github.com/The-Black-Lodge/JowdayDamageMeter"
 containsNsfwContent = false
