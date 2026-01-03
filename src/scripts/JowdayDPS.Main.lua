@@ -849,7 +849,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     -- don't use ingame function here because reasons
     local attackerCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
 
-    local playerWasAttacker = triggerArgs.AttackerName == "_PlayerUnit"
+    local playerWasAttacker = game.Contains({"_PlayerUnit", "CatFamiliar", "FrogFamiliar", "PolecatFamiliar", "RavenFamiliar"}, triggerArgs.AttackerName)
 
     local preDamage = triggerArgs.PreDamageBossFunctionName ~= nil
     local isCurse = triggerArgs.CurseName ~= nil
@@ -857,6 +857,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     -- print('victimCharmed: ' .. tostring(victimCharmed))
     -- print('playerWasAttacker: ' .. tostring(playerWasAttacker))
     -- print('DamageAmount: ' .. triggerArgs.DamageAmount)
+    -- print('AtackerName: ' .. triggerArgs.AttackerName)
     -- print('checking if we log the damage...')
 
     -- ephyra pylon
