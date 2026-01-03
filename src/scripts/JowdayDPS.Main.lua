@@ -74,6 +74,14 @@ local BossTypes = {
     Typhon = "BossTyphon",
 }
 
+local PlayerDamageSourceUnits = {
+    ["_PlayerUnit"] = true,
+    ["CatFamiliar"] = true,
+    ["FrogFamiliar"] = true,
+    ["PolecatFamiliar"] = true,
+    ["RavenFamiliar"] = true,
+}
+
 local function isBossFight()
     if CurrentRun and CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.Encounter then
         local encounterType = CurrentRun.CurrentRoom.Encounter.EncounterType
@@ -757,6 +765,10 @@ function getColorAndLabel(source)
         return colors["Frinos"], "FrogFamiliar"
     elseif source == "Toula" then
         return colors["Toula"], "CatFamiliar"
+    elseif source == "RavenFamiliar" then
+        return colors["Raven"], "RavenFamiliar"
+    elseif source == "DodgeFamiliar" then
+        return colors["Gale"], "DodgeFamiliar"
     end
 
     if color == nil then
@@ -849,7 +861,7 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     -- don't use ingame function here because reasons
     local attackerCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
 
-    local playerWasAttacker = game.Contains({"_PlayerUnit", "CatFamiliar", "FrogFamiliar", "PolecatFamiliar", "RavenFamiliar"}, triggerArgs.AttackerName)
+    local playerWasAttacker = PlayerDamageSourceUnits[triggerArgs.AttackerName] or false
 
     local preDamage = triggerArgs.PreDamageBossFunctionName ~= nil
     local isCurse = triggerArgs.CurseName ~= nil
