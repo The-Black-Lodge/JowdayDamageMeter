@@ -257,7 +257,7 @@ function getLocalizedNames()
             ["HeraDamageShareProjectile"] = "DamageShareRetaliateBoon",
             ["DamageShareEffect"] = "Link",
             ["DamageShareDeath"] = "LinkedDeathDamageBoon",
-            ["ProjectileHeraOmega"] = herOCast,
+            ["ProjectileHeraOmega"] = "OmegaHeraProjectileBoon",
             ["LinkNova"] = "SpawnCastDamageBoon",
             ["HeraSprintProjectile"] = "HeraSprintBoon",
             ["HeraCastSummonProjectile"] = "SpawnCastDamageBoon"
