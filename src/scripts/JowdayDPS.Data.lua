@@ -395,7 +395,7 @@ SpecialEXLookup = {
 }
 
 CastEXLookup = {
-    "ProjectileCast"
+    "^ProjectileCast$"
 }
 
 DashStrikeLookup = {
