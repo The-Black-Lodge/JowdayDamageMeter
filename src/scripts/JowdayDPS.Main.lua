@@ -450,7 +450,7 @@ function getSourceName(triggerArgs, victim)
     -- print('final source before lookup: ' .. source)
 
     source = NameLookup[source] or source
-    
+
     -- charm has several flavors
     local isCharmed = attackerTable.Charmed or activeEffects["Charm"] == 1 or activeEffectsStart["Charm"] == 1
     if isCharmed then
