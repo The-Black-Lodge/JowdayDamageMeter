@@ -191,10 +191,13 @@ function calculateDps(list)
 
     -- Delete any existing UI (e.g the bars from last update)
     -- TODO: Consider resizing / renaming bars instead of destroying and recreating (no performance issues so far though)
+
+    local barsToDelete = {}
     for bar, component in pairs(DpsBars) do
-        game.Destroy({ Id = component.Id })
+        table.insert(barsToDelete, component.Id)
         DpsBars[bar] = nil
     end
+    game.thread(game.DestroyOnDelay, barsToDelete, 0.005)
 
     for bar, component in pairs(DpsIcons) do
         game.Destroy({ Id = component.Id })
