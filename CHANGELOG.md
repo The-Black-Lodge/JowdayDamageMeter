@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- updated some icons, more to come
 
 ## [2.9.6] - 2026-01-17
 

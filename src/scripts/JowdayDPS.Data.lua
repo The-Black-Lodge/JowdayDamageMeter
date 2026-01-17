@@ -567,18 +567,18 @@ DpsColors = {
 }
 
 Icons = {
-    Aphrodite = { Name = "GUI\\Screens\\BoonSelectSymbols\\Aphrodite", Scale = 0.1 },
-    Apollo = { Name = "GUI\\Screens\\BoonSelectSymbols\\Apollo", Scale = 0.1 },
-    Ares = { Name = "GUI\\Screens\\BoonSelectSymbols\\Ares", Scale = 0.1 },
+    Aphrodite = { Name = "Items\\Loot\\Boon\\AphroditeIconSpin\\AphroditeIconSpin0015", Scale = 0.15 },
+    Apollo = { Name = "Items\\Loot\\Boon\\ApolloIconSpin\\ApolloIconSpin0015", Scale = 0.2 },
+    Ares = { Name = "Items\\Loot\\Boon\\AresIconSpin\\AresIconSpin0015", Scale = 0.2 },
     Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis", Scale = 0.1 },
-    Athena = { Name = "GUI\\Screens\\BoonSelectSymbols\\Athena", Scale = 0.1 },
-    Demeter = { Name = "GUI\\Screens\\BoonSelectSymbols\\Demeter", Scale = 0.1 },
+    Athena = { Name = "Items\\Loot\\Boon\\AthenaIconSpin\\AthenaIconSpin0015", Scale = 0.2 },
+    Demeter = { Name = "Items\\Loot\\Boon\\DemeterIconSpin\\DemeterIconSpin0015", Scale = 0.2 },
     Dionysus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Dionysus", Scale = 0.1 },
     Hades = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hades", Scale = 0.1 },
-    Hera = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hera", Scale = 0.1 },
-    Hestia = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hestia", Scale = 0.1 },
-    Hephaestus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hephaestus", Scale = 0.1 },
-    Poseidon = { Name = "GUI\\Screens\\BoonSelectSymbols\\Poseidon", Scale = 0.1 },
+    Hera = { Name = "Items\\Loot\\Boon\\HeraIconSpin\\HeraIconSpin0015", Scale = 0.2 },
+    Hestia = { Name = "Items\\Loot\\Boon\\HestiaIconSpin\\HestiaIconSpin0015", Scale = 0.2 },
+    Hephaestus = { Name = "Items\\Loot\\Boon\\HephaestusIconSpin\\HephaestusIconSpin0015", Scale = 0.2 },
+    Poseidon = { Name = "Items\\Loot\\Boon\\PoseidonIconSpin\\PoseidonIconSpin0015", Scale = 0.2 },
     Selene = { Name = "Items\\Loot\\SpellDrop_Preview", Scale = 0.2 },
-    Zeus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Zeus", Scale = 0.1 }
+    Zeus = { Name = "Items\\Loot\\Boon\\ZeusIconSpin\\ZeusIconSpin0015", Scale = 0.2 }
 }
