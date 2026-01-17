@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.9.6] - 2026-01-17
+
 - update Lunar Eclipse (thank you ParanoidDrone and zerp)
 
 ## [2.9.5] - 2026-01-11
@@ -353,7 +356,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.5...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.6...HEAD
+[2.9.6]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.5...2.9.6
 [2.9.5]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.4...2.9.5
 [2.9.4]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.3...2.9.4
 [2.9.3]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.2...2.9.3
