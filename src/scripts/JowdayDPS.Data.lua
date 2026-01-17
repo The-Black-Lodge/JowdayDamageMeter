@@ -323,6 +323,8 @@ function getLocalizedNames()
             ["WeaponSpellLaser"] = "SpellLaserTrait",
             ["WeaponSpellLeap"] = "SpellLeapTrait",
             ["WeaponSpellMeteor"] = "SpellMeteorTrait",
+            ["ProjectileSpellMeteor"] = "SpellMeteorTrait",
+            ["ProjectileSpellMiniMeteor"] = "SpellMeteorTrait",
             ["WeaponTransformAttack"] = darkSideAttack,
             ["WeaponTransformSpecial"] = darkSideSpecial,
             ["WeaponSpellMoonBeam"] = "SpellMoonBeamTrait",
