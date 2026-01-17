@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- update Lunar Eclipse (thank you ParanoidDrone and zerp)
 
 ## [2.9.5] - 2026-01-11
 

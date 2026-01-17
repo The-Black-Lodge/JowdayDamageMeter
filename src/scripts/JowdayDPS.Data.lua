@@ -169,6 +169,7 @@ function getLocalizedNames()
         ZeusSprintStrike = "Dash",
         PoseidonCastSplashSplinter = "WeaponCast",
         AphroditeCastProjectile = "WeaponCast",
+        ProjectileSpellMiniMeteor = "WeaponSpellMeteor"
     }
 
     SourceLookup = {
