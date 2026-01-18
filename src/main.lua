@@ -6,6 +6,7 @@ local mods = rom.mods
 ---@module 'SGG_Modding-ENVY-auto'
 mods['SGG_Modding-ENVY'].auto()
 
+rom = rom
 _PLUGIN = _PLUGIN
 
 ---@module 'SGG_Modding-Hades2GameDef-Globals'
