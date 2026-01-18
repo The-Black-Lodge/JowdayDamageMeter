@@ -18,6 +18,12 @@ local order = {
     'Scale',
 }
 
+local boonIconOrder = {
+    'Name',
+    'InheritFrom',
+    'FilePath'
+}
+
 local newdata = sjson.to_object({
     Name = "DpsBarWhite",
     FilePath = "GUI\\HUD\\HealthBarFull",
@@ -33,8 +39,40 @@ local newdata = sjson.to_object({
     Scale = 1.0,
 }, order)
 
+local boonArtemisIcon = sjson.to_object({
+    Name = "DpsArtemisIcon",
+    InheritFrom = "BoonInfoSymbolBase",
+    FilePath = rom.path.combine(_PLUGIN.guid, 'ArtemisIcon')
+}, boonIconOrder)
+
+local boonAthenaIcon = sjson.to_object({
+    Name = "DpsAthenaIcon",
+    InheritFrom = "BoonInfoSymbolBase",
+    FilePath = rom.path.combine(_PLUGIN.guid, 'AthenaIcon')
+}, boonIconOrder)
+
+local boonDionysusIcon = sjson.to_object({
+    Name = "DpsDionysusIcon",
+    InheritFrom = "BoonInfoSymbolBase",
+    FilePath = rom.path.combine(_PLUGIN.guid, 'DionysusIcon')
+}, boonIconOrder)
+
+local boonHadesIcon = sjson.to_object({
+    Name = "DpsHadesIcon",
+    InheritFrom = "BoonInfoSymbolBase",
+    FilePath = rom.path.combine(_PLUGIN.guid, 'HadesIcon')
+}, boonIconOrder)
+
 local path = rom.path.combine(rom.paths.Content, 'Game/Animations/GUI_HUD_VFX.sjson')
+local iconPath = rom.path.combine(rom.paths.Content, 'Game/Animations/GUI_Screens_VFX.sjson')
 
 sjson.hook(path, function(data)
     table.insert(data.Animations, newdata)
+end)
+
+sjson.hook(iconPath, function(data)
+    table.insert(data.Animations, boonArtemisIcon)
+    table.insert(data.Animations, boonAthenaIcon)
+    table.insert(data.Animations, boonDionysusIcon)
+    table.insert(data.Animations, boonHadesIcon)
 end)
