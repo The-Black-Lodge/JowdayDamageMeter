@@ -1,3 +1,4 @@
 build
 *.json
 .DS_Store
+god-icons/*
