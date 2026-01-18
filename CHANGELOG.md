@@ -4,6 +4,7 @@
 ## Fixed
 - icons showing up properly (thank you dwbl, zerp)
 - omega icon flicker reduced/fixed (thank you zerp)
+- zagreus journey support (thank you NikkelM)
 
 ## [2.9.8] - 2026-01-18
 
