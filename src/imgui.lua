@@ -216,9 +216,8 @@ function drawMenu()
                     rom.ImGui.Unindent(20)
                 end
 
-                local mods = rom.mods
-                local zagMod = mods['NikkelM-Zagreus_Journey']
-                if zagMod then
+
+                if ZagreusJourneyMod then
                     if rom.ImGui.CollapsingHeader("Zagreus Journey") then
                         rom.ImGui.Indent(20)
                         
@@ -245,9 +244,9 @@ function drawMenu()
                             config.CarrotModeEnabledBoss_Hades = value
                             previousConfig.CarrotModeEnabledBoss_Hades = value
                         end
-                    end
 
-                    rom.ImGui.Unindent(20)
+                        rom.ImGui.Unindent(20)
+                    end
                 end
             end
             
