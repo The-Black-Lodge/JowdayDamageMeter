@@ -31,6 +31,12 @@ CurrentBind = nil
 local function on_ready()
     if config.enabled == false then return end
 
+    local package = rom.path.combine(_PLUGIN.plugins_data_mod_folder_path, _PLUGIN.guid)
+    modutil.mod.Path.Wrap("SetupMap", function(base)
+        LoadPackages({ Name = package })
+        base()
+    end)
+
     import 'scripts/sjson.lua'
     import 'scripts/JowdayDPS.Data.lua'
     import 'localize.lua'
