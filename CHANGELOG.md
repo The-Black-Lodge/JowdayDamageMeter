@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+## Fixed
+- icons showing up properly (thank you dwbl, zerp)
+- omega icon flicker reduced/fixed (thank you zerp)
 
 ## [2.9.7] - 2026-01-17
 
