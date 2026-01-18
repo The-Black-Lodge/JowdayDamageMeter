@@ -183,7 +183,9 @@ function drawMenu()
                         previousConfig.CarrotModeEnabledBoss_Chronos = value
                     end
 
-                    if ZagreusJourneyMod then
+                    local mods = rom.mods
+                    local zagMod = mods['NikkelM-Zagreus_Journey']
+                    if zagMod then
                         if rom.ImGui.CollapsingHeader("Zagreus Journey") then
                             rom.ImGui.Indent(20)
                             

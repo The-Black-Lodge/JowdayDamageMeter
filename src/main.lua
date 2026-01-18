@@ -27,7 +27,6 @@ config = chalk.auto 'config.lua'
 public.config = config
 
 CurrentBind = nil
-ZagreusJourneyMod = nil
 
 local function on_ready()
     if config.enabled == false then return end
@@ -37,12 +36,6 @@ local function on_ready()
         LoadPackages({ Name = package })
         base()
     end)
-
-    local mods = rom.mods
-    local zagMod = mods['Nikkel-ZagreusJourney']
-    if zagMod then
-        ZagreusJourneyMod = zagMod
-    end
 
     import 'scripts/sjson.lua'
     import 'scripts/JowdayDPS.Data.lua'
