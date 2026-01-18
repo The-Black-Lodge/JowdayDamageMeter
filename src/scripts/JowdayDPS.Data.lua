@@ -102,6 +102,9 @@ function getLocalizedNames()
         DemeterStatueFrostStorm = "Traps",
         PoseidonStatueWave = "Traps",
         ZeusStatueChasingStorm = "Traps",
+        -- Zagreus Journey
+        ModsNikkelMHadesBiomesRubbleFall = "Traps",
+        ModsNikkelMHadesBiomesRubbleFallLarge = "Traps",
         --
         OAttackText = oAttackText,
         OSpecialText = oSpecialText,
