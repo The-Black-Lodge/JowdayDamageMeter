@@ -1,7 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.9.9] - 2026-01-18
+
 ## Fixed
+
 - icons showing up properly (thank you dwbl, zerp)
 - omega icon flicker reduced/fixed (thank you zerp)
 - zagreus journey support (thank you NikkelM)
@@ -368,7 +372,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.8...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.9...HEAD
+[2.9.9]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.8...2.9.9
 [2.9.8]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.7...2.9.8
 [2.9.7]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.6...2.9.7
 [2.9.6]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.5...2.9.6
