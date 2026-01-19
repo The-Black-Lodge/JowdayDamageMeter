@@ -169,6 +169,7 @@ function getLocalizedNames()
         DemeterSprintStorm = "Dash",
         HephSprintBlast = "Dash",
         PoseidonSprintBlast = "Dash",
+        PoseidonSprintSecondaryBlast = "Dash",
         ZeusSprintStrike = "Dash",
         PoseidonCastSplashSplinter = "WeaponCast",
         AphroditeCastProjectile = "WeaponCast",
@@ -321,7 +322,6 @@ function getLocalizedNames()
             ["PoseidonOmegaProjectile"] = posOCast,
             ["PoseidonEffectFont"] = "KnockbackAmplify",
             ["PoseidonOmegaWave"] = "OmegaPoseidonProjectileBoon",
-            ["PoseidonSprintSecondaryBlast"] = "PoseidonSprintBoon"
         },
         Selene = {
             ["WeaponSpellLaser"] = "SpellLaserTrait",
