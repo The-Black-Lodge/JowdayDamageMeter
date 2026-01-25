@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.9.10] - 2026-01-25
+
 - fix separate instances of Breaker Rush showing up
 
 ## [2.9.9] - 2026-01-18
@@ -374,7 +376,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.9...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.10...HEAD
+[2.9.10]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.9...2.9.10
 [2.9.9]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.8...2.9.9
 [2.9.8]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.7...2.9.8
 [2.9.7]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.6...2.9.7
