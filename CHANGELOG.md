@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- fix separate instances of Breaker Rush showing up
+
 ## [2.9.9] - 2026-01-18
 
 ## Fixed
