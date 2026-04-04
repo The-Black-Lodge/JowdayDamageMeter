@@ -44,7 +44,8 @@ function getLocalizedNames()
     local artOAttack = omegaPrefix .. game.GetDisplayName({ Text = "ArtemisWeaponBoon" })
     local artOSpecial = omegaPrefix .. game.GetDisplayName({ Text = "ArtemisSpecialBoon" })
     -- circe
-    local circePoly = '(' .. game.GetDisplayName({ Text = "NPC_Circe_01"}) .. ') ' .. game.GetDisplayName({ Text = "Polymorph" })
+    local circePoly = '(' ..
+    game.GetDisplayName({ Text = "NPC_Circe_01" }) .. ') ' .. game.GetDisplayName({ Text = "Polymorph" })
 
     NameLookup = {
         -- sheep?
@@ -391,11 +392,14 @@ function getLocalizedNames()
 end
 
 AttackEXLookup = {
-    "WeaponStaffSwing5", "WeaponDagger5", "WeaponAxeSpin", "ProjectileTorchBallLarge", "ProjectileLobCharged", "ProjectileSuitCharged", "ProjectileLobOverheat", "ProjectileTorchWave", "ProjectileTorchGhostLarge", "ProjectileTorchRepeatStrike", "ProjectileTorchSupayBallEx"
+    "WeaponStaffSwing5", "WeaponDagger5", "WeaponAxeSpin", "ProjectileTorchBallLarge", "ProjectileLobCharged",
+    "ProjectileSuitCharged", "ProjectileLobOverheat", "ProjectileTorchWave", "ProjectileTorchGhostLarge",
+    "ProjectileTorchRepeatStrike", "ProjectileTorchSupayBallEx"
 }
 
 SpecialEXLookup = {
-    "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbitEx", "ProjectileThrowCharged", "ProjectileDaggerThrowCharged", "ProjectileSuitBomb", "ProjectileSuitRangedCharged"
+    "ProjectileStaffBallCharged", "WeaponAxeSpecialSwing", "ProjectileTorchOrbitEx", "ProjectileThrowCharged",
+    "ProjectileDaggerThrowCharged", "ProjectileSuitBomb", "ProjectileSuitRangedCharged"
 }
 
 CastEXLookup = {
@@ -406,7 +410,7 @@ DashStrikeLookup = {
     "ProjectileDaggerDash", "ProjectileStaffDash", "ProjectileAxeDash"
 }
 
-HitchDamageLookup = {"ManaRestoreBlast", "HeraSprintProjectile"}
+HitchDamageLookup = { "ManaRestoreBlast", "HeraSprintProjectile" }
 
 DpsColors = {
     Aphrodite = {
@@ -557,8 +561,8 @@ DpsColors = {
         LabelColor = Color.LightGold
     },
     Raven = {
-        BarColor = { 75, 45, 85, 255 },
-        LabelColor = { 75, 45, 85, 255 }
+        BarColor = { 150, 90, 170, 255 },
+        LabelColor = { 150, 90, 170, 255 }
     },
     Gale = {
         BarColor = { 160, 120, 80, 255 },

@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## Updated
+
+- Release workflow updated to Node24
+- Make Raki's colors a little brighter
+
 ## [2.9.10] - 2026-01-25
 
 - fix separate instances of Breaker Rush showing up
