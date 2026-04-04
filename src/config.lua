@@ -32,6 +32,10 @@ local config = {
     CarrotModeEnabledBoss_Eris = true,
     CarrotModeEnabledBoss_Prometheus = true,
     CarrotModeEnabledBoss_Typhon = true,
+    CarrotModeEnabledBoss_Furies = true,
+    CarrotModeEnabledBoss_Hydra = true,
+    CarrotModeEnabledBoss_Theseus = true,
+    CarrotModeEnabledBoss_Hades = true,
     DetailedHeader = false,
     -- Performance optimization settings
     EnableAdaptivePolling = true,

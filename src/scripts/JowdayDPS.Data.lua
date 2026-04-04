@@ -102,6 +102,9 @@ function getLocalizedNames()
         DemeterStatueFrostStorm = "Traps",
         PoseidonStatueWave = "Traps",
         ZeusStatueChasingStorm = "Traps",
+        -- Zagreus Journey
+        ModsNikkelMHadesBiomesRubbleFall = "Traps",
+        ModsNikkelMHadesBiomesRubbleFallLarge = "Traps",
         --
         OAttackText = oAttackText,
         OSpecialText = oSpecialText,
@@ -166,6 +169,7 @@ function getLocalizedNames()
         DemeterSprintStorm = "Dash",
         HephSprintBlast = "Dash",
         PoseidonSprintBlast = "Dash",
+        PoseidonSprintSecondaryBlast = "Dash",
         ZeusSprintStrike = "Dash",
         PoseidonCastSplashSplinter = "WeaponCast",
         AphroditeCastProjectile = "WeaponCast",
@@ -318,7 +322,6 @@ function getLocalizedNames()
             ["PoseidonOmegaProjectile"] = posOCast,
             ["PoseidonEffectFont"] = "KnockbackAmplify",
             ["PoseidonOmegaWave"] = "OmegaPoseidonProjectileBoon",
-            ["PoseidonSprintSecondaryBlast"] = "PoseidonSprintBoon"
         },
         Selene = {
             ["WeaponSpellLaser"] = "SpellLaserTrait",
@@ -570,11 +573,11 @@ Icons = {
     Aphrodite = { Name = "Items\\Loot\\Boon\\AphroditeIconSpin\\AphroditeIconSpin0015", Scale = 0.15 },
     Apollo = { Name = "Items\\Loot\\Boon\\ApolloIconSpin\\ApolloIconSpin0015", Scale = 0.2 },
     Ares = { Name = "Items\\Loot\\Boon\\AresIconSpin\\AresIconSpin0015", Scale = 0.2 },
-    Artemis = { Name = "GUI\\Screens\\BoonSelectSymbols\\Artemis", Scale = 0.1 },
-    Athena = { Name = "Items\\Loot\\Boon\\AthenaIconSpin\\AthenaIconSpin0015", Scale = 0.2 },
+    Artemis = { Name = "Jowday-DamageMeter\\DpsArtemisIcon", Scale = 0.1 },
+    Athena = { Name = "Jowday-DamageMeter\\DpsAthenaIcon", Scale = 0.1 },
     Demeter = { Name = "Items\\Loot\\Boon\\DemeterIconSpin\\DemeterIconSpin0015", Scale = 0.2 },
-    Dionysus = { Name = "GUI\\Screens\\BoonSelectSymbols\\Dionysus", Scale = 0.1 },
-    Hades = { Name = "GUI\\Screens\\BoonSelectSymbols\\Hades", Scale = 0.1 },
+    Dionysus = { Name = "Jowday-DamageMeter\\DpsDionysusIcon", Scale = 0.1 },
+    Hades = { Name = "Jowday-DamageMeter\\DpsHadesIcon", Scale = 0.17 },
     Hera = { Name = "Items\\Loot\\Boon\\HeraIconSpin\\HeraIconSpin0015", Scale = 0.2 },
     Hestia = { Name = "Items\\Loot\\Boon\\HestiaIconSpin\\HestiaIconSpin0015", Scale = 0.2 },
     Hephaestus = { Name = "Items\\Loot\\Boon\\HephaestusIconSpin\\HephaestusIconSpin0015", Scale = 0.2 },

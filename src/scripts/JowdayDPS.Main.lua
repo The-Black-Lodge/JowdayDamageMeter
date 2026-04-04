@@ -74,6 +74,13 @@ local BossTypes = {
     Typhon = "BossTyphon",
 }
 
+if ZagreusJourneyMod then
+    BossTypes.Furies = "BossHarpy"
+    BossTypes.Hydra = "BossHydra"
+    BossTypes.Theseus = "BossTheseusAndMinotaur"
+    BossTypes.Hades = "BossHades"
+end
+
 local PlayerDamageSourceUnits = {
     ["_PlayerUnit"] = true,
     ["CatFamiliar"] = true,
@@ -112,6 +119,20 @@ local function isBossFight()
                 end
                 if config.CarrotModeEnabledBoss_Typhon and encounterName:sub(1, #BossTypes.Typhon) == BossTypes.Typhon then
                     return true
+                end
+                if ZagreusJourneyMod then
+                    if config.CarrotModeEnabledBoss_Furies and encounterName:sub(1, #BossTypes.Furies) == BossTypes.Furies then
+                        return true
+                    end
+                    if config.CarrotModeEnabledBoss_Hydra and encounterName:sub(1, #BossTypes.Hydra) == BossTypes.Hydra then
+                        return true
+                    end
+                    if config.CarrotModeEnabledBoss_Theseus and encounterName:sub(1, #BossTypes.Theseus) == BossTypes.Theseus then
+                        return true
+                    end
+                    if config.CarrotModeEnabledBoss_Hades and encounterName:sub(1, #BossTypes.Hades) == BossTypes.Hades then
+                        return true
+                    end
                 end
                 return false
             else
@@ -191,10 +212,13 @@ function calculateDps(list)
 
     -- Delete any existing UI (e.g the bars from last update)
     -- TODO: Consider resizing / renaming bars instead of destroying and recreating (no performance issues so far though)
+
+    local barsToDelete = {}
     for bar, component in pairs(DpsBars) do
-        game.Destroy({ Id = component.Id })
+        table.insert(barsToDelete, component.Id)
         DpsBars[bar] = nil
     end
+    game.thread(game.DestroyOnDelay, barsToDelete, 0.005)
 
     for bar, component in pairs(DpsIcons) do
         game.Destroy({ Id = component.Id })
