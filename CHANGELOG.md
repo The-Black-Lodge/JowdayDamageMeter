@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.9.11] - 2026-04-04
+
 ## Updated
 
 - Release workflow updated to Node24
@@ -381,7 +383,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.10...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.11...HEAD
+[2.9.11]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.10...2.9.11
 [2.9.10]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.9...2.9.10
 [2.9.9]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.8...2.9.9
 [2.9.8]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.7...2.9.8
