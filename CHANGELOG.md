@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Properly log insta kill effects, Shocking Loss and Winter Harvest
+
 ## [2.9.11] - 2026-04-04
 
 ## Updated
