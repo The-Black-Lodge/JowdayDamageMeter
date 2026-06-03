@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.9.12] - 2026-06-03
+
 - Properly log insta kill effects, Shocking Loss and Winter Harvest
 
 ## [2.9.11] - 2026-04-04
@@ -385,7 +387,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.11...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.12...HEAD
+[2.9.12]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.11...2.9.12
 [2.9.11]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.10...2.9.11
 [2.9.10]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.9...2.9.10
 [2.9.9]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.8...2.9.9
