@@ -374,6 +374,7 @@ function drawMenu()
         if used and color ~= previousConfig.BackgroundColor then
             config.BackgroundColor = color
             previousConfig.BackgroundColor = color
+            configChalk.BackgroundColor = color
         end
 
         reset = rom.ImGui.Button("Reset Layout")
@@ -384,6 +385,7 @@ function drawMenu()
             --config.Margin = 40
             --config.DisplayWidth = 400
             config.BackgroundColor = { 0.09, 0.055, 0.157, 0.6 }
+            configChalk.BackgroundColor = { 0.09, 0.055, 0.157, 0.6 }
             
             -- Update previous config values to match reset values
             previousConfig.XPosition = config.XPosition
