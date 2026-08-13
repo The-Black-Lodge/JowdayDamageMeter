@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## Updated
+
+- Add a write only config proxy to improve ImGui performance - zerp
+
 ## [2.9.12] - 2026-06-03
 
 - Properly log insta kill effects, Shocking Loss and Winter Harvest
