@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.9.13] - 2026-08-13
+
 ## Updated
 
 - Add a write only config proxy to improve ImGui performance - zerp
@@ -391,7 +393,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.12...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.13...HEAD
+[2.9.13]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.12...2.9.13
 [2.9.12]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.11...2.9.12
 [2.9.11]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.10...2.9.11
 [2.9.10]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.9...2.9.10
