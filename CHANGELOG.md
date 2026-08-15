@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Fix broken background setting after version [2.9.13] - zerp
+
 ## [2.9.13] - 2026-08-13
 
 ## Updated
