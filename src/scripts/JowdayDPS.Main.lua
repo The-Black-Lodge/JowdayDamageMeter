@@ -540,7 +540,7 @@ function createDpsOverlayBackground(obstacleName, x, y, width, height)
         ScreenAnchors[obstacleName] = game.CreateScreenObstacle({ Name = "rectangle01", X = x, Y = y })
         game.SetScaleX({ Id = ScreenAnchors[obstacleName], Fraction = scaleWidth })
         game.SetScaleY({ Id = ScreenAnchors[obstacleName], Fraction = scaleHeight })
-        game.SetColor({ Id = ScreenAnchors[obstacleName], Color = config.BackgroundColor })
+        game.SetColor({ Id = ScreenAnchors[obstacleName], Color = readBackgroundcolor() })
     end
     LastDpsBackgroundPosition.y = y
 end

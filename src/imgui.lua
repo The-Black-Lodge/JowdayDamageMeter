@@ -49,6 +49,22 @@ rom.gui.add_to_menu_bar(function()
     end
 end)
 
+function writeBackgroundcolor(color)
+    config.BackgroundColor["1"] = color[1]
+    config.BackgroundColor["2"] = color[2]
+    config.BackgroundColor["3"] = color[3]
+    config.BackgroundColor["4"] = color[4]
+end
+
+function readBackgroundcolor()
+    return {
+        config.BackgroundColor["1"],
+        config.BackgroundColor["2"],
+        config.BackgroundColor["3"],
+        config.BackgroundColor["4"],
+    }
+end
+
 function drawMenu()
     if rom.ImGui.CollapsingHeader("Damage Display Options") then
         value, checked = rom.ImGui.Checkbox("Show God icons", config.ShowIcons)
@@ -370,11 +386,9 @@ function drawMenu()
         -- value, used = rom.ImGui.SliderInt("Width", config.DisplayWidth, 300, 600)
         -- if used then config.DisplayWidth = value end
 
-        color, used = rom.ImGui.ColorEdit4("Background", config.BackgroundColor)
-        if used and color ~= previousConfig.BackgroundColor then
-            config.BackgroundColor = color
-            previousConfig.BackgroundColor = color
-            configChalk.BackgroundColor = color
+        color, used = rom.ImGui.ColorEdit4("Background", readBackgroundcolor())
+        if used then
+            writeBackgroundcolor(color)
         end
 
         reset = rom.ImGui.Button("Reset Layout")
@@ -384,13 +398,11 @@ function drawMenu()
             --config.YPositionIncrement = -20
             --config.Margin = 40
             --config.DisplayWidth = 400
-            config.BackgroundColor = { 0.09, 0.055, 0.157, 0.6 }
-            configChalk.BackgroundColor = { 0.09, 0.055, 0.157, 0.6 }
+            writeBackgroundcolor({ 0.09, 0.055, 0.157, 0.6 })
             
             -- Update previous config values to match reset values
             previousConfig.XPosition = config.XPosition
             previousConfig.InitialY = config.InitialY
-            previousConfig.BackgroundColor = config.BackgroundColor
         end
     end
 end
