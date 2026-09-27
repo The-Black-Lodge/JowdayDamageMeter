@@ -94,3 +94,5 @@ Note the background will be a bit darker than what you select, still working on 
 - Thank you to Aoro for help with the Spanish translation.
 
 Please join the [Hades Modding Discord](https://discord.gg/KuMbyrN) for support. Contact me there if you are interested in contributing additional translations!
+
+AI Disclosure: ImGui debugging was performed using the help of generative AI in September 2025.
