@@ -856,36 +856,6 @@ function generateBarIcons(colors, label, dpsBar)
     end
 end
 
-function canHitchDamage(source)
-    if source == nil then
-        return false
-    end
-
-    if (source == "Attack" or source == "OAttack") and WeaponVar["Attack"] == "Hera" then
-        return true
-    end
-
-    if (source == "Special" or source == "OSpecial") and WeaponVar["Special"] == "Hera" then
-        return true
-    end
-
-    if source == "Dash" and WeaponVar["Dash"] == "Hera" then
-        return true
-    end
-
-    if source == "Cast" and WeaponVar["Cast"] == "Hera" then
-        return true
-    end
-
-    for _, hitchSource in ipairs(HitchDamageLookup or {}) do
-        if hitchSource == source then
-            return true
-        end
-    end
-    
-    return false
-end
-
 -- overrides
 --[[ on enemy damage:
     - create damage instance ]]
@@ -938,6 +908,12 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
         return
     end
 
+    -- Hitch damage is applied similarly to Dying Wish
+    if triggerArgs.EffectName == "DamageShareEffect" then
+        logDamage("DamageShareEffect", preHitHealth, triggerArgs.DamageAmount)
+        return
+    end
+
     -- Shocking Loss, need special case as triggerArgs doesn't have AttackerName for this projectile
     -- We also calculate exact damage dealt through shields and don't allow raw damage to always be 9999
     if triggerArgs.SourceProjectile == "ZeusOnSpawn" then
@@ -952,15 +928,6 @@ ModUtil.Path.Wrap("DamageEnemy", function(baseFunc, victim, triggerArgs)
     end
 
     local source = getSourceName(triggerArgs, victim)
-
-    -- properly display Hitch damage
-    if victim.DamageShareAmount and canHitchDamage(source) then
-        --print('victim.DamageShareAmount: ' .. victim.DamageShareAmount)
-        --print('triggerArgs.DamageAmount: ' .. triggerArgs.DamageAmount)
-        --print('preHitHealth: ' .. preHitHealth)
-        local hitchDamage = math.floor((math.min(triggerArgs.DamageAmount, preHitHealth) * victim.DamageShareAmount) + 0.5)
-        logDamage("DamageShareEffect", preHitHealth, hitchDamage)
-    end
 
     if (triggerArgs.DamageAmount or 0) > 0
         and victim.MaxHealth ~= nil
