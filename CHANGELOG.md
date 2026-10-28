@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.9.15] - 2026-10-28
+
 ## [2.9.14] - 2026-08-15
 
 - Fix broken background setting after version [2.9.13] - zerp
@@ -397,7 +399,8 @@
   - fr translation by Shido
   - pt-BR placeholder
 
-[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.14...HEAD
+[unreleased]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.15...HEAD
+[2.9.15]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.14...2.9.15
 [2.9.14]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.13...2.9.14
 [2.9.13]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.12...2.9.13
 [2.9.12]: https://github.com/The-Black-Lodge/JowdayDamageMeter/compare/2.9.11...2.9.12
