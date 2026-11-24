@@ -87,6 +87,7 @@ local PlayerDamageSourceUnits = {
     ["FrogFamiliar"] = true,
     ["PolecatFamiliar"] = true,
     ["RavenFamiliar"] = true,
+    ["ModsNikkelMHadesBiomesSnakeFamiliar"] = true,
 }
 
 local function isBossFight()
@@ -793,6 +794,8 @@ function getColorAndLabel(source)
         return colors["Raven"], "RavenFamiliar"
     elseif source == "DodgeFamiliar" then
         return colors["Gale"], "DodgeFamiliar"
+    elseif source == "ModsNikkelMHadesBiomesSnakeFamiliar" then
+        return colors["ModsNikkelMHadesBiomesSnakeFamiliar"], "ModsNikkelMHadesBiomesSnakeFamiliar"
     end
 
     if color == nil then
