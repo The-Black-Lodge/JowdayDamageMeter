@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Added support for new familiar from Zagreus' Journey - NikkelM
+
 ## [2.9.15] - 2026-10-28
 
 ## [2.9.14] - 2026-08-15

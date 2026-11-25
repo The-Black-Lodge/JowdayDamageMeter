@@ -57,6 +57,8 @@ function getLocalizedNames()
         RavenFamiliarMelee_Crit = "RavenFamiliar",
         PolecatFamiliarMelee = "DodgeFamiliar",
         FamiliarLinkLaser = "FamiliarBuff",
+        ModsNikkelMHadesBiomesSnakeDart = "ModsNikkelMHadesBiomesSnakeFamiliar",
+        ModsNikkelMHadesBiomesSnakeVenom = "ModsNikkelMHadesBiomesSnakeFamiliar",
         -- misc environment
         PolyphemusBoulderSky = Locale.Boulder,
         --- traps
@@ -565,6 +567,10 @@ DpsColors = {
     Gale = {
         BarColor = { 160, 120, 80, 255 },
         LabelColor = { 160, 120, 80, 255 }
+    },
+    ModsNikkelMHadesBiomesSnakeFamiliar = {
+        BarColor = { 61, 69, 229, 255 },
+        LabelColor = { 61, 69, 229, 255 }
     },
     Default = {
         BarColor = { 195, 175, 175, 255 }
